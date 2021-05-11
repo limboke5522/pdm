@@ -104,17 +104,20 @@
 
   $("#btncleanDoc").click(function() {
 
-          $('#select_cus').val(0);
-          $('#txt_contact_name').val("");
-          $('#txt_deb_name').val("");
-          $('#txt_email').val("");
-          $('#txt_phonenumber').val("");
-          $(".chk_Cus").prop("checked", false);
+    $("#StatusRadio1").prop("checked", true);
+          $('#txt_DocNo').val("");
+          $('#txt_Doc_name').val("");
+          $('#txt_Doc_numbar').val("");
+
+          $('#txt_date_doc').val(output);
+          $('#txt_expira_date').val(output);
+          $('#txt_detail').val("");
 
         $('#btnSaveDoc').show();
         $('#btnEditDoc').hide();
         $('#btnDeleteDoc').hide();
         $('#btncleanDoc').hide();
+        $(".chk_Cus").prop("checked", false);
     });
 
 
@@ -180,12 +183,14 @@
           }
           
           show_data();
-          $('#select_cus').val(0);
-          $('#txt_contact_name').val("");
-          $('#txt_deb_name').val("");
-          $('#txt_email').val("");
-          $('#txt_phonenumber').val("");
           $("#StatusRadio1").prop("checked", true);
+          $('#txt_DocNo').val("");
+          $('#txt_Doc_name').val("");
+          $('#txt_Doc_numbar').val("");
+
+          $('#txt_date_doc').val(output);
+          $('#txt_expira_date').val(output);
+          $('#txt_detail').val("");
     
         }
       });
@@ -193,40 +198,35 @@
 
   function editData() {
     var ID_txt = $('#ID_txt').val();
-    var select_cus= $('#select_cus').val();
-    var txt_contact_name= $('#txt_contact_name').val();
-    var txt_deb_name= $('#txt_deb_name').val();
-    var txt_email= $('#txt_email').val();
-    var txt_phonenumber= $('#txt_phonenumber').val();
-    
+    var txt_DocNo= $('#txt_DocNo').val();
+    var txt_Doc_name= $('#txt_Doc_name').val();
+    var txt_Doc_numbar= $('#txt_Doc_numbar').val();
+
+    var txt_date_doc= $('#txt_date_doc').val();
+    var txt_expira_date= $('#txt_expira_date').val();
+    var txt_detail= $('#txt_detail').val();
+
+      if(document.getElementById("StatusRadio1").checked == true && document.getElementById("StatusRadio2").checked == false ){
+        var StatusRadio = 1
+      }else{
+        var StatusRadio = 2
+      }
   
     var text = "";
-     if (select_cus == "0") {
-        text = "กรุณาเลือกลูกค้า";
+      if (txt_DocNo == "") {
+        text = "กรุณากรอกข้อมูลเลขที่คุมเอกสาร";
         showDialogFailed(text);
         return;
       }
 
-      if (txt_contact_name == "") {
-        text = "กรุณากรอกข้อมูลผู้ติดต่อ";
+      if (txt_Doc_name == "") {
+        text = "กรุณากรอกชื่อเอกสาร";
         showDialogFailed(text);
         return;
       }
 
-      if (txt_deb_name == "") {
-        text = "กรุณากรอกข้อมูลแผนก";
-        showDialogFailed(text);
-        return;
-      }
-
-      if (txt_email == "") {
-        text = "กรุณากรอก E-Mail";
-        showDialogFailed(text);
-        return;
-      }
-
-      if (txt_phonenumber == "") {
-        text = "กรุณากรอกข้อมูลเบอร์โทร";
+      if (txt_Doc_numbar == "") {
+        text = "กรุณากรอกเลขสำคัญ :";
         showDialogFailed(text);
         return;
       }
@@ -236,27 +236,32 @@
       type: 'POST',
       data: {
         'FUNC_NAME': 'editData',
-        'select_cus': select_cus,
-        'txt_contact_name': txt_contact_name,
-        'txt_deb_name': txt_deb_name,
-        'txt_email': txt_email,
-        'txt_phonenumber': txt_phonenumber,
+        'txt_DocNo': txt_DocNo,
+        'txt_Doc_name': txt_Doc_name,
+        'txt_Doc_numbar': txt_Doc_numbar,
+        'txt_date_doc': txt_date_doc,
+        'txt_expira_date': txt_expira_date,
+        'txt_detail': txt_detail,
+        'StatusRadio': StatusRadio,
         'ID_txt':ID_txt
       },
       success: function(result) {
         showDialogSuccess(result);
         show_data();
         $('#select_cus').val(0);
-        $('#txt_contact_name').val("");
-        $('#txt_deb_name').val("");
-        $('#txt_email').val("");
-        $('#txt_phonenumber').val("");
+        $('#txt_DocNo').val("");
+        $('#txt_Doc_name').val("");
+        $('#txt_Doc_numbar').val("");
+
+        $('#txt_date_doc').val(output);
+        $('#txt_expira_date').val(output);
+        $('#txt_detail').val("");
 
         $('#btnEditDoc').hide();
         $('#btnSaveDoc').show();
         $('#btnDeleteDoc').hide();
         $('#btncleanDoc').hide();
-        
+        $(".chk_Cus").prop("checked", false);
       }
     });
   }
@@ -277,21 +282,26 @@
               var StrTR = "" ;
               if (!$.isEmptyObject(ObjData)) {
                 $.each(ObjData, function(key, value) {
-
+                if(value.DocType==1){
+                  var DocType="เอกสารภายใน";
+                }else{
+                  var DocType="เอกสารภายนอก";
+                }
 
                   var chkDoc = "<input class='form-control chk_Cus' type='radio' value='1' name='id_Cus' id='id_Cus" + key + "' value='" + value.ID + "' onclick='show_Detail(\"" + value.ID + "\",\"" + key + "\")' style='width: 25%;height:20px;'>";
                   StrTR += "<tr style='border-radius: 15px 15px 15px 15px;margin-top: 6px;margin-bottom: 6px;'>" +
                     "<td style='width:6%;text-align: center;'><center>"+chkDoc+"</center></td>" +
                     "<td style='width:7%;text-align: center;'>" + (key + 1) + "</td>" +
-                    "<td style='width:25%;text-align: left;'>" + value.CustomerName + "</td>" +
-                    "<td style='width:20%;text-align: center;'>" + value.ContactName + "</td>" +
-                    "<td style='width:15%;text-align: center;'>" + value.Department + "</td>" +
-                    "<td style='width:23%;text-align: center;'>" + value.email + "</td>" +
-                    "<td style='width:20%;text-align: center;'>" + value.Tel + "</td>" +
+                    "<td style='width:10%;text-align: left;'>" + value.DocNumber + "</td>" +
+                    "<td style='width:20%;text-align: center;'>" + value.DocName + "</td>" +
+                    "<td style='width:15%;text-align: center;'>" + value.SignificantFigure + "</td>" +
+                    "<td style='width:10%;text-align: center;'>" + DocType + "</td>" +
+                    "<td style='width:10%;text-align: center;'>" + value.RegistrationDate + "</td>" +
+                    "<td style='width:10%;text-align: center;'>" + value.ValidDate + "</td>" +
                     "</tr>";
                 });
               }
-              $('#contact_Table tbody').html(StrTR);
+              $('#data_Table tbody').html(StrTR);
         
       }
     });
@@ -315,16 +325,21 @@
               if (!$.isEmptyObject(ObjData)) {
                 $.each(ObjData, function(key, value) {
 
-                  $('#txtcustomers_ID').val(value.CustomerCode);
-                  $('#txtcustomers_name').val(value.CustomerName);
+                  $("#StatusRadio1").prop("checked", true);
 
+                  $('#txt_DocNo').val(value.DocNumber);
+                  $('#txt_Doc_name').val(value.DocName);
+                  $('#txt_Doc_numbar').val(value.SignificantFigure);
+                  $('#txt_detail').val(value.Description);
 
-                  $('#select_cus').val(value.CustomerID);
-                  $('#txt_contact_name').val(value.ContactName);
-                  $('#txt_deb_name').val(value.Department);
-                  $('#txt_email').val(value.email);
-                  $('#txt_phonenumber').val(value.Tel);
+                  $('#txt_date_doc').val(value.RegistrationDate);
+                  $('#txt_expira_date').val(value.ValidDate);
 
+                    if(value.DocType==1){
+                      $("#StatusRadio1").prop("checked", true);
+                    }else{
+                      $("#StatusRadio2").prop("checked", true);
+                    }
 
                   $('#btnEditDoc').show();
                   $('#btnSaveDoc').hide();
@@ -350,18 +365,20 @@
       },
       success: function(result) {
         // feedData();
-          $('#select_cus').val(0);
-          $('#txt_contact_name').val("");
-          $('#txt_deb_name').val("");
-          $('#txt_email').val("");
-          $('#txt_phonenumber').val("");
-          $(".chk_Cus").prop("checked", false);
+        $("#StatusRadio1").prop("checked", true);
+          $('#txt_DocNo').val("");
+          $('#txt_Doc_name').val("");
+          $('#txt_Doc_numbar').val("");
+
+          $('#txt_date_doc').val(output);
+          $('#txt_expira_date').val(output);
+          $('#txt_detail').val("");
 
         $('#btnSaveDoc').show();
         $('#btnEditDoc').hide();
         $('#btnDeleteDoc').hide();
         $('#btncleanDoc').hide();
-
+        $(".chk_Cus").prop("checked", false);
         show_data();
 
         showDialogSuccess(result);

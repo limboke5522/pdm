@@ -47,22 +47,35 @@ function Get_customers($conn){
 
 function editData($conn)
 {
-  $select_cus    = $_POST['select_cus'];
-  $txt_contact_name    = $_POST['txt_contact_name'];
-  $txt_deb_name     = $_POST['txt_deb_name'];
-  $txt_email     = $_POST['txt_email'];
-  $txt_phonenumber     = $_POST['txt_phonenumber'];
+  $txt_DocNo    = $_POST['txt_DocNo'];
+  $txt_Doc_name    = $_POST['txt_Doc_name'];
+  $txt_Doc_numbar     = $_POST['txt_Doc_numbar'];
+  $txt_date_doc     = $_POST['txt_date_doc'];
+  $txt_expira_date     = $_POST['txt_expira_date'];
+  $txt_detail     = $_POST['txt_detail'];
+  $StatusRadio     = $_POST['StatusRadio'];
+
+  
+  $txt_date_doc = explode("-", $txt_date_doc);
+  $txt_date_doc = $txt_date_doc[2].'-'.$txt_date_doc[1].'-'.$txt_date_doc[0];
+
+  $txt_expira_date = explode("-", $txt_expira_date);
+  $txt_expira_date = $txt_expira_date[2].'-'.$txt_expira_date[1].'-'.$txt_expira_date[0];
+
   $ID_txt     = $_POST['ID_txt'];
 
   
  
-    $query = "UPDATE cuscontact 
-                SET ContactName = '$txt_contact_name',
-                    Department = '$txt_deb_name',
-                    email = '$txt_email',
-                    Tel = '$txt_phonenumber',
-                    CustomerID = '$select_cus'
-              WHERE ID = '$ID_txt'";
+    $query = "UPDATE documentlist 
+                SET DocNumber = '$txt_DocNo',
+                    DocName = '$txt_Doc_name',
+                    DocType = '$StatusRadio',
+                    Description = '$txt_detail',
+                    SignificantFigure = '$txt_Doc_numbar',
+                    RegistrationDate = '$txt_date_doc',
+                    ValidDate = '$txt_expira_date',
+                    ModifyDate = NOW()
+                WHERE ID = '$ID_txt'";
 
     $return = "แก้ไขข้อมูล สำเร็จ";
   
@@ -84,15 +97,18 @@ function saveData($conn)
   $txt_detail     = $_POST['txt_detail'];
   $StatusRadio     = $_POST['StatusRadio'];
 
-  $date = explode("-", $date);
+  
+  $txt_date_doc = explode("-", $txt_date_doc);
+  $txt_date_doc = $txt_date_doc[2].'-'.$txt_date_doc[1].'-'.$txt_date_doc[0];
 
-  $newdate = $date[0].'-'.$date[1].'-'.$date[2];
+  $txt_expira_date = explode("-", $txt_expira_date);
+  $txt_expira_date = $txt_expira_date[2].'-'.$txt_expira_date[1].'-'.$txt_expira_date[0];
 
-            $Sql2 = "SELECT
-                      customer.CustomerCode
-                    FROM
-                      customer
-                      WHERE  customer.CustomerCode = '$txtcustomers_ID'
+            $Sql2 = " SELECT
+                       documentlist.DocNumber
+                      FROM
+                      documentlist
+                      WHERE  documentlist.DocNumber = '$txt_DocNo'
                     ";
 
           $result = mysqli_query($conn, $Sql2);
@@ -102,10 +118,15 @@ function saveData($conn)
           }else{
 
 
-            $query = "INSERT INTO customer 
-            SET CustomerCode = '$txtcustomers_ID',
-                CustomerName = '$txtcustomers_name',
-                Status = '$StatusRadio'
+            $query = "INSERT INTO documentlist 
+            SET DocNumber = '$txt_DocNo',
+                DocName = '$txt_Doc_name',
+                DocType = '$StatusRadio',
+                Description = '$txt_detail',
+                SignificantFigure = '$txt_Doc_numbar',
+                RegistrationDate = '$txt_date_doc',
+                ValidDate = '$txt_expira_date',
+                ModifyDate = NOW()
             ";
 
             $return = "เพิ่มข้อมูล สำเร็จ";
@@ -125,17 +146,19 @@ function show_data($conn)
 
 
   $Sql = "SELECT
-              cuscontact.ContactName,
-              cuscontact.Department,
-              cuscontact.email,
-              cuscontact.Tel,
-              cuscontact.ID, 
-              customer.CustomerName
+              documentlist.ID,
+              documentlist.DocNumber,
+              documentlist.DocName,
+              documentlist.DocType,
+              documentlist.Description,
+              documentlist.SignificantFigure,
+              DATE_FORMAT(documentlist.RegistrationDate ,'%d-%m-%Y') AS RegistrationDate,
+              DATE_FORMAT(documentlist.ValidDate ,'%d-%m-%Y') AS ValidDate,
+              documentlist.ModifyDate
             FROM
-              cuscontact
-              INNER JOIN customer ON cuscontact.CustomerID = customer.ID 
-            WHERE (cuscontact.ContactName LIKE '%$Search_txt%' OR customer.CustomerName LIKE '%$Search_txt%'	)
-            AND cuscontact.IsCancel=0
+            documentlist
+            WHERE (documentlist.DocName LIKE '%$Search_txt%' OR documentlist.DocNumber LIKE '%$Search_txt%'	)
+            AND documentlist.IsCancel = 0
           ";
 
   $meQuery = mysqli_query($conn, $Sql);
@@ -156,15 +179,18 @@ function show_Detail($conn)
 
 
   $Sql = "SELECT
-              cuscontact.ContactName,
-              cuscontact.Department,
-              cuscontact.email,
-              cuscontact.Tel,
-              cuscontact.ID, 
-              cuscontact.CustomerID
+              documentlist.ID,
+              documentlist.DocNumber,
+              documentlist.DocName,
+              documentlist.DocType,
+              documentlist.Description,
+              documentlist.SignificantFigure,
+              DATE_FORMAT(documentlist.RegistrationDate ,'%d-%m-%Y') AS RegistrationDate,
+              DATE_FORMAT(documentlist.ValidDate ,'%d-%m-%Y') AS ValidDate,
+              documentlist.ModifyDate
           FROM
-          cuscontact
-            WHERE cuscontact.ID = '$ID'
+          documentlist
+            WHERE documentlist.ID = '$ID'
           ";
           
   $meQuery = mysqli_query($conn, $Sql);
@@ -183,7 +209,7 @@ function deleteData($conn)
 {
   $ID_txt = $_POST['ID_txt'];
 
-  $query = "UPDATE cuscontact SET IsCancel = 1 WHERE ID = $ID_txt";
+  $query = "UPDATE documentlist SET IsCancel = 1 WHERE ID = $ID_txt";
   mysqli_query($conn, $query);
   echo "delete success";
   unset($conn);

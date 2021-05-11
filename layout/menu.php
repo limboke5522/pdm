@@ -63,7 +63,14 @@
                              </a>
                          </li>
                      </ul>
-                     
+                     <ul class="nav nav-treeview ul_general" style="display: none;">
+                         <li class="nav-item">
+                             <a href="index.php?page=purpose" class="nav-link " id="purpose">
+                                 <i class="fas fa-home"></i>
+                                 <p>วัตถุประสงค์</p>
+                             </a>
+                         </li>
+                     </ul>
                      <!-- <ul class="nav nav-treeview ul_general" style="display: none;">
                          <li class="nav-item">
                              <a href="index.php?page=receiveStock" class="nav-link " id="receiveStock">

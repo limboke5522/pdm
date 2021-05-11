@@ -55,7 +55,7 @@
         var ObjData = JSON.parse(result);
               $("#select_cus").empty();
               var Str = "";
-              Str += "<option value=0 >-------กรุณาเลือกลูกค้า------------</option>";
+              Str += "<option value=0 >------ กรุณาเลือกลูกค้า ------</option>";
               if (!$.isEmptyObject(ObjData)) {
                 $.each(ObjData, function(key, value) {
                   Str += "<option value=" + value.ID + " >" + value.CustomerName + "</option>";

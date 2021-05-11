@@ -26,18 +26,19 @@
             </div>
 
 
-            <div class="row mt-2" id="tb_contact" style="height: 420px;" >
+            <div class="row mt-2" id="tb_data" style="height: 420px;" >
               <div class="col-12">
-                <table id="contact_Table" class="table table-bordered table-hover w-100">
+                <table id="data_Table" class="table table-bordered table-hover w-100">
                   <thead>
                     <tr class="text-center">
                       <th style="width: 5%;"></th>
                       <th style="width: 5%;">ลำดับ</th>
-                      <th>ชื่อลูกค้า</th>
-                      <th>ผู้ติดต่อ</th>
-                      <th>แผนก</th>
-                      <th>E-Mail</th>
-                      <th style="width: 15%;">เบอร์ติดต่อ</th>
+                      <th>เลขที่เอกสาร</th>
+                      <th>รายการเอกสาร</th>
+                      <th>เลขที่สำคัญ</th>
+                      <th>สถานะ</th>
+                      <th style="width: 15%;">วันที่ต่อทะเบียน</th>
+                      <th style="width: 15%;">วันหมดอายุ</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -56,7 +57,7 @@
               <button style="width: 22%;" type="button" class="btn btn-outline-success" id="btnSaveDoc" onclick="saveData();">บันทึก</button>
               <button style="width: 22%;margin-left: 3%;" type="button" class="btn btn-outline-warning" id="btnEditDoc">แก้ไข</button>
               <button style="width: 22%;margin-left: 3%;" type="button" class="btn btn-outline-danger" id="btnDeleteDoc">ลบ</button>
-              <button style="width: 22%;margin-left: 3%;" type="button" class="btn btn-outline-secondary" id="btncleanDoc" onclick="clean();">ยกเลิก</button>
+              <button style="width: 22%;margin-left: 3%;" type="button" class="btn btn-outline-secondary" id="btncleanDoc" onclick="clean();">ล้างข้อมูล</button>
               </div>
             </div>
             

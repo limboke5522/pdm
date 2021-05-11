@@ -5,7 +5,7 @@
                   <div class="col-sm-6">
                     <ol class="breadcrumb">
                       <li class="breadcrumb-item"><a href="#">ระบบ</a></li>
-                      <li class="breadcrumb-item active">จัดการข้อมูลสินค้า</li>
+                      <li class="breadcrumb-item active">วัตถุประสงค์</li>
                     </ol>
                   </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -33,8 +33,7 @@
                     <tr class="text-center">
                       <th style="width: 5%;"></th>
                       <th style="width: 5%;">ลำดับ</th>
-                      <th>รายการสินค้า</th>
-                      <th>รหัสสินค้า</th>
+                      <th>วัตถุประสงค์</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -58,14 +57,14 @@
             </div>
 
             <div class="row ml-4 mt-1">
-              <div class="col-3 mt-3">
+              <div class="col-3 mt-3" hidden>
               <label>รหัสสินค้า :</label>
               <input type="text" class="form-control" id="ID_txt" hidden>
                 <input type="text" class="form-control" id="txt_item_code" placeholder="รหัสลูกค้า">
               </div>
               <div class="col-3 mt-3">
-              <label>ชื่อสินค้า :</label>
-                <input type="text" class="form-control" id="txt_item_name" placeholder="ชื่อลูกค้า">
+              <label>วัตถุประสงค์ :</label>
+                <input type="text" class="form-control" id="txt_purpose_name" placeholder="ชื่อวัตถุประสงค์">
               </div>
             </div>
            
