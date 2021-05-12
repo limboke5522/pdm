@@ -92,6 +92,7 @@ function show_data($conn)
           product
             WHERE (product.ProductCode LIKE '%$Search_txt%' OR product.ProductName LIKE '%$Search_txt%')
             AND product.IsCancel = 0
+            ORDER BY  product.ProductName ASC
           ";
 
   $meQuery = mysqli_query($conn, $Sql);
@@ -138,7 +139,7 @@ function deleteData($conn)
 
   $query = "UPDATE product SET IsCancel = 1 WHERE ID = $ID_txt";
   mysqli_query($conn, $query);
-  echo "delete success";
+  echo "ลบข้อมูลสำเร็จ";
   unset($conn);
   die;
 }

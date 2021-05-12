@@ -26,11 +26,11 @@
             </div>
 
 
-            <div class="row mt-2" id="tb_Data" style="height: 420px;" >
+            <div class="row mt-2" id="tb_Data" style="height: 420px;max-height: 350px;overflow-y: auto;"  >
               <div class="col-12">
                 <table id="Data_Table" class="table table-bordered table-hover w-100">
                   <thead>
-                    <tr class="text-center">
+                    <tr class="text-center" style="background-color: darkgray;">
                       <th style="width: 5%;"></th>
                       <th style="width: 5%;">ลำดับ</th>
                       <th>รายการสินค้า</th>
@@ -61,11 +61,11 @@
               <div class="col-3 mt-3">
               <label>รหัสสินค้า :</label>
               <input type="text" class="form-control" id="ID_txt" hidden>
-                <input type="text" class="form-control" id="txt_item_code" placeholder="รหัสลูกค้า">
+                <input type="text" class="form-control" id="txt_item_code" placeholder="รหัสสินค้า">
               </div>
               <div class="col-3 mt-3">
               <label>ชื่อสินค้า :</label>
-                <input type="text" class="form-control" id="txt_item_name" placeholder="ชื่อลูกค้า">
+                <input type="text" class="form-control" id="txt_item_name" placeholder="ชื่อสินค้า">
               </div>
             </div>
            

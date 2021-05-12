@@ -30,6 +30,7 @@ function Get_customers($conn){
               FROM
                 customer
                 WHERE customer.IsCancel = 0
+                ORDER BY  customer.CustomerName ASC
            ";
 
     $meQuery = mysqli_query($conn, $Sql);
@@ -117,6 +118,7 @@ function show_data($conn)
               INNER JOIN customer ON cuscontact.CustomerID = customer.ID 
             WHERE (cuscontact.ContactName LIKE '%$Search_txt%' OR customer.CustomerName LIKE '%$Search_txt%'	)
             AND cuscontact.IsCancel=0
+            ORDER BY  cuscontact.ContactName ASC
           ";
 
   $meQuery = mysqli_query($conn, $Sql);
@@ -166,7 +168,7 @@ function deleteData($conn)
 
   $query = "UPDATE cuscontact SET IsCancel = 1 WHERE ID = $ID_txt";
   mysqli_query($conn, $query);
-  echo "delete success";
+  echo "ลบข้อมูลสำเร็จ";
   unset($conn);
   die;
 }

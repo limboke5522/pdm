@@ -26,11 +26,11 @@
             </div>
 
 
-            <div class="row mt-2" id="tb_data" style="height: 420px;" >
+            <div class="row mt-2" id="tb_data" style="height: 420px;max-height: 350px;overflow-y: auto;" >
               <div class="col-12">
                 <table id="data_Table" class="table table-bordered table-hover w-100">
                   <thead>
-                    <tr class="text-center">
+                    <tr class="text-center" style="background-color: darkgray;">
                       <th style="width: 5%;"></th>
                       <th style="width: 5%;">ลำดับ</th>
                       <th>เลขที่เอกสาร</th>

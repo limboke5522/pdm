@@ -85,14 +85,15 @@
   $("#btnEditDoc").click(function() {
 
       $.confirm({
-        title: 'Are sure!',
+        title: 'แจ้งเตือน!',
         content: 'ต้องการจะแก้ไขข้อมูล ใช่ หรือ ไม่?',
-        type: 'green',
+        type: 'orange',
         autoClose: 'cancel|8000',
         buttons: {
-          cancel: function() {},
+          cancel:  {text: 'ยกเลิก'},
           confirm: {
             btnClass: 'btn-primary',
+            text: 'ตกลง',
             action: function() {
               editData();
             }
@@ -112,7 +113,7 @@
           $('#txt_date_doc').val(output);
           $('#txt_expira_date').val(output);
           $('#txt_detail').val("");
-
+          $("#txt_DocNo").prop('disabled', false);
         $('#btnSaveDoc').show();
         $('#btnEditDoc').hide();
         $('#btnDeleteDoc').hide();
@@ -187,7 +188,7 @@
           $('#txt_DocNo').val("");
           $('#txt_Doc_name').val("");
           $('#txt_Doc_numbar').val("");
-
+          $("#txt_DocNo").prop('disabled', false);
           $('#txt_date_doc').val(output);
           $('#txt_expira_date').val(output);
           $('#txt_detail').val("");
@@ -256,7 +257,7 @@
         $('#txt_date_doc').val(output);
         $('#txt_expira_date').val(output);
         $('#txt_detail').val("");
-
+        $("#txt_DocNo").prop('disabled', false);
         $('#btnEditDoc').hide();
         $('#btnSaveDoc').show();
         $('#btnDeleteDoc').hide();
@@ -334,7 +335,7 @@
 
                   $('#txt_date_doc').val(value.RegistrationDate);
                   $('#txt_expira_date').val(value.ValidDate);
-
+                  $("#txt_DocNo").prop('disabled', true);
                     if(value.DocType==1){
                       $("#StatusRadio1").prop("checked", true);
                     }else{
@@ -380,7 +381,7 @@
         $('#btncleanDoc').hide();
         $(".chk_Cus").prop("checked", false);
         show_data();
-
+        $("#txt_DocNo").prop('disabled', false);
         showDialogSuccess(result);
       }
     });
@@ -389,14 +390,17 @@
   $("#btnDeleteDoc").click(function() {
 
     $.confirm({
-      title: 'Are sure!',
+      title: 'แจ้งเตือน!',
       content: 'ต้องการจะลบข้อมูล ใช่ หรือ ไม่?',
-      type: 'green',
+      type: 'orange',
       autoClose: 'cancel|8000',
       buttons: {
-        cancel: function() {},
+        cancel:  {
+          text: 'ยกเลิก'
+        },
         confirm: {
           btnClass: 'btn-primary',
+          text: 'ตกลง',
           action: function() {
             deleteData();
           }
@@ -404,6 +408,9 @@
       }
     });
   });
+
+
+
 
   $("#showModalAddUsers").click(function() {
     clearData();
@@ -422,33 +429,19 @@
     }
   });
 
-  function showDialogConfirm(id) {
-    $.confirm({
-      title: 'Are sure!',
-      content: 'Do you want to delete?',
-      type: 'red',
-      autoClose: 'cancel|8000',
-      buttons: {
-        cancel: function() {},
-        confirm: {
-          btnClass: 'btn-red',
-          action: function() {
-            deleteData(id);
-          }
-        }
-      }
-    });
-  }
+
 
   function showDialogSuccess(text) {
     $.confirm({
-      title: 'Success!',
+      title: 'สำเร็จ!',
       content: text,
       type: 'green',
       autoClose: 'close|8000',
       typeAnimated: true,
       buttons: {
-        close: function() {}
+        close:  {
+          text: 'ปิด',
+        }
       }
     });
   }
@@ -456,13 +449,15 @@
   
   function showDialogFailed(text) {
     $.confirm({
-      title: 'Failed!',
+      title: 'ผิดผลาด!',
       content: text,
       type: 'red',
       autoClose: 'close|8000',
       typeAnimated: true,
       buttons: {
-        close: function() {}
+        close:  {
+          text: 'ปิด',
+        }
       }
     });
   }

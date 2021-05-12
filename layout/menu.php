@@ -71,6 +71,14 @@
                              </a>
                          </li>
                      </ul>
+                     <ul class="nav nav-treeview ul_general" style="display: none;">
+                         <li class="nav-item">
+                             <a href="index.php?page=upload_doc" class="nav-link " id="upload_doc">
+                                 <i class="fas fa-home"></i>
+                                 <p>อัพโหลดเอกสาร</p>
+                             </a>
+                         </li>
+                     </ul>
                      <!-- <ul class="nav nav-treeview ul_general" style="display: none;">
                          <li class="nav-item">
                              <a href="index.php?page=receiveStock" class="nav-link " id="receiveStock">

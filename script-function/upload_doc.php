@@ -23,25 +23,48 @@
 
     
     $('#ID_txt').val("");
-    $("#StatusRadio1").prop("checked", true);
     show_data();
+    Get_product();
   })
 
 
+  function Get_product(){
+    $.ajax({
+      url: "process/upload_doc.php",
+      type: 'POST',
+      data: {
+        'FUNC_NAME': 'Get_product'
+      },
+      success: function(result) {
+        var ObjData = JSON.parse(result);
+               $("#select_item").empty();
+              var Str = "";
+              Str += "<option value=0 >------ กรุณาเลือกรายการสินค้า ------</option>";
+              if (!$.isEmptyObject(ObjData)) {
+                $.each(ObjData, function(key, value) {
+                  Str += "<option value=" + value.ProductCode + " >" + value.ProductName + "</option>";
+            
+                });
+              }
+              $("#select_item").append(Str);
+        
+      }
+    });
+
+  }
 
 
   $("#btnEditDoc").click(function() {
 
       $.confirm({
-        title: 'แจ้งเตือน!',
+        title: 'Are sure!',
         content: 'ต้องการจะแก้ไขข้อมูล ใช่ หรือ ไม่?',
-        type: 'orange',
+        type: 'green',
         autoClose: 'cancel|8000',
         buttons: {
-          cancel:  {text: 'ยกเลิก'},
+          cancel: function() {},
           confirm: {
             btnClass: 'btn-primary',
-            text: 'ตกลง',
             action: function() {
               editData();
             }
@@ -56,112 +79,78 @@
         $('#btnEditDoc').hide();
         $('#btnDeleteDoc').hide();
         $('#btncleanDoc').hide();
-        $('#txtcustomers_ID').val("");
-        $('#txtcustomers_name').val("");
-        $("#txtcustomers_ID").prop('disabled', false);
-        
+        $('#txt_purpose_name').val("");
         $('#ID_txt').val("");
 
         $(".chk_Cus").prop("checked", false);
-        $("#StatusRadio1").prop("checked", true);
-  });
+    });
 
 
   
 
   
   function saveData() {
-    var txtcustomers_ID= $('#txtcustomers_ID').val();
-    var txtcustomers_name= $('#txtcustomers_name').val();
+    var txt_purpose_name= $('#txt_purpose_name').val();
     
-    if(document.getElementById("StatusRadio1").checked == true && document.getElementById("StatusRadio2").checked == false ){
-      var StatusRadio = 1
-    }else{
-      var StatusRadio = 2
-    }
+
 
     var text = "";
-    if (txtcustomers_ID == "") {
-      text = "กรุณากรอกรหัสลูกค้า";
-      showDialogFailed(text);
-      return;
-    }
 
-    if (txtcustomers_name == "") {
-      text = "กรุณากรอกชื่อลูกค้า";
+    if (txt_purpose_name == "") {
+      text = "กรุณากรอกชื่อวัตถุประสงค์";
       showDialogFailed(text);
       return;
     }
 
     $.ajax({
-      url: "process/manage_customers.php",
+      url: "process/purpose.php",
       type: 'POST',
       data: {
         'FUNC_NAME': 'saveData',
-        'txtcustomers_ID': txtcustomers_ID,
-        'txtcustomers_name': txtcustomers_name,
-        'StatusRadio': StatusRadio
+        'txt_purpose_name': txt_purpose_name
       },
       success: function(result) {
         if(result=="0"){
-          showDialogFailed("ข้อมูลลูกค้าซ้ำ ไม่สามารถเพิ่มข้อมูลได้ !!!");
+          showDialogFailed("รหัสลูกค้าซ้ำ ไม่สามารถเพิ่มข้อมูลได้ !!!");
         }else{
           showDialogSuccess(result);
         }
         
         show_data();
-        $('#txtcustomers_ID').val("");
-        $('#txtcustomers_name').val("");
+        $('#txt_purpose_name').val("");
         $('#ID_txt').val("");
-        $("#StatusRadio1").prop("checked", true);
-        $("#txtcustomers_ID").prop('disabled', false);
+      
+   
       }
     });
   }
 
   function editData() {
     var ID_txt = $('#ID_txt').val();
-    var txtcustomers_ID= $('#txtcustomers_ID').val();
-    var txtcustomers_name= $('#txtcustomers_name').val();
+    var txt_purpose_name= $('#txt_purpose_name').val();
     
-    if(document.getElementById("StatusRadio1").checked == true && document.getElementById("StatusRadio2").checked == false ){
-      var StatusRadio = 1
-    }else{
-      var StatusRadio = 2
-    }
 
-    var text = "";
-    if (txtcustomers_ID == "") {
-      text = "กรุณากรอกรหัสลูกค้า";
-      showDialogFailed(text);
-      return;
-    }
 
-    if (txtcustomers_name == "") {
-      text = "กรุณากรอกชื่อลูกค้า";
+
+    if (txt_purpose_name == "") {
+      text = "กรุณากรอกชื่อวัตถุประสงค์";
       showDialogFailed(text);
       return;
     }
 
     $.ajax({
-      url: "process/manage_customers.php",
+      url: "process/purpose.php",
       type: 'POST',
       data: {
         'FUNC_NAME': 'editData',
-        'txtcustomers_ID': txtcustomers_ID,
-        'txtcustomers_name': txtcustomers_name,
-        'StatusRadio': StatusRadio,
+        'txt_purpose_name': txt_purpose_name,
         'ID_txt':ID_txt
       },
       success: function(result) {
         showDialogSuccess(result);
         show_data();
-        $('#txtcustomers_ID').val("");
-        $('#txtcustomers_name').val("");
-        $("#txtcustomers_ID").prop('disabled', false);
-
+        $('#txt_purpose_name').val("");
         $('#ID_txt').val("");
-        $("#StatusRadio1").prop("checked", true);
 
         $('#btnEditDoc').hide();
         $('#btnSaveDoc').show();
@@ -177,7 +166,7 @@
     var  txtSearch =  $("#txtSearch").val();
 
     $.ajax({
-      url: "process/manage_customers.php",
+      url: "process/purpose.php",
       type: 'POST',
       data: {
         'FUNC_NAME': 'show_data',
@@ -198,13 +187,14 @@
                   StrTR += "<tr style='border-radius: 15px 15px 15px 15px;margin-top: 6px;margin-bottom: 6px;'>" +
                     "<td style='width:10%;text-align: center;'><center>"+chkDoc+"</center></td>" +
                     "<td style='width:10%;text-align: center;'>" + (key + 1) + "</td>" +
-                    "<td style='width:34%;text-align: left;'>" + value.CustomerName + "</td>" +
-                    "<td style='width:23%;text-align: center;'>" + value.CustomerCode + "</td>" +
-                    "<td style='width:23%;text-align: center;'>" + Status_txt + "</td>" +
+                    "<td style='width:23%;text-align: center;'>" + value.Purpose + "</td>" +
+                    "<td style='width:23%;text-align: center;'>" + value.Purpose + "</td>" +
+                    "<td style='width:23%;text-align: center;'>" + value.Purpose + "</td>" +
+                    "<td style='width:23%;text-align: center;'>" + value.Purpose + "</td>" +
                     "</tr>";
                 });
               }
-              $('#customers_Table tbody').html(StrTR);
+              $('#Data_Table tbody').html(StrTR);
         
       }
     });
@@ -216,7 +206,7 @@
     $('#ID_txt').val(ID);
 
     $.ajax({
-      url: "process/manage_customers.php",
+      url: "process/purpose.php",
       type: 'POST',
       data: {
         'FUNC_NAME': 'show_Detail',
@@ -228,19 +218,9 @@
               if (!$.isEmptyObject(ObjData)) {
                 $.each(ObjData, function(key, value) {
 
-                  $('#txtcustomers_ID').val(value.CustomerCode);
-                  $('#txtcustomers_name').val(value.CustomerName);
+                  $('#txt_purpose_name').val(value.Purpose);
 
-                  $("#txtcustomers_ID").prop('disabled', true);
-                  
-                  if(value.Status==1){
-                    $("#StatusRadio1").prop("checked", true);
-                    $("#StatusRadio2").prop("checked", false);
-                  }else{
-                    $("#StatusRadio1").prop("checked", false);
-                    $("#StatusRadio2").prop("checked", true);
-                  }
-
+                 
                   $('#btnEditDoc').show();
                   $('#btnSaveDoc').hide();
                   $('#btnDeleteDoc').show();
@@ -256,7 +236,7 @@
   function deleteData() {
     var  ID_txt = $('#ID_txt').val();
     $.ajax({
-      url: "process/manage_customers.php",
+      url: "process/purpose.php",
       type: 'POST',
       data: {
         'FUNC_NAME': 'deleteData',
@@ -265,12 +245,10 @@
       success: function(result) {
         // feedData();
 
-          $('#txtcustomers_ID').val("");
-          $('#txtcustomers_name').val("");
+          $('#txt_purpose_name').val("");
           $('#ID_txt').val("");
-          $("#StatusRadio1").prop("checked", true);
+      
           $(".chk_Cus").prop("checked", false);
-          $("#txtcustomers_ID").prop('disabled', false);
 
         $('#btnSaveDoc').show();
         $('#btnEditDoc').hide();
@@ -287,15 +265,14 @@
   $("#btnDeleteDoc").click(function() {
 
     $.confirm({
-      title: 'แจ้งเตือน!',
+      title: 'Are sure!',
       content: 'ต้องการจะลบข้อมูล ใช่ หรือ ไม่?',
-      type: 'orange',
+      type: 'green',
       autoClose: 'cancel|8000',
       buttons: {
-        cancel: {text: 'ยกเลิก'},
+        cancel: function() {},
         confirm: {
           btnClass: 'btn-primary',
-          text: 'ตกลง',
           action: function() {
             deleteData();
           }
@@ -305,36 +282,33 @@
   });
 
 
-  $("#showModalAddUsers").click(function() {
-    clearData();
-    setErrorInput();
-    $("#titleDialog").text("เพิ่มข้อมูล ผู้ใช้งาน");
-    $("#modalUsers").modal('show');
-    // 
-  })
-
-  $('#formAddUsers').validate({
-    errorPlacement: function(error, element) {
-      $(element).closest("form").find("p[for='" + element.attr("id") + "']").append(error);
-    },
-    submitHandler: function() {
-      saveData();
-    }
-  });
-
-
+  function showDialogConfirm(id) {
+    $.confirm({
+      title: 'Are sure!',
+      content: 'Do you want to delete?',
+      type: 'red',
+      autoClose: 'cancel|8000',
+      buttons: {
+        cancel: function() {},
+        confirm: {
+          btnClass: 'btn-red',
+          action: function() {
+            deleteData(id);
+          }
+        }
+      }
+    });
+  }
 
   function showDialogSuccess(text) {
     $.confirm({
-      title: 'สำเร็จ!',
+      title: 'Success!',
       content: text,
       type: 'green',
       autoClose: 'close|8000',
       typeAnimated: true,
       buttons: {
-        close:  {
-          text: 'ปิด',
-        }
+        close: function() {}
       }
     });
   }
@@ -342,15 +316,13 @@
   
   function showDialogFailed(text) {
     $.confirm({
-      title: 'ผิดผลาด!',
+      title: 'Failed!',
       content: text,
       type: 'red',
       autoClose: 'close|8000',
       typeAnimated: true,
       buttons: {
-        close:  {
-          text: 'ปิด',
-        }
+        close: function() {}
       }
     });
   }

@@ -13,11 +13,35 @@ if (!empty($_POST['FUNC_NAME'])) {
     saveData($conn);
   } else if ($_POST['FUNC_NAME'] == 'deleteData') {
     deleteData($conn);
+  }else if ($_POST['FUNC_NAME'] == 'Get_product') {
+    Get_product($conn);
   }
 
 }
 
 
+function Get_product($conn)
+{
+
+  $Sql = "SELECT
+            product.ID, 
+            product.ProductCode, 
+            product.ProductName
+          FROM
+              product
+          WHERE product.IsCancel = 0
+          ORDER BY  product.ProductName ASC
+          ";
+
+    $meQuery = mysqli_query($conn, $Sql);
+    while ($row = mysqli_fetch_assoc($meQuery)) {
+      $return[] = $row;
+    }
+
+    echo json_encode($return);
+    mysqli_close($conn);
+    die;
+}
 
 function editData($conn)
 {
@@ -82,7 +106,6 @@ function show_data($conn)
           FROM
           purpose
             WHERE (purpose.Purpose LIKE '%$Search_txt%')
-            ORDER BY  purpose.Purpose ASC
           ";
 
   $meQuery = mysqli_query($conn, $Sql);
@@ -128,7 +151,7 @@ function deleteData($conn)
 
   $query = "DELETE FROM purpose WHERE ID = $ID_txt";
   mysqli_query($conn, $query);
-  echo "ลบ ข้อมูลสำเร็จ";
+  echo "delete success";
   unset($conn);
   die;
 }

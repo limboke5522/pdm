@@ -21,54 +21,7 @@ if (!empty($_POST['FUNC_NAME'])) {
 
 }
 
-function feedData($conn)
-{
 
-  $return = array();
-  $selectSite = $_POST['selectSite'];
-  $selectDepartment = $_POST['selectDepartment'];
-  $txtSearch = $_POST['txtSearch'];
-
-  $whereDepartment = "";
-  if ($selectDepartment != "") {
-    $whereDepartment = "AND users.departmentID = '$selectDepartment' ";
-  }
-
-  $query = "SELECT
-              users.userID,
-              users.perfix,
-              users.firstName,
-              users.lastName,
-              users.userName,
-              users.email,
-              permission.permissionName,
-              department.departmentName 
-            FROM
-              users
-              INNER JOIN site ON users.siteID = site.siteID
-              INNER JOIN department ON users.departmentID = department.departmentID
-              INNER JOIN permission ON users.permissionID = permission.permissionID
-            WHERE
-              users.isCancel = 0 
-              AND users.firstName LIKE '%$txtSearch%'
-              AND `users`.siteID = '$selectSite'
-              $whereDepartment ";
-  $meQuery = mysqli_query($conn, $query);
-  while ($row = mysqli_fetch_assoc($meQuery)) {
-    array_push($return, array(
-      'real_name' => $row["perfix"] . ' ' . $row["firstName"] . ' ' . $row["lastName"],
-      'userName' => $row["userName"],
-      'userID' => $row["userID"],
-      'email' => $row["email"],
-      'permissionName' => $row["permissionName"],
-      'departmentName' => $row["departmentName"],
-    ));
-  }
-
-  unset($conn);
-  echo json_encode($return);
-  die;
-}
 
 function editData($conn)
 {
@@ -105,7 +58,7 @@ function saveData($conn)
             customer.CustomerCode
           FROM
             customer
-            WHERE  customer.CustomerCode = '$txtcustomers_ID'
+            WHERE  (customer.CustomerCode = '$txtcustomers_ID' OR customer.CustomerName = '$txtcustomers_name' )
           ";
 
   $result = mysqli_query($conn, $Sql2);
@@ -145,6 +98,7 @@ function show_data($conn)
             customer
             WHERE (CustomerName LIKE '%$Search_txt%' OR CustomerCode LIKE '%$Search_txt%')
             AND customer.IsCancel = 0
+            ORDER BY  customer.CustomerName ASC
           ";
 
   $meQuery = mysqli_query($conn, $Sql);
@@ -192,7 +146,7 @@ function deleteData($conn)
 
   $query = "UPDATE customer SET IsCancel = 1 WHERE ID = $ID_txt";
   mysqli_query($conn, $query);
-  echo "delete success";
+  echo "ลบข้อมูลสำเร็จ";
   unset($conn);
   die;
 }

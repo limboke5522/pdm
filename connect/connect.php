@@ -4,7 +4,7 @@ date_default_timezone_set("Asia/Bangkok");
  * set var
  */
 
-$cfHost = "localhost";
+$cfHost = "localhost:3306";
 $cfUser = "root";
 $cfPassword = "A$192dijd";
 $cfDatabase = "pdm";

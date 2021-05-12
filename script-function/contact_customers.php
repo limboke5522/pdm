@@ -71,14 +71,15 @@
   $("#btnEditDoc").click(function() {
 
       $.confirm({
-        title: 'Are sure!',
+        title: 'แจ้งเตือน!',
         content: 'ต้องการจะแก้ไขข้อมูล ใช่ หรือ ไม่?',
-        type: 'green',
+        type: 'orange',
         autoClose: 'cancel|8000',
         buttons: {
-          cancel: function() {},
+          cancel:  {text: 'ยกเลิก'},
           confirm: {
             btnClass: 'btn-primary',
+            text: 'ตกลง',
             action: function() {
               editData();
             }
@@ -358,14 +359,15 @@
   $("#btnDeleteDoc").click(function() {
 
     $.confirm({
-      title: 'Are sure!',
+      title: 'แจ้งเตือน !',
       content: 'ต้องการจะลบข้อมูล ใช่ หรือ ไม่?',
-      type: 'green',
+      type: 'orange',
       autoClose: 'cancel|8000',
       buttons: {
-        cancel: function() {},
+        cancel:  {text: 'ยกเลิก'},
         confirm: {
           btnClass: 'btn-primary',
+          text: 'ตกลง',
           action: function() {
             deleteData();
           }
@@ -391,33 +393,19 @@
     }
   });
 
-  function showDialogConfirm(id) {
-    $.confirm({
-      title: 'Are sure!',
-      content: 'Do you want to delete?',
-      type: 'red',
-      autoClose: 'cancel|8000',
-      buttons: {
-        cancel: function() {},
-        confirm: {
-          btnClass: 'btn-red',
-          action: function() {
-            deleteData(id);
-          }
-        }
-      }
-    });
-  }
+
 
   function showDialogSuccess(text) {
     $.confirm({
-      title: 'Success!',
+      title: 'สำเร็จ!',
       content: text,
       type: 'green',
       autoClose: 'close|8000',
       typeAnimated: true,
       buttons: {
-        close: function() {}
+        close:  {
+          text: 'ปิด',
+        }
       }
     });
   }
@@ -425,13 +413,15 @@
   
   function showDialogFailed(text) {
     $.confirm({
-      title: 'Failed!',
+      title: 'ผิดพลาด!',
       content: text,
       type: 'red',
       autoClose: 'close|8000',
       typeAnimated: true,
       buttons: {
-        close: function() {}
+        close:  {
+          text: 'ปิด',
+        }
       }
     });
   }
