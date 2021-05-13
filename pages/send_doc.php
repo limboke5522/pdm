@@ -114,7 +114,7 @@
             </div>
 
             <div class="row mt-3">
-              <div class="col-3">
+              <div class="col-4">
                 <table id="table_product" class="table table-bordered table-hover w-100">
                   <thead>
                     <tr class="text-center">
@@ -128,7 +128,7 @@
                   </tbody>
                 </table>
               </div>
-              <div class="col-3">
+              <div class="col-1">
                 <div class="row d-flex justify-content-center">
                   <i class="fas fa-arrow-circle-right" style="    font-size: 35px;cursor: pointer;color: gainsboro;" id="arrowRight"></i>
                 </div>
@@ -136,7 +136,7 @@
                   <i class="fas fa-arrow-circle-left" style="    font-size: 35px;cursor: pointer;color: gainsboro;" id="arrowLeft"></i>
                 </div>
               </div>
-              <div class="col-3">
+              <div class="col-4">
                 <div class="row">
                   <div class="col-12">
                     <table id="table_product_item" class="table table-bordered table-hover w-100">
