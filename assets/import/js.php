@@ -51,8 +51,8 @@
 
     function showDialogConfirmToLogout() {
         $.confirm({
-            title: 'Are sure!',
-            content: 'Do you want to logout?',
+            title: 'แจ้งเตือน!',
+            content: 'ต้องการออกจากระบบใช่หรือไม่?',
             type: 'red',
             autoClose: 'cancel|8000',
             buttons: {

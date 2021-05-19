@@ -29,6 +29,9 @@
 
 <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300&display=swap" rel="stylesheet">
 <style>
+    .bg_tableAll{
+        background-color: darkgray !important ;
+    }
     /* @font-face {
         font-family: myFirstFont;
         src: url(../assets/font/Kanit-Black.ttf);

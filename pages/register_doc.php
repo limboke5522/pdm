@@ -26,19 +26,19 @@
             </div>
 
 
-            <div class="row mt-2" id="tb_data" style="height: 420px;max-height: 350px;overflow-y: auto;" >
+            <div class="row mt-2 card-body table-responsive p-0" id="tb_data" style="height: 420px;max-height: 350px;overflow-y: auto;">
               <div class="col-12">
-                <table id="data_Table" class="table table-bordered table-hover w-100">
+                <table id="data_Table" class="table table-bordered table-hover w-100 table-head-fixed">
                   <thead>
-                    <tr class="text-center" style="background-color: darkgray;">
-                      <th style="width: 5%;"></th>
-                      <th style="width: 5%;">ลำดับ</th>
-                      <th>เลขที่เอกสาร</th>
-                      <th>รายการเอกสาร</th>
-                      <th>เลขที่สำคัญ</th>
-                      <th>สถานะ</th>
-                      <th style="width: 15%;">วันที่ต่อทะเบียน</th>
-                      <th style="width: 15%;">วันหมดอายุ</th>
+                    <tr class="text-center">
+                      <th style="width: 5%;" class="bg_tableAll"></th>
+                      <th style="width: 5%;" class="bg_tableAll">ลำดับ</th>
+                      <th class="bg_tableAll">เลขที่เอกสาร</th>
+                      <th class="bg_tableAll">รายการเอกสาร</th>
+                      <th class="bg_tableAll">เลขที่สำคัญ</th>
+                      <th class="bg_tableAll">สถานะ</th>
+                      <th style="width: 15%;" class="bg_tableAll">วันที่ต่อทะเบียน</th>
+                      <th style="width: 15%;" class="bg_tableAll">วันหมดอายุ</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -47,20 +47,9 @@
                 </table>
               </div>
             </div>
-<hr>
-            <div class="row ">
-              <div class="col-3">
-              </div>
-              <div class="col-3">
-              </div>
-              <div class="col-5" style="margin-left: 8%;">
-              <button style="width: 22%;" type="button" class="btn btn-outline-success" id="btnSaveDoc" onclick="saveData();">บันทึก</button>
-              <button style="width: 22%;margin-left: 3%;" type="button" class="btn btn-outline-warning" id="btnEditDoc">แก้ไข</button>
-              <button style="width: 22%;margin-left: 3%;" type="button" class="btn btn-outline-danger" id="btnDeleteDoc">ลบ</button>
-              <button style="width: 22%;margin-left: 3%;" type="button" class="btn btn-outline-secondary" id="btncleanDoc" onclick="clean();">ล้างข้อมูล</button>
-              </div>
-            </div>
-            
+            <hr>
+
+
             <div class="row ml-4 mt-1">
               <div class="col-3 mt-3">
                 <label>เลขที่คุมเอกสาร :</label>
@@ -74,7 +63,7 @@
               </div>
 
               <div class="col-3 mt-3">
-              <label>เลขสำคัญ :</label>
+                <label>เลขสำคัญ :</label>
                 <input type="text" class="form-control" id="txt_Doc_numbar" placeholder="เลขสำคัญ" autocomplete="off">
               </div>
 
@@ -96,16 +85,18 @@
             <div class="row ml-4 mt-1">
               <div class="col-3 mt-3">
                 <label>วันที่ต่อทะเบียน :</label>
-                <input type="text" autocomplete="off" class =  "form-control  datepicker-here " id="txt_date_doc" data-language='en' data-date-format='dd-mm-yyyy' placeholder="วันที่" readonly>
+                <input type="text" autocomplete="off" class="form-control  datepicker-here " id="txt_date_doc" data-language='en' data-date-format='dd-mm-yyyy' placeholder="วันที่" readonly>
               </div>
               <div class="col-3 mt-3">
-              <label>วันหมดอายุ :</label>
-                <input type="text" autocomplete="off" class =  "form-control  datepicker-here " id="txt_expira_date" data-language='en' data-date-format='dd-mm-yyyy' placeholder="วันที่" readonly>
+                <label>วันหมดอายุ :</label>
+                <input type="text" autocomplete="off" class="form-control  datepicker-here " id="txt_expira_date" data-language='en' data-date-format='dd-mm-yyyy' placeholder="วันที่" readonly>
               </div>
-              <!-- <div class="col-3 mt-3">
-              <label>วันที่แก้ไขเอกสาร :</label>
-                <input type="text" autocomplete="off" class =  "form-control  datepicker-here " id="txt_edit_date" data-language='en' data-date-format='dd-mm-yyyy' placeholder="วันที่" readonly>
-              </div> -->
+              <div class="col-3 mt-5">
+                <button style="width: 100px;" type="button" class="btn btn-outline-success ml-2" id="btnSaveDoc" onclick="saveData();">บันทึก</button>
+                <button style="width: 100px;" type="button" class="btn btn-outline-warning ml-2" id="btnEditDoc">แก้ไข</button>
+                <button style="width: 100px;" type="button" class="btn btn-outline-danger ml-2" id="btnDeleteDoc">ลบ</button>
+                <button style="width: 100px;" type="button" class="btn btn-outline-secondary ml-2" id="btncleanDoc" onclick="clean();">ล้างข้อมูล</button>
+              </div>
 
             </div>
 
@@ -115,7 +106,3 @@
                 <textarea class="form-control" id="txt_detail" rows="4"></textarea>
               </div>
             </div>
-
-         
-
-           
