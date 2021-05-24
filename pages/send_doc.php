@@ -20,18 +20,18 @@
 
                   <div class="col-5">
                     <div class="form-group row">
-                      <label for="txt_receive" class="col-sm-2 col-form-label">ผู้รับ</label>
+                      <label for="select_hospital" class="col-sm-2 col-form-label">โรงพยาบาล</label>
                       <div class="col-sm-10">
-                        <select class="form-control" id="txt_receive" placeholder="ผู้รับ"></select>
+                        <select class="form-control select2" id="select_hospital" placeholder="โรงพยาบาล"></select>
                       </div>
                     </div>
                   </div>
 
                   <div class="col-5">
                     <div class="form-group row">
-                      <label for="txt_subject" class="col-sm-2 col-form-label">เรื่อง</label>
+                      <label for="select_subject" class="col-sm-2 col-form-label">เรื่อง</label>
                       <div class="col-sm-10">
-                        <select class="form-control" id="txt_subject" placeholder="เรื่อง"></select>
+                        <select class="form-control select2" id="select_subject" placeholder="เรื่อง"></select>
                       </div>
                     </div>
                   </div>
@@ -46,9 +46,9 @@
 
                   <div class="col-5">
                     <div class="form-group row">
-                      <label for="txt_contact" class="col-sm-2 col-form-label">ผู้ติดต่อ</label>
+                      <label for="select_contact" class="col-sm-2 col-form-label">ผู้ติดต่อ</label>
                       <div class="col-sm-10">
-                        <select class="form-control" id="txt_contact" placeholder="ผู้ติดต่อ"></select>
+                        <select class="form-control select2" id="select_contact" placeholder="ผู้ติดต่อ"></select>
                       </div>
                     </div>
                   </div>
@@ -63,7 +63,7 @@
                   </div>
 
                   <div class="col-2">
-                    <button type="submit" class="btn btn-primary btn-block" id="btn_draft">เอกสารร่าง</button>
+                    <button type="submit" class="btn btn-danger btn-block" id="btn_cancel">ยกเลิก</button>
                   </div>
 
                 </div>
@@ -89,10 +89,20 @@
                     </div>
                   </div>
 
-                  <div class="col-2">
-                    <button type="submit" class="btn btn-danger btn-block" id="btn_cancel">ยกเลิก</button>
-                  </div>
 
+
+                </div>
+
+                <div class="row">
+
+                  <div class="col-5">
+                    <div class="form-group row">
+                      <label for="txt_remark" class="col-sm-2 col-form-label">บันทึกช่วยจำ</label>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control" id="txt_remark" placeholder="บันทึกช่วยจำ">
+                      </div>
+                    </div>
+                  </div>
                 </div>
 
               </div>
@@ -101,26 +111,28 @@
             <div class="row mt-4">
               <div class="col-5">
                 <div class="form-group row">
-                  <label for="txt_product" class="col-sm-2 col-form-label">product</label>
+                  <label for="select_product" class="col-sm-2 col-form-label">product</label>
                   <div class="col-sm-10">
-                    <select class="form-control" id="txt_product" placeholder="product"></select>
+                    <select class="form-control select2" id="select_product" placeholder="product"></select>
                   </div>
                 </div>
               </div>
 
-              <div class="col-1">
+              <!-- <div class="col-1">
                 <button type="submit" class="btn btn-primary btn-block" id="btn_search">ค้นหา</button>
-              </div>
+              </div> -->
             </div>
 
             <div class="row mt-3">
-              <div class="col-4">
-                <table id="table_product" class="table table-bordered table-hover w-100">
+
+              <div class="col-4  table-responsive p-0" style="margin-top: 3.3rem!important;">
+                <table id="table_product" class="table table-bordered table-hover w-100 table-head-fixed">
                   <thead>
                     <tr class="text-center">
-                      <th>ลำดับ</th>
-                      <th>product</th>
-                      <th>รหัส</th>
+                      <th  class="bg_tableAll" style="width: 7%;"></th>
+                      <th  class="bg_tableAll" style="width: 10%;">ลำดับ</th>
+                      <th  class="bg_tableAll" style="width: 50%;">product</th>
+                      <th  class="bg_tableAll" style="width: 10%;"></th>
                     </tr>
                   </thead>
                   <tbody>
@@ -128,37 +140,22 @@
                   </tbody>
                 </table>
               </div>
-              <div class="col-1">
-                <div class="row d-flex justify-content-center">
-                  <i class="fas fa-arrow-circle-right" style="    font-size: 35px;cursor: pointer;color: gainsboro;" id="arrowRight"></i>
-                </div>
-                <div class="row d-flex justify-content-center mt-3">
-                  <i class="fas fa-arrow-circle-left" style="    font-size: 35px;cursor: pointer;color: gainsboro;" id="arrowLeft"></i>
-                </div>
-              </div>
+
               <div class="col-4">
-                <div class="row">
-                  <div class="col-12">
-                    <table id="table_product_item" class="table table-bordered table-hover w-100">
-                      <thead>
-                        <tr class="text-center">
-                          <th>ลำดับ</th>
-                          <th>product</th>
-                          <th>รหัส</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-
-                      </tbody>
-                    </table>
+                <div class="form-group row">
+                  <label for="txt_product_center" class="col-sm-3 col-form-label">ชื่อสินค้า</label>
+                  <div class="col-sm-9">
+                    <input type="text" class="form-control" id="txt_product_center" placeholder="ชื่อสินค้า" disabled>
                   </div>
+                </div>
+                <div class="row ">
                   <div class="col-12">
-                    <table id="table_product_list_document" class="table table-bordered table-hover w-100">
+                    <table id="table_product_list_document" class="table table-bordered table-hover w-100 table-head-fixed">
                       <thead>
-                        <tr class="text-center">
-                          <th><br></th>
-                          <th>ลำดับ</th>
-                          <th>เอกสาร</th>
+                        <tr   class="text-center">
+                          <th class="bg_tableAll"><br></th>
+                          <th class="bg_tableAll">ลำดับ</th>
+                          <th class="bg_tableAll">เอกสาร</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -169,12 +166,15 @@
                 </div>
 
               </div>
-              <div class="col-3">
-                <table id="table_product_docment" class="table table-bordered table-hover w-100">
+              <div class="col-4 ">
+                <div class="form-group row">
+                  <label for="txt_product_center" class="col-sm-4 col-form-label">รายการเอกสารที่จะส่ง</label>
+                </div>
+                <table id="table_product_docment" class="table table-bordered table-hover w-100 table-head-fixed">
                   <thead>
                     <tr class="text-center">
-                      <th>ลำดับ</th>
-                      <th>เอกสาร</th>
+                      <th class="bg_tableAll">ลำดับ</th>
+                      <th class="bg_tableAll">เอกสาร</th>
                     </tr>
                   </thead>
                   <tbody>

@@ -60,15 +60,16 @@
                 </div>
               </div>
               <div class="col-6">
+              
                 <div class="row " style="margin-left: 1px;">
                   <div class="form-group col-7 mt-3" id="div_upload">
                     <div class="custom-file ">
-                      <input type="file" class="custom-file-input" name="inputFile" id="inputFile" >
+                      <input type="file" class="custom-file-input" name="inputFile" id="upload_fileRight" accept="application/pdf">
                       <label class="custom-file-label" for="inputFile">เลือกไฟล์</label>
                     </div>
                   </div>
                   <div class="form-group col-5 mt-3">
-                    <button style="width: 50%;margin-left: 50px;" type="button" class="btn btn-outline-primary" id="btn_upload_Doc" onclick="upload_Doc();">Upload</button>
+                    <button style="width: 50%;margin-left: 50px;" type="button" class="btn btn-outline-primary" onclick="upload_Doc();">Upload</button>
                   </div>
                 </div>
 

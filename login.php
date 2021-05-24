@@ -9,7 +9,7 @@
   <?php include_once('assets/import_index/css.php'); ?>
   <link rel="stylesheet" href="assets/plugins/jquery-confirm-v3.3.4/css/jquery-confirm.css">
 
-  <!--===============================================================================================-->
+  <!--==============================================================================================-->
 </head>
 
 <body>
@@ -17,25 +17,29 @@
     <!-- Form - Layout -->
 
     <div class="col-sm-8 col-md-6">
-      <div class="logo mt-4 ml-5" style="position: fixed;">
-        <img src="assets/dist/img/logo/logo.png" class="logo-img" style="width: 350px;">
+      <div class="logo mt-5 " style="position: fixed;margin-left: 8rem!important;">
+        <img src="assets/dist/img/logo/logo.png" class="logo-img" style="width: 250px;">
       </div>
-      
+      <div class="logo" style="position: fixed;margin-left: 30rem!important;margin-top: 3.5rem!important;">
+        <img src="assets/dist/img/pose_logo.png" class="logo-img" style="width: 125px;">
+      </div>
+
       <div class="left-layout">
         <!-- logo -->
         <div class="logo">
           <!-- <img src="assets/dist/img/logo_nhealth.png" class="logo-img"> -->
-          <label style="font-size: 70px;color:#224099;">Pose health care</label>
+          <label style="font-size: 35px;color:black;">POSE DOCUMENT MANAGEMENT</label>
         </div>
 
         <!-- Text Login -->
         <div class="text-login">
-          <label style="color:black">Login Account</label>
+          <label style="color:black">(PDM)</label>
         </div>
 
         <!-- form login -->
         <div class="login-layout">
           <!-- Username -->
+          <div>ผู้ใช้งาน</div>
           <div class="input-group">
             <div class="input-group-prepend">
               <span class="input-group-text" id="icon-user"><i class="fas fa-user"></i></span>
@@ -47,6 +51,7 @@
           </div>
 
           <!-- Password -->
+          <div class="mt-4">รหัสผ่าน</div>
           <div class="input-group mt-2">
             <div class="input-group-prepend">
               <span class="input-group-text" id="icon-user"><i class="fas fa-unlock-alt"></i></span>
@@ -77,7 +82,7 @@
 
 
     <!-- background - reft -->
-    <div class="col-sm-4 col-md-6 img-background"><img src="assets/dist/img/bg_nsupply.png"></div>
+    <div class="col-sm-4 col-md-6 img-background"><img src="assets/dist/img/bg_pdm.png"></div>
     <!-- background - reft -->
   </div>
 

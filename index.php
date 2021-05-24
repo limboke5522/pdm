@@ -8,7 +8,7 @@ if (!isset($_SESSION['userData'])) {
 }
 $userName = $_SESSION['userData']['real_name'];
 $permissionID = $_SESSION['userData']['permissionID'];
-$page = isset($_GET['page']) ? $_GET['page'] : 'manage_customers';
+$page = isset($_GET['page']) ? $_GET['page'] : 'upload_doc';
 
 ?>
 <!DOCTYPE html>
@@ -65,33 +65,28 @@ $page = isset($_GET['page']) ? $_GET['page'] : 'manage_customers';
             var page = '<?php echo $page; ?>';
             var _groupMenu = "general";
             switch (page) {
-                case "report":
-                    _groupMenu = "report";
+                case "send_doc":
+                    _groupMenu = "send";
                     break
-                case "site":
+                case "history_doc":
+                    _groupMenu = "send";
+                    break
+                case "manage_customers":
                     _groupMenu = "system";
                     break
-                case "group":
+                case "contact_customers":
                     _groupMenu = "system";
                     break
-                case "department":
+                case "manage_item":
                     _groupMenu = "system";
                     break
-                case "item":
+                case "register_doc":
                     _groupMenu = "system";
                     break
-                case "binditem":
+                case "purpose":
                     _groupMenu = "system";
                     break
-                case "units":
-                    _groupMenu = "system";
-                    break
-                case "remark":
-                    _groupMenu = "system";
-                    break
-                case "users":
-                    _groupMenu = "system";
-                    break
+
             }
 
             $(`#li_${_groupMenu}`).addClass("menu-open");

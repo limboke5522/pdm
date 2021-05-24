@@ -19,7 +19,7 @@
                      <a href="#" class="nav-link" id="a_general">
                          <i class="nav-icon fas fa-home"></i>
                          <p>
-                             ระบบ
+                             DC
                              <i class="right fas fa-angle-left"></i>
                          </p>
                      </a>
@@ -31,46 +31,8 @@
                              </a>
                          </li>
                      </ul> -->
-                     <ul class="nav nav-treeview ul_general" style="display: none;">
-                         <li class="nav-item">
-                             <a href="index.php?page=manage_customers" class="nav-link " id="manage_customers">
-                                 <i class="fas fa-home"></i>
-                                 <p>จัดการข้อมูลลูกค้า</p>
-                             </a>
-                         </li>
-                     </ul>
-                     <ul class="nav nav-treeview ul_general" style="display: none;">
-                         <li class="nav-item">
-                             <a href="index.php?page=contact_customers" class="nav-link " id="contact_customers">
-                                 <i class="fas fa-home"></i>
-                                 <p>จัดการข้อมูลติดต่อลูกค้า</p>
-                             </a>
-                         </li>
-                     </ul>
-                     <ul class="nav nav-treeview ul_general" style="display: none;">
-                         <li class="nav-item">
-                             <a href="index.php?page=manage_item" class="nav-link " id="manage_item">
-                                 <i class="fas fa-home"></i>
-                                 <p>จัดการข้อมูลสินค้า</p>
-                             </a>
-                         </li>
-                     </ul>
-                     <ul class="nav nav-treeview ul_general" style="display: none;">
-                         <li class="nav-item">
-                             <a href="index.php?page=register_doc" class="nav-link " id="register_doc">
-                                 <i class="fas fa-home"></i>
-                                 <p>ลงทะเบียนเอกสาร</p>
-                             </a>
-                         </li>
-                     </ul>
-                     <ul class="nav nav-treeview ul_general" style="display: none;">
-                         <li class="nav-item">
-                             <a href="index.php?page=purpose" class="nav-link " id="purpose">
-                                 <i class="fas fa-home"></i>
-                                 <p>วัตถุประสงค์</p>
-                             </a>
-                         </li>
-                     </ul>
+
+
                      <ul class="nav nav-treeview ul_general" style="display: none;">
                          <li class="nav-item">
                              <a href="index.php?page=upload_doc" class="nav-link " id="upload_doc">
@@ -79,125 +41,89 @@
                              </a>
                          </li>
                      </ul>
-                     <ul class="nav nav-treeview ul_general" style="display: none;">
+                 </li>
+
+                 <li class="nav-item has-treeview " id="li_send">
+                     <a href="#" class="nav-link " id="a_send">
+                         <i class="nav-icon fas fa-copy"></i>
+                         <p>
+                             ส่งเอกสาร
+                             <i class="right fas fa-angle-left"></i>
+                         </p>
+                     </a>
+                     <ul class="nav nav-treeview ul_send" style="display: none;">
                          <li class="nav-item">
-                             <a href="index.php?page=send_doc" class="nav-link " id="send_doc">
-                                 <i class="fas fa-home"></i>
+                             <a href="index.php?page=send_doc" class="nav-link" id="send_doc">
+                                 <i class="fas fa-copy"></i>
                                  <p>ส่งเอกสาร</p>
                              </a>
                          </li>
                      </ul>
-                     <!-- <ul class="nav nav-treeview ul_general" style="display: none;">
+                     <ul class="nav nav-treeview ul_send" style="display: none;">
                          <li class="nav-item">
-                             <a href="index.php?page=receiveStock" class="nav-link " id="receiveStock">
-                                 <i class="fas fa-home"></i>
-                                 <p>รับของเข้าสต็อค</p>
-                             </a>
-                         </li>
-                     </ul> -->
-                     <!-- <ul class="nav nav-treeview ul_general" style="display: none;">
-                         <li class="nav-item">
-                             <a href="index.php?page=stock" class="nav-link " id="stock">
-                                 <i class="fas fa-home"></i>
-                                 <p>คลัง</p>
-                             </a>
-                         </li>
-                     </ul> -->
-                 </li>
-
-                 <!-- <li class="nav-item has-treeview " id="li_report">
-                     <a href="#" class="nav-link " id="a_report">
-                         <i class="nav-icon fas fa-copy"></i>
-                         <p>
-                             รายงาน
-                             <i class="right fas fa-angle-left"></i>
-                         </p>
-                     </a>
-                     <ul class="nav nav-treeview ul_report" style="display: none;">
-                         <li class="nav-item">
-                             <a href="index.php?page=report" class="nav-link" id="report">
+                             <a href="index.php?page=history_doc" class="nav-link" id="history_doc">
                                  <i class="fas fa-copy"></i>
-                                 <p>รายงาน</p>
+                                 <p>ประวัติเอกสาร</p>
                              </a>
                          </li>
                      </ul>
                  </li>
-                 <?php// if ($permissionID == "1" || $permissionID == "2") { ?>
-                     <li class="nav-item has-treeview " id="li_system">
-                         <a href="#" class="nav-link " id="a_system">
-                             <i class="nav-icon fas fa-cogs"></i>
-                             <p>
-                                 ระบบ
-                                 <i class="right fas fa-angle-left"></i>
-                             </p>
-                         </a>
-                         <ul class="nav nav-treeview ul_system" style="display: none;">
-                             <li class="nav-item">
-                                 <a href="index.php?page=site" class="nav-link" id="site">
-                                     <i class="fas fa-cogs"></i>
-                                     <p>โรงพยาบาล</p>
-                                 </a>
-                             </li>
-                         </ul>
-                         <ul class="nav nav-treeview ul_system" style="display: none;">
-                             <li class="nav-item">
-                                 <a href="index.php?page=group" class="nav-link" id="group">
-                                     <i class="fas fa-cogs"></i>
-                                     <p>กลุ่ม</p>
-                                 </a>
-                             </li>
-                         </ul>
-                         <ul class="nav nav-treeview ul_system" style="display: none;">
-                             <li class="nav-item">
-                                 <a href="index.php?page=department" class="nav-link" id="department">
-                                     <i class="fas fa-cogs"></i>
-                                     <p>แผนก</p>
-                                 </a>
-                             </li>
-                         </ul>
-                         <ul class="nav nav-treeview ul_system" style="display: none;">
-                             <li class="nav-item">
-                                 <a href="index.php?page=item" class="nav-link" id="item">
-                                     <i class="fas fa-cogs"></i>
-                                     <p>รายการ</p>
-                                 </a>
-                             </li>
-                         </ul>
-                         <ul class="nav nav-treeview ul_system" style="display: none;">
-                             <li class="nav-item">
-                                 <a href="index.php?page=binditem" class="nav-link" id="binditem">
-                                     <i class="fas fa-cogs"></i>
-                                     <p>ผูกรายการ</p>
-                                 </a>
-                             </li>
-                         </ul>
-                         <ul class="nav nav-treeview ul_system" style="display: none;">
-                             <li class="nav-item">
-                                 <a href="index.php?page=units" class="nav-link" id="units">
-                                     <i class="fas fa-cogs"></i>
-                                     <p>หน่วยนับ</p>
-                                 </a>
-                             </li>
-                         </ul>
-                         <ul class="nav nav-treeview ul_system" style="display: none;">
-                             <li class="nav-item">
-                                 <a href="index.php?page=remark" class="nav-link" id="remark">
-                                     <i class="fas fa-cogs"></i>
-                                     <p>หมายเหตุ</p>
-                                 </a>
-                             </li>
-                         </ul>
-                         <ul class="nav nav-treeview ul_system" style="display: none;">
-                             <li class="nav-item">
-                                 <a href="index.php?page=users" class="nav-link" id="users">
-                                     <i class="fas fa-cogs"></i>
-                                     <p>ผู้ใช้งาน</p>
-                                 </a>
-                             </li>
-                         </ul>
-                     </li>
-         <?php //} ?>
- -->
+
+
+
+                 <li class="nav-item has-treeview " id="li_system">
+                     <a href="#" class="nav-link " id="a_system">
+                         <i class="nav-icon fas fa-cogs"></i>
+                         <p>
+                             ระบบ
+                             <i class="right fas fa-angle-left"></i>
+                         </p>
+                     </a>
+                     <ul class="nav nav-treeview ul_system" style="display: none;">
+                         <li class="nav-item">
+                             <a href="index.php?page=manage_customers" class="nav-link" id="manage_customers">
+                                 <i class="fas fa-cogs"></i>
+                                 <p>จัดการข้อมูลลูกค้า</p>
+                             </a>
+                         </li>
+                     </ul>
+
+
+                     <ul class="nav nav-treeview ul_system" style="display: none;">
+                         <li class="nav-item">
+                             <a href="index.php?page=contact_customers" class="nav-link " id="contact_customers">
+                                 <i class="fas fa-home"></i>
+                                 <p>จัดการข้อมูลติดต่อลูกค้า</p>
+                             </a>
+                         </li>
+                     </ul>
+                     <ul class="nav nav-treeview ul_system" style="display: none;">
+                         <li class="nav-item">
+                             <a href="index.php?page=manage_item" class="nav-link " id="manage_item">
+                                 <i class="fas fa-home"></i>
+                                 <p>จัดการข้อมูลสินค้า</p>
+                             </a>
+                         </li>
+                     </ul>
+                     <ul class="nav nav-treeview ul_system" style="display: none;">
+                         <li class="nav-item">
+                             <a href="index.php?page=register_doc" class="nav-link " id="register_doc">
+                                 <i class="fas fa-home"></i>
+                                 <p>ลงทะเบียนเอกสาร</p>
+                             </a>
+                         </li>
+                     </ul>
+                     <ul class="nav nav-treeview ul_system" style="display: none;">
+                         <li class="nav-item">
+                             <a href="index.php?page=purpose" class="nav-link " id="purpose">
+                                 <i class="fas fa-home"></i>
+                                 <p>วัตถุประสงค์</p>
+                             </a>
+                         </li>
+                     </ul>
+
+                 </li>
+
 
 
 
