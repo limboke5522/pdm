@@ -30,7 +30,7 @@
                     <div class="form-group row">
                       <label for="select_subject" class="col-sm-2 col-form-label">วันที่</label>
                       <div class="col-sm-10">
-                        <select class="form-control select2" id="select_subject" placeholder="เรื่อง"></select>
+                        <input type="text" autocomplete="off" class="form-control  datepicker-here " id="txt_Sdate_doc" data-language='en' data-date-format='dd-mm-yyyy' placeholder="วันที่" readonly>
                       </div>
                     </div>
                   </div>
@@ -39,7 +39,7 @@
                     <div class="form-group row">
                       <label for="select_subject" class="col-sm-2 col-form-label">ถึง</label>
                       <div class="col-sm-10">
-                        <select class="form-control select2" id="select_subject" placeholder="เรื่อง"></select>
+                      <input type="text" autocomplete="off" class="form-control  datepicker-here " id="txt_Edate_doc" data-language='en' data-date-format='dd-mm-yyyy' placeholder="วันที่" readonly>
                       </div>
                     </div>
                   </div>

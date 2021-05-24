@@ -16,7 +16,7 @@
   // };
 
   $(function() {
-
+    $(".select2").select2();
     $('#btnEditDoc').hide();
     $('#btnDeleteDoc').hide();
     $('#btncleanDoc').hide();

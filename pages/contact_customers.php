@@ -64,7 +64,8 @@
             <div class="row ml-4 mt-1">
               <div class="col-3 mt-3">
                 <label>ลูกค้า :</label>
-                <select class="form-control" id="select_cus"></select>
+                <!-- <select class="form-control" id="select_cus"></select> -->
+                <select class="form-control select2" id="select_cus"></select>
               </div>
               <div class="col-3 mt-3">
                 <label>ผู้ติดต่อ :</label>
