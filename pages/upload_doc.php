@@ -24,7 +24,7 @@
                     <div class="form-group row">
                       <label for="txt_receive" class="col-sm-2 col-form-label">Product</label>
                       <div class="col-sm-10">
-                        <select class="form-control" id="select_product"></select>
+                        <select class="form-control" id="select_product" onchange ="show_DataLeft();show_DataRight();"></select>
                       </div>
                     </div>
                   </div>
@@ -81,7 +81,9 @@
                         <tr class="text-center">
                           <th style="width: 10%;" class="bg_tableAll"></th>
                           <th style="width: 5%;" class="bg_tableAll">ลำดับ</th>
-                          <th  class="bg_tableAll">เอกสาร</th>
+                          <th  class="bg_tableAll">ชื่อไฟล์เอกสาร</th>
+                          <th  class="bg_tableAll">เลขที่คุมเอกสาร</th>
+                          <th  class="bg_tableAll"></th>
                         </tr>
                       </thead>
                       <tbody>
