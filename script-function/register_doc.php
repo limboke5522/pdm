@@ -294,7 +294,7 @@
                     "<td style='width:6%;text-align: center;'><center>"+chkDoc+"</center></td>" +
                     "<td style='width:7%;text-align: center;'>" + (key + 1) + "</td>" +
                     "<td style='width:10%;text-align: left;'>" + value.DocNumber + "</td>" +
-                    "<td style='width:20%;text-align: center;'>" + value.DocName + "</td>" +
+                    "<td style='width:20%;text-align: left;'>" + value.DocName + "</td>" +
                     "<td style='width:15%;text-align: center;'>" + value.SignificantFigure + "</td>" +
                     "<td style='width:10%;text-align: center;'>" + DocType + "</td>" +
                     "<td style='width:10%;text-align: center;'>" + value.RegistrationDate + "</td>" +

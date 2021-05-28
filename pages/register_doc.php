@@ -103,6 +103,6 @@
             <div class="row ml-4 mt-1">
               <div class="col-6 mt-3">
                 <label>คำอธิบาย :</label>
-                <textarea class="form-control" id="txt_detail" rows="4"></textarea>
+                <textarea  class="form-control" id="txt_detail" rows="3"></textarea>
               </div>
             </div>
