@@ -61,7 +61,7 @@
                       <th  class="bg_tableAll" style="width: 30%;">ชื่อโรงพยาบาล</th>
                       <th  class="bg_tableAll" style="width: 20%;">วัตถุประสงค์</th>
                       <th  class="bg_tableAll" style="width: 20%;">ผู้ติดต่อ</th>
-                      <th  class="bg_tableAll" style="width: 15%;">ผู้ติดต่อ</th>
+                      <th  class="bg_tableAll" style="width: 15%;">Email</th>
                     </tr>
                   </thead>
                   <tbody>

@@ -70,6 +70,8 @@ function selection_Doc($conn)
 
 function show_DataLeft($conn)
 {
+  $Search_txt = $_POST["Search_txt"];
+  
   $select_product = $_POST["select_product"];
 
   $Sql_product = "SELECT
@@ -86,6 +88,8 @@ function show_DataLeft($conn)
                     INNER JOIN documentlist ON productdoc.DocumentID = documentlist.ID 
                   WHERE
                     productdoc.ProductID = '$select_product'
+                  AND 
+                  documentlist.DocName LIKE '%$Search_txt%'
           ";
 
   $meQuery1 = mysqli_query($conn, $Sql_product);
