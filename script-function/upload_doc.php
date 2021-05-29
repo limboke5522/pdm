@@ -48,7 +48,7 @@
         Str += "<option value=0 >กรุณาเลือก เอกสาร</option>";
         if (!$.isEmptyObject(ObjData)) {
           $.each(ObjData, function(key, value) {
-            Str += "<option value=" + value.ID + " >" + value.DocNumber + "</option>";
+            Str += "<option value=" + value.ID + " >" + value.DocName + "</option>";
 
           });
         }
@@ -114,12 +114,14 @@
 
   // show
   function show_DataLeft() {
+    var  txtSearch = $('#txtSearch').val();
 
     $.ajax({
       url: "process/upload_doc.php",
       type: 'POST',
       data: {
         'FUNC_NAME': 'show_DataLeft',
+        'txtSearch': txtSearch,
         'select_product': $("#select_product").val()
       },
       success: function(result) {

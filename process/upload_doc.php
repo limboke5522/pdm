@@ -70,7 +70,7 @@ function selection_Doc($conn)
 
 function show_DataLeft($conn)
 {
-  $Search_txt = $_POST["Search_txt"];
+  $Search_txt = $_POST["txtSearch"];
   
   $select_product = $_POST["select_product"];
 
