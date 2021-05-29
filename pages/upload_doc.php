@@ -38,6 +38,17 @@
             </div>
 
             <div class="row">
+              <div class="col-3">
+                <input type="text" class="form-control" id="txtSearch" onkeyup="show_DataLeft();" placeholder="ค้นหารายการ">
+              </div>
+              <div class="col-3">
+                <!-- <button type="submit" class="btn btn-primary" >ค้นหา</button> -->
+                <!-- <button type="submit" class="btn btn-success" id="showModalAddUsers">เพิ่มข้อมูล</button> -->
+              </div>
+            </div>
+
+
+            <div class="row">
               <div class="col-6">
                 <div class="row mt-2  table-responsive p-0" id="tb_Data" style="height: 620px;max-height: 620px;overflow-y: auto;">
                   <div class="col-12">
