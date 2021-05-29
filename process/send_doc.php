@@ -13,6 +13,8 @@ if (!empty($_POST['FUNC_NAME'])) {
     selection_Product($conn);
   } else if ($_POST['FUNC_NAME'] == 'showDetail_contact') {
     showDetail_contact($conn);
+  } else if ($_POST['FUNC_NAME'] == 'product_file') {
+    product_file($conn);
   }
 }
 
@@ -120,6 +122,29 @@ function showDetail_contact($conn)
             cuscontact 
           WHERE
             cuscontact.ID = '$select_contact'  ";
+
+  $meQuery = mysqli_query($conn, $Sql);
+  while ($row = mysqli_fetch_assoc($meQuery)) {
+    $return[] = $row;
+  }
+
+
+  echo json_encode($return);
+  mysqli_close($conn);
+  die;
+}
+
+function product_file($conn)
+{
+  $Sql = "SELECT
+            customer.ID,
+            customer.CustomerName 
+          FROM
+            customer 
+          WHERE
+            customer.IsCancel = 0 
+          ORDER BY
+            customer.CustomerName ASC ";
 
   $meQuery = mysqli_query($conn, $Sql);
   while ($row = mysqli_fetch_assoc($meQuery)) {
