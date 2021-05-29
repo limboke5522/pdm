@@ -78,6 +78,7 @@
   }
 
   function selection_Product() {
+    
     $.ajax({
       url: "process/send_doc.php",
       type: 'POST',
@@ -132,6 +133,14 @@
 
   // obj
   var objReal = new createObj_();
+  var objReal_doc = new createObjDoc_();
+
+  function createObjDoc_() {
+    this.DocID = [];
+    this.DocName = [];
+    this.versionDoc = [];
+    this.rowDoc = [];
+  }
 
   function createObj_() {
     this.productID = [];
@@ -153,6 +162,21 @@
     $('#table_product tbody').html(TableItemx);
   }
 
+
+  function showData_Doc() {
+    var TableDoc = "";
+    $.each(objReal_doc.DocName, function(index, DocName) {
+      var btn = '<button  onclick="deleteDoc(\'' + index + '\',\'' + objReal_doc.rowDoc[index] + '\')"  class="btn"><i class="fas fa-trash-alt" style="color: orangered;"></i></button>';
+      TableDoc += "<tr id='trDoc_" + index + "'>" +
+        "<td style='text-align: center;width: 10%;'>" + (index + 1) + "</td>" +
+        "<td style='text-align: left;width: 50%;'>" + DocName + "</td>" +
+        "<td style='text-align: center;width: 15%;'>" + objReal_doc.versionDoc[index] + "</td>" +
+        "<td style='text-align: center;width: 10%;'>" + btn + "</td>" +
+        "</tr>";
+    });
+    $('#table_product_docment tbody').html(TableDoc);
+  }
+
   function deleteProduct(index) {
     $("#trProduct_" + index).remove();
     objReal.productID.splice(index, 1);
@@ -161,6 +185,18 @@
     
     $("#txt_product_center").val("");
     showData_product();
+  }
+
+  function deleteDoc(index,row) {
+    $("#trDoc_" + index).remove();
+
+    objReal_doc.DocID.splice(index, 1);
+    objReal_doc.DocName.splice(index, 1);
+    objReal_doc.versionDoc.splice(index, 1);
+    objReal_doc.rowDoc.splice(index, 1);
+
+    showData_Doc();
+    $("#btn_send_"+row).show();
   }
 
   function checkProduct(id,name){
@@ -176,15 +212,20 @@
       },
       success: function(result) {
         var ObjData = JSON.parse(result);
-        var Str = "";
-        Str += "<option value=0 >กรุณาเลือก Product</option>";
+        var StrTR = "";
         if (!$.isEmptyObject(ObjData)) {
           $.each(ObjData, function(key, value) {
-            Str += "<option value=" + value.ID + " >" + value.ProductName + "</option>";
+            var bt = ' <button type="button" class="btn btn-outline-primary  ml-2" id="btn_send_'+key+'"  onclick="add_DocProduct(\'' + key + '\',\'' + value.ID + '\',\'' + value.DocName + '\',\'' + value.version + '\')" >เลือก >> </button>';
+            StrTR += "<tr style='border-radius: 15px 15px 15px 15px;margin-top: 6px;margin-bottom: 6px;'>" +
+                    "<td style='width:7%;text-align: center;'>" + (key + 1) + "</td>" +
+                    "<td style='width:25%;text-align: left;'>" + value.DocName + "</td>" +
+                    "<td style='width:6%;text-align: center;'>" + value.version + "</td>" +
+                    "<td style='width:10%;text-align: center;'><center>"+bt+"</center></td>" +
+                    "</tr>";
 
           });
         }
-        $("#select_product").html(Str);
+        $('#table_product_list_document tbody').html(StrTR);
 
       }
     });
@@ -207,9 +248,6 @@
     }, 150);
   });
   $("#select_product").change(function() {
-
-    
-
     setTimeout(() => {
       var productID2 = $(this).val();
       var productName = $("#select2-select_product-container").text();
@@ -234,6 +272,27 @@
       }
   
       showData_product();
+      $("#table_product_list_document tbody").empty();
     }, 150);
+
+   
   });
+
+
+  function add_DocProduct(key,ID,DocName,version) {
+    $("#btn_send_"+key).hide();
+
+    objReal_doc.DocID.push(ID);
+    objReal_doc.DocName.push(DocName);
+    objReal_doc.versionDoc.push(version);
+    objReal_doc.rowDoc.push(key);
+    
+    showData_Doc();
+console.log(objReal_doc);
+
+  }
+
+
+
+
 </script>

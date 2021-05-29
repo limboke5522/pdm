@@ -136,15 +136,22 @@ function showDetail_contact($conn)
 
 function product_file($conn)
 {
+  $id_product = $_POST["id_product"];
+
   $Sql = "SELECT
-            customer.ID,
-            customer.CustomerName 
-          FROM
-            customer 
-          WHERE
-            customer.IsCancel = 0 
-          ORDER BY
-            customer.CustomerName ASC ";
+              docrevision.fileName,
+              docrevision.version,
+              productdoc.ID,
+              docrevision.DocumentID,
+              documentlist.DocNumber,
+              documentlist.DocName 
+            FROM
+              productdoc
+              INNER JOIN docrevision ON productdoc.ID_FileDoc = docrevision.ID
+              INNER JOIN documentlist ON docrevision.DocumentID = documentlist.ID 
+            WHERE
+              productdoc.ProductID = '$id_product'
+            ORDER BY documentlist.DocName ASC,docrevision.version ASC ";
 
   $meQuery = mysqli_query($conn, $Sql);
   while ($row = mysqli_fetch_assoc($meQuery)) {

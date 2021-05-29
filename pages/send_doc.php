@@ -153,9 +153,10 @@
                     <table id="table_product_list_document" class="table table-bordered table-hover w-100 table-head-fixed">
                       <thead>
                         <tr   class="text-center">
-                          <th class="bg_tableAll"><br></th>
                           <th class="bg_tableAll">ลำดับ</th>
                           <th class="bg_tableAll">เอกสาร</th>
+                          <th class="bg_tableAll">version</th>
+                          <th class="bg_tableAll"><br></th>
                         </tr>
                       </thead>
                       <tbody>
@@ -175,6 +176,8 @@
                     <tr class="text-center">
                       <th class="bg_tableAll">ลำดับ</th>
                       <th class="bg_tableAll">เอกสาร</th>
+                      <th class="bg_tableAll">version</th>
+                      <th class="bg_tableAll"></th>
                     </tr>
                   </thead>
                   <tbody>
