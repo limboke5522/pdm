@@ -165,14 +165,42 @@
 
   function checkProduct(id,name){
     $("#txt_product_center").val(name);
+    var id_product =  $("#id_product"+id).val();
+
+   $.ajax({
+      url: "process/send_doc.php",
+      type: 'POST',
+      data: {
+        'FUNC_NAME': 'product_file',
+        'id_product': id_product
+      },
+      success: function(result) {
+        var ObjData = JSON.parse(result);
+        var Str = "";
+        Str += "<option value=0 >กรุณาเลือก Product</option>";
+        if (!$.isEmptyObject(ObjData)) {
+          $.each(ObjData, function(key, value) {
+            Str += "<option value=" + value.ID + " >" + value.ProductName + "</option>";
+
+          });
+        }
+        $("#select_product").html(Str);
+
+      }
+    });
+ 
   }
 
   // onchange
   $("#select_hospital").change(function() {
     setTimeout(() => {
       selection_Contact();
+      $("#txt_email").val("");
+      $("#txt_phone").val("");
     }, 150);
   });
+
+
   $("#select_contact").change(function() {
     setTimeout(() => {
       showDetail_contact();
@@ -180,14 +208,31 @@
   });
   $("#select_product").change(function() {
 
+    
 
     setTimeout(() => {
-      var productID = $(this).val();
+      var productID2 = $(this).val();
       var productName = $("#select2-select_product-container").text();
 
-      objReal.productID.push(productID);
-      objReal.productName.push(productName);
+      var chk_idProduct = 0;
+      $.each(objReal.productID, function(key, productID) {//เช็ครายการซ้ำ
+        var productID_index = objReal.productID[key];
+        if(productID2 == productID_index){
+          chk_idProduct++;
+        }
+      });
+    
+      if(productID2!=0){
+        if(chk_idProduct == 0){
+          objReal.productID.push(productID2);
+          objReal.productName.push(productName);
+        }else{
 
+        }
+      }else{
+        
+      }
+  
       showData_product();
     }, 150);
   });
