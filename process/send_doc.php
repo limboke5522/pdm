@@ -197,16 +197,16 @@ function save_sendDoc($conn)
                   Memo = '$txt_remark',
                   DocDate = NOW() 
           ";
-//  mysqli_query($conn, $query);
+ mysqli_query($conn, $query);
 
-//  foreach($DocID as $key => $value){
-//   $query1 = "  INSERT INTO send_doc_detail 
-//               SET SendDocNo = '$SendDocNo',
-//               ProductID = '$productID[$key]',
-//               Product_DocID = '$value'
-//           ";
-//           mysqli_query($conn, $query1);
-//  }
+ foreach($DocID as $key => $value){
+  $query1 = "  INSERT INTO send_doc_detail 
+              SET SendDocNo = '$SendDocNo',
+              ProductID = '$productID[$key]',
+              Product_DocID = '$value'
+          ";
+          mysqli_query($conn, $query1);
+ }
 
 
     $return = "ส่งข้อมูล E-Mail เรียบร้อยแล้ว";

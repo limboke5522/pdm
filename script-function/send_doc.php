@@ -228,9 +228,13 @@
         }
         $('#table_product_list_document tbody').html(StrTR);
 
+        setTimeout(() => {
+          chk_btn(id_product);
+        }, 100);
       }
     });
- 
+  
+   
   }
 
   // onchange
@@ -279,6 +283,17 @@
    
   });
 
+  function chk_btn(id_product) {
+    $.each(objReal_doc.rowDoc, function(key, rowDoc) {//เช็ครายการซ้ำ
+
+        if(id_product == objReal_doc.product_Doc_ID[key]){
+          $("#btn_send_"+rowDoc).hide();
+          
+        }else{
+
+        }       
+      });
+  }
 
   function add_DocProduct(key,ID,DocName,version,id_product) {
     $("#btn_send_"+key).hide();
@@ -359,7 +374,7 @@ function save_sendDoc() {
       },
       success: function(result) {
         showDialogSuccess(result);
-        
+
          $('#select_product').val(0);
          $('#select_hospital').val(0);
          $('#select_subject').val(0);
@@ -368,7 +383,7 @@ function save_sendDoc() {
          $('#select2-select_hospital-container').text("กรุณาเลือก โรงพยาบาล");
          $('#select2-select_subject-container').text("กรุณาเลือก เรื่อง");
          $('#select2-select_contact-container').text("กรุณาเลือก ผู้ติดต่อ");
-
+         $('#select2-select_product-container').text("กรุณาเลือก Product");
          
          $('#txt_copy').val("");
          $('#txt_remark').val("");
@@ -423,6 +438,39 @@ function save_sendDoc() {
       }
     });
   }
+
+  $("#btn_cancel").click(function() {
+
+      $('#select_product').val(0);
+      $('#select_hospital').val(0);
+      $('#select_subject').val(0);
+      $('#select_contact').val(0);
+
+      $('#select2-select_hospital-container').text("กรุณาเลือก โรงพยาบาล");
+      $('#select2-select_subject-container').text("กรุณาเลือก เรื่อง");
+      $('#select2-select_contact-container').text("กรุณาเลือก ผู้ติดต่อ");
+      $('#select2-select_product-container').text("กรุณาเลือก Product");
+      
+      $('#txt_copy').val("");
+      $('#txt_remark').val("");
+      $("#txt_email").val("");
+      $("#txt_phone").val("");
+      $("#txt_product_center").val("");
+      
+      $("#table_product tbody").empty();
+      $("#table_product_list_document tbody").empty();
+      $("#table_product_docment tbody").empty();
+      objReal_doc.DocID = [];
+      objReal_doc.DocName= [];
+      objReal_doc.versionDoc= [];
+      objReal_doc.rowDoc= [];
+      objReal_doc.product_Doc_ID= [];
+
+      objReal.productID = [];
+      objReal.productName = [];
+
+      console.log(objReal_doc);
+  });
 
 
 
