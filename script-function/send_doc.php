@@ -365,6 +365,10 @@ function save_sendDoc() {
          $('#select_subject').val(0);
          $('#select_contact').val(0);
 
+         $('#select2-select_hospital-container').text("กรุณาเลือก โรงพยาบาล");
+         $('#select2-select_subject-container').text("กรุณาเลือก เรื่อง");
+         $('#select2-select_contact-container').text("กรุณาเลือก ผู้ติดต่อ");
+
          
          $('#txt_copy').val("");
          $('#txt_remark').val("");
