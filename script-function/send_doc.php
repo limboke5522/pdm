@@ -140,6 +140,7 @@
     this.DocName = [];
     this.versionDoc = [];
     this.rowDoc = [];
+    this.product_Doc_ID = [];
   }
 
   function createObj_() {
@@ -194,7 +195,7 @@
     objReal_doc.DocName.splice(index, 1);
     objReal_doc.versionDoc.splice(index, 1);
     objReal_doc.rowDoc.splice(index, 1);
-
+    objReal_doc.product_Doc_ID.splice(index, 1);
     showData_Doc();
     $("#btn_send_"+row).show();
   }
@@ -215,7 +216,7 @@
         var StrTR = "";
         if (!$.isEmptyObject(ObjData)) {
           $.each(ObjData, function(key, value) {
-            var bt = ' <button type="button" class="btn btn-outline-primary  ml-2" id="btn_send_'+key+'"  onclick="add_DocProduct(\'' + key + '\',\'' + value.ID + '\',\'' + value.DocName + '\',\'' + value.version + '\')" >เลือก >> </button>';
+            var bt = ' <button type="button" class="btn btn-outline-primary  ml-2" id="btn_send_'+key+'"  onclick="add_DocProduct(\'' + key + '\',\'' + value.ID + '\',\'' + value.DocName + '\',\'' + value.version + '\',\'' + id_product + '\')" >เลือก >> </button>';
             StrTR += "<tr style='border-radius: 15px 15px 15px 15px;margin-top: 6px;margin-bottom: 6px;'>" +
                     "<td style='width:7%;text-align: center;'>" + (key + 1) + "</td>" +
                     "<td style='width:25%;text-align: left;'>" + value.DocName + "</td>" +
@@ -279,17 +280,144 @@
   });
 
 
-  function add_DocProduct(key,ID,DocName,version) {
+  function add_DocProduct(key,ID,DocName,version,id_product) {
     $("#btn_send_"+key).hide();
 
     objReal_doc.DocID.push(ID);
     objReal_doc.DocName.push(DocName);
     objReal_doc.versionDoc.push(version);
     objReal_doc.rowDoc.push(key);
+    objReal_doc.product_Doc_ID.push(id_product);
     
     showData_Doc();
-console.log(objReal_doc);
+    console.log(objReal_doc);
 
+  }
+
+
+  $("#btn_save_send").click(function() {
+
+    $.confirm({
+      title: 'แจ้งเตือน!',
+      content: 'ต้องการส่งข้อมูล ใช่ หรือ ไม่?',
+      type: 'orange',
+      autoClose: 'cancel|8000',
+      buttons: {
+        cancel:  {text: 'ยกเลิก'},
+        confirm: {
+          btnClass: 'btn-primary',
+          text: 'ตกลง',
+          action: function() {
+            save_sendDoc();
+          }
+        }
+      }
+    });
+});
+
+
+function save_sendDoc() {
+    var select_hospital = $('#select_hospital').val();
+    var select_subject = $('#select_subject').val();
+    var select_contact = $('#select_contact').val();
+    var txt_copy = $('#txt_copy').val();
+    var txt_remark = $('#txt_remark').val();
+    var productID = objReal_doc.product_Doc_ID;
+    var DocID = objReal_doc.DocID;
+
+    var text = "";
+     if (select_hospital == "0") {
+        text = "กรุณาเลือกโรงพยาบาล";
+        showDialogFailed(text);
+        return;
+      }
+
+      if (select_subject == "0") {
+        text = "กรุณาเลือกเรื่องติดต่อ";
+        showDialogFailed(text);
+        return;
+      }
+
+      if (select_contact == "0") {
+        text = "กรุณาเลือกผู้ติดต่อ";
+        showDialogFailed(text);
+        return;
+      }
+
+    $.ajax({
+      url: "process/send_doc.php",
+      type: 'POST',
+      data: {
+        'FUNC_NAME': 'save_sendDoc',
+        'select_hospital': select_hospital,
+        'select_subject': select_subject,
+        'select_contact': select_contact,
+        'txt_copy': txt_copy,
+        'txt_remark': txt_remark,
+        'productID':productID,
+        'DocID':DocID
+      },
+      success: function(result) {
+        showDialogSuccess(result);
+        
+         $('#select_product').val(0);
+         $('#select_hospital').val(0);
+         $('#select_subject').val(0);
+         $('#select_contact').val(0);
+
+         
+         $('#txt_copy').val("");
+         $('#txt_remark').val("");
+         $("#txt_email").val("");
+         $("#txt_phone").val("");
+         $("#txt_product_center").val("");
+         
+         $("#table_product tbody").empty();
+         $("#table_product_list_document tbody").empty();
+         $("#table_product_docment tbody").empty();
+          objReal_doc.DocID = [];
+          objReal_doc.DocName= [];
+          objReal_doc.versionDoc= [];
+          objReal_doc.rowDoc= [];
+          objReal_doc.product_Doc_ID= [];
+
+          objReal.productID = [];
+          objReal.productName = [];
+
+          console.log(objReal_doc);
+      }
+    });
+  }
+
+
+  function showDialogSuccess(text) {
+    $.confirm({
+      title: 'สำเร็จ!',
+      content: text,
+      type: 'green',
+      autoClose: 'close|8000',
+      typeAnimated: true,
+      buttons: {
+        close:  {
+          text: 'ปิด',
+        }
+      }
+    });
+  }
+
+  function showDialogFailed(text) {
+    $.confirm({
+      title: 'ผิดพลาด!',
+      content: text,
+      type: 'red',
+      autoClose: 'close|8000',
+      typeAnimated: true,
+      buttons: {
+        close:  {
+          text: 'ปิด',
+        }
+      }
+    });
   }
 
 

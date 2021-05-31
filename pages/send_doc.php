@@ -37,7 +37,7 @@
                   </div>
 
                   <div class="col-2">
-                    <button type="submit" class="btn btn-success btn-block" id="btn_send">ส่ง</button>
+                    <button type="submit" class="btn btn-success btn-block" id="btn_save_send">ส่ง</button>
                   </div>
 
                 </div>

@@ -15,6 +15,8 @@ if (!empty($_POST['FUNC_NAME'])) {
     showDetail_contact($conn);
   } else if ($_POST['FUNC_NAME'] == 'product_file') {
     product_file($conn);
+  }else if ($_POST['FUNC_NAME'] == 'save_sendDoc') {
+    save_sendDoc($conn);
   }
 }
 
@@ -163,3 +165,58 @@ function product_file($conn)
   mysqli_close($conn);
   die;
 }
+
+
+function save_sendDoc($conn)
+{
+  $select_hospital   = $_POST['select_hospital'];
+  $select_subject    = $_POST['select_subject'];
+  $select_contact    = $_POST['select_contact'];
+  $txt_copy          = $_POST['txt_copy'];
+  $txt_remark        = $_POST['txt_remark'];
+  $productID         = $_POST['productID'];
+  $DocID             = $_POST['DocID'];
+
+  
+  $Sql = "SELECT	LPAD( ( COALESCE ( MAX( CONVERT ( SUBSTRING( SendDocNo, 2, 6 ), UNSIGNED INTEGER )), 0 )+ 1 ), 7, 0 ) AS SendDocNo 
+          FROM
+            send_doc 
+          ORDER BY
+            SendDocNo DESC 
+            LIMIT 1";
+  $meQuery = mysqli_query($conn, $Sql);
+  $row = mysqli_fetch_assoc($meQuery);
+  $SendDocNo = $row['SendDocNo'];
+
+  $query = "  INSERT INTO send_doc 
+              SET CustomerCode = '$select_hospital',
+                  SendDocNo = '$SendDocNo',
+                  Contact_ID = '$select_contact',
+                  Subject = '$select_subject',
+                  Copy_doc = '$txt_copy',
+                  Memo = '$txt_remark',
+                  DocDate = NOW() 
+          ";
+//  mysqli_query($conn, $query);
+
+//  foreach($DocID as $key => $value){
+//   $query1 = "  INSERT INTO send_doc_detail 
+//               SET SendDocNo = '$SendDocNo',
+//               ProductID = '$productID[$key]',
+//               Product_DocID = '$value'
+//           ";
+//           mysqli_query($conn, $query1);
+//  }
+
+
+    $return = "ส่งข้อมูล E-Mail เรียบร้อยแล้ว";
+  
+    // $return = $DocID;
+ 
+  echo ($return);
+  unset($conn);
+  die;
+}
+
+
+
