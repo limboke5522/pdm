@@ -144,6 +144,7 @@
               "</tr>";
           });
         }
+        // $tree = show_DataLeft($rows);
         $('#Data_TableLeft tbody').html(StrTR);
 
       }
