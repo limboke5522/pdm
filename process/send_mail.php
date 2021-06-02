@@ -6,6 +6,7 @@ $mail = new PHPMailer;
 $mail->CharSet = "utf-8";
 $mail->isSMTP();
 $mail->Host = 'smtp.gmail.com';
+// $mail->Host = 'smtp.live.com';
 $mail->Port = 587;
 $mail->SMTPSecure = 'tls';
 $mail->SMTPAuth = true;
@@ -18,15 +19,19 @@ $gmail_password = "a0831529878"; // รหัสผ่าน gmail
 
 $sender = "POSEINT"; // ชื่อผู้ส่ง
 $email_sender = "janekootest@gmail.com"; // เมล์ผู้ส่ง 
-$email_receiver = "janegooa@gmail.com"; // เมล์ผู้รับ ***
+$email_receiver = "janekoo_@hotmail.com"; // เมล์ผู้รับ ***
 
-$subject = "สวัสดีครับ789"; // หัวข้อเมล์
+$subject = "ทดสอบการส่ง E-Mail Test19"; // หัวข้อเมล์
+$file_name="รายงาน.pdf";
+
+$filename_TH = iconv("UTF-8", "TIS-620", $file_name);
 
 
 $mail->Username = $gmail_username;
 $mail->Password = $gmail_password;
 $mail->setFrom($email_sender, $sender);
 $mail->addAddress($email_receiver);
+$mail->addAttachment('file/'.$filename_TH, $file_name);// แทรกไฟล์ *****
 $mail->Subject = $subject;
 
 $email_content = "
@@ -34,37 +39,10 @@ $email_content = "
 	<html>
 		<head>
 			<meta charset=utf-8'/>
-			<title>ทดสอบการส่ง Email</title>
+			<title></title>
 		</head>
 		<body>
-			<h1 style='background: #3b434c;padding: 10px 0 20px 10px;margin-bottom:10px;font-size:30px;color:white;' >
-				<img src='http://pngimg.com/uploads/apple_logo/apple_logo_PNG19670.png' style='width: 80px;'>
-				APPLE
-			</h1>
-			<div style='padding:20px;'>
-				<div style='text-align:center;margin-bottom:50px;'>
-					<img src='http://cdn.wccftech.com/wp-content/uploads/2017/02/Apple-logo.jpg' style='width:100%' />					
-				</div>
-				<div>				
-					<h2>การกู้รหัสผ่าน สำหรับ Apple : <strong style='color:#0000ff;'></strong></h2>
-					<a href='#' target='_blank'>
-						<h1><strong style='color:#3c83f9;'> >> กรุณาคลิ๊กที่นี่ เพื่อตั้งรหัสผ่านใหม่<< </strong> </h1>
-					</a>
-				</div>
-				<div style='margin-top:30px;'>
-					<hr>
-					<address>
-						<h4>ติดต่อสอบถาม</h4>
-						<p>Apple Thailand</p>
-						<p>www.facebook.com/apple</p>
-					</address>
-				</div>
-			</div>
-			<div style='background: #3b434c;color: #a2abb7;padding:30px;'>
-				<div style='text-align:center'> 
-					2016 © Apple Thailand
-				</div>
-			</div>
+		<h1>test E-Mail Poseint</h1>
 		</body>
 	</html>
 ";
