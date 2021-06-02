@@ -15,7 +15,7 @@
 
             <div class="card">
               <div class="card-body">
-
+                <form>
                 <div class="row">
 
                   <div class="col-5">
@@ -82,9 +82,9 @@
 
                   <div class="col-5">
                     <div class="form-group row">
-                      <label for="txt_copy" class="col-sm-2 col-form-label">สำเนา</label>
+                      <label for="email" class="col-sm-2 col-form-label">สำเนา</label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control" id="txt_copy" placeholder="สำเนา">
+                        <input type="email" class="form-control" id="email" name="email" placeholder="สำเนา">
                       </div>
                     </div>
                   </div>
@@ -104,7 +104,7 @@
                     </div>
                   </div>
                 </div>
-
+                </form>
               </div>
             </div>
 

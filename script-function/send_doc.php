@@ -335,7 +335,7 @@ function save_sendDoc() {
     var select_hospital = $('#select_hospital').val();
     var select_subject = $('#select_subject').val();
     var select_contact = $('#select_contact').val();
-    var txt_copy = $('#txt_copy').val();
+    var email = $('#email').val();
     var txt_remark = $('#txt_remark').val();
     var productID = objReal_doc.product_Doc_ID;
     var DocID = objReal_doc.DocID;
@@ -367,7 +367,7 @@ function save_sendDoc() {
         'select_hospital': select_hospital,
         'select_subject': select_subject,
         'select_contact': select_contact,
-        'txt_copy': txt_copy,
+        'email': email,
         'txt_remark': txt_remark,
         'productID':productID,
         'DocID':DocID
@@ -385,7 +385,7 @@ function save_sendDoc() {
          $('#select2-select_contact-container').text("กรุณาเลือก ผู้ติดต่อ");
          $('#select2-select_product-container').text("กรุณาเลือก Product");
          
-         $('#txt_copy').val("");
+         $('#email').val("");
          $('#txt_remark').val("");
          $("#txt_email").val("");
          $("#txt_phone").val("");
@@ -451,7 +451,7 @@ function save_sendDoc() {
       $('#select2-select_contact-container').text("กรุณาเลือก ผู้ติดต่อ");
       $('#select2-select_product-container').text("กรุณาเลือก Product");
       
-      $('#txt_copy').val("");
+      $('#email').val("");
       $('#txt_remark').val("");
       $("#txt_email").val("");
       $("#txt_phone").val("");

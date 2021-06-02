@@ -172,7 +172,7 @@ function save_sendDoc($conn)
   $select_hospital   = $_POST['select_hospital'];
   $select_subject    = $_POST['select_subject'];
   $select_contact    = $_POST['select_contact'];
-  $txt_copy          = $_POST['txt_copy'];
+  $email             = $_POST['email'];
   $txt_remark        = $_POST['txt_remark'];
   $productID         = $_POST['productID'];
   $DocID             = $_POST['DocID'];
@@ -193,7 +193,7 @@ function save_sendDoc($conn)
                   SendDocNo = '$SendDocNo',
                   Contact_ID = '$select_contact',
                   Subject = '$select_subject',
-                  Copy_doc = '$txt_copy',
+                  Copy_doc = '$email',
                   Memo = '$txt_remark',
                   DocDate = NOW() 
           ";
