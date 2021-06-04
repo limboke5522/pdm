@@ -2,6 +2,13 @@
 <?php
 header('Content-Type: text/html; charset=utf-8');
 
+// use PHPMailer\PHPMailer\PHPMailer;
+// use PHPMailer\PHPMailer\Exception;
+
+// require '/root/PHPMailer/src/Exception.php';
+// require '/root/PHPMailer/src/PHPMailer.php';
+// require '/root/PHPMailer/src/SMTP.php';
+
 $mail = new PHPMailer;
 $mail->CharSet = "utf-8";
 $mail->isSMTP();
@@ -19,9 +26,9 @@ $gmail_password = "a0831529878"; // รหัสผ่าน gmail
 
 $sender = "POSEINT"; // ชื่อผู้ส่ง
 $email_sender = "janekootest@gmail.com"; // เมล์ผู้ส่ง 
-$email_receiver = "janekoo_@hotmail.com"; // เมล์ผู้รับ ***
+$email_receiver = "janegooa@gmail.com"; // เมล์ผู้รับ ***
 
-$subject = "ทดสอบการส่ง E-Mail Test19"; // หัวข้อเมล์
+$subject = "ทดสอบการส่ง E-Mail Test22"; // หัวข้อเมล์
 $file_name="รายงาน.pdf";
 
 $filename_TH = iconv("UTF-8", "TIS-620", $file_name);
@@ -31,7 +38,9 @@ $mail->Username = $gmail_username;
 $mail->Password = $gmail_password;
 $mail->setFrom($email_sender, $sender);
 $mail->addAddress($email_receiver);
-$mail->addAttachment('file/'.$filename_TH, $file_name);// แทรกไฟล์ *****
+$mail->addAttachment('file/'.$filename_TH, $file_name."1");// แทรกไฟล์ *****
+$mail->addAttachment('file/'.$filename_TH, $file_name."2");// แทรกไฟล์ *****
+$mail->addAttachment('file/'.$filename_TH, $file_name."3");// แทรกไฟล์ *****
 $mail->Subject = $subject;
 
 $email_content = "
