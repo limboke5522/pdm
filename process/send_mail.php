@@ -1,13 +1,61 @@
 <?php require("../phpmailer/PHPMailerAutoload.php");?>
 <?php
 header('Content-Type: text/html; charset=utf-8');
+require '../connect/connect.php';
 
-// use PHPMailer\PHPMailer\PHPMailer;
-// use PHPMailer\PHPMailer\Exception;
+$sendDocNo = $_POST['sendDocNo'];
+$email = $_POST['email'];
 
-// require '/root/PHPMailer/src/Exception.php';
-// require '/root/PHPMailer/src/PHPMailer.php';
-// require '/root/PHPMailer/src/SMTP.php';
+$Sql_item = "SELECT
+				send_doc_detail.ProductID,
+				product.ProductName,
+				purpose.Purpose 
+				FROM
+				send_doc
+				INNER JOIN send_doc_detail ON send_doc.SendDocNo = send_doc_detail.SendDocNo
+				INNER JOIN product ON send_doc_detail.ProductID = product.ID
+				INNER JOIN purpose ON send_doc.`Subject` = purpose.ID 
+				WHERE
+				send_doc.SendDocNo = '$sendDocNo' 
+				GROUP BY
+				product.ID 
+				ORDER BY
+				product.ProductName ASC ";
+
+$meQuery_item = mysqli_query($conn, $Sql_item);
+$count=0;
+while ($Result = mysqli_fetch_assoc($meQuery_item)) {
+	$Purpose = 	$Result['Purpose'];
+	$ProductID[$count] = 	$Result['ProductID'];
+	$ProductName[$count] = 	$Result['ProductName'];
+
+	$count++;
+}
+
+$Sql_item = "SELECT
+				productdoc.ID_FileDoc,
+				docrevision.fileName,
+				docrevision.version,
+				product.ProductName 
+				FROM
+				send_doc
+				INNER JOIN send_doc_detail ON send_doc.SendDocNo = send_doc_detail.SendDocNo
+				INNER JOIN productdoc ON send_doc_detail.Product_DocID = productdoc.ID
+				INNER JOIN docrevision ON productdoc.ID_FileDoc = docrevision.ID
+				INNER JOIN product ON docrevision.productID = product.ID 
+				WHERE
+				send_doc.SendDocNo = '$sendDocNo'
+				ORDER BY  product.ProductName ASC ";
+
+$meQuery_item = mysqli_query($conn, $Sql_item);
+$count_file=0;
+while ($Result = mysqli_fetch_assoc($meQuery_item)) {
+	$ProductNameFile[$count_file] = $Result['ProductName'];
+	$ID_FileDoc[$count_file] = 	$Result['ID_FileDoc'];
+	$fileName[$count_file] = 	$Result['fileName'];
+	$count_file++;
+}
+
 
 $mail = new PHPMailer;
 $mail->CharSet = "utf-8";
@@ -26,21 +74,25 @@ $gmail_password = "a0831529878"; // รหัสผ่าน gmail
 
 $sender = "POSEINT"; // ชื่อผู้ส่ง
 $email_sender = "janekootest@gmail.com"; // เมล์ผู้ส่ง 
-$email_receiver = "janegooa@gmail.com"; // เมล์ผู้รับ ***
+$email_receiver = $email; // เมล์ผู้รับ ***
 
-$subject = "ทดสอบการส่ง E-Mail Test22"; // หัวข้อเมล์
-$file_name="รายงาน.pdf";
+$subject = $Purpose."7"; // หัวข้อเมล์
 
-$filename_TH = iconv("UTF-8", "TIS-620", $file_name);
 
 
 $mail->Username = $gmail_username;
 $mail->Password = $gmail_password;
 $mail->setFrom($email_sender, $sender);
 $mail->addAddress($email_receiver);
-$mail->addAttachment('file/'.$filename_TH, $file_name."1");// แทรกไฟล์ *****
-$mail->addAttachment('file/'.$filename_TH, $file_name."2");// แทรกไฟล์ *****
-$mail->addAttachment('file/'.$filename_TH, $file_name."3");// แทรกไฟล์ *****
+$c=1;
+for($j=0;$j<$count_file;$j++){
+	$file_name= $fileName[$j];
+	$producname = $ProductNameFile[$j];
+	$filename_TH = iconv("UTF-8", "TIS-620", $file_name);
+	$mail->addAttachment('file/'.$filename_TH, $c.".".$producname."_".$file_name);// แทรกไฟล์ *****
+	$c++;
+}
+
 $mail->Subject = $subject;
 
 $email_content = "
@@ -50,17 +102,21 @@ $email_content = "
 			<meta charset=utf-8'/>
 			<title></title>
 		</head>
-		<body>
-		<h1>test E-Mail Poseint</h1>
-		</body>
+		<body><h1>รายการสินค้า</h1>";
+$NO=1;
+for($i=0;$i<$count;$i++){
+	$email_content .="<h4>".$NO.". ".$ProductName[$i]."</h4>";
+	$NO++;
+}
+	
+
+$email_content .="	</body>
 	</html>
 ";
 
 //  ถ้ามี email ผู้รับ
 if($email_receiver){
 	$mail->msgHTML($email_content);
-
-
 	if (!$mail->send()) {  // สั่งให้ส่ง email
 
 		// กรณีส่ง email ไม่สำเร็จ
@@ -68,7 +124,7 @@ if($email_receiver){
 		echo $mail->ErrorInfo; // ข้อความ รายละเอียดการ error
 	}else{
 		// กรณีส่ง email สำเร็จ
-		echo "ระบบได้ส่งข้อความไปเรียบร้อย";
+		echo "ระบบได้ E-Mail ไปเรียบร้อยลแล้ว";
 	}	
 }
 

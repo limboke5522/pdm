@@ -176,7 +176,8 @@ function save_sendDoc($conn)
   $txt_remark        = $_POST['txt_remark'];
   $productID         = $_POST['productID'];
   $DocID             = $_POST['DocID'];
-
+  $Copy_doc             = $_POST['Copy_doc'];
+  
   
   $Sql = "SELECT	LPAD( ( COALESCE ( MAX( CONVERT ( SUBSTRING( SendDocNo, 2, 6 ), UNSIGNED INTEGER )), 0 )+ 1 ), 7, 0 ) AS SendDocNo 
           FROM
@@ -193,9 +194,10 @@ function save_sendDoc($conn)
                   SendDocNo = '$SendDocNo',
                   Contact_ID = '$select_contact',
                   Subject = '$select_subject',
-                  Copy_doc = '$email',
+                  Copy_doc = '$Copy_doc',
                   Memo = '$txt_remark',
-                  DocDate = NOW() 
+                  DocDate = NOW(),
+                  email = '$email'
           ";
  mysqli_query($conn, $query);
 
@@ -209,7 +211,7 @@ function save_sendDoc($conn)
  }
 
 
-    $return = "ส่งข้อมูล E-Mail เรียบร้อยแล้ว";
+    $return = $SendDocNo;
   
     // $return = $DocID;
  

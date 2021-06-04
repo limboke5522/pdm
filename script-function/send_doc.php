@@ -335,7 +335,8 @@ function save_sendDoc() {
     var select_hospital = $('#select_hospital').val();
     var select_subject = $('#select_subject').val();
     var select_contact = $('#select_contact').val();
-    var email = $('#email').val();
+    var email = $('#txt_email').val();
+    var Copy_doc = $('#Copy_doc').val();
     var txt_remark = $('#txt_remark').val();
     var productID = objReal_doc.product_Doc_ID;
     var DocID = objReal_doc.DocID;
@@ -368,11 +369,36 @@ function save_sendDoc() {
         'select_subject': select_subject,
         'select_contact': select_contact,
         'email': email,
+        'Copy_doc': Copy_doc,
         'txt_remark': txt_remark,
         'productID':productID,
         'DocID':DocID
       },
       success: function(result) {
+          send_mail(result,email); 
+      }
+    });
+  }
+
+
+  function send_mail(sendDocNo,email) {
+// alert(sendDocNo+"|"+email);
+    swal({
+            title: 'กรุณารอสักครู่',
+            text: 'ระบบกำลังประมวลผล',
+            allowOutsideClick: false
+        })
+        swal.showLoading();
+
+    $.ajax({
+      url: "process/send_mail.php",
+      type: 'POST',
+      data: {
+        'email': email,
+        'sendDocNo': sendDocNo
+      },
+      success: function(result) {
+        swal.close();
         showDialogSuccess(result);
 
          $('#select_product').val(0);
@@ -390,7 +416,7 @@ function save_sendDoc() {
          $("#txt_email").val("");
          $("#txt_phone").val("");
          $("#txt_product_center").val("");
-         
+         $('#Copy_doc').val("");
          $("#table_product tbody").empty();
          $("#table_product_list_document tbody").empty();
          $("#table_product_docment tbody").empty();
@@ -407,7 +433,6 @@ function save_sendDoc() {
       }
     });
   }
-
 
   function showDialogSuccess(text) {
     $.confirm({
@@ -456,7 +481,7 @@ function save_sendDoc() {
       $("#txt_email").val("");
       $("#txt_phone").val("");
       $("#txt_product_center").val("");
-      
+      $('#Copy_doc').val("");
       $("#table_product tbody").empty();
       $("#table_product_list_document tbody").empty();
       $("#table_product_docment tbody").empty();

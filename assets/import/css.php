@@ -26,7 +26,7 @@
 <link rel="stylesheet" href="assets/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
 <link rel="stylesheet" href="assets/datepicker/dist/css/datepicker.min.css">
 <link rel="stylesheet" href="assets/plugins/chart.js/Chart.min.css">
-
+<link rel="stylesheet" href="assets/dist/css/swap.css">
 <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300&display=swap" rel="stylesheet">
 <style>
     .bg_tableAll{
