@@ -124,7 +124,23 @@
 
                  </li>
 
-
+                 <li class="nav-item has-treeview " id="li_notification">
+                     <a href="#" class="nav-link " id="a_notification">
+                         <i class="nav-icon fas fa-copy"></i>
+                         <p>
+                             การแจ้งเตือน
+                             <i class="right fas fa-angle-left"></i>
+                         </p>
+                     </a>
+                     <ul class="nav nav-treeview ul_notification" style="display: none;">
+                         <li class="nav-item">
+                             <a href="index.php?page=notification_doc" class="nav-link" id="notification_doc">
+                                 <i class="fas fa-copy"></i>
+                                 <p>Notifications</p>
+                             </a>
+                         </li>
+                     </ul>
+                 </li>
 
 
 

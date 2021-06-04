@@ -86,7 +86,9 @@ $page = isset($_GET['page']) ? $_GET['page'] : 'upload_doc';
                 case "purpose":
                     _groupMenu = "system";
                     break
-
+                case "notification_doc":
+                    _groupMenu = "notification";
+                    break
             }
 
             $(`#li_${_groupMenu}`).addClass("menu-open");
