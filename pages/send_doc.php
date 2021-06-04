@@ -15,7 +15,7 @@
 
             <div class="card">
               <div class="card-body">
-                <form>
+                
                 <div class="row">
 
                   <div class="col-5">
@@ -104,7 +104,7 @@
                     </div>
                   </div>
                 </div>
-                </form>
+                
               </div>
             </div>
 
