@@ -23,7 +23,7 @@
 <script src="assets/plugins/select2/js/select2.min.js"></script>
 <script src="assets/plugins/chart.js/Chart.min.js"></script>
 <script src="assets/plugins/chart.js/Chart.bundle.min.js"></script>
-
+<script src="assets/dist/js/sweetalert2.min.js"></script>
 <script src="assets/plugins/jquery-confirm-v3.3.4/js/jquery-confirm.js"></script>
 
 <!-- OPTIONAL SCRIPTS -->
