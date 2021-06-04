@@ -36,7 +36,7 @@ function showData_exp($conn)
                     documentlist
                     INNER JOIN docrevision ON documentlist.ID = docrevision.ID
                   WHERE
-                    DATEDIFF(documentlist.ValidDate,DATE(NOW())) >15
+                    DATEDIFF(documentlist.ValidDate,DATE(NOW())) > 15
                   AND 
                   documentlist.DocName LIKE '%$Search_txt%'
           ";
@@ -64,14 +64,14 @@ function showData_exp2($conn)
                     documentlist.DocNumber,
                     documentlist.DocName,
                     DATE_FORMAT(documentlist.ValidDate ,'%d-%m-%Y') AS ValidDate,
-                    DATEDIFF(documentlist.ValidDate,DATE(NOW())) AS diffday,
+                    DATEDIFF(DATE(NOW()),documentlist.ValidDate) AS diffdayexp,
 
                     docrevision.version
                   FROM
                     documentlist
                     INNER JOIN docrevision ON documentlist.ID = docrevision.ID
                   WHERE
-                    DATEDIFF(documentlist.ValidDate,DATE(NOW())) >15
+                  DATEDIFF(DATE(NOW()),documentlist.ValidDate) <= 0
                   AND 
                   documentlist.DocName LIKE '%$Search_txt%'
           ";

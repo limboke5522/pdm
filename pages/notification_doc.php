@@ -84,7 +84,7 @@
 											<div  class="col-7 d-flex align-items-center">
 												<div  class="numbers" >
 													<p class="card-category">เอกสารหมดอายุ</p>
-													<h4 class="card-title">1303</h4>
+													<h4 class="card-title" id="exp2"></h4>
 												</div>
 											</div>
 										</div>
