@@ -48,7 +48,7 @@
                     <div class="form-group row">
                       <label for="select_contact" class="col-sm-2 col-form-label">ผู้ติดต่อ</label>
                       <div class="col-sm-10">
-                        <select class="form-control select2" id="select_contact" placeholder="ผู้ติดต่อ"></select>
+                        <select class="form-control select2" id="select_contact" placeholder="ผู้ติดต่อ "></select>
                       </div>
                     </div>
                   </div>
@@ -73,7 +73,7 @@
 
                   <div class="col-5">
                     <div class="form-group row">
-                      <label for="txt_phone" class="col-sm-2 col-form-label">โทร</label>
+                      <label for="txt_phone" class="col-sm-2 col-form-label">โทร </label>
                       <div class="col-sm-10">
                         <input type="text" class="form-control" id="txt_phone" placeholder="โทร">
                       </div>
