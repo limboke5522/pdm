@@ -63,23 +63,17 @@ function showData_exp2($conn)
   $Search_txt = $_POST["txtSearch"];
 
   $Sql_product = "SELECT
-                    documentlist.ID,
-                    documentlist.DocNumber,
-                    documentlist.DocName,
-                    DATE_FORMAT(documentlist.ValidDate ,'%d-%m-%Y') AS ValidDate,
-                    DATEDIFF(DATE(documentlist.ValidDate,DATE(NOW())) AS diffdayexp,
-
-                    docrevision.version
-                  FROM
-                    documentlist
-                    INNER JOIN docrevision ON documentlist.ID = docrevision.ID
-                  WHERE
-                  DATEDIFF(DATE(NOW()),documentlist.ValidDate) < 0
-
-
-
-                  GROUP BY documentlist.DocName AND docrevision.version
-                  ORDER BY DATEDIFF(documentlist.ValidDate,DATE(NOW())) ASC
+      documentlist.DocName,
+      documentlist.ValidDate,
+      docrevision.version,
+      DATE_FORMAT(documentlist.ValidDate ,'%d-%m-%Y') AS ValidDate,
+      DATEDIFF(documentlist.ValidDate, DATE(NOW())) AS diffdayexp
+      FROM
+      documentlist
+      INNER JOIN docrevision ON documentlist.ID = docrevision.DocumentID
+      WHERE DATEDIFF(documentlist.ValidDate, DATE(NOW())) < 0
+      GROUP BY DocName,version
+      ORDER BY diffdayexp ASC
           ";
 
   $meQuery1 = mysqli_query($conn, $Sql_product);

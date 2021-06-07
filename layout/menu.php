@@ -27,7 +27,7 @@
                          <li class="nav-item">
                              <a href="index.php?page=notification_doc" class="nav-link" id="notification_doc">
                                  <i class="fas fa-copy"></i>
-                                 <p>Notifications</p>
+                                 <p>การแจ้งเตือน</p>
                              </a>
                          </li>
                      </ul>

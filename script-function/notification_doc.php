@@ -2,6 +2,7 @@
 $(function() {
   // showData_exp();
   // showData_exp2();
+  $('#tb_contact2').hide();
   var d = new Date();
 
   var month = d.getMonth()+1;
@@ -54,7 +55,11 @@ $(function() {
         // $tree = show_DataLeft($rows);
         $('#exp').text(count);
         $('#exp2').text("");
+
+        $('#tb_contact').show();
         $('#contact_Table tbody').html(StrTR);
+
+        $('#tb_contact2').hide();
 
       }
     });
@@ -70,25 +75,25 @@ function showData_exp2() {
       url: "process/notification_doc.php",
       type: 'POST',
       data: {
-        'FUNC_NAME': 'showData_exp',
+        'FUNC_NAME': 'showData_exp2',
         'txtSearch': txtSearch,
       },
       success: function(result) {
         var ObjData = JSON.parse(result);
         var count = 0;
-        var StrTR = "";
+        var StrTR2 = "";
         if (!$.isEmptyObject(ObjData)) {
           $.each(ObjData, function(key, value) {
 
 
-            var chkDoc = "<input class='form-control chk_docLeft' type='radio'  name='id_doc' id='id_doc" + key + "' value='" + value.ID + "'  style='width: 50%;'>";
+            var chkDoc = "<input class='form-control chk_docLeft' type='radio'  name='id_doc2' id='id_doc2" + key + "' value='" + value.ID + "'  style='width: 50%;'>";
 
-            StrTR += "<tr style='border-radius: 15px 15px 15px 15px;margin-top: 6px;margin-bottom: 6px;'>" +
+            StrTR2 += "<tr style='border-radius: 15px 15px 15px 15px;margin-top: 6px;margin-bottom: 6px;'>" +
                       "<td style='width:7%;text-align: center;'><center>" + chkDoc + "</center></td>" +
                       "<td style='width:5%; text-align: center;'>" + (key + 1) + "</td>" +
                       "<td style='width:20%;text-align: center;'>" + value.DocName + "</td>" +
                       "<td style='width:20%;text-align: center;'>" + value.version + "</td>" +
-                      "<td style='width:20%;text-align: center;'>" + value.diffday + "</td>" +
+                      "<td style='width:20%;text-align: center;'>" + value.diffdayexp + "</td>" +
                       "</tr>";
 
                       count++;
@@ -97,8 +102,11 @@ function showData_exp2() {
         // $tree = show_DataLeft($rows);
         $('#exp').text("");
         $('#exp2').text(count);
-        
-        $('#contact_Table tbody').html(StrTR);
+
+        $('#tb_contact').hide();
+
+        $('#tb_contact2').show();
+        $('#contact_Table2 tbody').html(StrTR2);
 
       }
     });

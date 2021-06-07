@@ -63,7 +63,9 @@
 											<div  class="col-7 d-flex align-items-center">
 												<div  class="numbers"  >
 													<p class="card-category">เอกสารใกล้หมดอายุ</p>
-													<h4 class="card-title" id="exp" ></h4>
+                           <h2 style="text-align: center" id="exp" ></h2>
+
+													
 												</div>
 											</div>
 
@@ -84,7 +86,7 @@
 											<div  class="col-7 d-flex align-items-center">
 												<div  class="numbers" >
 													<p class="card-category">เอกสารหมดอายุ</p>
-													<h4 class="card-title" id="exp2"></h4>
+													<h2 style="text-align: center" id="exp2"></h2>
 												</div>
 											</div>
 										</div>
@@ -126,6 +128,27 @@
               </div>
 
             </div>
+
+            <div class="row mt-2 card-body table-responsive p-0" id="tb_contact2" style="height: 500px;max-height: 500px;overflow-y: auto;" >
+              <div class="col-6">
+                <table id="contact_Table2" class="table table-bordered table-hover w-100 table-head-fixed">
+                  <thead>
+                    <tr class="text-center">
+                      <th style="width: 5%;" class="bg_tableAll"></th>
+                      <th style="width: 5%;" class="bg_tableAll">ลำดับ</th>
+                      <th class="bg_tableAll">ชื่อเอกสาร</th>
+                      <th class="bg_tableAll">Version</th>
+                      <th class="bg_tableAll">จำนวนวันหมดอายุ</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+
+                  </tbody>
+                </table>
+              </div>
+
+            </div>
+
             <hr>
 
 
