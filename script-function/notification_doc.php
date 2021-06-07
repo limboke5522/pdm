@@ -1,7 +1,7 @@
 <script>
 $(function() {
-  showData_exp();
-  showData_exp2();
+  // showData_exp();
+  // showData_exp2();
   var d = new Date();
 
   var month = d.getMonth()+1;
@@ -27,8 +27,8 @@ $(function() {
       data: {
         'FUNC_NAME': 'showData_exp',
         'txtSearch': txtSearch,
-        'txt_Sdate_doc': $("#txt_Sdate_doc").val(),
-        'txt_Edate_doc': $("#txt_Edate_doc").val()
+        'txt_Sdate_doc': txt_Sdate_doc,
+        'txt_Edate_doc': txt_Edate_doc
       },
       success: function(result) {
         var ObjData = JSON.parse(result);
@@ -53,7 +53,7 @@ $(function() {
         }
         // $tree = show_DataLeft($rows);
         $('#exp').text(count);
-        
+        $('#exp2').text("");
         $('#contact_Table tbody').html(StrTR);
 
       }
@@ -99,6 +99,7 @@ function showData_exp2() {
            });
         }
         // $tree = show_DataLeft($rows);
+        $('#exp').text("");
         $('#exp2').text(count);
         
         $('#contact_Table tbody').html(StrTR);

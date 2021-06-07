@@ -107,7 +107,7 @@
             </div>
 
 
-            <div class="row mt-2 card-body table-responsive p-0" id="tb_contact" style="height: 420px;max-height: 350px;overflow-y: auto;">
+            <div class="row mt-2 card-body table-responsive p-0" id="tb_contact" style="height: 500px;max-height: 500px;overflow-y: auto;">
               <div class="col-6">
                 <table id="contact_Table" class="table table-bordered table-hover w-100 table-head-fixed">
                   <thead>
