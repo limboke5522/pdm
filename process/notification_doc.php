@@ -61,36 +61,24 @@ function showData_exp($conn)
 function showData_exp2($conn)
 {
   $Search_txt = $_POST["txtSearch"];
-  
-  $txt_Sdate_doc = $_POST["txt_Sdate_doc"];
-  $txt_Edate_doc = $_POST["txt_Edate_doc"];
-
-  $txt_Sdate_doc = explode("-", $txt_Sdate_doc);
-  $txt_Sdate_doc = $txt_Sdate_doc[2] .'-'. $txt_Sdate_doc[1] .'-'. $txt_Sdate_doc[0];
-
-  $txt_Edate_doc = explode("-", $txt_Edate_doc);
-  $txt_Edate_doc = $txt_Edate_doc[2] .'-'. $txt_Edate_doc[1] .'-'. $txt_Edate_doc[0];
-
 
   $Sql_product = "SELECT
                     documentlist.ID,
                     documentlist.DocNumber,
                     documentlist.DocName,
                     DATE_FORMAT(documentlist.ValidDate ,'%d-%m-%Y') AS ValidDate,
-                    DATEDIFF(DATE(NOW()),documentlist.ValidDate) AS diffdayexp,
+                    DATEDIFF(DATE(documentlist.ValidDate,DATE(NOW())) AS diffdayexp,
 
                     docrevision.version
                   FROM
                     documentlist
                     INNER JOIN docrevision ON documentlist.ID = docrevision.ID
                   WHERE
-                  DATEDIFF(DATE(NOW()),documentlist.ValidDate) <= 0
+                  DATEDIFF(DATE(NOW()),documentlist.ValidDate) < 0
 
-                  AND documentlist.ValidDate BETWEEN '$txt_Sdate_doc' AND '$txt_Edate_doc'
 
-                  AND 
-                  documentlist.DocName LIKE '%$Search_txt%'
 
+                  GROUP BY documentlist.DocName AND docrevision.version
                   ORDER BY DATEDIFF(documentlist.ValidDate,DATE(NOW())) ASC
           ";
 

@@ -65,8 +65,6 @@ $(function() {
 // show
 function showData_exp2() {
     var  txtSearch = $('#txtSearch').val();
-    var  txt_Sdate_doc = $('#txt_Sdate_doc').val();
-    var  txt_Edate_doc = $('#txt_Edate_doc').val();
 
     $.ajax({
       url: "process/notification_doc.php",
@@ -74,8 +72,6 @@ function showData_exp2() {
       data: {
         'FUNC_NAME': 'showData_exp',
         'txtSearch': txtSearch,
-        'txt_Sdate_doc': $("#txt_Sdate_doc").val(),
-        'txt_Edate_doc': $("#txt_Edate_doc").val()
       },
       success: function(result) {
         var ObjData = JSON.parse(result);

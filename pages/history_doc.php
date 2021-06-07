@@ -62,6 +62,7 @@
                       <th  class="bg_tableAll" style="width: 20%;">วัตถุประสงค์</th>
                       <th  class="bg_tableAll" style="width: 20%;">ผู้ติดต่อ</th>
                       <th  class="bg_tableAll" style="width: 15%;">Email</th>
+                      <th  class="bg_tableAll" style="width: 15%;">Preview</th>
                     </tr>
                   </thead>
                   <tbody>
