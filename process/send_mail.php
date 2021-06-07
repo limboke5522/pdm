@@ -76,7 +76,7 @@ $sender = "POSEINT"; // ชื่อผู้ส่ง
 $email_sender = "janekootest@gmail.com"; // เมล์ผู้ส่ง 
 $email_receiver = $email; // เมล์ผู้รับ ***
 
-$subject = $Purpose."7"; // หัวข้อเมล์
+$subject = $Purpose; // หัวข้อเมล์
 
 
 
