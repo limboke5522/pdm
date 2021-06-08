@@ -154,7 +154,7 @@
 
               <div class="col-4">
                 <div class="form-group row">
-                  <label for="txt_product_center" class="col-sm-3 col-form-label">ชื่อสินค้า</label>
+                  <label for="txt_product_center" class="col-sm-2 col-form-label">ชื่อสินค้า</label>
                   <div class="col-sm-9">
                     <input type="text" class="form-control" id="txt_product_center" placeholder="ชื่อสินค้า" disabled>
                   </div>
@@ -167,6 +167,7 @@
                           <th class="bg_tableAll">ลำดับ</th>
                           <th class="bg_tableAll">เอกสาร</th>
                           <th class="bg_tableAll">version</th>
+                          <th class="bg_tableAll">Preview</th>
                           <th class="bg_tableAll"><br></th>
                         </tr>
                       </thead>

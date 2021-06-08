@@ -141,6 +141,24 @@ function product_file($conn)
   $id_product = $_POST["id_product"];
 
   $Sql = "SELECT
+            docrevision.DocumentID 
+          FROM
+            productdoc
+            INNER JOIN docrevision ON productdoc.ID_FileDoc = docrevision.ID
+            INNER JOIN documentlist ON docrevision.DocumentID = documentlist.ID 
+          WHERE
+            productdoc.ProductID = '$id_product' 
+          GROUP BY
+            docrevision.DocumentID 
+          ORDER BY
+            documentlist.DocName ASC,
+            docrevision.version DESC ";
+
+  $meQuery = mysqli_query($conn, $Sql);
+  while ($row = mysqli_fetch_assoc($meQuery)) {
+    $DocumentID = $row['DocumentID'];
+
+    $Sql_2 = "SELECT
               docrevision.fileName,
               docrevision.version,
               productdoc.ID,
@@ -153,11 +171,15 @@ function product_file($conn)
               INNER JOIN documentlist ON docrevision.DocumentID = documentlist.ID 
             WHERE
               productdoc.ProductID = '$id_product'
-            ORDER BY documentlist.DocName ASC,docrevision.version ASC ";
+            AND productdoc.DocumentID='$DocumentID'
+            ORDER BY docrevision.version DESC
+            LIMIT 1 ";
 
-  $meQuery = mysqli_query($conn, $Sql);
-  while ($row = mysqli_fetch_assoc($meQuery)) {
-    $return[] = $row;
+    $meQuery2 = mysqli_query($conn, $Sql_2);
+    while ($row2 = mysqli_fetch_assoc($meQuery2)) {
+      $return[] = $row2;
+    }
+    
   }
 
 
