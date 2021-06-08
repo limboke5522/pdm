@@ -1,4 +1,10 @@
 <script>
+
+// <html>
+// <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+// <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+// </html>
+
   // userID = "";
   $(function() {
     selection_Product();
@@ -115,6 +121,7 @@
   // show
   function show_DataLeft() {
     var  txtSearch = $('#txtSearch').val();
+    
 
     $.ajax({
       url: "process/upload_doc.php",
@@ -132,11 +139,11 @@
 
 
             var chkDoc = "<input class='form-control chk_docLeft' type='radio'  name='id_docLeft' id='id_docLeft" + key + "' value='" + value.ID + "'  style='width: 50%;'>";
-
+            var search = "<a href='#' value='"+value.ID+"' id='icon_search' class='fa fa-search'> ";
             StrTR += "<tr style='border-radius: 15px 15px 15px 15px;margin-top: 6px;margin-bottom: 6px;'>" +
               "<td style='width:10%;text-align: center;'><center>" + chkDoc + "</center></td>" +
               "<td style='width:5%; text-align: center;'>" + (key + 1) + "</td>" +
-              "<td style='width:20%;text-align: center;'>" + value.DocName + "</td>" +
+              "<td style='width:20%;text-align: center;'>" + value.DocName +" "+ search + "</td>" +
               "<td style='width:20%;text-align: center;'>" + value.DocNumber + "</td>" +
               "<td style='width:20%;text-align: center;'>" + value.version + "</td>" +
               "<td style='width:20%;text-align: center;'>" + value.UploadDate + "</td>" +
