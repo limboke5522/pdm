@@ -53,14 +53,17 @@
                     </div>
                   </div>
 
+
                   <div class="col-5">
                     <div class="form-group row">
-                      <label for="txt_email" class="col-sm-2 col-form-label">Email</label>
+                      <label for="txt_phone" class="col-sm-2 col-form-label">เบอร์โทร </label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control" id="txt_email" placeholder="Email">
+                        <input type="text" class="form-control" id="txt_phone" placeholder="โทร">
                       </div>
                     </div>
                   </div>
+
+                 
 
                   <div class="col-2">
                     <button type="submit" class="btn btn-danger btn-block" id="btn_cancel">ยกเลิก</button>
@@ -73,23 +76,21 @@
 
                   <div class="col-5">
                     <div class="form-group row">
-                      <label for="txt_phone" class="col-sm-2 col-form-label">โทร </label>
+                      <label for="txt_email" class="col-sm-2 col-form-label">Email ผู้ส่ง</label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control" id="txt_phone" placeholder="โทร">
+                        <input type="text" class="form-control" id="txt_email_send" value="janekootest@gmail.com" placeholder="Email" disabled>
                       </div>
                     </div>
                   </div>
 
                   <div class="col-5">
                     <div class="form-group row">
-                      <label for="email" class="col-sm-2 col-form-label">สำเนา</label>
+                      <label for="txt_email" class="col-sm-2 col-form-label">Email ผู้รับ</label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control" id="Copy_doc" name="Copy_doc" placeholder="สำเนา">
+                        <input type="text" class="form-control" id="txt_email" placeholder="Email">
                       </div>
                     </div>
                   </div>
-
-
 
                 </div>
 
@@ -103,6 +104,16 @@
                       </div>
                     </div>
                   </div>
+
+                  <div class="col-5">
+                    <div class="form-group row">
+                      <label for="email" class="col-sm-2 col-form-label">สำเนา</label>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control" id="Copy_doc" name="Copy_doc" placeholder="สำเนา">
+                      </div>
+                    </div>
+                  </div>
+                  
                 </div>
                 
               </div>

@@ -29,6 +29,34 @@ while ($Result = mysqli_fetch_assoc($meQuery_item)) {
 	$ProductID[$count] = 	$Result['ProductID'];
 	$ProductName[$count] = 	$Result['ProductName'];
 
+	$ProductID_detail = 	$Result['ProductID'];
+
+	$Sql_item_detail = " SELECT
+							documentlist.DocName,
+							docrevision.version 
+						FROM
+							send_doc_detail
+							INNER JOIN product ON send_doc_detail.ProductID = product.ID
+							INNER JOIN productdoc ON send_doc_detail.Product_DocID = productdoc.ID
+							INNER JOIN documentlist ON productdoc.DocumentID = documentlist.ID
+							INNER JOIN docrevision ON productdoc.ID_FileDoc = docrevision.ID 
+						WHERE
+							send_doc_detail.SendDocNo = '$sendDocNo' 
+							AND send_doc_detail.ProductID = '$ProductID_detail' 
+						ORDER BY
+							product.ProductName ASC ";
+
+		$meQuery_item_detail = mysqli_query($conn, $Sql_item_detail);
+		$count_detail=0;
+		$count_detail2[$count]=0;
+		while ($Result_item_detail = mysqli_fetch_assoc($meQuery_item_detail)) {
+
+			$DocName_detail[$count][$count_detail] = 	$Result_item_detail['DocName'];
+			$version_detail[$count][$count_detail] = 	$Result_item_detail['version'];
+			$count_detail++;
+			$count_detail2[$count]++;
+		}
+
 	$count++;
 }
 
@@ -107,6 +135,11 @@ $email_content = "
 $NO=1;
 for($i=0;$i<$count;$i++){
 	$email_content .="<h4>".$NO.". ".$ProductName[$i]."</h4>";
+		$NO_detail=1;
+		for($j=0;$j<$count_detail2[$i];$j++){
+			$email_content .="<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;".$NO_detail.". ".$DocName_detail[$i][$j]."</h6>";
+			$NO_detail++;
+		}
 	$NO++;
 }
 	
