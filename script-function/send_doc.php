@@ -120,7 +120,7 @@
 
             $("#txt_email").val(value.email);
             $("#txt_phone").val(value.Tel);
-
+            $('#txt_email_send').val("janekootest@gmail.com");
           });
         }
 
@@ -242,6 +242,7 @@
     setTimeout(() => {
       selection_Contact();
       $("#txt_email").val("");
+      $('#txt_email_send').val("");
       $("#txt_phone").val("");
     }, 150);
   });
@@ -411,6 +412,7 @@ function save_sendDoc() {
          $('#select2-select_contact-container').text("กรุณาเลือก ผู้ติดต่อ");
          $('#select2-select_product-container').text("กรุณาเลือก Product");
          
+         $('#txt_email_send').val("");
          $('#email').val("");
          $('#txt_remark').val("");
          $("#txt_email").val("");
@@ -475,7 +477,8 @@ function save_sendDoc() {
       $('#select2-select_subject-container').text("กรุณาเลือก เรื่อง");
       $('#select2-select_contact-container').text("กรุณาเลือก ผู้ติดต่อ");
       $('#select2-select_product-container').text("กรุณาเลือก Product");
-      
+
+      $('#txt_email_send').val("");
       $('#email').val("");
       $('#txt_remark').val("");
       $("#txt_email").val("");

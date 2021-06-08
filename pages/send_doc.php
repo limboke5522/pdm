@@ -78,7 +78,7 @@
                     <div class="form-group row">
                       <label for="txt_email" class="col-sm-2 col-form-label">Email ผู้ส่ง</label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control" id="txt_email_send" value="janekootest@gmail.com" placeholder="Email" disabled>
+                        <input type="text" class="form-control" id="txt_email_send" placeholder="Email" disabled>
                       </div>
                     </div>
                   </div>
