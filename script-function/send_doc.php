@@ -216,7 +216,7 @@
         var StrTR = "";
         if (!$.isEmptyObject(ObjData)) {
           $.each(ObjData, function(key, value) {
-            var btn_preview = '<a href="javascript:void(0)"  onclick="preview(\'' + key + '\');"><img src="img/pdf.png" style="width:35px;"></a>';
+            var btn_preview = '<a href="javascript:void(0)"  onclick="preview(\'' + value.fileName + '\');"><img src="img/pdf.png" style="width:35px;"></a>';
             var bt = ' <button type="button" style="font-size: 10px;" class="btn btn-outline-primary" id="btn_send_'+key+'"  onclick="add_DocProduct(\'' + key + '\',\'' + value.ID + '\',\'' + value.DocName + '\',\'' + value.version + '\',\'' + id_product + '\')" >เลือก >> </button>';
             StrTR += "<tr style='border-radius: 15px 15px 15px 15px;margin-top: 6px;margin-bottom: 6px;'>" +
                     "<td style='width:7%;text-align: center;'>" + (key + 1) + "</td>" +
@@ -439,8 +439,9 @@ function save_sendDoc() {
   }
   
 
-  function preview(text) {
-   
+  function preview(fileName) {
+    var url="process/file/"+fileName;
+    window.open(url);
   }
 
   function showDialogSuccess(text) {
