@@ -79,6 +79,7 @@ function show_DataLeft($conn)
                     productdoc.ID,
                     productdoc.ProductID,
                     docrevision.version,
+                    docrevision.fileName,
                     DATE_FORMAT(docrevision.UploadDate ,'%d-%m-%Y') AS UploadDate,
                     documentlist.DocNumber,
                     documentlist.DocName 
