@@ -139,11 +139,13 @@
 
 
             var chkDoc = "<input class='form-control chk_docLeft' type='radio'  name='id_docLeft' id='id_docLeft" + key + "' value='" + value.ID + "'  style='width: 50%;'>";
-            var search = "<a href='#' value='"+value.ID+"' id='icon_search' class='fa fa-search'> ";
+            var btn_preview = '<a href="javascript:void(0)"  onclick="preview(\'' + key + '\');"><img src="img/pdf.png" style="width:35px;"></a>';
+
             StrTR += "<tr style='border-radius: 15px 15px 15px 15px;margin-top: 6px;margin-bottom: 6px;'>" +
               "<td style='width:10%;text-align: center;'><center>" + chkDoc + "</center></td>" +
               "<td style='width:5%; text-align: center;'>" + (key + 1) + "</td>" +
-              "<td style='width:20%;text-align: center;'>" + value.DocName +" "+ search + "</td>" +
+              "<td style='width:20%;text-align: center;'>" + value.DocName + "</td>" +
+              "<td style='width:5%;text-align: center;'>" + btn_preview + "</td>" +
               "<td style='width:20%;text-align: center;'>" + value.DocNumber + "</td>" +
               "<td style='width:20%;text-align: center;'>" + value.version + "</td>" +
               "<td style='width:20%;text-align: center;'>" + value.UploadDate + "</td>" +
@@ -157,6 +159,10 @@
       }
     });
 
+  }
+  function preview() {
+     alert("");
+    // $('#btn_savedoc_'+key).show();
   }
 
   function show_DataRight() {

@@ -58,6 +58,7 @@
                           <th style="width: 10%;" class="bg_tableAll"></th>
                           <th style="width: 5%;" class="bg_tableAll">ลำดับ</th>
                           <th style="width: 30%;" class="bg_tableAll">เอกสาร</th>
+                          <th style="width: 5%;" class="bg_tableAll">Preview</th>
                           <th style="width: 20%;" class="bg_tableAll">เลขที่คุมเอกสาร</th>
                           <th style="width: 15%;" class="bg_tableAll">version</th>
                           <th style="width: 15%;" class="bg_tableAll">วันที่อัพโหลด</th>
