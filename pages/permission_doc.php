@@ -69,10 +69,10 @@
               </div>
             </div>
 
-            <div class="row ml-4 mt-12">
+            <div class="row ml-4 mt-5 text-right">
               
-              <div  class="col-6 mt-10">
-                <button style="align: right; width: 100px;" type="button" class="btn btn-outline-success ml-2" id="btnSaveDoc" onclick="saveData();">บันทึก</button>
+              <div class="col-12 mt-5">
+                <button style=" width: 100px;" type="button" class="btn btn-outline-success ml-2" id="btnSaveDoc" onclick="saveData();">บันทึก</button>
               </div>
             </div>
 

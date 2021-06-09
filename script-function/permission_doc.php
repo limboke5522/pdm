@@ -32,7 +32,7 @@ function showData_User() {
           $.each(ObjData, function(key, value) {
 
 
-            var chkDoc = "<input class='form-control chk_doc' type='checkbox'  name='id_doc' id='id_doc" + key + "' value='" + value.ID + "'  style='width: 15%;'>";
+            var chkDoc = "<input class='form-control chk_doc' type='checkbox'  name='id_doc' id='id_doc" + key + "' value='" + value.ID + "'  style='width: 30%;'>";
 
             StrTR += "<tr style='border-radius: 15px 15px 15px 15px;margin-top: 6px;margin-bottom: 6px;'>" +
                       "<td style='width:15%;text-align: center;'><center>" + chkDoc + "</center></td>" +
