@@ -26,7 +26,7 @@
 
             <div class="row">
               <div class="col-4">
-                <div class="row mt-2  table-responsive p-0" id="tb_Data" style="height: 500px;max-height: 500px;overflow-y: auto;">
+                <div class="row mt-5 " id="tb_Data" style="height: 500px;max-height: 500px;overflow-y: auto;">
                   <div class="col-12">
                     <table id="Data_TableLeft" class="table table-bordered table-hover w-100 table-head-fixed">
                       <thead>
@@ -45,17 +45,17 @@
             
               <div class="col-8">
 
-              <div class="col-3">
-                <input type="text" class="form-control" id="txtSearch" onkeyup="showData_Doc();" placeholder="ค้นหารายการ">
-              </div>
+                <div class="col-3">
+                  <input type="text" class="form-control" id="txtSearch" onkeyup="showData_Doc();" placeholder="ค้นหารายการ">
+                </div>
 
                 <div class="row mt-2 card-body table-responsive p-0" id="tb_Data2" style="height: 500px;max-height: 500px;overflow-y: auto;">
                   <div class="col-12">
                     <table id="Data_TableRight" class="table table-bordered table-hover w-100 table-head-fixed">
                       <thead>
                         <tr class="text-center">
-                          <th style="width: 20%;" class="bg_tableAll">เลือก</th>
-                          <th style="width: 80%;" class="bg_tableAll">เอกสาร</th>
+                          <th style="width: 10%;" class="bg_tableAll">เลือก</th>
+                          <th style="width: 90%;" class="bg_tableAll">เอกสาร</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -69,10 +69,10 @@
               </div>
             </div>
 
-            <div class="row ml-4 mt-12">
+            <div class="row ml-4 mt-5 text-right">
               
-              <div  class="col-6 mt-10">
-                <button style="align: right; width: 100px;" type="button" class="btn btn-outline-success ml-2" id="btnSaveDoc" onclick="saveData();">บันทึก</button>
+              <div class="col-12 mt-5">
+                <button style=" width: 100px;" type="button" class="btn btn-outline-success ml-2" id="btnSaveDoc" onclick="saveData();">บันทึก</button>
               </div>
             </div>
 

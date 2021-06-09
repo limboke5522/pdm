@@ -1,6 +1,6 @@
 <script>
 $(function() {
-  showData_Doc();
+  // showData_Doc();
   showData_User();
   // $('#tb_contact2').hide();
   // var d = new Date();
@@ -32,7 +32,7 @@ function showData_User() {
           $.each(ObjData, function(key, value) {
 
 
-            var chkDoc = "<input class='form-control chk_doc' type='checkbox'  name='id_doc' id='id_doc" + key + "' value='" + value.ID + "'  style='width: 15%;'>";
+            var chkDoc = "<input class='form-control chk_doc' type='radio'  name='id_doc' id='id_doc" + key + "' value='" + value.ID + "' onclick='showData_Doc(\"" + value.ID + "\")'  style='width: 25%;'>";
 
             StrTR += "<tr style='border-radius: 15px 15px 15px 15px;margin-top: 6px;margin-bottom: 6px;'>" +
                       "<td style='width:15%;text-align: center;'><center>" + chkDoc + "</center></td>" +
@@ -50,7 +50,7 @@ function showData_User() {
   }
 
   // show
-  function showData_Doc() {
+  function showData_Doc(ID) {
     var  txtSearch = $('#txtSearch').val();
 
     $.ajax({
@@ -58,7 +58,8 @@ function showData_User() {
       type: 'POST',
       data: {
         'FUNC_NAME': 'showData_Doc',
-        'txtSearch': txtSearch
+        'txtSearch': txtSearch,
+        'ID': ID
       },
       success: function(result) {
         var ObjData = JSON.parse(result);
@@ -67,11 +68,11 @@ function showData_User() {
           $.each(ObjData, function(key, value) {
 
 
-            var chkDoc = "<input class='form-control chk_docA' type='checkbox'  name='id_docA' id='id_docA" + key + "' value='" + value.ID + "'  style='width: 15%;'>";
+            var chkDoc = "<input class='form-control chk_docA' type='checkbox'  name='id_docA' id='id_docA" + key + "' value='" + value.ID + "'  style='width: 30%;'>";
 
             StrTR += "<tr style='border-radius: 15px 15px 15px 15px;margin-top: 6px;margin-bottom: 6px;'>" +
-                      "<td style='width:15%;text-align: center;'><center>" + chkDoc + "</center></td>" +
-                      "<td style='width:70%;text-align: left;'>" + value.DocName + "</td>" +
+                      "<td style='width:10%;text-align: center;'><center>" + chkDoc + "</center></td>" +
+                      "<td style='width:90%;text-align: left;'>" + value.DocName + "</td>" +
                       
                       "</tr>";
            });

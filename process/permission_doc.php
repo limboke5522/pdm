@@ -2,18 +2,18 @@
 session_start();
 require '../connect/connect.php';
 
-showData_User($conn);
-showData_Doc($conn);
 
-// if (!empty($_POST['FUNC_NAME'])) {
-//   if ($_POST['FUNC_NAME'] == 'showData_exp') {
-//     showData_exp($conn);
-//   } else   if ($_POST['FUNC_NAME'] == 'showData_exp2') {
-//     showData_exp2($conn);
-//   }
+
+
+if (!empty($_POST['FUNC_NAME'])) {
+  if ($_POST['FUNC_NAME'] == 'showData_Doc') {
+    showData_Doc($conn);
+  } else   if ($_POST['FUNC_NAME'] == 'showData_User') {
+    showData_User($conn);
+  }
 
   
-// }
+}
 
 function showData_User($conn)
 {
