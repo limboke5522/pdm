@@ -92,15 +92,23 @@ function show_Docdetail($conn)
             documentlist.DocName,
             product.ProductName,
             docrevision.fileName,
-            docrevision.version 
+            docrevision.version,
+            docrevision.DocumentID AS DocID,
+            docrevision.productID AS ProducID,
+            (SELECT docrevision.version FROM docrevision
+                WHERE docrevision.DocumentID = DocID
+                AND docrevision.productID = ProducID
+                ORDER BY docrevision.version DESC LIMIT 1) AS newVersion
             FROM
             send_doc_detail
             INNER JOIN productdoc ON send_doc_detail.Product_DocID = productdoc.ID
             INNER JOIN documentlist ON productdoc.DocumentID = documentlist.ID
             INNER JOIN product ON send_doc_detail.ProductID = product.ID
-            INNER JOIN docrevision ON productdoc.ID_FileDoc = docrevision.ID
-            WHERE send_doc_detail.SendDocNo = '$SendDocNo'
-            ORDER BY product.ProductName ASC ";
+            INNER JOIN docrevision ON productdoc.ID_FileDoc = docrevision.ID 
+            WHERE
+            send_doc_detail.SendDocNo = '$SendDocNo' 
+            ORDER BY
+            product.ProductName ASC ";
 
   $meQuery = mysqli_query($conn, $Sql);
   while ($row = mysqli_fetch_assoc($meQuery)) {
