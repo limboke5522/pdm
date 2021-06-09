@@ -114,7 +114,8 @@ function upload_Doc($conn)
 
   $filename_TH = iconv("UTF-8", "TIS-620", $filename);
 
-  copy($_FILES['upload_fileRight']['tmp_name'], 'file/' . $filename_TH);
+  // copy($_FILES['upload_fileRight']['tmp_name'], 'file/' . $filename_TH); // อัพไฟล์ LOCAL *****
+  copy($_FILES['upload_fileRight']['tmp_name'], 'file/' . $filename); // อัพไฟล์ SERVER *****
 
   $Sql = "INSERT INTO docrevision SET docrevision.fileName = '$filename' , 
                                       docrevision.version = 1, 
