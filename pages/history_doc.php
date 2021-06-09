@@ -21,7 +21,7 @@
                     <div class="form-group row">
                       <label for="select_hospital" class="col-sm-2 col-form-label">โรงพยาบาล</label>
                       <div class="col-sm-10">
-                        <select class="form-control select2" id="select_hospital" placeholder="โรงพยาบาล"></select>
+                        <select class="form-control select2" id="select_hospital" placeholder="โรงพยาบาล" onchange="show_data()"></select>
                       </div>
                     </div>
                   </div>
@@ -45,7 +45,7 @@
                   </div>
 
                   <div class="col-1">
-                    <button type="submit" class="btn btn-success btn-block" id="btn_search">ค้นหา</button>
+                    <button type="submit" class="btn btn-success btn-block" id="btn_search" onclick="show_data();" >ค้นหา</button>
                   </div>
                 </div>
               </div>
@@ -57,12 +57,13 @@
                 <table id="table_history" class="table table-bordered table-hover w-100 table-head-fixed">
                   <thead>
                     <tr class="text-center">
-                      <th  class="bg_tableAll" style="width: 7%;">ลำดับ</th>
-                      <th  class="bg_tableAll" style="width: 30%;">ชื่อโรงพยาบาล</th>
-                      <th  class="bg_tableAll" style="width: 20%;">วัตถุประสงค์</th>
-                      <th  class="bg_tableAll" style="width: 20%;">ผู้ติดต่อ</th>
-                      <th  class="bg_tableAll" style="width: 15%;">Email</th>
-                      <th  class="bg_tableAll" style="width: 15%;">Preview</th>
+                      <th  class="bg_tableAll" style="width: 5%;">ลำดับ</th>
+                      <th  class="bg_tableAll" style="width: 20%;">ชื่อโรงพยาบาล</th>
+                      <th  class="bg_tableAll" style="width: 15%;">วัตถุประสงค์</th>
+                      <th  class="bg_tableAll" style="width: 12%;">ผู้ติดต่อ</th>
+                      <th  class="bg_tableAll" style="width: 20%;">Email</th>
+                      <th  class="bg_tableAll" style="width: 10%;">วันที่ส่งเอกสาร</th>
+                      <th  class="bg_tableAll" style="width: 10%;">รายละเอียดเอกสาร</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -71,3 +72,62 @@
                 </table>
               </div>
             </div>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="Modaldetail_Doc" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+    <div class="modal-dialog modal-xl" style="max-width:1162px;">
+        <div class="modal-content" role="document">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalScrollableTitle">รายละเอียดเอกสาร</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                
+                    <div class="col-4">
+                        <div class="form-group">
+                            <h5 style="text-decoration:underline;">รายการเอกสารที่ส่ง</h5>
+                        </div>
+                    </div>
+
+                    <div class="col-6" style="margin-left: 1.5rem;margin-bottom: 1.5rem;">
+                            <!-- <div class="input-group date" id="reservationdate" data-target-input="nearest">
+                                <label style="margin-right: 1.5rem;margin-top: 0.5rem;">ค้นหารายการ :</label>
+                                <input type="text" class="form-control" name="namereport" id="search_item" onkeyup="search_item();" placeholder="ค้นหารายการ" autocomplete="off">
+                           </div> -->
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+    
+                <div style="width: 80%;" >
+                    <table class="table table-bordered table-hover" id="table_list_Doc" style="margin-left: 12%;">
+                        <thead>
+                            <tr class="text-center">
+                                <th class="col-center" nowrap>ลำดับ</th>
+                                <th class="col-center" nowrap>รายการสินค้า</th>
+                                <th class="col-center" nowrap>ชื่อเอกสาร</th>
+                                <th class="col-center" nowrap>Version</th>
+                                <th class="col-center" nowrap>Preview</th>
+                                
+                           
+                            </tr>
+                        </thead>
+                        <tbody>
+                     
+                        </tbody>
+                    </table>
+                </div>
+
+
+               
+            </div>
+        </div>
+    </div>
+</div>
