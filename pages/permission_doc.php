@@ -22,8 +22,17 @@
             </div>
             <!-- /.content-header -->
 
+            <div class="row">
+              <div class="col-3">
+                <input type="text" class="form-control" id="txtSearch" onkeyup="showData_Doc();" placeholder="ค้นหารายการ">
+              </div>
+              <div class="col-3">
+                <!-- <button type="submit" class="btn btn-primary" >ค้นหา</button> -->
+                <!-- <button type="submit" class="btn btn-success" id="showModalAddUsers">เพิ่มข้อมูล</button> -->
+              </div>
+            </div>
 
-            <div class="row mt-2 card-body table-responsive p-0" id="tb_contact" style="height: 500px;max-height: 500px;overflow-y: auto;">
+            <div class="row mt-2 card-body table-responsive p-0" id="tb_contact" style="height: 700px;max-height: 700px;overflow-y: auto;">
               <div class="col-12">
                 <table id="contact_Table" class="table table-bordered table-hover w-100 table-head-fixed">
                   <thead>
