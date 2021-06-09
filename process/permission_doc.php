@@ -42,6 +42,7 @@ function showData_User($conn)
 function showData_Doc($conn)
 {
   $Search_txt = $_POST["txtSearch"];
+  $ID = $_POST["ID"];
 
   $Sql_product2 = "SELECT
                     documentlist.ID,
@@ -54,10 +55,26 @@ function showData_Doc($conn)
                   ORDER BY documentlist.ID ASC
           ";
 
+
   $meQuery2 = mysqli_query($conn, $Sql_product2);
   while ($row = mysqli_fetch_assoc($meQuery2)) {
-        $return[] = $row;
+        $return['documentlist'][] = $row;
   }
+
+      $Sql_usertype = "SELECT
+      userdoc.ID,
+      userdoc.UserTypeID,
+      userdoc.DocumentID
+
+    FROM userdoc 
+
+    WHERE userdoc.UserTypeID = $ID
+    ";
+
+    $meQuery3 = mysqli_query($conn, $Sql_usertype);
+    while ($row = mysqli_fetch_assoc($meQuery3)) {
+    $return['userdoc'][] = $row;
+    }
 
   echo json_encode($return);
   mysqli_close($conn);
@@ -70,12 +87,16 @@ function saveData($conn)
   $id_user = $_POST["id_user"];
   $ID_Doc = $_POST["ID_Doc"];
 
+  $Sql_del ="DELETE FROM userdoc WHERE UserTypeID =   $id_user ";
+  mysqli_query($conn, $Sql_del);
   
-
   foreach ($ID_Doc as $key => $value) {
+    
+        $Sql_save =" INSERT INTO userdoc (UserTypeID,DocumentID) VALUES ($id_user,$value)";
+        mysqli_query($conn, $Sql_save);
+      
+    
 
-    $Sql_save =" INSERT INTO userdoc (UserTypeID,DocumentID) VALUES ($id_user,$value)";
-    mysqli_query($conn, $Sql_save);
   }
 
   echo json_encode($return);

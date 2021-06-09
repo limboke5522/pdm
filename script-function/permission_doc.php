@@ -65,10 +65,10 @@ function showData_User() {
         var ObjData = JSON.parse(result);
         var StrTR = "";
         if (!$.isEmptyObject(ObjData)) {
-          $.each(ObjData, function(key, value) {
+          $.each(ObjData.documentlist, function(key, value) {
 
 
-            var chkDoc = "<input class='form-control chk_docA' type='checkbox'  name='id_docA' id='id_docA" + key + "' value='" + value.ID + "'  style='width: 30%;'>";
+            var chkDoc = "<input class='form-control chk_docA' type='checkbox'  name='id_docA' id='id_docA" + value.ID + "' value='" + value.ID + "'  style='width: 30%;'>";
 
             StrTR += "<tr style='border-radius: 15px 15px 15px 15px;margin-top: 6px;margin-bottom: 6px;'>" +
                       "<td style='width:10%;text-align: center;'><center>" + chkDoc + "</center></td>" +
@@ -76,10 +76,16 @@ function showData_User() {
                       
                       "</tr>";
            });
+
+
         }
 
         $('#Data_TableRight tbody').html(StrTR);
 
+        
+        $.each(ObjData.userdoc, function(key_userdoc, value_userdoc) {
+             $('#id_docA'+value_userdoc.DocumentID).prop('checked',true);
+          });
       }
     });
 
