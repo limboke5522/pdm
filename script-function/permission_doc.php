@@ -1,65 +1,51 @@
 <script>
 $(function() {
-  // showData_exp();
-  // showData_exp2();
-  $('#tb_contact2').hide();
-  var d = new Date();
+  showData_Doc();
+  
+  // $('#tb_contact2').hide();
+  // var d = new Date();
 
-  var month = d.getMonth()+1;
-  var day = d.getDate();
+  // var month = d.getMonth()+1;
+  // var day = d.getDate();
 
-  var output =  (day<10 ? '0' : '') + day + '-' +
-    (month<10 ? '0' : '') + month + '-' +
-      d.getFullYear();
+  // var output =  (day<10 ? '0' : '') + day + '-' +
+  //   (month<10 ? '0' : '') + month + '-' +
+  //     d.getFullYear();
 
-    $('#txt_Sdate_doc').val(output);
-    $('#txt_Edate_doc').val(output);
+  //   $('#txt_Sdate_doc').val(output);
+  //   $('#txt_Edate_doc').val(output);
   })
 
   // show
-  function showData_exp() {
+  function showData_Doc() {
     var  txtSearch = $('#txtSearch').val();
-    var  txt_Sdate_doc = $('#txt_Sdate_doc').val();
-    var  txt_Edate_doc = $('#txt_Edate_doc').val();
 
     $.ajax({
-      url: "process/notification_doc.php",
+      url: "process/permission_doc.php",
       type: 'POST',
       data: {
-        'FUNC_NAME': 'showData_exp',
-        'txtSearch': txtSearch,
-        'txt_Sdate_doc': txt_Sdate_doc,
-        'txt_Edate_doc': txt_Edate_doc
+        'FUNC_NAME': 'showData_Doc',
+        'txtSearch': txtSearch
       },
       success: function(result) {
         var ObjData = JSON.parse(result);
-        var count = 0;
         var StrTR = "";
         if (!$.isEmptyObject(ObjData)) {
           $.each(ObjData, function(key, value) {
 
 
-            var chkDoc = "<input class='form-control chk_docLeft' type='radio'  name='id_doc' id='id_doc" + key + "' value='" + value.ID + "'  style='width: 50%;'>";
+            var chkDoc_Admin = "<input class='form-control chk_docA' type='radio'  name='id_docA' id='id_docA" + key + "' value='" + value.ID + "'  style='width: 10%;'>";
+            var chkDoc_Phar = "<input class='form-control chk_docP' type='radio'  name='id_docP' id='id_docP" + key + "' value='" + value.ID + "'  style='width: 10%;'>";
 
             StrTR += "<tr style='border-radius: 15px 15px 15px 15px;margin-top: 6px;margin-bottom: 6px;'>" +
-                      "<td style='width:7%;text-align: center;'><center>" + chkDoc + "</center></td>" +
-                      "<td style='width:5%; text-align: center;'>" + (key + 1) + "</td>" +
-                      "<td style='width:20%;text-align: center;'>" + value.DocName + "</td>" +
-                      "<td style='width:20%;text-align: center;'>" + value.version + "</td>" +
-                      "<td style='width:20%;text-align: center;'>" + value.diffday + "</td>" +
+                      "<td style='width:70%;text-align: left;'>" + value.DocName + "</td>" +
+                      "<td style='width:15%;text-align: center;'><center>" + chkDoc_Admin + "</center></td>" +
+                      "<td style='width:15%;text-align: center;'><center>" + chkDoc_Phar + "</center></td>" +
                       "</tr>";
-
-                      count++;
            });
         }
-        // $tree = show_DataLeft($rows);
-        $('#exp').text(count);
-        $('#exp2').text("");
 
-        $('#tb_contact').show();
         $('#contact_Table tbody').html(StrTR);
-
-        $('#tb_contact2').hide();
 
       }
     });
@@ -67,79 +53,35 @@ $(function() {
   }
 
  
-// show
-function showData_exp2() {
-    var  txtSearch = $('#txtSearch').val();
 
-    $.ajax({
-      url: "process/notification_doc.php",
-      type: 'POST',
-      data: {
-        'FUNC_NAME': 'showData_exp2',
-        'txtSearch': txtSearch,
-      },
-      success: function(result) {
-        var ObjData = JSON.parse(result);
-        var count = 0;
-        var StrTR2 = "";
-        if (!$.isEmptyObject(ObjData)) {
-          $.each(ObjData, function(key, value) {
-
-
-            var chkDoc = "<input class='form-control chk_docLeft' type='radio'  name='id_doc2' id='id_doc2" + key + "' value='" + value.ID + "'  style='width: 50%;'>";
-
-            StrTR2 += "<tr style='border-radius: 15px 15px 15px 15px;margin-top: 6px;margin-bottom: 6px;'>" +
-                      "<td style='width:7%;text-align: center;'><center>" + chkDoc + "</center></td>" +
-                      "<td style='width:5%; text-align: center;'>" + (key + 1) + "</td>" +
-                      "<td style='width:20%;text-align: center;'>" + value.DocName + "</td>" +
-                      "<td style='width:20%;text-align: center;'>" + value.version + "</td>" +
-                      "<td style='width:20%;text-align: center;'>" + value.diffdayexp + "</td>" +
-                      "</tr>";
-
-                      count++;
-           });
-        }
-        // $tree = show_DataLeft($rows);
-        $('#exp').text("");
-        $('#exp2').text(count);
-
-        $('#tb_contact').hide();
-
-        $('#tb_contact2').show();
-        $('#contact_Table2 tbody').html(StrTR2);
-
-      }
-    });
-
-  }
-  function showDialogSuccess(text) {
-    $.confirm({
-      title: 'สำเร็จ!',
-      content: text,
-      type: 'green',
-      autoClose: 'close|8000',
-      typeAnimated: true,
-      buttons: {
-        close:  {
-          text: 'ปิด',
-        }
-      }
-    });
-  }
+  // function showDialogSuccess(text) {
+  //   $.confirm({
+  //     title: 'สำเร็จ!',
+  //     content: text,
+  //     type: 'green',
+  //     autoClose: 'close|8000',
+  //     typeAnimated: true,
+  //     buttons: {
+  //       close:  {
+  //         text: 'ปิด',
+  //       }
+  //     }
+  //   });
+  // }
   
 
-  function showDialogFailed(text) {
-    $.confirm({
-      title: 'ผิดพลาด!',
-      content: text,
-      type: 'red',
-      autoClose: 'close|8000',
-      typeAnimated: true,
-      buttons: {
-        close:  {
-          text: 'ปิด',
-        }
-      }
-    });
-  }
+  // function showDialogFailed(text) {
+  //   $.confirm({
+  //     title: 'ผิดพลาด!',
+  //     content: text,
+  //     type: 'red',
+  //     autoClose: 'close|8000',
+  //     typeAnimated: true,
+  //     buttons: {
+  //       close:  {
+  //         text: 'ปิด',
+  //       }
+  //     }
+  //   });
+  // }
 </script>
