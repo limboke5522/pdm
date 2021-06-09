@@ -14,7 +14,7 @@
                   <div class="col-sm-6">
                     <ol class="breadcrumb">
                       <li class="breadcrumb-item"><a href="#">ระบบ</a></li>
-                      <li class="breadcrumb-item active">Notifications</li>
+                      <li class="breadcrumb-item active">การแจ้งเตือน</li>
                     </ol>
                   </div><!-- /.col -->
                 </div><!-- /.row -->

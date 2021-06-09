@@ -142,7 +142,23 @@
 
                  </li>
 
-                 
+                 <li class="nav-item has-treeview " id="li_permission">
+                     <a href="#" class="nav-link " id="a_permission">
+                         <i class="nav-icon fas fa-copy"></i>
+                         <p>
+                             กำหนดสิทธ์การเข้าถึง
+                             <i class="right fas fa-angle-left"></i>
+                         </p>
+                     </a>
+                     <ul class="nav nav-treeview ul_permission" style="display: none;">
+                         <li class="nav-item">
+                             <a href="index.php?page=permission_doc" class="nav-link" id="permission_doc">
+                                 <i class="fas fa-copy"></i>
+                                 <p>กำหนดสิทธ์เอกสาร</p>
+                             </a>
+                         </li>
+                     </ul>
+                 </li>
 
 
 
