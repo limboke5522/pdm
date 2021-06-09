@@ -123,7 +123,7 @@ for($j=0;$j<$count_file;$j++){
 }
 
 $mail->Subject = $subject;
-
+0
 $email_content = "
 	<!DOCTYPE html>
 	<html>
