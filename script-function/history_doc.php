@@ -110,8 +110,13 @@
         if (!$.isEmptyObject(ObjData)) {
           $.each(ObjData, function(key, value) {
             var btn_preview = '<a href="javascript:void(0)"  onclick="show_preview(\'' + value.fileName + '\');"><img src="img/pdf.png" style="width:35px;"></a>';
+            if(value.version==value.newVersion){
+              var style_bgcolor ="";
+            }else{
+              var style_bgcolor ="background-color: #FF0000;";
+            }
             // var bt = ' <button type="button" style="font-size: 10px;" class="btn btn-outline-primary" id="btn_send_'+key+'"  onclick="add_DocProduct(\'' + key + '\',\'' + value.ID + '\',\'' + value.DocName + '\',\'' + value.version + '\',\'' + id_product + '\')" >เลือก >> </button>';
-            StrTR += "<tr style='border-radius: 15px 15px 15px 15px;margin-top: 6px;margin-bottom: 6px;'>" +
+            StrTR += "<tr style='border-radius: 15px 15px 15px 15px;margin-top: 6px;margin-bottom: 6px; "+style_bgcolor+" '>" +
                     "<td style='width:5%;text-align: center;'>" + (key + 1) + "</td>" +
                     "<td style='width:20%;text-align: left;'>" + value.ProductName + "</td>" +
                     "<td style='width:15%;text-align: center;'>" + value.DocName + "</td>" +
