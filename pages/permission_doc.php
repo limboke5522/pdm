@@ -22,35 +22,59 @@
             </div>
             <!-- /.content-header -->
 
+
+
             <div class="row">
+              <div class="col-4">
+                <div class="row mt-2  table-responsive p-0" id="tb_Data" style="height: 500px;max-height: 500px;overflow-y: auto;">
+                  <div class="col-12">
+                    <table id="Data_TableLeft" class="table table-bordered table-hover w-100 table-head-fixed">
+                      <thead>
+                        <tr class="text-center">
+                          <th style="width: 20%;" class="bg_tableAll">เลือก</th>
+                          <th style="width: 80%;" class="bg_tableAll">กรุ๊ป User</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            
+              <div class="col-8">
+
               <div class="col-3">
                 <input type="text" class="form-control" id="txtSearch" onkeyup="showData_Doc();" placeholder="ค้นหารายการ">
               </div>
-              <div class="col-3">
-                <!-- <button type="submit" class="btn btn-primary" >ค้นหา</button> -->
-                <!-- <button type="submit" class="btn btn-success" id="showModalAddUsers">เพิ่มข้อมูล</button> -->
+
+                <div class="row mt-2 card-body table-responsive p-0" id="tb_Data2" style="height: 500px;max-height: 500px;overflow-y: auto;">
+                  <div class="col-12">
+                    <table id="Data_TableRight" class="table table-bordered table-hover w-100 table-head-fixed">
+                      <thead>
+                        <tr class="text-center">
+                          <th style="width: 20%;" class="bg_tableAll">เลือก</th>
+                          <th style="width: 80%;" class="bg_tableAll">เอกสาร</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+
               </div>
             </div>
 
-            <div class="row mt-2 card-body table-responsive p-0" id="tb_contact" style="height: 700px;max-height: 700px;overflow-y: auto;">
-              <div class="col-12">
-                <table id="contact_Table" class="table table-bordered table-hover w-100 table-head-fixed">
-                  <thead>
-                    <tr class="text-center">
-                      <th style="width: 70%;" class="bg_tableAll">เอกสาร</th>
-                      <th style="width: 15%;" class="bg_tableAll">Admin ( Sale) </th>
-                      <th style="width: 15%;" class="bg_tableAll">Pharmacy</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-
-                  </tbody>
-                </table>
+            <div class="row ml-4 mt-12">
+              
+              <div  class="col-6 mt-10">
+                <button style="align: right; width: 100px;" type="button" class="btn btn-outline-success ml-2" id="btnSaveDoc" onclick="saveData();">บันทึก</button>
               </div>
-
             </div>
-
-           
 
             <hr>
 

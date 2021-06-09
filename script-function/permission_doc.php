@@ -1,7 +1,7 @@
 <script>
 $(function() {
   showData_Doc();
-  
+  showData_User();
   // $('#tb_contact2').hide();
   // var d = new Date();
 
@@ -15,6 +15,39 @@ $(function() {
   //   $('#txt_Sdate_doc').val(output);
   //   $('#txt_Edate_doc').val(output);
   })
+
+// show
+function showData_User() {
+
+    $.ajax({
+      url: "process/permission_doc.php",
+      type: 'POST',
+      data: {
+        'FUNC_NAME': 'showData_User'
+      },
+      success: function(result) {
+        var ObjData = JSON.parse(result);
+        var StrTR = "";
+        if (!$.isEmptyObject(ObjData)) {
+          $.each(ObjData, function(key, value) {
+
+
+            var chkDoc = "<input class='form-control chk_doc' type='checkbox'  name='id_doc' id='id_doc" + key + "' value='" + value.ID + "'  style='width: 15%;'>";
+
+            StrTR += "<tr style='border-radius: 15px 15px 15px 15px;margin-top: 6px;margin-bottom: 6px;'>" +
+                      "<td style='width:15%;text-align: center;'><center>" + chkDoc + "</center></td>" +
+                      "<td style='width:70%;text-align: left;'>" + value.UserType + "</td>" +
+                      
+                      "</tr>";
+           });
+        }
+
+        $('#Data_TableLeft tbody').html(StrTR);
+
+      }
+    });
+
+  }
 
   // show
   function showData_Doc() {
@@ -34,18 +67,17 @@ $(function() {
           $.each(ObjData, function(key, value) {
 
 
-            var chkDoc_Admin = "<input class='form-control chk_docA' type='radio'  name='id_docA' id='id_docA" + key + "' value='" + value.ID + "'  style='width: 10%;'>";
-            var chkDoc_Phar = "<input class='form-control chk_docP' type='radio'  name='id_docP' id='id_docP" + key + "' value='" + value.ID + "'  style='width: 10%;'>";
+            var chkDoc = "<input class='form-control chk_docA' type='checkbox'  name='id_docA' id='id_docA" + key + "' value='" + value.ID + "'  style='width: 15%;'>";
 
             StrTR += "<tr style='border-radius: 15px 15px 15px 15px;margin-top: 6px;margin-bottom: 6px;'>" +
+                      "<td style='width:15%;text-align: center;'><center>" + chkDoc + "</center></td>" +
                       "<td style='width:70%;text-align: left;'>" + value.DocName + "</td>" +
-                      "<td style='width:15%;text-align: center;'><center>" + chkDoc_Admin + "</center></td>" +
-                      "<td style='width:15%;text-align: center;'><center>" + chkDoc_Phar + "</center></td>" +
+                      
                       "</tr>";
            });
         }
 
-        $('#contact_Table tbody').html(StrTR);
+        $('#Data_TableRight tbody').html(StrTR);
 
       }
     });

@@ -2,6 +2,7 @@
 session_start();
 require '../connect/connect.php';
 
+showData_User($conn);
 showData_Doc($conn);
 
 // if (!empty($_POST['FUNC_NAME'])) {
@@ -14,11 +15,33 @@ showData_Doc($conn);
   
 // }
 
+function showData_User($conn)
+{
+  // $Search_txt = $_POST["txtSearch"];
+
+  $Sql_product = "SELECT
+                    usertype.ID,
+                    usertype.UserType
+
+                  FROM usertype 
+                  ORDER BY usertype.ID ASC
+          ";
+
+  $meQuery1 = mysqli_query($conn, $Sql_product);
+  while ($row = mysqli_fetch_assoc($meQuery1)) {
+        $return[] = $row;
+  }
+
+  echo json_encode($return);
+  mysqli_close($conn);
+  die;
+}
+
 function showData_Doc($conn)
 {
   $Search_txt = $_POST["txtSearch"];
 
-  $Sql_product = "SELECT
+  $Sql_product2 = "SELECT
                     documentlist.ID,
                     documentlist.DocNumber,
                     documentlist.DocName
@@ -29,8 +52,8 @@ function showData_Doc($conn)
                   ORDER BY documentlist.ID ASC
           ";
 
-  $meQuery1 = mysqli_query($conn, $Sql_product);
-  while ($row = mysqli_fetch_assoc($meQuery1)) {
+  $meQuery2 = mysqli_query($conn, $Sql_product2);
+  while ($row = mysqli_fetch_assoc($meQuery2)) {
         $return[] = $row;
   }
 
