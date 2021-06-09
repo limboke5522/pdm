@@ -52,7 +52,17 @@ function showData_User() {
   // show
   function showData_Doc(ID) {
     var  txtSearch = $('#txtSearch').val();
-
+    ID = $(".chk_user:checked").val();
+    var count = 0;
+      $(".chk_user:checked").each(function() {
+        count++;
+      });
+      if (count == 0) {
+        text = "กรุณาเลือก User";
+        showDialogFailed(text);
+        return;
+      }
+    
     $.ajax({
       url: "process/permission_doc.php",
       type: 'POST',
@@ -82,7 +92,7 @@ function showData_User() {
 
         $('#Data_TableRight tbody').html(StrTR);
 
-        
+
         $.each(ObjData.userdoc, function(key_userdoc, value_userdoc) {
              $('#id_docA'+value_userdoc.DocumentID).prop('checked',true);
           });

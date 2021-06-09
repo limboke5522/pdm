@@ -68,7 +68,7 @@ function showData_Doc($conn)
 
     FROM userdoc 
 
-    WHERE userdoc.UserTypeID = $ID
+    WHERE userdoc.UserTypeID = '$ID'
     ";
 
     $meQuery3 = mysqli_query($conn, $Sql_usertype);
