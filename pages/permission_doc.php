@@ -72,7 +72,7 @@
             <div class="row ml-4 mt-5 text-right">
               
               <div class="col-12 mt-5">
-                <button style=" width: 100px;" type="button" class="btn btn-outline-success ml-2" id="btnSaveDoc" onclick="saveData();">บันทึก</button>
+                <button style=" width: 100px;" type="button" class="btn btn-outline-success ml-2" id="btnSaveDoc">บันทึก</button>
               </div>
             </div>
 
