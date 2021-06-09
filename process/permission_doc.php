@@ -10,6 +10,8 @@ if (!empty($_POST['FUNC_NAME'])) {
     showData_Doc($conn);
   } else   if ($_POST['FUNC_NAME'] == 'showData_User') {
     showData_User($conn);
+  } else   if ($_POST['FUNC_NAME'] == 'saveData') {
+    saveData($conn);
   }
 
   
@@ -63,5 +65,22 @@ function showData_Doc($conn)
 }
 
 
+function saveData($conn)
+{
+  $id_user = $_POST["id_user"];
+  $ID_Doc = $_POST["ID_Doc"];
+
+  
+
+  foreach ($ID_Doc as $key => $value) {
+
+    $Sql_save =" INSERT INTO userdoc (UserTypeID,DocumentID) VALUES ($id_user,$value)";
+    mysqli_query($conn, $Sql_save);
+  }
+
+  echo json_encode($return);
+  mysqli_close($conn);
+  die;
+}
 
 
