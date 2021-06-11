@@ -14,7 +14,7 @@
             <!-- /.content-header -->
 
             <div class="card">
-              <div class="card-body">
+              <div class="card-body" style="background-color: lightblue;">
              
                 <div class="row">
 
@@ -180,6 +180,7 @@
 
               </div>
               <div class="col-4 ">
+                <div class="card-body" style="background-color: lightblue;">
                 <div class="form-group row">
                   <label for="txt_product_center" class="col-sm-4 col-form-label">รายการเอกสารที่จะส่ง</label>
                 </div>
@@ -196,5 +197,6 @@
 
                   </tbody>
                 </table>
+                </div>
               </div>
             </div>
