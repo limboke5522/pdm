@@ -139,6 +139,7 @@ function showDetail_contact($conn)
 function product_file($conn)
 {
   $id_product = $_POST["id_product"];
+  $UserTypeID = $_SESSION["userData"]["UserTypeID"];
 
   $Sql = "SELECT
             docrevision.DocumentID 
@@ -157,21 +158,24 @@ function product_file($conn)
   $meQuery = mysqli_query($conn, $Sql);
   while ($row = mysqli_fetch_assoc($meQuery)) {
     $DocumentID = $row['DocumentID'];
-
+    $UserID = $row['UserID'];
     $Sql_2 = "SELECT
               docrevision.fileName,
               docrevision.version,
               productdoc.ID,
               docrevision.DocumentID,
               documentlist.DocNumber,
-              documentlist.DocName 
+              documentlist.DocName,
+              userdoc.DocumentID AS UserID
             FROM
               productdoc
               INNER JOIN docrevision ON productdoc.ID_FileDoc = docrevision.ID
               INNER JOIN documentlist ON docrevision.DocumentID = documentlist.ID 
+              INNER JOIN userdoc ON productdoc.DocumentID = userdoc.DocumentID
             WHERE
               productdoc.ProductID = '$id_product'
             AND productdoc.DocumentID='$DocumentID'
+            -- AND userdoc.UserTypeID = '$UserTypeID'
             ORDER BY docrevision.version DESC
             LIMIT 1 ";
 

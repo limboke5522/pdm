@@ -38,10 +38,10 @@ function login($conn)
             $return = "success";
         }
 
-        if (!empty($userID) || $userID == "") {
+        if (!empty($ID) || $ID == "") {
             $_SESSION["userData"]['userID'] = $userID;
             $_SESSION["userData"]['Username'] = $Username;
-            $_SESSION["userData"]['Permission_Id'] = $departmentID;
+            $_SESSION["userData"]['UserTypeID'] = $permissionID;
             $_SESSION["userData"]['real_name'] = $firstName;
         } else {
             $return = "falied";

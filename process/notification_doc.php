@@ -7,6 +7,8 @@ if (!empty($_POST['FUNC_NAME'])) {
     showData_exp($conn);
   } else   if ($_POST['FUNC_NAME'] == 'showData_exp2') {
     showData_exp2($conn);
+  } else   if ($_POST['FUNC_NAME'] == 'showData_exp3') {
+    showData_exp3($conn);
   }
 
   
@@ -72,7 +74,7 @@ function showData_exp2($conn)
       documentlist
       INNER JOIN docrevision ON documentlist.ID = docrevision.DocumentID
       WHERE DATEDIFF(documentlist.ValidDate, DATE(NOW())) < 0
-      GROUP BY DocName,version
+      GROUP BY documentlist.DocName,docrevision.version
       ORDER BY diffdayexp ASC
           ";
 
@@ -88,5 +90,34 @@ function showData_exp2($conn)
   die;
 }
 
+function showData_exp3($conn)
+{
+  $Search_txt = $_POST["txtSearch"];
 
+  $Sql_product = "SELECT
+      documentlist.DocName,
+      documentlist.ValidDate,
+      docrevision.version,
+      DATE_FORMAT(documentlist.ValidDate ,'%d-%m-%Y') AS ValidDate,
+      DATEDIFF(documentlist.ValidDate, DATE(NOW())) AS diffdayexp
+      FROM
+      documentlist
+      INNER JOIN docrevision ON documentlist.ID = docrevision.DocumentID
+      WHERE docrevision.version = '1'
+      AND documentlist.DocName LIKE '%$Search_txt%'
+      GROUP BY documentlist.DocName,docrevision.version
+      ORDER BY diffdayexp ASC
+          ";
+
+  $meQuery1 = mysqli_query($conn, $Sql_product);
+  while ($row = mysqli_fetch_assoc($meQuery1)) {
+        $return[] = $row;
+  }
+ 
+
+
+  echo json_encode($return);
+  mysqli_close($conn);
+  die;
+}
 

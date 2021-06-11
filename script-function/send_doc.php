@@ -141,6 +141,7 @@
     this.versionDoc = [];
     this.rowDoc = [];
     this.product_Doc_ID = [];
+    this.user_Doc_ID = [];
   }
 
   function createObj_() {
@@ -203,13 +204,16 @@
   function checkProduct(id,name){
     $("#txt_product_center").val(name);
     var id_product =  $("#id_product"+id).val();
+    
 
+    
    $.ajax({
       url: "process/send_doc.php",
       type: 'POST',
       data: {
         'FUNC_NAME': 'product_file',
         'id_product': id_product
+        
       },
       success: function(result) {
         var ObjData = JSON.parse(result);
@@ -217,8 +221,14 @@
         if (!$.isEmptyObject(ObjData)) {
           $.each(ObjData, function(key, value) {
             var btn_preview = '<a href="javascript:void(0)"  onclick="preview(\'' + value.fileName + '\');"><img src="img/pdf.png" style="width:35px;"></a>';
-            var bt = ' <button type="button" style="font-size: 10px;" class="btn btn-outline-primary" id="btn_send_'+key+'"  onclick="add_DocProduct(\'' + key + '\',\'' + value.ID + '\',\'' + value.DocName + '\',\'' + value.version + '\',\'' + id_product + '\')" >เลือก >> </button>';
-            StrTR += "<tr style='border-radius: 15px 15px 15px 15px;margin-top: 6px;margin-bottom: 6px;'>" +
+       
+            if (value.DocumentID == value.UserID) {
+              var bt = ' <button type="button" style="font-size: 10px;" hidden class="btn btn-outline-primary" id="btn_send_'+key+'"  onclick="add_DocProduct(\'' + key + '\',\'' + value.ID + '\',\'' + value.DocName + '\',\'' + value.version + '\',\'' + id_product + '\')" >เลือก >> </button>';
+
+            }
+              var bt = ' <button type="button" style="font-size: 10px;"  class="btn btn-outline-primary" id="btn_send_'+key+'"  onclick="add_DocProduct(\'' + key + '\',\'' + value.ID + '\',\'' + value.DocName + '\',\'' + value.version + '\',\'' + id_product + '\')" >เลือก >> </button>';
+           
+           StrTR += "<tr style='border-radius: 15px 15px 15px 15px;margin-top: 6px;margin-bottom: 6px;'>" +
                     "<td style='width:7%;text-align: center;'>" + (key + 1) + "</td>" +
                     "<td style='width:25%;text-align: left;'>" + value.DocName + "</td>" +
                     "<td style='width:5%;text-align: center;'>" + value.version + "</td>" +
@@ -230,8 +240,9 @@
         }
         $('#table_product_list_document tbody').html(StrTR);
 
+
         setTimeout(() => {
-          chk_btn(id_product);
+          chk_btn(id_product,id_doc,id_user);
         }, 100);
       }
     });
@@ -288,6 +299,7 @@
 
   function chk_btn(id_product) {
     $.each(objReal_doc.rowDoc, function(key, rowDoc) {//เช็ครายการซ้ำ
+       
 
         if(id_product == objReal_doc.product_Doc_ID[key]){
           $("#btn_send_"+rowDoc).hide();

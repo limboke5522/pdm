@@ -56,10 +56,7 @@
 									<div class="card-body ">
 										<div class="row">
 											<div class="col-4">
-												<div class="icon-big text-center">
-												</div>
 											</div>
-
 											<div  class="col-7 d-flex align-items-center">
 												<div  class="numbers"  >
 													<p class="card-category">เอกสารใกล้หมดอายุ</p>
@@ -75,13 +72,10 @@
 							</div>
 							
 							<div class="col-md-3">
-								<div type="submit" class="card card-stats bg-danger" id="little_exp2" onclick="showData_exp2();">
+								<div type="submit" class=" card card-stats bg-danger" id="little_exp2" onclick="showData_exp2();">
 									<div class="card-body">
 										<div class="row">
 											<div class="col-4">
-												<div class="icon-big text-center">
-													<i class="la la-newspaper-o"></i>
-												</div>
 											</div>
 											<div  class="col-7 d-flex align-items-center">
 												<div  class="numbers" >
@@ -94,13 +88,29 @@
 								</div>
 							</div>
 							
+              <div class="col-md-3">
+								<div type="submit"class="card card-stats bg-primary" id="little_exp3" onclick="showData_exp3();">
+									<div class="card-body ">
+										<div class="row">
+											<div class="col-4">
+											</div>
+											<div class="col-7 d-flex align-items-center">
+												<div class="numbers">
+                        <p class="card-category">การแจ้งเตือน</p>
+													<h2 style="text-align: center" id="exp3"></h2>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
 
 						</div>
 
 
             <div class="row">
               <div class="col-3">
-                <input type="text" class="form-control" id="txtSearch" onkeyup="showData_exp();showData_exp2();" placeholder="ค้นหารายการ">
+                <input type="text" class="form-control" id="txtSearch" onkeyup="showData_exp();showData_exp2();showData_exp3();" placeholder="ค้นหารายการ">
               </div>
               <div class="col-3">
                 <!-- <button type="submit" class="btn btn-primary" >ค้นหา</button> -->
@@ -149,6 +159,24 @@
 
             </div>
 
+            <div class="row mt-2 card-body table-responsive p-0" id="tb_contact3" style="height: 500px;max-height: 500px;overflow-y: auto;" >
+              <div class="col-6">
+                <table id="contact_Table3" class="table table-bordered table-hover w-100 table-head-fixed">
+                  <thead>
+                    <tr class="text-center">
+                      <th style="width: 5%;" class="bg_tableAll"></th>
+                      <th style="width: 5%;" class="bg_tableAll">ลำดับ</th>
+                      <th class="bg_tableAll">ชื่อเอกสาร</th>
+                      <th class="bg_tableAll">Version</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+
+                  </tbody>
+                </table>
+              </div>
+
+            </div>
             <hr>
 
 

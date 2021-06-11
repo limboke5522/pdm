@@ -147,7 +147,7 @@
               "<td style='width:20%;text-align: center;'>" + value.DocName + "</td>" +
               "<td style='width:5%;text-align:  center;'>" + btn_preview + "</td>" +
               "<td style='width:20%;text-align: center;'>" + value.DocNumber + "</td>" +
-              "<td style='width:20%;text-align: center;'>" + value.version + "</td>" +
+              "<td style='width:5%;text-align: center;'>" + value.version + "</td>" +
               "<td style='width:20%;text-align: center;'>" + value.UploadDate + "</td>" +
 
               "</tr>";
