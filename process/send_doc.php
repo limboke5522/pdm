@@ -166,12 +166,12 @@ function product_file($conn)
               docrevision.DocumentID,
               documentlist.DocNumber,
               documentlist.DocName,
-              userdoc.DocumentID AS UserID
+              (SELECT DocumentID FROM userdoc WHERE UserTypeID = '$UserTypeID' AND DocumentID = '$DocumentID') AS sub
             FROM
               productdoc
               INNER JOIN docrevision ON productdoc.ID_FileDoc = docrevision.ID
               INNER JOIN documentlist ON docrevision.DocumentID = documentlist.ID 
-              INNER JOIN userdoc ON productdoc.DocumentID = userdoc.DocumentID
+              
             WHERE
               productdoc.ProductID = '$id_product'
             AND productdoc.DocumentID='$DocumentID'

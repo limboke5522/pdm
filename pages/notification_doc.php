@@ -3,8 +3,8 @@
 	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no" name="viewport">
 	<link rel="stylesheet" href="assets/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
-	<link rel="stylesheet" href="assets/css/ready.css">
-	<link rel="stylesheet" href="assets/css/demo.css">
+	<!-- <link rel="stylesheet" href="assets/css/ready.css"> -->
+	<!-- <link rel="stylesheet" href="assets/css/demo.css"> -->
 </head>
 
             <!-- Content Header (Page header) -->
@@ -124,8 +124,7 @@
                 <table id="contact_Table" class="table table-bordered table-hover w-100 table-head-fixed">
                   <thead>
                     <tr class="text-center">
-                      <th style="width: 5%;" class="bg_tableAll"></th>
-                      <th style="width: 5%;" class="bg_tableAll">ลำดับ</th>
+                      <th class="bg_tableAll">ลำดับ</th>
                       <th class="bg_tableAll">ชื่อเอกสาร</th>
                       <th class="bg_tableAll">Version</th>
                       <th class="bg_tableAll">จำนวนวันใกล้หมดอายุ</th>
@@ -144,8 +143,7 @@
                 <table id="contact_Table2" class="table table-bordered table-hover w-100 table-head-fixed">
                   <thead>
                     <tr class="text-center">
-                      <th style="width: 5%;" class="bg_tableAll"></th>
-                      <th style="width: 5%;" class="bg_tableAll">ลำดับ</th>
+                      <th class="bg_tableAll">ลำดับ</th>
                       <th class="bg_tableAll">ชื่อเอกสาร</th>
                       <th class="bg_tableAll">Version</th>
                       <th class="bg_tableAll">จำนวนวันหมดอายุ</th>
@@ -159,15 +157,17 @@
 
             </div>
 
-            <div class="row mt-2 card-body table-responsive p-0" id="tb_contact3" style="height: 500px;max-height: 500px;overflow-y: auto;" >
+            <div class="row mt-2 card-body table-responsive p-0" id="tb_contact3" style="height: 450px;max-height: 450px;overflow-y: auto;" >
               <div class="col-6">
                 <table id="contact_Table3" class="table table-bordered table-hover w-100 table-head-fixed">
                   <thead>
                     <tr class="text-center">
-                      <th style="width: 5%;" class="bg_tableAll"></th>
-                      <th style="width: 5%;" class="bg_tableAll">ลำดับ</th>
-                      <th class="bg_tableAll">ชื่อเอกสาร</th>
-                      <th class="bg_tableAll">Version</th>
+                      
+                      <th class="bg_tableAll">ลำดับ</th>
+                      <th class="bg_tableAll">ชื่อโรงพยาบาล</th>
+                      <th class="bg_tableAll">เอกสารส่ง</th>
+                      <th class="bg_tableAll">Version เอกสาร</th>
+                      <th class="bg_tableAll">เอกสาร Version อัพเดท</th>
                     </tr>
                   </thead>
                   <tbody>

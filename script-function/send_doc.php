@@ -222,12 +222,12 @@
           $.each(ObjData, function(key, value) {
             var btn_preview = '<a href="javascript:void(0)"  onclick="preview(\'' + value.fileName + '\');"><img src="img/pdf.png" style="width:35px;"></a>';
        
-            if (value.DocumentID == value.UserID) {
+            if (value.DocumentID == value.sub) {
               var bt = ' <button type="button" style="font-size: 10px;" hidden class="btn btn-outline-primary" id="btn_send_'+key+'"  onclick="add_DocProduct(\'' + key + '\',\'' + value.ID + '\',\'' + value.DocName + '\',\'' + value.version + '\',\'' + id_product + '\')" >เลือก >> </button>';
 
-            }
+            }else{
               var bt = ' <button type="button" style="font-size: 10px;"  class="btn btn-outline-primary" id="btn_send_'+key+'"  onclick="add_DocProduct(\'' + key + '\',\'' + value.ID + '\',\'' + value.DocName + '\',\'' + value.version + '\',\'' + id_product + '\')" >เลือก >> </button>';
-           
+            }
            StrTR += "<tr style='border-radius: 15px 15px 15px 15px;margin-top: 6px;margin-bottom: 6px;'>" +
                     "<td style='width:7%;text-align: center;'>" + (key + 1) + "</td>" +
                     "<td style='width:25%;text-align: left;'>" + value.DocName + "</td>" +
@@ -242,7 +242,7 @@
 
 
         setTimeout(() => {
-          chk_btn(id_product,id_doc,id_user);
+          chk_btn(id_product);
         }, 100);
       }
     });

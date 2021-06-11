@@ -103,8 +103,7 @@ function showData_exp3($conn)
       FROM
       documentlist
       INNER JOIN docrevision ON documentlist.ID = docrevision.DocumentID
-      WHERE docrevision.version = '1'
-      AND documentlist.DocName LIKE '%$Search_txt%'
+      WHERE documentlist.DocName LIKE '%$Search_txt%'
       GROUP BY documentlist.DocName,docrevision.version
       ORDER BY diffdayexp ASC
           ";
