@@ -140,10 +140,10 @@ function showData_exp3() {
             StrTR2 += "<tr style='border-radius: 15px 15px 15px 15px;margin-top: 6px;margin-bottom: 6px;'>" +
                       // "<td style='width:5%;text-align: center;'><center>" + chkDoc + "</center></td>" +
                       "<td style='width:5%; text-align: center;'>" + (key + 1) + "</td>" +
-                      "<td style='width:20%;text-align: center;'>" + value.DocName + "</td>" +
-                      "<td style='width:10%;text-align: center;'>" + "" + "</td>" +
-                      "<td style='width:15%;text-align: center;'>" + value.version + "</td>" +
-                      "<td style='width:20%;text-align: center;'>" + "" + "</td>" +
+                      "<td style='width:20%;text-align: center;'>" + value.CustomerName + "</td>" +
+                      "<td style='width:20%;text-align: center;'>" + value.fileName + "</td>" +
+                      "<td style='width:20%;text-align: center;'>" + value.version + "</td>" +
+                      "<td style='width:20%;text-align: center;'>" + value.newVersion + "</td>" +
                       "</tr>";
 
                       count++;

@@ -94,19 +94,32 @@ function showData_exp3($conn)
 {
   $Search_txt = $_POST["txtSearch"];
 
-  $Sql_product = "SELECT
-      documentlist.DocName,
-      documentlist.ValidDate,
-      docrevision.version,
-      DATE_FORMAT(documentlist.ValidDate ,'%d-%m-%Y') AS ValidDate,
-      DATEDIFF(documentlist.ValidDate, DATE(NOW())) AS diffdayexp
-      FROM
-      documentlist
-      INNER JOIN docrevision ON documentlist.ID = docrevision.DocumentID
-      WHERE documentlist.DocName LIKE '%$Search_txt%'
-      GROUP BY documentlist.DocName,docrevision.version
-      ORDER BY diffdayexp ASC
-          ";
+  $Sql_product = "SELECT 
+  customer.CustomerName,
+        documentlist.DocName,
+        product.ProductName,
+        docrevision.fileName,
+        docrevision.version,
+        docrevision.DocumentID AS DocID,
+        docrevision.productID AS ProducID,
+        (SELECT docrevision.version FROM docrevision
+            WHERE docrevision.DocumentID = DocID
+            AND docrevision.productID = ProducID
+            ORDER BY docrevision.version DESC LIMIT 1) AS newVersion
+
+        FROM
+        send_doc_detail
+        LEFT JOIN send_doc ON send_doc_detail.SendDocNo = send_doc.SendDocNo
+        LEFT JOIN customer ON send_doc.CustomerCode = customer.ID
+        INNER JOIN productdoc ON send_doc_detail.Product_DocID = productdoc.ID
+        INNER JOIN documentlist ON productdoc.DocumentID = documentlist.ID
+        INNER JOIN product ON send_doc_detail.ProductID = product.ID
+        INNER JOIN docrevision ON productdoc.ID_FileDoc = docrevision.ID 
+        WHERE
+  send_doc_detail.SendDocNo LIKE '%$Search_txt%' 
+  HAVING newVersion > version 
+        ORDER BY
+        product.ProductName ASC";
 
   $meQuery1 = mysqli_query($conn, $Sql_product);
   while ($row = mysqli_fetch_assoc($meQuery1)) {
