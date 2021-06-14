@@ -44,7 +44,7 @@ while ($Result = mysqli_fetch_assoc($meQuery_item)) {
 							send_doc_detail.SendDocNo = '$sendDocNo' 
 							AND send_doc_detail.ProductID = '$ProductID_detail' 
 						ORDER BY
-							product.ProductName ASC ";
+						documentlist.DocName ASC ";
 
 		$meQuery_item_detail = mysqli_query($conn, $Sql_item_detail);
 		$count_detail=0;
