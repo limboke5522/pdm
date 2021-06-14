@@ -391,6 +391,9 @@ function save_sendDoc() {
       },
       success: function(result) {
           send_mail(result,email); 
+          if(Copy_doc != ""){
+            send_mail_copy(result,Copy_doc); 
+          }
       }
     });
   }
@@ -450,6 +453,23 @@ function save_sendDoc() {
     });
   }
   
+  function send_mail_copy(sendDocNo,Copy_doc) {
+// alert(sendDocNo+"|"+email);
+
+
+    $.ajax({
+      url: "process/send_mail_copy.php",
+      type: 'POST',
+      data: {
+        'email': Copy_doc,
+        'sendDocNo': sendDocNo
+      },
+      success: function(result) {
+      
+      }
+    });
+  }
+
 
   function preview(fileName) {
     var url="process/file/"+fileName;
