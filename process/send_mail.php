@@ -117,13 +117,13 @@ for($j=0;$j<$count_file;$j++){
 	$file_name= $fileName[$j];
 	$producname = $ProductNameFile[$j];
 	$filename_TH = iconv("UTF-8", "TIS-620", $file_name);
-	$mail->addAttachment('file/'.$filename_TH, $c.".".$producname."_".$file_name);// แทรกไฟล์  LOCAL *****
-	// $mail->addAttachment('file/'.$file_name, $c.".".$producname."_".$file_name);// แทรกไฟล์ SERVER *****
+	// $mail->addAttachment('file/'.$filename_TH, $c.".".$producname."_".$file_name);// แทรกไฟล์  LOCAL *****
+	$mail->addAttachment('file/'.$file_name, $c.".".$producname."_".$file_name);// แทรกไฟล์ SERVER *****
 	$c++;
 }
 
 $mail->Subject = $subject;
-0
+
 $email_content = "
 	<!DOCTYPE html>
 	<html>
