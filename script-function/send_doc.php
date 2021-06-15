@@ -267,6 +267,7 @@
     setTimeout(() => {
       if($("#select_contact").val() == '@'){
         $("#Modaldetail_Doc").modal('show');
+        $("#Modaldetail_Doc2").modal('hide');
       }
       
       showDetail_contact();
@@ -276,6 +277,7 @@
   $("#select_subject").change(function() {
     setTimeout(() => {
       if($("#select_subject").val() == '@'){
+        $("#Modaldetail_Doc").modal('hide');
         $("#Modaldetail_Doc2").modal('show');
       }
       

@@ -215,7 +215,7 @@
 
             <!-- Modal -->
 <div class="modal fade" id="Modaldetail_Doc" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
-    <div class="modal-dialog modal-xl" >
+    <div class="modal-dialog modal-xl" style="width: 50%">
         <div class="modal-content" role="document">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalScrollableTitle">เพิ่มผู้ติดต่อ</h5>
