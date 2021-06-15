@@ -30,6 +30,9 @@ function selection_Customer($conn)
             customer 
           WHERE
             customer.IsCancel = 0 
+            
+          AND ( customer.ID LIKE '%$select_hospital%'
+           OR customer.CustomerName LIKE '%$select_hospital%' )
           ORDER BY
             customer.CustomerName ASC ";
 

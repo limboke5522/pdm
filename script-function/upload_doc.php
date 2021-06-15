@@ -8,7 +8,9 @@
   // userID = "";
   $(function() {
     selection_Product();
-    // show_DataLeft();
+    $('#Search_Product').hide();
+    
+    show_DataLeft();
 
     // แสดงชื่อไฟล์
     $('.custom-file-input').on('change', function() {
@@ -77,11 +79,11 @@
     var select_product = $("#select_product").val();
     // var id_docLeft = $('input[name=id_docLeft]:checked').val();
 
-    if(select_product == 0){
-      text = "กรุณาเลือก Product";
-            showDialogFailed(text);
-            return;
-    }
+    // if(select_product == 0){
+    //   text = "กรุณาเลือก Product";
+    //         showDialogFailed(text);
+    //         return;
+    // }
 
     if(upload_fileRight == undefined){
       text = "กรุณาเลือก File ที่จะอัพโหลด";
@@ -138,7 +140,7 @@
           $.each(ObjData, function(key, value) {
 
 
-            var chkDoc = "<input class='form-control chk_docLeft' type='radio'  name='id_docLeft' id='id_docLeft" + key + "' value='" + value.ID + "'  style='width: 50%;'>";
+            var chkDoc = "<input class='form-control chk_docLeft' type='radio'  name='id_docLeft' id='id_docLeft" + key + "' value='" + value.ID + "'  style='width:50%;'>";
             var btn_preview = '<a href="javascript:void(0)"  onclick="preview(\'' + value.fileName + '\');"><img src="img/pdf.png" style="width:35px;"></a>';
 
             StrTR += "<tr style='border-radius: 15px 15px 15px 15px;margin-top: 6px;margin-bottom: 6px;'>" +
@@ -147,8 +149,8 @@
               "<td style='width:20%;text-align: center;'>" + value.DocName + "</td>" +
               "<td style='width:5%;text-align:  center;'>" + btn_preview + "</td>" +
               "<td style='width:20%;text-align: center;'>" + value.DocNumber + "</td>" +
-              "<td style='width:5%;text-align: center;'>" + value.version + "</td>" +
-              "<td style='width:20%;text-align: center;'>" + value.UploadDate + "</td>" +
+              "<td style='width:10%;text-align: center;'>" + value.version + "</td>" +
+              "<td style='width:25%;text-align: center;'>" + value.UploadDate + "</td>" +
 
               "</tr>";
           });

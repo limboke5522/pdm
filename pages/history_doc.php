@@ -111,6 +111,7 @@
                         <thead>
                             <tr class="text-center">
                                 <th class="col-center" nowrap>ลำดับ</th>
+                                <th class="col-center" nowrap>เลขที่เอกสาร</th>
                                 <th class="col-center" nowrap>รายการสินค้า</th>
                                 <th class="col-center" nowrap>ชื่อเอกสาร</th>
                                 <th class="col-center" nowrap>Version</th>

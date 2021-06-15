@@ -46,6 +46,7 @@
             Str += "<option value=" + value.ID + " >" + value.Purpose + "</option>";
 
           });
+          Str += "<option value='@' > --- เพิ่ม --- </option>";
         }
         $("#select_subject").html(Str);
 
@@ -70,6 +71,7 @@
             Str += "<option value=" + value.ID + " >" + value.ContactName + "</option>";
 
           });
+          Str += "<option value='@' > --- เพิ่ม --- </option>";
         }
         $("#select_contact").html(Str);
 
@@ -263,9 +265,24 @@
 
   $("#select_contact").change(function() {
     setTimeout(() => {
+      if($("#select_contact").val() == '@'){
+        $("#Modaldetail_Doc").modal('show');
+      }
+      
       showDetail_contact();
     }, 150);
   });
+
+  $("#select_subject").change(function() {
+    setTimeout(() => {
+      if($("#select_subject").val() == '@'){
+        $("#Modaldetail_Doc2").modal('show');
+      }
+      
+      showDetail_contact();
+    }, 150);
+  });
+
   $("#select_product").change(function() {
     setTimeout(() => {
       var productID2 = $(this).val();

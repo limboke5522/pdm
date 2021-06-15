@@ -15,12 +15,12 @@
 
 
 
-            <div class="card">
+            <div class="card" id="Search_Product">
               <div class="card-body">
 
                 <div class="row">
 
-                  <div class="col-5">
+                  <div class="col-5" >
                     <div class="form-group row">
                       <label for="txt_receive" class="col-sm-2 col-form-label">Product</label>
                       <div class="col-sm-10">
@@ -37,13 +37,24 @@
               </div>
             </div>
 
+            <div class="card">
+            <div class="card-body">
             <div class="row">
-              <div class="col-3">
-                <input type="text" class="form-control" id="txtSearch" onkeyup="show_DataLeft();" placeholder="ค้นหารายการ">
+              <div class="col-6">
+                <input type="text" style="width: 400px;" class="form-control" id="txtSearch" onkeyup="show_DataLeft();" placeholder="ค้นหารายการ">
               </div>
-              <div class="col-3">
-                <!-- <button type="submit" class="btn btn-primary" >ค้นหา</button> -->
-                <!-- <button type="submit" class="btn btn-success" id="showModalAddUsers">เพิ่มข้อมูล</button> -->
+              <div class="col-6">
+              <div class="row " style="margin-left: 1px;">
+                  <div class="form-group col-7 " id="div_upload">
+                    <div class="custom-file ">
+                      <input type="file" class="custom-file-input" name="inputFile" id="upload_fileRight" accept="application/pdf">
+                      <label class="custom-file-label" for="inputFile">เลือกไฟล์</label>
+                    </div>
+                  </div>
+                  <div class="form-group col-5 ">
+                    <button style="width: 50%;margin-left: 50px;" type="button" class="btn btn-outline-primary" onclick="upload_Doc();">Upload</button>
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -55,12 +66,12 @@
                     <table id="Data_TableLeft" class="table table-bordered table-hover w-100 table-head-fixed">
                       <thead>
                         <tr class="text-center">
-                          <th style="width: 10%;" class="bg_tableAll"></th>
+                          <th style="width: 5%;" class="bg_tableAll"></th>
                           <th style="width: 5%;" class="bg_tableAll">ลำดับ</th>
                           <th style="width: 30%;" class="bg_tableAll">เอกสาร</th>
                           <th style="width: 5%;" class="bg_tableAll">Preview</th>
                           <th style="width: 20%;" class="bg_tableAll">เลขที่คุมเอกสาร</th>
-                          <th style="width: 15%;" class="bg_tableAll">version</th>
+                          <th style="width: 10%;" class="bg_tableAll">version</th>
                           <th style="width: 15%;" class="bg_tableAll">วันที่อัพโหลด</th>
                         </tr>
                       </thead>
@@ -73,17 +84,7 @@
               </div>
               <div class="col-6">
               
-                <div class="row " style="margin-left: 1px;">
-                  <div class="form-group col-7 mt-3" id="div_upload">
-                    <div class="custom-file ">
-                      <input type="file" class="custom-file-input" name="inputFile" id="upload_fileRight" accept="application/pdf">
-                      <label class="custom-file-label" for="inputFile">เลือกไฟล์</label>
-                    </div>
-                  </div>
-                  <div class="form-group col-5 mt-3">
-                    <button style="width: 50%;margin-left: 50px;" type="button" class="btn btn-outline-primary" onclick="upload_Doc();">Upload</button>
-                  </div>
-                </div>
+               
 
 
                 <div class="row mt-2 card-body table-responsive p-0" id="tb_Data" style="height: 420px;max-height: 350px;overflow-y: auto;">
@@ -108,7 +109,8 @@
 
               </div>
             </div>
-
+            </div>
+          </div>
 
 
             <!-- <div class="col-5 ml-5">

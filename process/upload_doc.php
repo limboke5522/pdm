@@ -88,9 +88,10 @@ function show_DataLeft($conn)
                     INNER JOIN docrevision ON productdoc.ID_FileDoc = docrevision.ID
                     INNER JOIN documentlist ON productdoc.DocumentID = documentlist.ID 
                   WHERE
-                    productdoc.ProductID = '$select_product'
-                  AND 
-                  documentlist.DocName LIKE '%$Search_txt%'
+                    
+                  (documentlist.DocName LIKE '%$Search_txt%'
+                  OR  documentlist.DocNumber LIKE '%$Search_txt%' )
+                  LIMIT 10
           ";
 
   $meQuery1 = mysqli_query($conn, $Sql_product);

@@ -89,6 +89,7 @@ function show_Docdetail($conn)
  
 
   $Sql = "SELECT
+  send_doc_detail.SendDocNo,
             documentlist.DocName,
             product.ProductName,
             docrevision.fileName,

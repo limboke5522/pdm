@@ -2,19 +2,29 @@
             <div class="content-header">
               <div class="container-fluid">
                 <div class="row mb-2">
-                  <div class="col-sm-6">
+                  <div class="col-sm-5">
                     <ol class="breadcrumb">
                       <li class="breadcrumb-item"><a href="#">ระบบ</a></li>
                       <li class="breadcrumb-item active">ส่งเอกสาร</li>
                     </ol>
                   </div><!-- /.col -->
+
+                  <div class="col-6 d-flex justify-content-end">
+                    <div class="form-group row">
+                        <label for="txt_email" class=" col-form-label">Email ผู้ส่ง : </label>
+                      <div class="col-8">
+                        <input type="text" style="width: 150%;" class="form-control" id="txt_email_send" placeholder="Email" disabled>
+                      </div>
+                    </div>
+                  </div>
+
                 </div><!-- /.row -->
               </div><!-- /.container-fluid -->
             </div>
             <!-- /.content-header -->
 
             <div class="card">
-              <div class="card-body" style="background-color: lightblue;">
+              <div class="card-body" style="background-color: #b5efec57;">
              
                 <div class="row">
 
@@ -46,8 +56,10 @@
 
                   <div class="col-5">
                     <div class="form-group row">
-                      <label for="select_contact" class="col-sm-2 col-form-label">ผู้ติดต่อ</label>
+                      <label for="select_contact" class="col-sm-2 col-form-label">ผู้ติดต่อ
+                      </label>
                       <div class="col-sm-10">
+                        
                         <select class="form-control select2" id="select_contact" placeholder="ผู้ติดต่อ "></select>
                       </div>
                     </div>
@@ -73,34 +85,11 @@
 
 
                 <div class="row">
-
-                  <div class="col-5">
-                    <div class="form-group row">
-                      <label for="txt_email" class="col-sm-2 col-form-label">Email ผู้ส่ง</label>
-                      <div class="col-sm-10">
-                        <input type="text" class="form-control" id="txt_email_send" placeholder="Email" disabled>
-                      </div>
-                    </div>
-                  </div>
-
                   <div class="col-5">
                     <div class="form-group row">
                       <label for="txt_email" class="col-sm-2 col-form-label">Email ผู้รับ</label>
                       <div class="col-sm-10">
                         <input type="text" class="form-control" id="txt_email" placeholder="Email">
-                      </div>
-                    </div>
-                  </div>
-
-                </div>
-
-                <div class="row">
-
-                  <div class="col-5">
-                    <div class="form-group row">
-                      <label for="txt_remark" class="col-sm-2 col-form-label">บันทึกช่วยจำ</label>
-                      <div class="col-sm-10">
-                        <input type="text" class="form-control" id="txt_remark" placeholder="บันทึกช่วยจำ">
                       </div>
                     </div>
                   </div>
@@ -113,17 +102,31 @@
                       </div>
                     </div>
                   </div>
+                </div>
+
+                <div class="row">
+
+                  <div class="col-10">
+                    <div class="form-group row">
+                      <label for="txt_remark" class="col-sm-1 col-form-label">บันทึกช่วยจำ</label>
+                      <div class="col-sm-12">
+                        <textarea style="height: 80px;" class="form-control" id="txt_remark" placeholder="บันทึกช่วยจำ"></textarea>
+                      </div>
+                    </div>
+                  </div>
+
+                  
                   
                 </div>
                 
               </div>
             </div>
 
-            <div class="row mt-4">
-              <div class="col-5">
+            <!-- <div class="row mt-4">
+              <div class="col-4">
                 <div class="form-group row">
                   <label for="select_product" class="col-sm-2 col-form-label">product</label>
-                  <div class="col-sm-10">
+                  <div class="col-sm-8">
                     <select class="form-control select2" id="select_product" placeholder="product"></select>
                   </div>
                 </div>
@@ -132,11 +135,18 @@
               <!-- <div class="col-1">
                 <button type="submit" class="btn btn-primary btn-block" id="btn_search">ค้นหา</button>
               </div> -->
-            </div>
-
+            <!-- </div>  -->
+            
             <div class="row mt-3">
-
-              <div class="col-4  table-responsive p-0" style="margin-top: 3.3rem!important;">
+                
+              <div class="col-4">
+              <div class="card-body" >
+              <div class="form-group row">
+                    <label for="select_product" class="col-sm-2 col-form-label">product</label>
+                    <div class="col-sm-8">
+                      <select class="form-control select2" id="select_product" placeholder="product"></select>
+                    </div>
+                  </div>
                 <table id="table_product" class="table table-bordered table-hover w-100 table-head-fixed">
                   <thead>
                     <tr class="text-center">
@@ -150,9 +160,11 @@
 
                   </tbody>
                 </table>
+                </div>
               </div>
 
               <div class="col-4">
+                <div class="card-body" >
                 <div class="form-group row">
                   <label for="txt_product_center" class="col-sm-2 col-form-label">ชื่อสินค้า</label>
                   <div class="col-sm-9">
@@ -177,14 +189,14 @@
                     </table>
                   </div>
                 </div>
-
+</div>
               </div>
               <div class="col-4 ">
-                <div class="card-body" style="background-color: lightblue;">
-                <div class="form-group row">
-                  <label for="txt_product_center" class="col-sm-4 col-form-label">รายการเอกสารที่จะส่ง</label>
-                </div>
-                <table id="table_product_docment" class="table table-bordered table-hover w-100 table-head-fixed">
+                <div class="card-body" style="background-color: #b5efec57;">
+                  <div class="form-group row">
+                    <label for="txt_product_center" class="col-sm-4 col-form-label">รายการเอกสารที่จะส่ง</label>
+                  </div>
+                  <table id="table_product_docment" class="table table-bordered table-hover w-100 table-head-fixed">
                   <thead>
                     <tr class="text-center">
                       <th class="bg_tableAll">ลำดับ</th>
@@ -200,3 +212,73 @@
                 </div>
               </div>
             </div>
+
+            <!-- Modal -->
+<div class="modal fade" id="Modaldetail_Doc" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+    <div class="modal-dialog modal-xl" >
+        <div class="modal-content" role="document">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalScrollableTitle">เพิ่มผู้ติดต่อ</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                
+                <div class="row ml-5 mt-2">
+              
+              <div class="col-3 mt-3">
+                <label>ผู้ติดต่อ :</label>
+                <input type="text" class="form-control" id="ID_txt" hidden>
+                <input type="text" class="form-control" id="txt_contact_name" placeholder="ชื่อผู้ติดต่อ" autocomplete="off">
+              </div>
+              <div class="col-3 mt-3">
+                <label>แผนก :</label>
+                <input type="text" class="form-control" id="txt_deb_name" placeholder="ชื่อแผนก" autocomplete="off">
+              </div>
+
+            </div>
+            <div class="row ml-5 mt-2">
+              <div class="col-3 mt-3">
+                <label>Email :</label>
+                <input type="text" class="form-control enonly" id="txt_email" placeholder="E-Mail" autocomplete="off">
+              </div>
+              <div class="col-3 mt-3">
+                <label>เบอร์ติดต่อ :</label>
+                <input type="text" class="form-control numonly" id="txt_phonenumber" placeholder="เบอร์โทร" autocomplete="off">
+              </div>
+              <div class="col-3 mt-5">
+                <button style="width: 100px;" type="button" class="btn btn-outline-success ml-2" id="btnSaveDoc" onclick="saveData();">บันทึก</button>
+              </div>
+            </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="Modaldetail_Doc2" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+    <div class="modal-dialog modal-xl " style="width: 20%">
+        <div class="modal-content" role="document">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalScrollableTitle">เพิ่มหัวข้อเรื่อง</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                
+                <div class="row ml-5 mt-2">
+              
+                  <div class="col-6 mt-3">
+                  <label>วัตถุประสงค์ :</label>
+                  <input type="text" class="form-control" id="txt_purpose_name" placeholder="ชื่อวัตถุประสงค์">
+                  </div>
+                  <div class="col-6 mt-5 ">
+                    <button style="width: 100px;" type="button" class="btn btn-outline-success" id="btnSaveDoc" onclick="saveData();">บันทึก</button>
+                  </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
