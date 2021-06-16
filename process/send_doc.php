@@ -17,6 +17,10 @@ if (!empty($_POST['FUNC_NAME'])) {
     product_file($conn);
   }else if ($_POST['FUNC_NAME'] == 'save_sendDoc') {
     save_sendDoc($conn);
+  }else if ($_POST['FUNC_NAME'] == 'saveData') {
+    saveData($conn);
+  }else if ($_POST['FUNC_NAME'] == 'saveData2') {
+    saveData2($conn);
   }
 }
 
@@ -245,6 +249,52 @@ function save_sendDoc($conn)
     // $return = $DocID;
  
   echo ($return);
+  unset($conn);
+  die;
+}
+
+function saveData($conn)
+{
+
+  $select_hospital    = $_POST['select_hospital'];
+  $txt_contact_name    = $_POST['txt_contact_name'];
+  $txt_deb_name     = $_POST['txt_deb_name'];
+  $txt_email2     = $_POST['txt_email2'];
+  $txt_phonenumber     = $_POST['txt_phonenumber'];
+
+          $query = "  INSERT INTO cuscontact 
+                      SET ContactName = '$txt_contact_name',
+                          Department = '$txt_deb_name',
+                          email = '$txt_email2',
+                          Tel = '$txt_phonenumber',
+                          CustomerID = '$select_hospital'
+          ";
+
+          $return = "เพิ่มข้อมูล สำเร็จ";
+          mysqli_query($conn, $query);
+  
+    
+ 
+  echo $return;
+  unset($conn);
+  die;
+}
+
+function saveData2($conn)
+{
+
+  $txt_purpose_name    = $_POST['txt_purpose_name'];
+
+          $query = "INSERT INTO purpose 
+          SET Purpose = '$txt_purpose_name'
+          ";
+
+          $return = "เพิ่มข้อมูล สำเร็จ";
+          mysqli_query($conn, $query);
+   
+    
+ 
+  echo $return;
   unset($conn);
   die;
 }

@@ -268,6 +268,8 @@
       if($("#select_contact").val() == '@'){
         $("#Modaldetail_Doc").modal('show');
         $("#Modaldetail_Doc2").modal('hide');
+
+        $("#select_contact").val(0);
       }
       
       showDetail_contact();
@@ -279,6 +281,8 @@
       if($("#select_subject").val() == '@'){
         $("#Modaldetail_Doc").modal('hide');
         $("#Modaldetail_Doc2").modal('show');
+
+        $("#select_subject").val(0);
       }
       
       showDetail_contact();
@@ -493,6 +497,107 @@ function save_sendDoc() {
   function preview(fileName) {
     var url="process/file/"+fileName;
     window.open(url);
+  }
+
+  function saveData() {
+    var select_hospital = $('#select_hospital').val();
+
+      var txt_contact_name= $('#txt_contact_name').val();
+      var txt_deb_name= $('#txt_deb_name').val();
+      var txt_email2= $('#txt_email2').val();
+      var txt_phonenumber= $('#txt_phonenumber').val();
+      
+ 
+      var text = "";
+
+      if (txt_contact_name == "") {
+        text = "กรุณากรอกข้อมูลผู้ติดต่อ";
+        showDialogFailed(text);
+        return;
+      }
+
+      if (txt_deb_name == "") {
+        text = "กรุณากรอกข้อมูลแผนก";
+        showDialogFailed(text);
+        return;
+      }
+
+      if (txt_email2 == "") {
+        text = "กรุณากรอก E-Mail";
+        showDialogFailed(text);
+        return;
+      }
+
+      if (txt_phonenumber == "") {
+        text = "กรุณากรอกข้อมูลเบอร์โทร";
+        showDialogFailed(text);
+        return;
+      }
+
+      $.ajax({
+        url: "process/send_doc.php",
+        type: 'POST',
+        data: {
+          'FUNC_NAME': 'saveData',
+          'select_hospital': select_hospital,
+          'txt_contact_name': txt_contact_name,
+          'txt_deb_name': txt_deb_name,
+          'txt_email2': txt_email2,
+          'txt_phonenumber': txt_phonenumber,
+        },
+        success: function(result) {
+          // if(result=="0"){
+          //   showDialogFailed("รหัสลูกค้าซ้ำ ไม่สามารถเพิ่มข้อมูลได้ !!!");
+          // }else{
+            showDialogSuccess(result);
+          // }
+          
+          selection_Contact();
+          // $('#select_hospital').val(0);
+          $('#txt_contact_name').val("");
+          $('#txt_deb_name').val("");
+          $('#txt_email').val("");
+          $('#txt_phonenumber').val("");
+        
+    
+        }
+      });
+  }
+
+  function saveData2() {
+    var txt_purpose_name= $('#txt_purpose_name').val();
+    
+
+
+    var text = "";
+
+    if (txt_purpose_name == "") {
+      text = "กรุณากรอกชื่อวัตถุประสงค์";
+      showDialogFailed(text);
+      return;
+    }
+
+    $.ajax({
+      url: "process/send_doc.php",
+      type: 'POST',
+      data: {
+        'FUNC_NAME': 'saveData2',
+        'txt_purpose_name': txt_purpose_name
+      },
+      success: function(result) {
+        // if(result=="0"){
+        //   showDialogFailed("วัตถุประสงค์ซ้ำ กรุณากรอกวัตถุประสงค์ใหม่อีกครั้ง");
+        // }else{
+          showDialogSuccess(result);
+        // }
+        
+        selection_Purpose();
+        $('#txt_purpose_name').val("");
+        $('#ID_txt').val("");
+      
+   
+      }
+    });
   }
 
   function showDialogSuccess(text) {

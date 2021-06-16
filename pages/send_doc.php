@@ -241,7 +241,7 @@
             <div class="row ml-5 mt-2">
               <div class="col-3 mt-3">
                 <label>Email :</label>
-                <input type="text" class="form-control enonly" id="txt_email" placeholder="E-Mail" autocomplete="off">
+                <input type="text" class="form-control enonly" id="txt_email2" placeholder="E-Mail" autocomplete="off">
               </div>
               <div class="col-3 mt-3">
                 <label>เบอร์ติดต่อ :</label>
@@ -275,7 +275,7 @@
                   <input type="text" class="form-control" id="txt_purpose_name" placeholder="ชื่อวัตถุประสงค์">
                   </div>
                   <div class="col-6 mt-5 ">
-                    <button style="width: 100px;" type="button" class="btn btn-outline-success" id="btnSaveDoc" onclick="saveData();">บันทึก</button>
+                    <button style="width: 100px;" type="button" class="btn btn-outline-success" id="btnSaveDoc2" onclick="saveData2();">บันทึก</button>
                   </div>
                 </div>
             </div>
