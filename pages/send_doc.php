@@ -168,7 +168,7 @@
                 <div class="form-group row">
                   <label for="txt_product_center" class="col-sm-2 col-form-label">ชื่อสินค้า</label>
                   <div class="col-sm-9">
-                    <input type="text" class="form-control" id="txt_product_center" placeholder="ชื่อสินค้า" disabled>
+                    <input type="text" class="form-control" id="txt_product_center" placeholder="ชื่อสินค้า" onkeyup="checkProduct(id,name);" disabled>
                   </div>
                 </div>
                 <div class="row ">
@@ -215,7 +215,7 @@
 
             <!-- Modal -->
 <div class="modal fade" id="Modaldetail_Doc" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
-    <div class="modal-dialog modal-xl" style="width: 50%">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content" role="document">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalScrollableTitle">เพิ่มผู้ติดต่อ</h5>
@@ -223,34 +223,42 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body ">
                 
-                <div class="row ml-5 mt-2">
+                <div class="row  mt-2 mb-4" style="margin-left: 15%">
               
-              <div class="col-3 mt-3">
+              <div class="col-5 mt-3">
                 <label>ผู้ติดต่อ :</label>
                 <input type="text" class="form-control" id="ID_txt" hidden>
                 <input type="text" class="form-control" id="txt_contact_name" placeholder="ชื่อผู้ติดต่อ" autocomplete="off">
               </div>
-              <div class="col-3 mt-3">
+              <div class="col-5 mt-3">
                 <label>แผนก :</label>
                 <input type="text" class="form-control" id="txt_deb_name" placeholder="ชื่อแผนก" autocomplete="off">
               </div>
 
             </div>
-            <div class="row ml-5 mt-2">
-              <div class="col-3 mt-3">
+            <div class="row   mb-3" style="margin-left: 15%">
+              <div class="col-5 ">
                 <label>Email :</label>
-                <input type="text" class="form-control enonly" id="txt_email2" placeholder="E-Mail" autocomplete="off">
+                <form>
+                <input type="email" class="form-control enonly" id="txt_email2" placeholder="E-Mail" autocomplete="off">
+                </form>
               </div>
-              <div class="col-3 mt-3">
+              <div class="col-5 ">
                 <label>เบอร์ติดต่อ :</label>
                 <input type="text" class="form-control numonly" id="txt_phonenumber" placeholder="เบอร์โทร" autocomplete="off">
               </div>
-              <div class="col-3 mt-5">
-                <button style="width: 100px;" type="button" class="btn btn-outline-success ml-2" id="btnSaveDoc" onclick="saveData();">บันทึก</button>
+              
+            </div>
+
+            <div class="row  mb-3" style="margin-left: 42%">
+             
+              <div class="col-5 ">
+                <button style="width: 100px;" type="button" class="btn btn-outline-success " id="btnSaveDoc" onclick="saveData();">บันทึก</button>
               </div>
             </div>
+
                 </div>
             </div>
         </div>
@@ -258,7 +266,7 @@
 </div>
 
 <div class="modal fade" id="Modaldetail_Doc2" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
-    <div class="modal-dialog modal-xl " style="width: 20%">
+    <div class="modal-dialog modal-lg ">
         <div class="modal-content" role="document">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalScrollableTitle">เพิ่มหัวข้อเรื่อง</h5>
@@ -268,7 +276,7 @@
             </div>
             <div class="modal-body">
                 
-                <div class="row ml-5 mt-2">
+                <div class="row  mt-2 mb-5" style="margin-left: 20%">
               
                   <div class="col-6 mt-3">
                   <label>วัตถุประสงค์ :</label>

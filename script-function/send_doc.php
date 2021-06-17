@@ -4,6 +4,9 @@
     selection_Customer();
     selection_Purpose();
     selection_Product();
+
+    checkProduct(id,name);
+    
   })
 
 
@@ -12,7 +15,8 @@
       url: "process/send_doc.php",
       type: 'POST',
       data: {
-        'FUNC_NAME': 'selection_Customer'
+        'FUNC_NAME': 'selection_Customer',
+        'select_hospital': $("#select_hospital").val()
       },
       success: function(result) {
         var ObjData = JSON.parse(result);
@@ -20,7 +24,7 @@
         Str += "<option value=0 >กรุณาเลือก โรงพยาบาล</option>";
         if (!$.isEmptyObject(ObjData)) {
           $.each(ObjData, function(key, value) {
-            Str += "<option value=" + value.ID + " >" + value.CustomerName + "</option>";
+            Str += "<option value=" + value.ID + " >" + value.CustomerCode + " : " + value.CustomerName + "</option>";
 
           });
         }
@@ -46,8 +50,10 @@
             Str += "<option value=" + value.ID + " >" + value.Purpose + "</option>";
 
           });
-          Str += "<option value='@' > --- เพิ่ม --- </option>";
+          
         }
+        Str += "<option value='@'> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp "+ 
+                " &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp --- เพิ่ม --- </option>";
         $("#select_subject").html(Str);
 
       }
@@ -71,8 +77,10 @@
             Str += "<option value=" + value.ID + " >" + value.ContactName + "</option>";
 
           });
-          Str += "<option value='@' > --- เพิ่ม --- </option>";
+          
         }
+        Str += "<option value='@'> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp "+ 
+                " &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp --- เพิ่ม --- </option>";
         $("#select_contact").html(Str);
 
       }
@@ -93,8 +101,8 @@
         Str += "<option value=0 >กรุณาเลือก Product</option>";
         if (!$.isEmptyObject(ObjData)) {
           $.each(ObjData, function(key, value) {
-            Str += "<option value=" + value.ID + " >" + value.ProductName + "</option>";
-
+            // Str += "<option value=" + value.ID + " >" + value.ProductCode + " : " + value.ProductName + "</option>";
+            Str += "<option value=" + value.ID + " >"  + value.ProductName + "</option>";
           });
         }
         $("#select_product").html(Str);
@@ -204,18 +212,19 @@
   }
 
   function checkProduct(id,name){
-    $("#txt_product_center").val(name);
-    var id_product =  $("#id_product"+id).val();
-    
+    // $("#txt_product_center").val(name);
 
-    
+    var id_product =  $("#id_product"+id).val();
+    var txt_product_center = $("#txt_product_center").val();
+
+    $("#txt_product_center").attr('disabled', false);
    $.ajax({
       url: "process/send_doc.php",
       type: 'POST',
       data: {
         'FUNC_NAME': 'product_file',
-        'id_product': id_product
-        
+        'id_product': id_product,
+        'txt_product_center': txt_product_center
       },
       success: function(result) {
         var ObjData = JSON.parse(result);

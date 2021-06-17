@@ -27,15 +27,18 @@ if (!empty($_POST['FUNC_NAME'])) {
 
 function selection_Customer($conn)
 {
+  $select_hospital = $_POST["select_hospital"];
+
   $Sql = "SELECT
             customer.ID,
+            customer.CustomerCode,
             customer.CustomerName 
           FROM
             customer 
           WHERE
             customer.IsCancel = 0 
             
-          AND ( customer.ID LIKE '%$select_hospital%'
+          AND ( customer.CustomerCode LIKE '%$select_hospital%'
            OR customer.CustomerName LIKE '%$select_hospital%' )
           ORDER BY
             customer.CustomerName ASC ";
@@ -81,6 +84,7 @@ function selection_Contact($conn)
             cuscontact 
           WHERE
             cuscontact.CustomerID = '$select_hospital' 
+            AND cuscontact.IsCancel = 0
           ORDER BY
             cuscontact.ContactName ASC";
 
@@ -104,7 +108,8 @@ function selection_Product($conn)
           FROM
             product
           WHERE product.IsCancel = 0
-            ORDER BY  product.ProductName ASC ";
+            ORDER BY  product.ProductName ASC 
+            LIMIT 15 ";
 
   $meQuery = mysqli_query($conn, $Sql);
   while ($row = mysqli_fetch_assoc($meQuery)) {
@@ -130,7 +135,8 @@ function showDetail_contact($conn)
           FROM
             cuscontact 
           WHERE
-            cuscontact.ID = '$select_contact'  ";
+            cuscontact.ID = '$select_contact'  
+             ";
 
   $meQuery = mysqli_query($conn, $Sql);
   while ($row = mysqli_fetch_assoc($meQuery)) {
@@ -146,6 +152,7 @@ function showDetail_contact($conn)
 function product_file($conn)
 {
   $id_product = $_POST["id_product"];
+  $txt_product_center = $_POST["txt_product_center"];
   $UserTypeID = $_SESSION["userData"]["UserTypeID"];
 
   $Sql = "SELECT
@@ -154,18 +161,20 @@ function product_file($conn)
             productdoc
             INNER JOIN docrevision ON productdoc.ID_FileDoc = docrevision.ID
             INNER JOIN documentlist ON docrevision.DocumentID = documentlist.ID 
-          WHERE
-            productdoc.ProductID = '$id_product' 
+         
           GROUP BY
             docrevision.DocumentID 
           ORDER BY
             documentlist.DocName ASC,
-            docrevision.version DESC ";
+            docrevision.version DESC 
+            ";
 
   $meQuery = mysqli_query($conn, $Sql);
   while ($row = mysqli_fetch_assoc($meQuery)) {
     $DocumentID = $row['DocumentID'];
     $UserID = $row['UserID'];
+    
+    
     $Sql_2 = "SELECT
               docrevision.fileName,
               docrevision.version,
@@ -180,8 +189,8 @@ function product_file($conn)
               INNER JOIN documentlist ON docrevision.DocumentID = documentlist.ID 
               
             WHERE
-              productdoc.ProductID = '$id_product'
-            AND productdoc.DocumentID='$DocumentID'
+              productdoc.DocumentID='$DocumentID'
+            AND  documentlist.DocName LIKE '%$txt_product_center%' 
             -- AND userdoc.UserTypeID = '$UserTypeID'
             ORDER BY docrevision.version DESC
             LIMIT 1 ";
