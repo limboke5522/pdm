@@ -4,6 +4,9 @@ $(function() {
   // showData_exp2();
   $('#tb_contact2').hide();
   $('#tb_contact3').hide();
+
+  $('#txtSearch2').hide();
+  $('#txtSearch3').hide();
   var d = new Date();
 
   var month = d.getMonth()+1;
@@ -59,10 +62,14 @@ $(function() {
         $('#exp3').text("");
 
         $('#tb_contact').show();
+        $('#txtSearch').show();
         $('#contact_Table tbody').html(StrTR);
 
         $('#tb_contact2').hide();
         $('#tb_contact3').hide();
+
+        $('#txtSearch2').hide();
+        $('#txtSearch3').hide();
       }
     });
 
@@ -71,14 +78,14 @@ $(function() {
  
 // show
 function showData_exp2() {
-    var  txtSearch = $('#txtSearch').val();
+    var  txtSearch2 = $('#txtSearch2').val();
 
     $.ajax({
       url: "process/notification_doc.php",
       type: 'POST',
       data: {
         'FUNC_NAME': 'showData_exp2',
-        'txtSearch': txtSearch,
+        'txtSearch2': txtSearch2,
       },
       success: function(result) {
         var ObjData = JSON.parse(result);
@@ -107,10 +114,14 @@ function showData_exp2() {
         $('#exp3').text("");
 
         $('#tb_contact2').show();
+        $('#txtSearch2').show();
         $('#contact_Table2 tbody').html(StrTR2);
 
         $('#tb_contact').hide();
         $('#tb_contact3').hide();
+
+        $('#txtSearch').hide();
+        $('#txtSearch3').hide();
       }
     });
 
@@ -118,14 +129,14 @@ function showData_exp2() {
 
   // show
 function showData_exp3() {
-    var  txtSearch = $('#txtSearch').val();
+    var  txtSearch3 = $('#txtSearch3').val();
 
     $.ajax({
       url: "process/notification_doc.php",
       type: 'POST',
       data: {
         'FUNC_NAME': 'showData_exp3',
-        'txtSearch': txtSearch,
+        'txtSearch3': txtSearch3,
       },
       success: function(result) {
         var ObjData = JSON.parse(result);
@@ -155,10 +166,14 @@ function showData_exp3() {
         $('#exp3').text(count);
 
         $('#tb_contact3').show();
+        $('#txtSearch3').show();
         $('#contact_Table3 tbody').html(StrTR2);
 
         $('#tb_contact').hide();
         $('#tb_contact2').hide();
+
+        $('#txtSearch').hide();
+        $('#txtSearch2').hide();
       }
     });
 

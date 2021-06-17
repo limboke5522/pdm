@@ -183,20 +183,33 @@
         if (!$.isEmptyObject(ObjData)) {
           $.each(ObjData, function(key, value) {
 
-
             // var chkDoc = "<input class='form-control chk_docLeft' type='radio'  name='id_docLeft' id='id_docLeft" + key + "' value='" + value.ID + "'  style='width: 50%;'>";
-
+  
             var select_Doc = "<select class='form-control' id='select_Doc_"+key+"' onchange ='show_bt_save("+key+");'></select>";
+
             var bt_savedoc = "<button type='submit' class='btn btn-success btn_savedocc' id='btn_savedoc_"+key+"' onclick='Save_FileDoc("+key+","+value.ID+");'>บันทึก</button>";
-            
-            StrTR += "<tr style='border-radius: 15px 15px 15px 15px;margin-top: 6px;margin-bottom: 6px;'>" +
-              "<td style='width:10%;text-align: center;'><center></center></td>" +
+            var bt_deletedoc = "<button type='submit' class='btn btn-success btn_deletedocc' id='btn_deletedoc_"+key+"' onclick='Delete_FileDoc("+key+","+value.ID+");'>ลบ</button>";
+
+            if(select_Doc != 0){
+              StrTR += "<tr style='border-radius: 15px 15px 15px 15px;margin-top: 6px;margin-bottom: 6px;'>" +
+              
               "<td style='width:5%;text-align: center;'>" + (key + 1) + "</td>" +
               "<td >" + value.fileName + "</td>" +
               "<td >" + select_Doc + "</td>" +
               "<td ><center>"+bt_savedoc+"</center></td>" +
 
               "</tr>";
+            }else{
+              StrTR += "<tr style='border-radius: 15px 15px 15px 15px;margin-top: 6px;margin-bottom: 6px;'>" +
+              
+              "<td style='width:5%;text-align: center;'>" + (key + 1) + "</td>" +
+              "<td >" + value.fileName + "</td>" +
+              "<td >" + select_Doc + "</td>" +
+              "<td ><center>"+bt_deletedoc+"</center></td>" +
+
+              "</tr>";
+            }
+            
 
               selection_Doc(key,value.DocumentID);
            
@@ -218,6 +231,8 @@
   function show_bt_save(key) {
     $('#btn_savedoc_'+key).show();
   }
+
+  
 
   function Save_FileDoc(key,ID) {
 
@@ -244,6 +259,36 @@
         });
 
   }
+
+  function show_bt_delete(key) {
+    $('#bt_deletedoc'+key).show();
+  }
+
+  function Delete_FileDoc(key,ID) {
+
+    var select_Doc = $('#select_Doc_'+key).val();
+    var select_product = $("#select_product").val();
+
+    $.ajax({
+      url: "process/upload_doc.php",
+      type: 'POST',
+      data: {
+        'FUNC_NAME': 'Save_FileDoc',
+        'select_Doc':select_Doc,
+        'select_product': select_product,
+        'ID': ID
+      },
+      success: function(result) {
+
+        showDialogSuccess(result);
+        $('#bt_deletedoc'+key).hide();
+        show_DataLeft();
+        show_DataRight();
+
+      }
+    });
+
+}
 
   function showDialogSuccess(text) {
     $.confirm({

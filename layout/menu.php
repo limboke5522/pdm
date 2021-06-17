@@ -37,7 +37,7 @@
                      <a href="#" class="nav-link" id="a_general">
                          <i class="nav-icon fas fa-home"></i>
                          <p>
-                             DC
+                         อัพโหลดเอกสาร
                              <i class="right fas fa-angle-left"></i>
                          </p>
                      </a>

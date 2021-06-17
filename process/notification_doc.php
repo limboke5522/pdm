@@ -62,7 +62,7 @@ function showData_exp($conn)
 
 function showData_exp2($conn)
 {
-  $Search_txt = $_POST["txtSearch"];
+  $Search_txt2 = $_POST["txtSearch2"];
 
   $Sql_product = "SELECT
       documentlist.DocName,
@@ -74,6 +74,7 @@ function showData_exp2($conn)
       documentlist
       INNER JOIN docrevision ON documentlist.ID = docrevision.DocumentID
       WHERE DATEDIFF(documentlist.ValidDate, DATE(NOW())) < 0
+      AND documentlist.DocName LIKE '%$Search_txt2%'
       GROUP BY documentlist.DocName,docrevision.version
       ORDER BY diffdayexp ASC
           ";
@@ -92,10 +93,10 @@ function showData_exp2($conn)
 
 function showData_exp3($conn)
 {
-  $Search_txt = $_POST["txtSearch"];
+  $Search_txt3 = $_POST["txtSearch3"];
 
   $Sql_product = "SELECT 
-  customer.CustomerName,
+        customer.CustomerName,
         documentlist.DocName,
         product.ProductName,
         docrevision.fileName,
@@ -116,8 +117,9 @@ function showData_exp3($conn)
         INNER JOIN product ON send_doc_detail.ProductID = product.ID
         INNER JOIN docrevision ON productdoc.ID_FileDoc = docrevision.ID 
         WHERE
-  send_doc_detail.SendDocNo LIKE '%$Search_txt%' 
-  HAVING newVersion > version 
+        customer.CustomerName LIKE '%$Search_txt3%' 
+          OR documentlist.DocName LIKE '%$Search_txt3%'
+        HAVING newVersion > version 
         ORDER BY
         product.ProductName ASC";
 

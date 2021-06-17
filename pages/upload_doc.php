@@ -92,7 +92,7 @@
                     <table id="Data_TableRight" class="table table-bordered table-hover w-100 table-head-fixed">
                       <thead>
                         <tr class="text-center">
-                          <th style="width: 10%;" class="bg_tableAll"></th>
+                          
                           <th style="width: 5%;" class="bg_tableAll">ลำดับ</th>
                           <th  class="bg_tableAll">ชื่อไฟล์เอกสาร</th>
                           <th  class="bg_tableAll">เลขที่คุมเอกสาร</th>

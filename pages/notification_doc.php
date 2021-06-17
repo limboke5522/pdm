@@ -23,9 +23,9 @@
             <!-- /.content-header -->
 
             <div class="card">
-              <div class="card-body px-4">
+              <div class="card-body">
                 <div class="row">
-                  <div class="col-2">
+                  <div class="col-4">
                     <div class="form-group row">
                       <label for="select_subject" class="col-sm-2 col-form-label">วันที่</label>
                       <div class="col-sm-10">
@@ -34,7 +34,7 @@
                     </div>
                   </div>
 
-                  <div class="col-2">
+                  <div class="col-4">
                     <div class="form-group row">
                       <label for="select_subject" class="col-sm-2 col-form-label">ถึง</label>
                       <div class="col-sm-10">
@@ -51,13 +51,13 @@
             </div>
 
             <div class="row">
-							<div class="col-md-3">
+							<div class="col-md-4">
 								<div type="submit" class="card card-stats bg-warning" id="little_exp" onclick="showData_exp();">
 									<div class="card-body ">
 										<div class="row">
 											<div class="col-4">
 											</div>
-											<div  class="col-7 d-flex align-items-center">
+											<div  class="col-8 d-flex align-items-center">
 												<div  class="numbers"  >
 													<p class="card-category">เอกสารใกล้หมดอายุ</p>
                            <h2 style="text-align: center" id="exp" ></h2>
@@ -71,13 +71,13 @@
 								</div>
 							</div>
 							
-							<div class="col-md-3">
+							<div class="col-md-4">
 								<div type="submit" class=" card card-stats bg-danger" id="little_exp2" onclick="showData_exp2();">
 									<div class="card-body">
 										<div class="row">
 											<div class="col-4">
 											</div>
-											<div  class="col-7 d-flex align-items-center">
+											<div  class="col-8 d-flex align-items-center">
 												<div  class="numbers" >
 													<p class="card-category">เอกสารหมดอายุ</p>
 													<h2 style="text-align: center" id="exp2"></h2>
@@ -88,13 +88,13 @@
 								</div>
 							</div>
 							
-              <div class="col-md-3">
+              <div class="col-md-4">
 								<div type="submit"class="card card-stats bg-primary" id="little_exp3" onclick="showData_exp3();">
 									<div class="card-body ">
 										<div class="row">
 											<div class="col-4">
 											</div>
-											<div class="col-7 d-flex align-items-center">
+											<div class="col-8 d-flex align-items-center">
 												<div class="numbers">
                         <p class="card-category">การแจ้งเตือน</p>
 													<h2 style="text-align: center" id="exp3"></h2>
@@ -110,7 +110,7 @@
 
             <div class="row">
               <div class="col-3">
-                <input type="text" class="form-control" id="txtSearch" onkeyup="showData_exp();showData_exp2();showData_exp3();" placeholder="ค้นหารายการ">
+                <input type="text" class="form-control" id="txtSearch" onkeyup="showData_exp();" placeholder="ค้นหารายการ">
               </div>
               <div class="col-3">
                 <!-- <button type="submit" class="btn btn-primary" >ค้นหา</button> -->
@@ -138,6 +138,17 @@
 
             </div>
 
+
+            <div class="row">
+              <div class="col-3">
+                <input type="text" class="form-control" id="txtSearch2" onkeyup="showData_exp2();" placeholder="ค้นหารายการ">
+              </div>
+              <div class="col-3">
+                <!-- <button type="submit" class="btn btn-primary" >ค้นหา</button> -->
+                <!-- <button type="submit" class="btn btn-success" id="showModalAddUsers">เพิ่มข้อมูล</button> -->
+              </div>
+            </div>
+
             <div class="row mt-2 card-body table-responsive p-0" id="tb_contact2" style="height: 500px;max-height: 500px;overflow-y: auto;" >
               <div class="col-6">
                 <table id="contact_Table2" class="table table-bordered table-hover w-100 table-head-fixed">
@@ -155,6 +166,16 @@
                 </table>
               </div>
 
+            </div>
+
+            <div class="row">
+              <div class="col-3">
+                <input type="text" class="form-control" id="txtSearch3" onkeyup="showData_exp3();" placeholder="ค้นหารายการ">
+              </div>
+              <div class="col-3">
+                <!-- <button type="submit" class="btn btn-primary" >ค้นหา</button> -->
+                <!-- <button type="submit" class="btn btn-success" id="showModalAddUsers">เพิ่มข้อมูล</button> -->
+              </div>
             </div>
 
             <div class="row mt-2 card-body table-responsive p-0" id="tb_contact3" style="height: 450px;max-height: 450px;overflow-y: auto;" >
