@@ -53,7 +53,7 @@
 
             <div class="row">
 							<div class="col-md-4">
-								<div type="submit" class="card card-stats bg-warning" id="docno_" onclick="show_data();">
+								<div type="submit" class="card card-stats bg-light" id="docno_" onclick="show_data();">
 									<div class="card-body ">
 										<div class="row">
 											<div class="col-4">
@@ -70,7 +70,7 @@
 							</div>
 							
 							<div class="col-md-4">
-								<div type="submit" class=" card card-stats bg-danger" id="docno_detail" onclick="showData_DocNo_Detail();">
+								<div type="submit" class=" card card-stats bg-light" id="docno_detail" onclick="showData_DocNo_Detail();">
 									<div class="card-body">
 										<div class="row">
 											<div class="col-4">
@@ -94,6 +94,7 @@
                   <thead>
                     <tr class="text-center">
                       <th  class="bg_tableAll" style="width: 5%;">ลำดับ</th>
+                      <th  class="bg_tableAll" style="width: 8%;">เลขที่เอกสาร</th>
                       <th  class="bg_tableAll" style="width: 20%;">ชื่อโรงพยาบาล</th>
                       <th  class="bg_tableAll" style="width: 15%;">วัตถุประสงค์</th>
                       <th  class="bg_tableAll" style="width: 12%;">ผู้ติดต่อ</th>

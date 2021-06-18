@@ -120,7 +120,7 @@
 
 
             <div class="row mt-2 card-body table-responsive p-0" id="tb_contact" style="height: 500px;max-height: 500px;overflow-y: auto;">
-              <div class="col-6">
+              <div class="col-12">
                 <table id="contact_Table" class="table table-bordered table-hover w-100 table-head-fixed">
                   <thead>
                     <tr class="text-center">
@@ -150,7 +150,7 @@
             </div>
 
             <div class="row mt-2 card-body table-responsive p-0" id="tb_contact2" style="height: 500px;max-height: 500px;overflow-y: auto;" >
-              <div class="col-6">
+              <div class="col-12">
                 <table id="contact_Table2" class="table table-bordered table-hover w-100 table-head-fixed">
                   <thead>
                     <tr class="text-center">
@@ -179,7 +179,7 @@
             </div>
 
             <div class="row mt-2 card-body table-responsive p-0" id="tb_contact3" style="height: 450px;max-height: 450px;overflow-y: auto;" >
-              <div class="col-6">
+              <div class="col-12">
                 <table id="contact_Table3" class="table table-bordered table-hover w-100 table-head-fixed">
                   <thead>
                     <tr class="text-center">

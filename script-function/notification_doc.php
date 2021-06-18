@@ -49,7 +49,7 @@ $(function() {
                       // "<td style='width:7%;text-align: center;'><center>" + chkDoc + "</center></td>" +
                       "<td style='width:5%; text-align: center;'>" + (key + 1) + "</td>" +
                       "<td style='width:20%;text-align: center;'>" + value.DocName + "</td>" +
-                      "<td style='width:20%;text-align: center;'>" + value.version + "</td>" +
+                      "<td style='width:20%;text-align: center;'>" + value.LastVersion + "</td>" +
                       "<td style='width:20%;text-align: center;'>" + value.diffday + "</td>" +
                       "</tr>";
 

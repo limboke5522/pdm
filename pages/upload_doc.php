@@ -49,7 +49,7 @@
                   <div class="col-4">
                     <input type="text" style="width: 250px;" class="form-control" id="txtSearch2" onkeyup="show_DataRight();" placeholder="ค้นหาเอกสาร">
                   </div>
-
+    
                   <div class="col-4">
                   <div class="form-group" id="div_upload">
                           <div class="custom-file ">

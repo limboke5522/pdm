@@ -33,18 +33,27 @@ function showData_exp($conn)
   $txt_Edate_doc = explode("-", $txt_Edate_doc);
   $txt_Edate_doc = $txt_Edate_doc[2] .'-'. $txt_Edate_doc[1] .'-'. $txt_Edate_doc[0];
 
-  $Sql_product = "SELECT
-                    documentlist.ID,
-                    documentlist.DocNumber,
-                    documentlist.DocName,
-                    DATE_FORMAT(documentlist.ValidDate ,'%d-%m-%Y') AS ValidDate,
-                    DATEDIFF(documentlist.ValidDate,DATE(NOW())) AS diffday,
-                     docrevision.version
-                  FROM documentlist INNER JOIN docrevision ON documentlist.ID = docrevision.ID
-                  WHERE
-                    DATEDIFF(documentlist.ValidDate,DATE(NOW())) > 15
-                  AND documentlist.ValidDate BETWEEN '$txt_Sdate_doc' AND '$txt_Edate_doc'
+  $Sql_product = " SELECT
+                  documentlist.ID,
+                  documentlist.DocNumber,
+                  documentlist.DocName,
+                  DATE_FORMAT(documentlist.ValidDate,'%d-%m-%Y') AS ValidDate,DATEDIFF(documentlist.ValidDate,
+                    DATE(NOW())) AS diffday,
+                  docrevision.DocumentID AS DocID,
+                  docrevision.productID AS ProducID,
+                  ( SELECT docrevision.version
+                    FROM docrevision
+                    WHERE docrevision.DocumentID = DocID
+                    AND docrevision.productID = ProducID
+                    ORDER BY docrevision.version DESC
+                    LIMIT 1 ) AS LastVersion
+                  FROM documentlist
+                  INNER JOIN docrevision ON documentlist.ID = docrevision.DocumentID
+                  WHERE DATEDIFF(documentlist.ValidDate,DATE(NOW()) ) < 120
+                  AND DATEDIFF(documentlist.ValidDate,DATE(NOW())) > 0 
+                  -- AND documentlist.ValidDate BETWEEN '18-02-2021' AND '18-06-2021'
                   AND documentlist.DocName LIKE '%$Search_txt%'
+                  GROUP BY docrevision.DocumentID
                   ORDER BY DATEDIFF(documentlist.ValidDate,DATE(NOW())) ASC
           ";
 
