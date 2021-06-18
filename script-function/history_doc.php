@@ -15,6 +15,8 @@
     selection_Customer();
     show_data();
 
+
+    $("#table_history_detail").hide();
   })
 
 
@@ -81,7 +83,10 @@
                    
                     "</tr>";
         }
+        $("#table_history").show();
         $('#table_history tbody').html(StrTR);
+
+        $("#table_history_detail").hide();
 
         setTimeout(() => {
           chk_btn(id_product);
@@ -92,6 +97,57 @@
    
   }
 
+  function showData_DocNo_Detail(){
+    var select_hospital =  $("#select_hospital").val();
+    var txt_Sdate_doc =  $("#txt_Sdate_doc").val();
+    var txt_Edate_doc =  $("#txt_Edate_doc").val();
+
+   $.ajax({
+      url: "process/history_doc.php",
+      type: 'POST',
+      data: {
+        'FUNC_NAME': 'show_data',
+        'select_hospital': select_hospital,
+        'txt_Sdate_doc': txt_Sdate_doc,
+        'txt_Edate_doc': txt_Edate_doc
+      },
+      success: function(result) {
+        var ObjData = JSON.parse(result);
+        var StrTR = "";
+        if (!$.isEmptyObject(ObjData)) {
+          $.each(ObjData, function(key, value) {
+            var btn_preview = '<a href="javascript:void(0)"  onclick="show_Modaldetail(\'' + value.SendDocNo + '\');"><img src="img/search_detail2.png" style="width:35px;"></a>';
+            // var bt = ' <button type="button" style="font-size: 10px;" class="btn btn-outline-primary" id="btn_send_'+key+'"  onclick="add_DocProduct(\'' + key + '\',\'' + value.ID + '\',\'' + value.DocName + '\',\'' + value.version + '\',\'' + id_product + '\')" >เลือก >> </button>';
+            StrTR += "<tr style='border-radius: 15px 15px 15px 15px;margin-top: 6px;margin-bottom: 6px;'>" +
+                    "<td style='width:5%;text-align: center;'>" + (key + 1) + "</td>" +
+                    "<td style='width:20%;text-align: left;'>" + value.CustomerName + "</td>" +
+                    "<td style='width:10%;text-align: center;'>" + value.Purpose + "</td>" +
+                    "<td style='width:15%;text-align: center;'>"+value.ContactName+"</td>" +
+                    "<td style='width:15%;text-align: center;'><center>"+value.email+"</center></td>" +
+                    "<td style='width:10%;text-align: center;'><center>"+value.DocDate+"</center></td>" +
+                    "<td style='width:10%;text-align: center;'><center>"+btn_preview+"</center></td>" +
+                    "</tr>";
+
+          });
+        }else{
+          StrTR += "<tr style='border-radius: 15px 15px 15px 15px;margin-top: 6px;margin-bottom: 6px;'>" +
+                    "<td style='width:5%;text-align: center;' colspan='8'> ยังไม่มีรายการ </td>" +
+                   
+                    "</tr>";
+        }
+        $("#table_history_detail").show();
+        $('#table_history_detail tbody').html(StrTR);
+
+        $("#table_history").hide();
+
+        setTimeout(() => {
+          chk_btn(id_product);
+        }, 100);
+      }
+    });
+  
+   
+  }
 
 
  function show_Modaldetail(SendDocNo){

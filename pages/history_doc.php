@@ -51,6 +51,42 @@
               </div>
             </div>
 
+            <div class="row">
+							<div class="col-md-4">
+								<div type="submit" class="card card-stats bg-warning" id="docno_" onclick="show_data();">
+									<div class="card-body ">
+										<div class="row">
+											<div class="col-4">
+											</div>
+											<div  class="col-8 d-flex align-items-center">
+												<div  class="numbers"  >
+													<p class="card-category">รายการส่งเอกสาร</p>
+												</div>
+											</div>
+
+										</div>
+									</div>
+								</div>
+							</div>
+							
+							<div class="col-md-4">
+								<div type="submit" class=" card card-stats bg-danger" id="docno_detail" onclick="showData_DocNo_Detail();">
+									<div class="card-body">
+										<div class="row">
+											<div class="col-4">
+											</div>
+											<div  class="col-8 d-flex align-items-center">
+												<div  class="numbers" >
+													<p class="card-category">รายละเอียดเอกสาร</p>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+						</div>
+
 
             <div class="row ">
               <div class="col-12 mt-2  table-responsive p-0">
@@ -64,6 +100,27 @@
                       <th  class="bg_tableAll" style="width: 20%;">Email</th>
                       <th  class="bg_tableAll" style="width: 10%;">วันที่ส่งเอกสาร</th>
                       <th  class="bg_tableAll" style="width: 10%;">รายละเอียดเอกสาร</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="row ">
+              <div class="col-12 mt-2  table-responsive p-0">
+                <table id="table_history_detail" class="table table-bordered table-hover w-100 table-head-fixed">
+                  <thead>
+                    <tr class="text-center">
+                      <th  class="bg_tableAll" style="width: 5%;">ลำดับ</th>
+                      <th  class="bg_tableAll" style="width: 20%;">รายการสินค้า</th>
+                      <th  class="bg_tableAll" style="width: 10%;">วันที่ส่ง</th>
+                      <th  class="bg_tableAll" style="width: 15%;">เอกสาร</th>
+                      <th  class="bg_tableAll" style="width: 15%;">E-mail</th>
+                      <th  class="bg_tableAll" style="width: 10%;">Version</th>
+                      <th  class="bg_tableAll" style="width: 10%;">Version (NEW)</th>
                     </tr>
                   </thead>
                   <tbody>

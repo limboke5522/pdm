@@ -183,6 +183,7 @@ function Save_FileDoc($conn)
 function show_DataRight($conn)
 {
   $select_product = $_POST["select_product"];
+  $Search_txt = $_POST["txtSearch2"];
   // $id_docLeft = $_POST["id_docLeft"];
 
 
@@ -196,8 +197,8 @@ function show_DataRight($conn)
             docrevision
           WHERE docrevision.productID = '$select_product'  
           AND docrevision.DocumentID = 0
-            -- AND docrevision.productID = '$select_product' ";
-
+          AND docrevision.fileName LIKE '%$Search_txt%' 
+          ";
   $meQuery = mysqli_query($conn, $Sql);
   while ($row = mysqli_fetch_assoc($meQuery)) {
     $return[] = $row;
@@ -208,3 +209,4 @@ function show_DataRight($conn)
   mysqli_close($conn);
   die;
 }
+

@@ -11,7 +11,7 @@
     $('#Search_Product').hide();
     
     show_DataLeft();
-
+    show_DataRight();
     // แสดงชื่อไฟล์
     $('.custom-file-input').on('change', function() {
       let fileName = $(this).val().split('\\').pop();
@@ -63,8 +63,9 @@
         $("#select_Doc_"+key).html(Str);
 
 
-              if(Doc_ID==null){
+              if(Doc_ID==null || Doc_ID==0){
                 $('#select_Doc_'+key).val(0);
+                $('.btn_deletedocc').show();
               }else{
                 $('#select_Doc_'+key).val(Doc_ID);
               }
@@ -168,12 +169,13 @@
   }
 
   function show_DataRight() {
-
+    var  txtSearch2 = $('#txtSearch2').val();
     $.ajax({
       url: "process/upload_doc.php",
       type: 'POST',
       data: {
         'FUNC_NAME': 'show_DataRight',
+        'txtSearch2': txtSearch2,
         'select_product': $("#select_product").val(),
         'id_docLeft': $('input[name=id_docLeft]:checked').val()
       },
@@ -188,27 +190,18 @@
             var select_Doc = "<select class='form-control' id='select_Doc_"+key+"' onchange ='show_bt_save("+key+");'></select>";
 
             var bt_savedoc = "<button type='submit' class='btn btn-success btn_savedocc' id='btn_savedoc_"+key+"' onclick='Save_FileDoc("+key+","+value.ID+");'>บันทึก</button>";
-            var bt_deletedoc = "<button type='submit' class='btn btn-success btn_deletedocc' id='btn_deletedoc_"+key+"' onclick='Delete_FileDoc("+key+","+value.ID+");'>ลบ</button>";
+            var bt_deletedoc = "<button type='submit' class='btn btn-danger btn_deletedocc' id='btn_deletedoc_"+key+"' onclick='Delete_FileDoc("+key+","+value.ID+");'>ลบ</button>";
 
-            if(select_Doc != 0){
+            
               StrTR += "<tr style='border-radius: 15px 15px 15px 15px;margin-top: 6px;margin-bottom: 6px;'>" +
               
               "<td style='width:5%;text-align: center;'>" + (key + 1) + "</td>" +
               "<td >" + value.fileName + "</td>" +
               "<td >" + select_Doc + "</td>" +
-              "<td ><center>"+bt_savedoc+"</center></td>" +
+              "<td ><center>"+bt_savedoc + bt_deletedoc +"</center></td>" +
 
               "</tr>";
-            }else{
-              StrTR += "<tr style='border-radius: 15px 15px 15px 15px;margin-top: 6px;margin-bottom: 6px;'>" +
-              
-              "<td style='width:5%;text-align: center;'>" + (key + 1) + "</td>" +
-              "<td >" + value.fileName + "</td>" +
-              "<td >" + select_Doc + "</td>" +
-              "<td ><center>"+bt_deletedoc+"</center></td>" +
-
-              "</tr>";
-            }
+            
             
 
               selection_Doc(key,value.DocumentID);
@@ -221,6 +214,7 @@
 
 
         $('.btn_savedocc').hide();
+        $('.btn_deletedocc').hide();
        
       }
     });
@@ -230,6 +224,7 @@
   
   function show_bt_save(key) {
     $('#btn_savedoc_'+key).show();
+    $('#btn_deletedoc_'+key).hide();
   }
 
   

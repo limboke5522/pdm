@@ -44,16 +44,27 @@
                 <input type="text" style="width: 400px;" class="form-control" id="txtSearch" onkeyup="show_DataLeft();" placeholder="ค้นหารายการ">
               </div>
               <div class="col-6">
-              <div class="row " style="margin-left: 1px;">
-                  <div class="form-group col-7 " id="div_upload">
-                    <div class="custom-file ">
-                      <input type="file" class="custom-file-input" name="inputFile" id="upload_fileRight" accept="application/pdf">
-                      <label class="custom-file-label" for="inputFile">เลือกไฟล์</label>
-                    </div>
+                <div class="row " style="margin-left: 1px;">
+
+                  <div class="col-4">
+                    <input type="text" style="width: 250px;" class="form-control" id="txtSearch2" onkeyup="show_DataRight();" placeholder="ค้นหาเอกสาร">
                   </div>
-                  <div class="form-group col-5 ">
-                    <button style="width: 50%;margin-left: 50px;" type="button" class="btn btn-outline-primary" onclick="upload_Doc();">Upload</button>
+
+                  <div class="col-4">
+                  <div class="form-group" id="div_upload">
+                          <div class="custom-file ">
+                            <input type="file" class="custom-file-input" name="inputFile" id="upload_fileRight" accept="application/pdf">
+                            <label class="custom-file-label" for="inputFile">เลือกไฟล์</label>
+                          </div>
+                   
                   </div>
+
+        
+                      </div>
+                      <div class="col-4">
+                  <button style="width: 50%;margin-left: 50px;" type="button" class="btn btn-outline-primary" onclick="upload_Doc();">Upload</button>
+                  </div>
+                      
                 </div>
               </div>
             </div>
@@ -82,12 +93,9 @@
                   </div>
                 </div>
               </div>
+
               <div class="col-6">
-              
-               
-
-
-                <div class="row mt-2 card-body table-responsive p-0" id="tb_Data" style="height: 420px;max-height: 350px;overflow-y: auto;">
+                <div class="row mt-2 card-body table-responsive p-0" id="tb_Data" style="height: 620px;max-height: 620px;overflow-y: auto;">
                   <div class="col-12">
                     <table id="Data_TableRight" class="table table-bordered table-hover w-100 table-head-fixed">
                       <thead>
