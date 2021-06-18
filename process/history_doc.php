@@ -131,7 +131,7 @@ function show_detail($conn)
                       DATE( send_doc.DocDate ) BETWEEN '$txt_Sdate_doc' AND '$txt_Edate_doc' 
                       $AND
                     ORDER BY send_doc.DocDate DESC
-                    -- LIMIT 15 
+                    LIMIT 15 
                     ";
 
   $meQuery = mysqli_query($conn, $Sql);
