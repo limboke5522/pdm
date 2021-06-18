@@ -191,9 +191,10 @@
 
             var bt_savedoc = "<button type='submit' class='btn btn-success btn_savedocc' id='btn_savedoc_"+key+"' onclick='Save_FileDoc("+key+","+value.ID+");'>บันทึก</button>";
             var bt_deletedoc = "<button type='submit' class='btn btn-danger btn_deletedocc' id='btn_deletedoc_"+key+"' onclick='Delete_FileDoc("+key+","+value.ID+");'>ลบ</button>";
-
             
-              StrTR += "<tr style='border-radius: 15px 15px 15px 15px;margin-top: 6px;margin-bottom: 6px;'>" +
+            
+
+            StrTR += "<tr style='border-radius: 15px 15px 15px 15px;margin-top: 6px;margin-bottom: 6px;'>" +
               
               "<td style='width:5%;text-align: center;'>" + (key + 1) + "</td>" +
               "<td >" + value.fileName + "</td>" +
@@ -202,14 +203,19 @@
 
               "</tr>";
             
+              
+            
             
 
               selection_Doc(key,value.DocumentID);
            
              
-              
+              // alert(select_product);
           });
+          
         }
+
+        
         $('#Data_TableRight tbody').html(StrTR);
 
 
@@ -223,8 +229,16 @@
 
   
   function show_bt_save(key) {
-    $('#btn_savedoc_'+key).show();
-    $('#btn_deletedoc_'+key).hide();
+    var select_Doc = $('#select_Doc_'+key).val();
+    // alert(select_Doc);
+    if(select_Doc == 0){
+                $('#btn_deletedoc_'+key).show();
+                $('#btn_savedoc_'+key).hide();
+            }else{
+              $('#btn_savedoc_'+key).show();
+              $('#btn_deletedoc_'+key).hide();
+            }
+
   }
 
   
@@ -268,14 +282,14 @@
       url: "process/upload_doc.php",
       type: 'POST',
       data: {
-        'FUNC_NAME': 'Save_FileDoc',
+        'FUNC_NAME': 'Delete_FileDoc',
         'select_Doc':select_Doc,
         'select_product': select_product,
         'ID': ID
       },
       success: function(result) {
 
-        showDialogSuccess(result);
+        // showDialogSuccess(result);
         $('#bt_deletedoc'+key).hide();
         show_DataLeft();
         show_DataRight();

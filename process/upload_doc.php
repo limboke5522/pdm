@@ -15,6 +15,8 @@ if (!empty($_POST['FUNC_NAME'])) {
     selection_Doc($conn);
   }else   if ($_POST['FUNC_NAME'] == 'Save_FileDoc') {
     Save_FileDoc($conn);
+  }else   if ($_POST['FUNC_NAME'] == 'Delete_FileDoc') {
+    Delete_FileDoc($conn);
   }
 
   
@@ -207,6 +209,53 @@ function show_DataRight($conn)
 
   echo json_encode($return);
   mysqli_close($conn);
+  die;
+}
+
+function Delete_FileDoc($conn)
+{
+
+  $select_Doc = $_POST["select_Doc"];
+  $select_product = $_POST["select_product"];
+  $ID = $_POST["ID"];
+
+  $Sql_docrevision = "SELECT
+                        docrevision.ID,
+                        docrevision.version 
+                      FROM
+                        docrevision
+                      WHERE docrevision.productID = '$select_product'  
+                      AND docrevision.DocumentID = '$select_Doc'
+                      ORDER BY docrevision.version DESC LIMIT 1";
+
+  $meQuery_docrevision = mysqli_query($conn, $Sql_docrevision);
+  $row_docrevision = mysqli_fetch_assoc($meQuery_docrevision);
+  $ID_docrevision = $row_docrevision['ID'];
+  $version = $row_docrevision['version'];
+  
+    // if(empty($ID_docrevision)){
+    //   $query = "DELETE FROM docrevision  WHERE ID = '$ID' ";
+    //   mysqli_query($conn, $query);
+    // }else{
+    //   $version=($version+1);
+     
+    //   $query = "UPDATE docrevision SET DocumentID = '$select_Doc',version = '$version' WHERE ID = '$ID' ";
+    //   mysqli_query($conn, $query);
+    // }
+  
+
+
+    $Sql = "DELETE FROM docrevision  WHERE ID = '$ID' ";
+            mysqli_query($conn, $Sql);
+
+
+
+
+            // $return =$version;
+
+  // $return = "บันทึกข้อมูลสำเร็จ";
+  // echo $return;
+  unset($conn);
   die;
 }
 
