@@ -59,8 +59,8 @@
 											</div>
 											<div  class="col-8 d-flex align-items-center">
 												<div  class="numbers"  >
-													<p class="card-category">เอกสารใกล้หมดอายุ</p>
-                           <h2 style="text-align: center" id="exp" ></h2>
+													<p class="card-category">เอกสารใกล้หมดอายุ  </p>
+                          <h2 style="text-align: center" id="exp" ></h2>
 
 													
 												</div>
@@ -79,8 +79,9 @@
 											</div>
 											<div  class="col-8 d-flex align-items-center">
 												<div  class="numbers" >
-													<p class="card-category">เอกสารหมดอายุ</p>
-													<h2 style="text-align: center" id="exp2"></h2>
+													<p class="card-category" >เอกสารหมดอายุ  <i id="bells2" class="fas fa-bell">  </i>  </p>
+                          
+                          <h2 style="text-align: center" id="exp2"></h2>
 												</div>
 											</div>
 										</div>

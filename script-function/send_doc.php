@@ -1,14 +1,22 @@
 <script>
   $(function() {
+    $("#txt_remark").hide();
     $(".select2").select2();
     selection_Customer();
     selection_Purpose();
     selection_Product();
 
+    chkremark();
     checkProduct(id,name);
     
   })
-
+  function chkremark(){
+    if(document.getElementById("chk_remark").checked == true){
+      $("#txt_remark").show();
+    }else{
+      $("#txt_remark").hide();
+    }
+  }
 
   function selection_Customer() {
     $.ajax({
@@ -361,7 +369,7 @@
 
     $.confirm({
       title: 'แจ้งเตือน!',
-      content: 'ต้องการส่งข้อมูล ใช่ หรือ ไม่?',
+      content: 'ยืนยันการส่งข้อมูล ใช่ หรือ ไม่?',
       type: 'orange',
       autoClose: 'cancel|8000',
       buttons: {
@@ -559,6 +567,7 @@ function save_sendDoc() {
           //   showDialogFailed("รหัสลูกค้าซ้ำ ไม่สามารถเพิ่มข้อมูลได้ !!!");
           // }else{
             showDialogSuccess(result);
+
           // }
           
           selection_Contact();
@@ -568,6 +577,7 @@ function save_sendDoc() {
           $('#txt_email').val("");
           $('#txt_phonenumber').val("");
         
+          $("#Modaldetail_Doc").modal('hide');
     
         }
       });
@@ -604,7 +614,7 @@ function save_sendDoc() {
         $('#txt_purpose_name').val("");
         $('#ID_txt').val("");
       
-   
+        $("#Modaldetail_Doc2").modal('hide');
       }
     });
   }
@@ -622,6 +632,8 @@ function save_sendDoc() {
         }
       }
     });
+
+    
   }
 
   function showDialogFailed(text) {

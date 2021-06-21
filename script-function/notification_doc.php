@@ -19,7 +19,7 @@ $(function() {
     $('#txt_Sdate_doc').val(output);
     $('#txt_Edate_doc').val(output);
   })
-
+  
   // show
   function showData_exp() {
     var  txtSearch = $('#txtSearch').val();

@@ -10,7 +10,7 @@
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
-      <div class="user-panel pb-2 d-flex">
+      <div class="user-panel d-flex">
         <div class="info">
           <a href="javascript:void(0)" class="d-block text-dark"><?= $userName;?></a>
         </div>

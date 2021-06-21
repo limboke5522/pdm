@@ -7,6 +7,7 @@
 
   // userID = "";
   $(function() {
+    
     selection_Product();
     $('#Search_Product').hide();
     
@@ -49,6 +50,7 @@
       type: 'POST',
       data: {
         'FUNC_NAME': 'selection_Doc'
+        // 'select_Doc_': $("#select_Doc_").val()
       },
       success: function(result) {
         var ObjData = JSON.parse(result);
@@ -60,6 +62,9 @@
 
           });
         }
+
+        
+
         $("#select_Doc_"+key).html(Str);
 
 
@@ -187,7 +192,7 @@
 
             // var chkDoc = "<input class='form-control chk_docLeft' type='radio'  name='id_docLeft' id='id_docLeft" + key + "' value='" + value.ID + "'  style='width: 50%;'>";
   
-            var select_Doc = "<select class='form-control' id='select_Doc_"+key+"' onchange ='show_bt_save("+key+");'></select>";
+            var select_Doc = "<select style='width: 100%' class='form-control select2' id='select_Doc_"+key+"' onchange ='show_bt_save("+key+");'></select>";
 
             var bt_savedoc = "<button type='submit' class='btn btn-success btn_savedocc' id='btn_savedoc_"+key+"' onclick='Save_FileDoc("+key+","+value.ID+");'>บันทึก</button>";
             var bt_deletedoc = "<button type='submit' class='btn btn-danger btn_deletedocc' id='btn_deletedoc_"+key+"' onclick='Delete_FileDoc("+key+","+value.ID+");'>ลบ</button>";
@@ -217,7 +222,7 @@
 
         
         $('#Data_TableRight tbody').html(StrTR);
-
+        $(".select2").select2();
 
         $('.btn_savedocc').hide();
         $('.btn_deletedocc').hide();

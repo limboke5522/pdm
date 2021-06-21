@@ -1,7 +1,7 @@
             <!-- Content Header (Page header) -->
             <div class="content-header">
               <div class="container-fluid">
-                <div class="row mb-2">
+                <div class="row">
                   <div class="col-sm-5">
                     <ol class="breadcrumb">
                       <li class="breadcrumb-item"><a href="#">ระบบ</a></li>
@@ -12,7 +12,7 @@
                   <div class="col-6 d-flex justify-content-end">
                     <div class="form-group row">
                         <label for="txt_email" class=" col-form-label">Email ผู้ส่ง : </label>
-                      <div class="col-8">
+                      <div class="col-8" >
                         <input type="text" style="width: 150%;" class="form-control" id="txt_email_send" placeholder="Email" disabled>
                       </div>
                     </div>
@@ -24,14 +24,14 @@
             <!-- /.content-header -->
 
             <div class="card">
-              <div class="card-body" style="background-color: #b5efec57;">
+              <div class="card-body" style=" background-color: #b5efec57;">
              
                 <div class="row">
 
                   <div class="col-5">
                     <div class="form-group row">
-                      <label for="select_hospital" class="col-sm-2 col-form-label">โรงพยาบาล</label>
-                      <div class="col-sm-10">
+                      <label for="select_hospital" class="col-2 col-form-label">โรงพยาบาล</label>
+                      <div class="col-10">
                         <select class="form-control select2" id="select_hospital" placeholder="โรงพยาบาล"></select>
                       </div>
                     </div>
@@ -39,8 +39,8 @@
 
                   <div class="col-5">
                     <div class="form-group row">
-                      <label for="select_subject" class="col-sm-2 col-form-label">เรื่อง</label>
-                      <div class="col-sm-10">
+                      <label for="select_subject" class="col-2 col-form-label">เรื่อง</label>
+                      <div class="col-10">
                         <select class="form-control select2" id="select_subject" placeholder="เรื่อง"></select>
                       </div>
                     </div>
@@ -56,9 +56,9 @@
 
                   <div class="col-5">
                     <div class="form-group row">
-                      <label for="select_contact" class="col-sm-2 col-form-label">ผู้ติดต่อ
+                      <label for="select_contact" class="col-2 col-form-label">ผู้ติดต่อ
                       </label>
-                      <div class="col-sm-10">
+                      <div class="col-10">
                         
                         <select class="form-control select2" id="select_contact" placeholder="ผู้ติดต่อ "></select>
                       </div>
@@ -68,8 +68,8 @@
 
                   <div class="col-5">
                     <div class="form-group row">
-                      <label for="txt_phone" class="col-sm-2 col-form-label">เบอร์โทร </label>
-                      <div class="col-sm-10">
+                      <label for="txt_phone" class="col-2 col-form-label">เบอร์โทร </label>
+                      <div class="col-10">
                         <input type="text" class="form-control" id="txt_phone" placeholder="โทร">
                       </div>
                     </div>
@@ -96,8 +96,8 @@
 
                   <div class="col-5">
                     <div class="form-group row">
-                      <label for="email" class="col-sm-2 col-form-label">สำเนา</label>
-                      <div class="col-sm-10">
+                      <label for="email" class="col-2 col-form-label">สำเนา</label>
+                      <div class="col-10">
                         <input type="text" class="form-control" id="Copy_doc" name="Copy_doc" placeholder="สำเนา">
                       </div>
                     </div>
@@ -108,8 +108,11 @@
 
                   <div class="col-10">
                     <div class="form-group row">
-                      <label for="txt_remark" class="col-sm-1 col-form-label">บันทึกช่วยจำ</label>
-                      <div class="col-sm-12">
+                        
+                          <input style="width:20px; height: 20px; margin-left: 10px; margin-top: 13px" type="checkbox" id="chk_remark" onclick="chkremark();">
+                        
+                      <label for="txt_remark" class="col-2 col-form-label">บันทึกช่วยจำ</label>
+                      <div class="col-12" >
                         <textarea style="height: 80px;" class="form-control" id="txt_remark" placeholder="บันทึกช่วยจำ"></textarea>
                       </div>
                     </div>

@@ -158,7 +158,7 @@ if($email_receiver){
 		echo $mail->ErrorInfo; // ข้อความ รายละเอียดการ error
 	}else{
 		// กรณีส่ง email สำเร็จ
-		echo "ระบบได้ E-Mail ไปเรียบร้อยลแล้ว";
+		echo "ระบบได้ทำการส่ง E-Mail ไปเรียบร้อยลแล้ว";
 	}	
 }
 

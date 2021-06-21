@@ -163,4 +163,10 @@
         margin-top: 6px;
         margin-left: 2px;
     }
+    .content-header{
+        padding:3px .5rem !important;
+    }
+    .form-group{
+        margin-bottom:0.3rem !important;
+    }
 </style>

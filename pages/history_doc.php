@@ -93,7 +93,7 @@
                 <table id="table_history" class="table table-bordered table-hover w-100 table-head-fixed">
                   <thead>
                     <tr class="text-center">
-                      <th  class="bg_tableAll" style="width: 5%;">ลำดับ</th>
+                      <!-- <th  class="bg_tableAll" style="width: 5%;">ลำดับ</th> -->
                       <th  class="bg_tableAll" style="width: 8%;">เลขที่เอกสาร</th>
                       <th  class="bg_tableAll" style="width: 20%;">ชื่อโรงพยาบาล</th>
                       <th  class="bg_tableAll" style="width: 15%;">วัตถุประสงค์</th>
@@ -115,7 +115,7 @@
                 <table id="table_history_detail" class="table table-bordered table-hover w-100 table-head-fixed">
                   <thead>
                     <tr class="text-center">
-                      <th  class="bg_tableAll" style="width: 5%;">ลำดับ</th>
+                      <!-- <th  class="bg_tableAll" style="width: 5%;">ลำดับ</th> -->
                       <th  class="bg_tableAll" style="width: 20%;">รายการสินค้า</th>
                       <th  class="bg_tableAll" style="width: 10%;">วันที่ส่ง</th>
                       <th  class="bg_tableAll" style="width: 15%;">เอกสาร</th>
