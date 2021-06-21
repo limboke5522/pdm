@@ -7,6 +7,10 @@ $(function() {
 
   $('#txtSearch2').hide();
   $('#txtSearch3').hide();
+
+  showData_exp_1();
+  showData_exp2_1();
+  showData_exp3_1();
   var d = new Date();
 
   var month = d.getMonth()+1;
@@ -70,6 +74,48 @@ $(function() {
 
         $('#txtSearch2').hide();
         $('#txtSearch3').hide();
+
+        $('#bells').hide();
+        $('#exp_1').hide();
+
+        $('#bells2').show();
+        $('#exp2_1').show();
+
+        $('#bells3').show();
+        $('#exp3_1').show();
+      }
+    });
+
+  }
+
+  function showData_exp_1() {
+    var  txtSearch = $('#txtSearch').val();
+
+    $.ajax({
+      url: "process/notification_doc.php",
+      type: 'POST',
+      data: {
+        'FUNC_NAME': 'showData_exp',
+        'txtSearch': txtSearch,
+      },
+      success: function(result) {
+        var ObjData = JSON.parse(result);
+        var count = 0;
+        var StrTR2 = "";
+        if (!$.isEmptyObject(ObjData)) {
+          $.each(ObjData, function(key, value) {
+                      count++;
+           });
+        }
+        
+        $('#bells').show();
+        $('#exp_1').show();
+
+        $('#exp_1').text(count);
+
+ 
+
+
       }
     });
 
@@ -110,6 +156,7 @@ function showData_exp2() {
         }
         // $tree = show_DataLeft($rows);
         $('#exp').text("");
+        // $('#exp2_1').text(count);
         $('#exp2').text(count);
         $('#exp3').text("");
 
@@ -122,6 +169,47 @@ function showData_exp2() {
 
         $('#txtSearch').hide();
         $('#txtSearch3').hide();
+
+        $('#bells').show();
+        $('#exp_1').show();
+
+        $('#bells2').hide();
+        $('#exp2_1').hide();
+
+        $('#bells3').show();
+        $('#exp3_1').show();
+      }
+    });
+
+  }
+  function showData_exp2_1() {
+    var  txtSearch2 = $('#txtSearch2').val();
+
+    $.ajax({
+      url: "process/notification_doc.php",
+      type: 'POST',
+      data: {
+        'FUNC_NAME': 'showData_exp2',
+        'txtSearch2': txtSearch2,
+      },
+      success: function(result) {
+        var ObjData = JSON.parse(result);
+        var count = 0;
+        var StrTR2 = "";
+        if (!$.isEmptyObject(ObjData)) {
+          $.each(ObjData, function(key, value) {
+                      count++;
+           });
+        }
+        
+        $('#bells2').show();
+        $('#exp2_1').show();
+
+        $('#exp2_1').text(count);
+
+    
+
+
       }
     });
 
@@ -174,6 +262,46 @@ function showData_exp3() {
 
         $('#txtSearch').hide();
         $('#txtSearch2').hide();
+
+        $('#bells').show();
+        $('#exp_1').show();
+
+        $('#bells2').show();
+        $('#exp2_1').show();
+
+        $('#bells3').hide();
+        $('#exp3_1').hide();
+      }
+    });
+
+  }
+
+  function showData_exp3_1() {
+    var  txtSearch3 = $('#txtSearch3').val();
+
+    $.ajax({
+      url: "process/notification_doc.php",
+      type: 'POST',
+        data: {
+          'FUNC_NAME': 'showData_exp3',
+          'txtSearch3': txtSearch3,
+        },
+      success: function(result) {
+        var ObjData = JSON.parse(result);
+        var count = 0;
+        var StrTR2 = "";
+        if (!$.isEmptyObject(ObjData)) {
+          $.each(ObjData, function(key, value) {
+                      count++;
+           });
+        }
+        $('#bells3').show();
+        $('#exp3_1').show();
+
+        $('#exp3_1').text(count);
+
+     
+
       }
     });
 

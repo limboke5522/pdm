@@ -59,7 +59,7 @@
 											</div>
 											<div  class="col-8 d-flex align-items-center">
 												<div  class="numbers"  >
-													<p class="card-category">เอกสารใกล้หมดอายุ  </p>
+													<p class="card-category">เอกสารใกล้หมดอายุ  <i id="bells" class="fas fa-bell"><span class="number" id="exp_1"></span>  </i></p>
                           <h2 style="text-align: center" id="exp" ></h2>
 
 													
@@ -79,7 +79,7 @@
 											</div>
 											<div  class="col-8 d-flex align-items-center">
 												<div  class="numbers" >
-													<p class="card-category" >เอกสารหมดอายุ  <i id="bells2" class="fas fa-bell">  </i>  </p>
+													<p class="card-category bom" >เอกสารหมดอายุ  <i id="bells2" class="fas fa-bell"><span class="number" id="exp2_1"></span>  </i>  </p>
                           
                           <h2 style="text-align: center" id="exp2"></h2>
 												</div>
@@ -97,7 +97,7 @@
 											</div>
 											<div class="col-8 d-flex align-items-center">
 												<div class="numbers">
-                        <p class="card-category">การแจ้งเตือน</p>
+                        <p class="card-category">การแจ้งเตือน <i id="bells3" class="fas fa-bell"><span class="number" id="exp3_1"></span>  </i></p>
 													<h2 style="text-align: center" id="exp3"></h2>
 												</div>
 											</div>

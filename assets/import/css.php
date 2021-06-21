@@ -169,4 +169,44 @@
     .form-group{
         margin-bottom:0.3rem !important;
     }
+
+    .bom{
+		position: relative;
+		
+		
+	}
+	.bellClapper{
+		animation: shake 5s infinite;
+	}
+	.number{
+		position: inherit;
+		top: -35px;
+		right: 26px;
+		background-color: #ff0000;
+		color: #FFFFFF;
+		border-radius: 23px;
+		padding:0.3rem 0.7rem 0.3rem 0.7rem;
+		animation: shake 5s infinite;
+
+	}
+    .bellClapper:hover{
+        animation: shake 5s infinite;
+        
+    }
+    @keyframes shake {
+    0%,
+    25%,
+    83%,
+    100% {
+        transform: rotatez(0deg);
+    }
+    32.5%,
+    62.5% {
+        transform: rotatez(-5deg);
+    }
+    47.5%,
+    75.5% {
+        transform: rotatez(5deg);
+    }
+    }
 </style>
