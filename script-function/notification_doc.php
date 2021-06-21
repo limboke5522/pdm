@@ -10,7 +10,7 @@ $(function() {
 
   showData_exp_1();
   showData_exp2_1();
-  showData_exp3_1();
+  // showData_exp3_1();
   var d = new Date();
 
   var month = d.getMonth()+1;

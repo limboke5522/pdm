@@ -170,6 +170,9 @@
         margin-bottom:0.3rem !important;
     }
 
+    .fas {
+        font-size:1.5rem;
+    }
     .bom{
 		position: relative;
 		
@@ -179,9 +182,10 @@
 		animation: shake 5s infinite;
 	}
 	.number{
-		position: inherit;
-		top: -35px;
-		right: 26px;
+		position:relative ;
+        top: -15px;
+        right: 10px;
+        font-size:1rem;
 		background-color: #ff0000;
 		color: #FFFFFF;
 		border-radius: 23px;

@@ -195,7 +195,7 @@
             var select_Doc = "<select style='width: 100%' class='form-control select2' id='select_Doc_"+key+"' onchange ='show_bt_save("+key+");'></select>";
 
             var bt_savedoc = "<button type='submit' class='btn btn-success btn_savedocc' id='btn_savedoc_"+key+"' onclick='Save_FileDoc("+key+","+value.ID+");'>บันทึก</button>";
-            var bt_deletedoc = "<button type='submit' class='btn btn-danger btn_deletedocc' id='btn_deletedoc_"+key+"' onclick='Delete_FileDoc("+key+","+value.ID+");'>ลบ</button>";
+            var bt_deletedoc = "<button type='submit' class='btn btn-danger btn_deletedocc' id='btn_deletedoc_"+key+"' onclick='chk_del("+key+","+value.ID+");'>ลบ</button>";
             
             
 
@@ -276,6 +276,28 @@
 
   function show_bt_delete(key) {
     $('#bt_deletedoc'+key).show();
+  }
+
+  function chk_del(key,ID){
+    
+
+      $.confirm({
+          title: 'แจ้งเตือน!',
+          content: 'ยืนยันการลบข้อมูล ใช่ หรือ ไม่?',
+          type: 'orange',
+          autoClose: 'cancel|8000',
+          buttons: {
+            cancel:  {text: 'ยกเลิก'},
+            confirm: {
+              btnClass: 'btn-primary',
+              text: 'ตกลง',
+              action: function() {
+                Delete_FileDoc(key,ID);
+              }
+            }
+          }
+        });
+      
   }
 
   function Delete_FileDoc(key,ID) {

@@ -15,7 +15,7 @@
     selection_Customer();
     // show_data();
 
-
+    show_data();
     $("#table_history_detail").hide();
   })
 

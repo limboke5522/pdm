@@ -51,7 +51,7 @@
               </div>
             </div>
 
-            <div class="row">
+            <!-- <div class="row">
 							<div class="col-md-4">
 								<div type="submit" class="card card-stats bg-light" id="docno_" onclick="show_data();">
 									<div class="card-body ">
@@ -85,7 +85,7 @@
 								</div>
 							</div>
 
-						</div>
+						</div> -->
 
 
             <div class="row ">
