@@ -25,9 +25,8 @@ function editData($conn)
   $ID_txt     = $_POST['ID_txt'];
 
   
- 
-    $query = "UPDATE purpose 
-                SET Purpose = '$txt_doctype_detail_name'
+    $query = "UPDATE doctype_detail 
+                SET TypeDetail_Name = '$txt_doctype_detail_name'
               WHERE ID = '$ID_txt'";
 
     $return = "แก้ไขข้อมูล สำเร็จ";
@@ -45,10 +44,10 @@ function saveData($conn)
   $txt_doctype_detail_name    = $_POST['txt_doctype_detail_name'];
 
   $Sql2 = "SELECT
-            purpose.Purpose
+            doctype_detail.TypeDetail_Name
           FROM
-          purpose
-            WHERE  purpose.Purpose = '$txt_doctype_detail_name'
+          doctype_detail
+            WHERE  doctype_detail.TypeDetail_Name = '$txt_doctype_detail_name'
           ";
   $result = mysqli_query($conn, $Sql2);
   $num_rows = mysqli_num_rows($result);
@@ -57,8 +56,8 @@ function saveData($conn)
    }else{
         
 
-          $query = "INSERT INTO purpose 
-          SET Purpose = '$txt_doctype_detail_name'
+          $query = "INSERT INTO doctype_detail 
+          SET TypeDetail_Name = '$txt_doctype_detail_name'
           ";
 
           $return = "เพิ่มข้อมูล สำเร็จ";
@@ -77,12 +76,12 @@ function show_data($conn)
 
 
   $Sql = "SELECT
-            purpose.ID, 
-            purpose.Purpose
+            doctype_detail.ID, 
+            doctype_detail.TypeDetail_Name
           FROM
-          purpose
-            WHERE (purpose.Purpose LIKE '%$Search_txt%')
-            ORDER BY  purpose.Purpose ASC
+          doctype_detail
+            WHERE (doctype_detail.TypeDetail_Name LIKE '%$Search_txt%')
+            ORDER BY  doctype_detail.TypeDetail_Name ASC
           ";
 
   $meQuery = mysqli_query($conn, $Sql);
@@ -103,11 +102,11 @@ function show_Detail($conn)
 
 
   $Sql = "SELECT
-            purpose.ID, 
-            purpose.Purpose
+             doctype_detail.ID, 
+            doctype_detail.TypeDetail_Name
           FROM
-          purpose
-            WHERE purpose.ID = '$ID'
+          doctype_detail
+            WHERE doctype_detail.ID = '$ID'
           ";
           
   $meQuery = mysqli_query($conn, $Sql);
@@ -126,7 +125,7 @@ function deleteData($conn)
 {
   $ID_txt = $_POST['ID_txt'];
 
-  $query = "DELETE FROM purpose WHERE ID = $ID_txt";
+  $query = "DELETE FROM doctype_detail WHERE ID = $ID_txt";
   mysqli_query($conn, $query);
   echo "ลบ ข้อมูลสำเร็จ";
   unset($conn);

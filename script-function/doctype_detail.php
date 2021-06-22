@@ -163,7 +163,7 @@
                   StrTR += "<tr style='border-radius: 15px 15px 15px 15px;margin-top: 6px;margin-bottom: 6px;'>" +
                     "<td style='width:10%;text-align: center;'><center>"+chkDoc+"</center></td>" +
                     "<td style='width:10%;text-align: center;'>" + (key + 1) + "</td>" +
-                    "<td style='width:23%;text-align: center;'>" + value.Purpose + "</td>" +
+                    "<td style='width:23%;text-align: center;'>" + value.TypeDetail_Name + "</td>" +
                     "</tr>";
                 });
               }
