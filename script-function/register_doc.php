@@ -38,9 +38,10 @@
     
     $('#ID_txt').val("");
     $("#StatusRadio1").prop("checked", true);
+    $("#StatusRadio11").prop("checked", true);
     show_data();
     Get_customers();
-
+    Get_TypeDetail_Name();
 
 
 
@@ -57,6 +58,37 @@
           });
 
   })
+
+  function Get_TypeDetail_Name(){
+    $.ajax({
+      url: "process/register_doc.php",
+      type: 'POST',
+      data: {
+        'FUNC_NAME': 'Get_TypeDetail_Name'
+      },
+      success: function(result) {
+        var ObjData = JSON.parse(result);
+              $("#select_doctype").empty();
+              $("#select_doctype2").empty();
+              var Str = "";
+              Str += "<option value=0 >ทั้งหมด</option>";
+
+              var Str2 = "";
+              Str2 += "<option value=0 >-- กรุณาเลือกประเภทเอกสาร --</option>";
+              if (!$.isEmptyObject(ObjData)) {
+                $.each(ObjData, function(key, value) {
+                  Str += "<option value=" + value.ID + " >" + value.TypeDetail_Name + "</option>";
+
+                  Str2 += "<option value=" + value.ID + " >" + value.TypeDetail_Name + "</option>";
+                });
+              }
+              $("#select_doctype").append(Str);
+
+              $("#select_doctype2").append(Str2);
+        
+      }
+    });
+  }
 
   function Get_customers(){
     $.ajax({
@@ -106,6 +138,8 @@
   $("#btncleanDoc").click(function() {
 
     $("#StatusRadio1").prop("checked", true);
+    $('#select_doctype2').val(0);
+
           $('#txt_DocNo').val("");
           $('#txt_Doc_name').val("");
           $('#txt_Doc_numbar').val("");
@@ -126,6 +160,8 @@
 
   
   function saveData() {
+    var select_doctype2= $('#select_doctype2').val();
+
       var txt_DocNo= $('#txt_DocNo').val();
       var txt_Doc_name= $('#txt_Doc_name').val();
       var txt_Doc_numbar= $('#txt_Doc_numbar').val();
@@ -140,6 +176,14 @@
       }else{
         var StatusRadio = 2
       }
+
+      var text = "";
+     if (select_doctype2 == "0") {
+        text = "กรุณาเลือกประเภทเอกสาร";
+        showDialogFailed(text);
+        return;
+      }
+
  
       var text = "";
 
@@ -168,6 +212,7 @@
         type: 'POST',
         data: {
           'FUNC_NAME': 'saveData',
+          'select_doctype2': select_doctype2,
           'txt_DocNo': txt_DocNo,
           'txt_Doc_name': txt_Doc_name,
           'txt_Doc_numbar': txt_Doc_numbar,
@@ -184,6 +229,7 @@
           }
           
           show_data();
+          $('#select_doctype2').val(0);
           $("#StatusRadio1").prop("checked", true);
           $('#txt_DocNo').val("");
           $('#txt_Doc_name').val("");
@@ -199,6 +245,7 @@
 
   function editData() {
     var ID_txt = $('#ID_txt').val();
+    var select_doctype2= $('#select_doctype2').val();
     var txt_DocNo= $('#txt_DocNo').val();
     var txt_Doc_name= $('#txt_Doc_name').val();
     var txt_Doc_numbar= $('#txt_Doc_numbar').val();
@@ -213,6 +260,7 @@
         var StatusRadio = 2
       }
   
+
     var text = "";
       if (txt_DocNo == "") {
         text = "กรุณากรอกข้อมูลเลขที่คุมเอกสาร";
@@ -232,6 +280,11 @@
         return;
       }
 
+      if (select_doctype2 == "0") {
+        text = "กรุณาเลือกประเภทเอกสาร";
+        showDialogFailed(text);
+        return;
+      }
     $.ajax({
       url: "process/register_doc.php",
       type: 'POST',
@@ -244,12 +297,14 @@
         'txt_expira_date': txt_expira_date,
         'txt_detail': txt_detail,
         'StatusRadio': StatusRadio,
+        'select_doctype2': select_doctype2,
         'ID_txt':ID_txt
       },
       success: function(result) {
         showDialogSuccess(result);
         show_data();
         $('#select_cus').val(0);
+        $('#select_doctype2').val(0);
         $('#txt_DocNo').val("");
         $('#txt_Doc_name').val("");
         $('#txt_Doc_numbar').val("");
@@ -270,35 +325,43 @@
 
   function show_data(){
     var  txtSearch =  $("#txtSearch").val();
-
+    var  select_doc =  $("#select_doc").val();
+    var  select_doctype =  $("#select_doctype").val();
     $.ajax({
       url: "process/register_doc.php",
       type: 'POST',
       data: {
         'FUNC_NAME': 'show_data',
-        'Search_txt': txtSearch
+        'Search_txt': txtSearch,
+        'select_doc': select_doc,
+        'select_doctype': select_doctype
       },
       success: function(result) {
         var ObjData = JSON.parse(result);
               var StrTR = "" ;
               if (!$.isEmptyObject(ObjData)) {
                 $.each(ObjData, function(key, value) {
+
                 if(value.DocType==1){
                   var DocType="เอกสารภายใน";
                 }else{
                   var DocType="เอกสารภายนอก";
                 }
 
-                  var chkDoc = "<input class='form-control chk_Cus' type='radio' value='1' name='id_Cus' id='id_Cus" + key + "' value='" + value.ID + "' onclick='show_Detail(\"" + value.ID + "\",\"" + key + "\")' style='width: 25%;height:20px;'>";
+
+
+
+                  var chkDoc = "<input class='form-control chk_Cus' type='radio' value='1' name='id_Cus' id='id_Cus" + key + "' value='" + value.ID + "' onclick='show_Detail(\"" + value.ID + "\",\"" + key + "\")' style='width: 60%;height:20px;'>";
                   StrTR += "<tr style='border-radius: 15px 15px 15px 15px;margin-top: 6px;margin-bottom: 6px;'>" +
-                    "<td style='width:6%;text-align: center;'><center>"+chkDoc+"</center></td>" +
-                    "<td style='width:7%;text-align: center;'>" + (key + 1) + "</td>" +
+                    "<td style='width:3%;text-align: center;'><center>"+chkDoc+"</center></td>" +
+                    "<td style='width:3%;text-align: center;'>" + (key + 1) + "</td>" +
                     "<td style='width:10%;text-align: left;'>" + value.DocNumber + "</td>" +
                     "<td style='width:20%;text-align: left;'>" + value.DocName + "</td>" +
                     "<td style='width:15%;text-align: center;'>" + value.SignificantFigure + "</td>" +
                     "<td style='width:10%;text-align: center;'>" + DocType + "</td>" +
-                    "<td style='width:10%;text-align: center;'>" + value.RegistrationDate + "</td>" +
-                    "<td style='width:10%;text-align: center;'>" + value.ValidDate + "</td>" +
+                    "<td style='width:10%;text-align: center;'>" + value.TypeDetail_Name + "</td>" +
+                    // "<td style='width:10%;text-align: center;'>" + value.RegistrationDate + "</td>" +
+                    // "<td style='width:10%;text-align: center;'>" + value.ValidDate + "</td>" +
                     "</tr>";
                 });
               }
@@ -342,6 +405,8 @@
                       $("#StatusRadio2").prop("checked", true);
                     }
 
+                  $('#select_doctype2').val(value.ID);
+
                   $('#btnEditDoc').show();
                   $('#btnSaveDoc').hide();
                   $('#btnDeleteDoc').show();
@@ -367,6 +432,7 @@
       success: function(result) {
         // feedData();
         $("#StatusRadio1").prop("checked", true);
+
           $('#txt_DocNo').val("");
           $('#txt_Doc_name').val("");
           $('#txt_Doc_numbar').val("");
@@ -374,6 +440,8 @@
           $('#txt_date_doc').val(output);
           $('#txt_expira_date').val(output);
           $('#txt_detail').val("");
+
+          $('#select_doctype2').val(0);
 
         $('#btnSaveDoc').show();
         $('#btnEditDoc').hide();

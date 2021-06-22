@@ -8,7 +8,7 @@ if (!isset($_SESSION['userData'])) {
 }
 $userName = $_SESSION['userData']['real_name'];
 $permissionID = $_SESSION['userData']['permissionID'];
-$page = isset($_GET['page']) ? $_GET['page'] : 'upload_doc';
+$page = isset($_GET['page']) ? $_GET['page'] : 'notification_doc';
 
 ?>
 <!DOCTYPE html>
@@ -86,9 +86,13 @@ $page = isset($_GET['page']) ? $_GET['page'] : 'upload_doc';
                 case "purpose":
                     _groupMenu = "system";
                     break
+                case "doctype_detail":
+                    _groupMenu = "system";
+                    break
                 case "notification_doc":
                     _groupMenu = "notification";
                     break
+                
             }
 
             $(`#li_${_groupMenu}`).addClass("menu-open");

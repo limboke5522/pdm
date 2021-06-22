@@ -16,10 +16,29 @@
 
 
             <div class="row">
-              <div class="col-3">
+
+              <div class="ml-3">
+                      <label> เอกสาร : </label>
+              </div>       
+              <div class="col-2">
+                      <select class="custom-select form-control " id="select_doc" onchange="show_data();">
+                          <option value="0" selected >ทั้งหมด</option>
+                          <option value="1">เอกสารภายใน</option>
+                          <option value="2">เอกสารภายนอก</option>
+                      </select>
+              </div>
+
+              <div class="ml-5">
+                      <label> ประเภทเอกสาร : </label>
+              </div>       
+              <div class="col-2">
+                      <select class="custom-select form-control " id="select_doctype" onchange="show_data();" ></select>
+              </div>
+              
+              <div class="col-2">
                 <input type="text" class="form-control" id="txtSearch" onkeyup="show_data();" placeholder="ค้นหารายการ">
               </div>
-              <div class="col-3">
+              <div class="col-2">
                 <!-- <button type="submit" class="btn btn-primary" >ค้นหา</button> -->
                 <!-- <button type="submit" class="btn btn-success" id="showModalAddUsers">เพิ่มข้อมูล</button> -->
               </div>
@@ -31,14 +50,15 @@
                 <table id="data_Table" class="table table-bordered table-hover w-100 table-head-fixed">
                   <thead>
                     <tr class="text-center">
-                      <th style="width: 5%;" class="bg_tableAll"></th>
-                      <th style="width: 5%;" class="bg_tableAll">ลำดับ</th>
+                      <th style="width: 3%;" class="bg_tableAll"></th>
+                      <th style="width: 3%;" class="bg_tableAll">ลำดับ</th>
                       <th class="bg_tableAll">เลขที่เอกสาร</th>
                       <th class="bg_tableAll">รายการเอกสาร</th>
                       <th class="bg_tableAll">เลขที่สำคัญ</th>
                       <th class="bg_tableAll">สถานะ</th>
-                      <th style="width: 15%;" class="bg_tableAll">วันที่ต่อทะเบียน</th>
-                      <th style="width: 15%;" class="bg_tableAll">วันหมดอายุ</th>
+                      <th class="bg_tableAll">ประเภทเอกสาร</th>
+                      <!-- <th style="width: 15%;" class="bg_tableAll">วันที่ต่อทะเบียน</th>
+                      <th style="width: 15%;" class="bg_tableAll">วันหมดอายุ</th> -->
                     </tr>
                   </thead>
                   <tbody>
@@ -67,28 +87,50 @@
                 <input type="text" class="form-control" id="txt_Doc_numbar" placeholder="เลขสำคัญ" autocomplete="off">
               </div>
 
-              <div class="col-1 ml-5 mt-3">
-                <div class="form-group">
-                  <label>เอกสารภายใน :</label>
-                  <input class="form-control" type="radio" value="1" name="StatusRadio" id="StatusRadio1" style="width: 25%;height:20px;">
-                </div>
-              </div>
-
-              <div class="col-1 mt-3">
-                <div class="form-group">
-                  <label>เอกสารภายนอก :</label>
-                  <input class="form-control" type="radio" value="2" name="StatusRadio" id="StatusRadio2" style="width: 25%;height:20px;">
-                </div>
-              </div>
+             
 
             </div>
+
             <div class="row ml-4 mt-1">
               <div class="col-3 mt-3">
-                <label>วันที่ต่อทะเบียน :</label>
+                <label>เอกสาร :</label>
+                  <div class="row ">
+
+                                  <div class=" form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" value="1" name="StatusRadio" id="StatusRadio1" style="width: 20px; height: 20px;" >
+                                    <label class="ml-2" for="StatusRadio1"  > เอกสารภายใน </label>
+                                  </div>
+                                  <div class=" form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" value="2" name="StatusRadio" id="StatusRadio2" style="width: 20px; height: 20px;">
+                                    <label class="ml-2" for="StatusRadio2" > เอกสารภายนอก </label>
+                                  </div>
+                  </div>
+
+              </div>
+              <div class="col-3 mt-3">
+                <label>ประเภทเอกสาร :</label>
+                <div class="row ">
+
+                                  <div class="col-12 form-check form-check-inline">
+                                      <select class="custom-select form-control " id="select_doctype2"></select>
+                                  </div>
+                  </div>
+              </div>
+              
+              <div class="col-3 mt-5">
+                <button style="width: 100px;" type="button" class="btn btn-outline-success ml-2" id="btnSaveDoc" onclick="saveData();">บันทึก</button>
+                <button style="width: 100px;" type="button" class="btn btn-outline-warning ml-2" id="btnEditDoc">แก้ไข</button>
+                <button style="width: 100px;" type="button" class="btn btn-outline-danger ml-2" id="btnDeleteDoc">ลบ</button>
+                <button style="width: 100px;" type="button" class="btn btn-outline-secondary ml-2" id="btncleanDoc" onclick="clean();">ล้างข้อมูล</button>
+              </div>
+              </div>  
+            <!-- <div class="row ml-4 mt-1">
+              <div class="col-3 mt-3">
+                <label>เอกสาร :</label>
                 <input type="text" autocomplete="off" class="form-control  datepicker-here " id="txt_date_doc" data-language='en' data-date-format='dd-mm-yyyy' placeholder="วันที่" readonly>
               </div>
               <div class="col-3 mt-3">
-                <label>วันหมดอายุ :</label>
+                <label>ประเภทเอกสาร :</label>
                 <input type="text" autocomplete="off" class="form-control  datepicker-here " id="txt_expira_date" data-language='en' data-date-format='dd-mm-yyyy' placeholder="วันที่" readonly>
               </div>
               <div class="col-3 mt-5">
@@ -96,9 +138,8 @@
                 <button style="width: 100px;" type="button" class="btn btn-outline-warning ml-2" id="btnEditDoc">แก้ไข</button>
                 <button style="width: 100px;" type="button" class="btn btn-outline-danger ml-2" id="btnDeleteDoc">ลบ</button>
                 <button style="width: 100px;" type="button" class="btn btn-outline-secondary ml-2" id="btncleanDoc" onclick="clean();">ล้างข้อมูล</button>
-              </div>
-
-            </div>
+              </div> -->
+            <!-- </div> -->
 
             <div class="row ml-4 mt-1">
               <div class="col-6 mt-3">

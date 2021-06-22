@@ -17,10 +17,30 @@ if (!empty($_POST['FUNC_NAME'])) {
     saveData($conn);
   } else if ($_POST['FUNC_NAME'] == 'deleteData') {
     deleteData($conn);
-  } else if ($_POST['FUNC_NAME'] == 'Get_customers') {
-    Get_customers($conn);
+  } else if ($_POST['FUNC_NAME'] == 'Get_TypeDetail_Name') {
+    Get_TypeDetail_Name($conn);
   }
   
+}
+function Get_TypeDetail_Name($conn){
+  $Sql = "SELECT
+            doctype_detail.ID,
+            doctype_detail.TypeDetail_Name 
+          FROM
+            doctype_detail
+            WHERE doctype_detail.IsCancel = 0
+            ORDER BY  doctype_detail.TypeDetail_Name ASC
+       ";
+
+$meQuery = mysqli_query($conn, $Sql);
+while ($row = mysqli_fetch_assoc($meQuery)) {
+$return[] = $row;
+}
+
+
+echo json_encode($return);
+mysqli_close($conn);
+die;
 }
 
 function Get_customers($conn){
@@ -55,7 +75,7 @@ function editData($conn)
   $txt_expira_date     = $_POST['txt_expira_date'];
   $txt_detail     = $_POST['txt_detail'];
   $StatusRadio     = $_POST['StatusRadio'];
-
+  $select_doctype2    = $_POST['select_doctype2'];
   
   $txt_date_doc = explode("-", $txt_date_doc);
   $txt_date_doc = $txt_date_doc[2].'-'.$txt_date_doc[1].'-'.$txt_date_doc[0];
@@ -71,6 +91,7 @@ function editData($conn)
                 SET DocNumber = '$txt_DocNo',
                     DocName = '$txt_Doc_name',
                     DocType = '$StatusRadio',
+                    DocType_detail = '$select_doctype2',
                     Description = '$txt_detail',
                     SignificantFigure = '$txt_Doc_numbar',
                     RegistrationDate = '$txt_date_doc',
@@ -97,7 +118,7 @@ function saveData($conn)
   $txt_expira_date     = $_POST['txt_expira_date'];
   $txt_detail     = $_POST['txt_detail'];
   $StatusRadio     = $_POST['StatusRadio'];
-
+  $select_doctype2     = $_POST['select_doctype2'];
   
   $txt_date_doc = explode("-", $txt_date_doc);
   $txt_date_doc = $txt_date_doc[2].'-'.$txt_date_doc[1].'-'.$txt_date_doc[0];
@@ -123,6 +144,7 @@ function saveData($conn)
             SET DocNumber = '$txt_DocNo',
                 DocName = '$txt_Doc_name',
                 DocType = '$StatusRadio',
+                DocType_detail = '$select_doctype2',
                 Description = '$txt_detail',
                 SignificantFigure = '$txt_Doc_numbar',
                 RegistrationDate = '$txt_date_doc',
@@ -144,21 +166,41 @@ function saveData($conn)
 function show_data($conn)
 {
   $Search_txt = $_POST["Search_txt"];
+  $select_doc = $_POST["select_doc"];
+  $select_doctype = $_POST["select_doctype"];
 
+  if($select_doc == 0 ){
+    $ANDdoc = "";
+  }else{
+    $ANDdoc = "AND documentlist.DocType = '$select_doc' ";
+  }
+
+  if($select_doctype == 0 ){
+    $ANDdoc_type = "";
+  }else{
+    $ANDdoc_type = "AND documentlist.DocType_detail = '$select_doctype' ";
+  }
 
   $Sql = "SELECT
               documentlist.ID,
               documentlist.DocNumber,
               documentlist.DocName,
               documentlist.DocType,
+              documentlist.DocType_detail,
               documentlist.Description,
               documentlist.SignificantFigure,
               DATE_FORMAT(documentlist.RegistrationDate ,'%d-%m-%Y') AS RegistrationDate,
               DATE_FORMAT(documentlist.ValidDate ,'%d-%m-%Y') AS ValidDate,
-              documentlist.ModifyDate
+              documentlist.ModifyDate,
+
+              doctype_detail.TypeDetail_Name
             FROM
             documentlist
+            INNER JOIN doctype_detail ON documentlist.DocType_detail = doctype_detail.ID
             WHERE (documentlist.DocName LIKE '%$Search_txt%' OR documentlist.DocNumber LIKE '%$Search_txt%'	)
+            $ANDdoc
+            $ANDdoc_type
+           
             AND documentlist.IsCancel = 0
             ORDER BY  documentlist.DocName ASC
           ";
@@ -185,6 +227,7 @@ function show_Detail($conn)
               documentlist.DocNumber,
               documentlist.DocName,
               documentlist.DocType,
+              documentlist.DocType_detail,
               documentlist.Description,
               documentlist.SignificantFigure,
               DATE_FORMAT(documentlist.RegistrationDate ,'%d-%m-%Y') AS RegistrationDate,
