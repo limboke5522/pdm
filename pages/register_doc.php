@@ -147,3 +147,29 @@
                 <textarea  class="form-control" id="txt_detail" rows="3"></textarea>
               </div>
             </div>
+
+<div class="modal fade" id="Modaldetail_Doc" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+    <div class="modal-dialog modal-lg ">
+        <div class="modal-content" role="document">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalScrollableTitle">เพิ่มหัวข้อเรื่อง</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                
+                <div class="row  mt-2 mb-5" style="margin-left: 20%">
+              
+                  <div class="col-6 mt-3">
+                  <label>ประเภทเอกสาร :</label>
+                  <input type="text" class="form-control" id="txt_detail_name" placeholder="ชื่อประเภทเอกสาร">
+                  </div>
+                  <div class="col-6 mt-5 ">
+                    <button style="width: 100px;" type="button" class="btn btn-outline-success" id="btnSaveDoc2" onclick="saveData2();">บันทึก</button>
+                  </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

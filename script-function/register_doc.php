@@ -86,8 +86,58 @@
               }
               $("#select_doctype").append(Str);
 
+              Str2 += "<option value='@'> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp "+ 
+                " &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp --- เพิ่ม --- </option>";
               $("#select_doctype2").append(Str2);
         
+      }
+    });
+  }
+
+  $("#select_doctype2").change(function() {
+    setTimeout(() => {
+      if($("#select_doctype2").val() == '@'){
+        $("#Modaldetail_Doc").modal('show');
+
+        $("#select_doctype2").val(0);
+      }
+      
+      // showDetail_contact();
+    }, 150);
+  });
+
+  function saveData2() {
+    var txt_detail_name= $('#txt_detail_name').val();
+    
+
+
+    var text = "";
+
+    if (txt_detail_name == "") {
+      text = "กรุณากรอกชื่อประเภทเอกสาร";
+      showDialogFailed(text);
+      return;
+    }
+
+    $.ajax({
+      url: "process/register_doc.php",
+      type: 'POST',
+      data: {
+        'FUNC_NAME': 'saveData2',
+        'txt_detail_name': txt_detail_name
+      },
+      success: function(result) {
+        // if(result=="0"){
+        //   showDialogFailed("วัตถุประสงค์ซ้ำ กรุณากรอกวัตถุประสงค์ใหม่อีกครั้ง");
+        // }else{
+          showDialogSuccess(result);
+        // }
+        
+        Get_TypeDetail_Name();
+        $('#txt_detail_name').val("");
+        $('#ID_txt').val("");
+      
+        $("#Modaldetail_Doc").modal('hide');
       }
     });
   }

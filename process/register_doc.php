@@ -19,6 +19,8 @@ if (!empty($_POST['FUNC_NAME'])) {
     deleteData($conn);
   } else if ($_POST['FUNC_NAME'] == 'Get_TypeDetail_Name') {
     Get_TypeDetail_Name($conn);
+  }else if ($_POST['FUNC_NAME'] == 'saveData2') {
+    saveData2($conn);
   }
   
 }
@@ -263,6 +265,25 @@ function deleteData($conn)
   $query = "UPDATE documentlist SET IsCancel = 1 WHERE ID = $ID_txt";
   mysqli_query($conn, $query);
   echo "ลบข้อมูลสำเร็จ";
+  unset($conn);
+  die;
+}
+
+function saveData2($conn)
+{
+
+  $txt_detail_name    = $_POST['txt_detail_name'];
+
+          $query = "INSERT INTO doctype_detail 
+          SET TypeDetail_Name = '$txt_detail_name'
+          ";
+
+          $return = "เพิ่มข้อมูล สำเร็จ";
+          mysqli_query($conn, $query);
+   
+    
+ 
+  echo $return;
   unset($conn);
   die;
 }
