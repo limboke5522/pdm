@@ -90,15 +90,15 @@ function editData($conn)
   
  
     $query = "UPDATE documentlist 
-                SET DocNumber = '$txt_DocNo',
-                    DocName = '$txt_Doc_name',
-                    DocType = '$StatusRadio',
-                    DocType_detail = '$select_doctype2',
-                    Description = '$txt_detail',
-                    SignificantFigure = '$txt_Doc_numbar',
-                    RegistrationDate = '$txt_date_doc',
-                    ValidDate = '$txt_expira_date',
-                    ModifyDate = NOW()
+                    SET documentlist.DocNumber = '$txt_DocNo',
+                    documentlist.DocName = '$txt_Doc_name',
+                    documentlist.DocType = '$StatusRadio',
+                    documentlist.DocType_Detail = '$select_doctype2',
+                    documentlist.Description = '$txt_detail',
+                    documentlist.SignificantFigure = '$txt_Doc_numbar',
+                    documentlist.RegistrationDate = '$txt_date_doc',
+                    documentlist.ValidDate = '$txt_expira_date',
+                    documentlist.ModifyDate = NOW()
                 WHERE ID = '$ID_txt'";
 
     $return = "แก้ไขข้อมูล สำเร็จ";
@@ -180,7 +180,7 @@ function show_data($conn)
   if($select_doctype == 0 ){
     $ANDdoc_type = "";
   }else{
-    $ANDdoc_type = "AND documentlist.DocType_detail = '$select_doctype' ";
+    $ANDdoc_type = "AND documentlist.DocType_Detail = '$select_doctype' ";
   }
 
   $Sql = "SELECT
@@ -188,7 +188,7 @@ function show_data($conn)
               documentlist.DocNumber,
               documentlist.DocName,
               documentlist.DocType,
-              documentlist.DocType_detail,
+              documentlist.DocType_Detail,
               documentlist.Description,
               documentlist.SignificantFigure,
               DATE_FORMAT(documentlist.RegistrationDate ,'%d-%m-%Y') AS RegistrationDate,
@@ -199,7 +199,7 @@ function show_data($conn)
               doctype_detail.TypeDetail_Name
             FROM
             documentlist
-            INNER JOIN doctype_detail ON documentlist.DocType_detail = doctype_detail.ID
+            INNER JOIN doctype_detail ON documentlist.DocType_Detail = doctype_detail.ID
             WHERE (documentlist.DocName LIKE '%$Search_txt%' OR documentlist.DocNumber LIKE '%$Search_txt%'	)
             $ANDdoc
             $ANDdoc_type
@@ -230,7 +230,7 @@ function show_Detail($conn)
               documentlist.DocNumber,
               documentlist.DocName,
               documentlist.DocType,
-              documentlist.DocType_detail,
+              documentlist.DocType_Detail,
               documentlist.Description,
               documentlist.SignificantFigure,
               DATE_FORMAT(documentlist.RegistrationDate ,'%d-%m-%Y') AS RegistrationDate,
@@ -241,7 +241,7 @@ function show_Detail($conn)
               doctype_detail.TypeDetail_Name
           FROM
           documentlist
-          INNER JOIN doctype_detail ON documentlist.DocType_detail = doctype_detail.ID
+          INNER JOIN doctype_detail ON documentlist.DocType_Detail = doctype_detail.ID
             WHERE documentlist.ID = '$ID'
             AND doctype_detail.ID = '$docdetail_id'
           ";
