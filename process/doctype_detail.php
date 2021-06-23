@@ -81,6 +81,7 @@ function show_data($conn)
           FROM
           doctype_detail
             WHERE (doctype_detail.TypeDetail_Name LIKE '%$Search_txt%')
+            AND doctype_detail.IsCancel = 0
             ORDER BY  doctype_detail.TypeDetail_Name ASC
           ";
 
@@ -125,7 +126,11 @@ function deleteData($conn)
 {
   $ID_txt = $_POST['ID_txt'];
 
-  $query = "DELETE FROM doctype_detail WHERE ID = $ID_txt";
+  $query = "UPDATE doctype_detail 
+                SET doctype_detail.IsCancel = 1
+              WHERE doctype_detail.ID = '$ID_txt'";
+
+  // $query = "DELETE FROM doctype_detail WHERE ID = $ID_txt";
   mysqli_query($conn, $query);
   echo "ลบ ข้อมูลสำเร็จ";
   unset($conn);

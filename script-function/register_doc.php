@@ -39,6 +39,8 @@
     $('#ID_txt').val("");
     $("#StatusRadio1").prop("checked", true);
     $("#StatusRadio11").prop("checked", true);
+
+    $('#select_doctype2').val("");
     show_data();
     Get_customers();
     Get_TypeDetail_Name();
@@ -351,7 +353,7 @@
 
 
 
-                  var chkDoc = "<input class='form-control chk_Cus' type='radio' value='1' name='id_Cus' id='id_Cus" + key + "' value='" + value.ID + "' onclick='show_Detail(\"" + value.ID + "\",\"" + key + "\")' style='width: 60%;height:20px;'>";
+                  var chkDoc = "<input class='form-control chk_Cus' type='radio' value='1' name='id_Cus' id='id_Cus" + key + "' value='" + value.ID + "' value='" +value.docdetail_id+ "' onclick='show_Detail(\"" + value.ID + "\",\"" + value.docdetail_id + "\",\"" + key + "\")' style='width: 60%;height:20px;'>";
                   StrTR += "<tr style='border-radius: 15px 15px 15px 15px;margin-top: 6px;margin-bottom: 6px;'>" +
                     "<td style='width:3%;text-align: center;'><center>"+chkDoc+"</center></td>" +
                     "<td style='width:3%;text-align: center;'>" + (key + 1) + "</td>" +
@@ -372,16 +374,18 @@
 
   }
 
-  function show_Detail(ID){
+  function show_Detail(ID,docdetail_id){
     
     $('#ID_txt').val(ID);
+   
 
     $.ajax({
       url: "process/register_doc.php",
       type: 'POST',
       data: {
         'FUNC_NAME': 'show_Detail',
-        'ID': ID
+        'ID': ID,
+        'docdetail_id': docdetail_id
       },
       success: function(result) {
         var ObjData = JSON.parse(result);
@@ -399,13 +403,14 @@
                   $('#txt_date_doc').val(value.RegistrationDate);
                   $('#txt_expira_date').val(value.ValidDate);
                   $("#txt_DocNo").prop('disabled', true);
+                  
                     if(value.DocType==1){
                       $("#StatusRadio1").prop("checked", true);
                     }else{
                       $("#StatusRadio2").prop("checked", true);
                     }
 
-                  $('#select_doctype2').val(value.ID);
+                    $('#select_doctype2').val(docdetail_id);
 
                   $('#btnEditDoc').show();
                   $('#btnSaveDoc').hide();

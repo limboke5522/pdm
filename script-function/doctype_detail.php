@@ -191,7 +191,7 @@
               if (!$.isEmptyObject(ObjData)) {
                 $.each(ObjData, function(key, value) {
 
-                  $('#txt_doctype_detail_name').val(value.Purpose);
+                  $('#txt_doctype_detail_name').val(value.TypeDetail_Name);
 
                  
                   $('#btnEditDoc').show();

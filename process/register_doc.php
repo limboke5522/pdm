@@ -193,6 +193,7 @@ function show_data($conn)
               DATE_FORMAT(documentlist.ValidDate ,'%d-%m-%Y') AS ValidDate,
               documentlist.ModifyDate,
 
+              doctype_detail.ID AS docdetail_id,
               doctype_detail.TypeDetail_Name
             FROM
             documentlist
@@ -220,7 +221,7 @@ function show_data($conn)
 function show_Detail($conn)
 {
   $ID = $_POST["ID"];
-
+  $docdetail_id = $_POST["docdetail_id"];
 
   $Sql = "SELECT
               documentlist.ID,
@@ -232,10 +233,15 @@ function show_Detail($conn)
               documentlist.SignificantFigure,
               DATE_FORMAT(documentlist.RegistrationDate ,'%d-%m-%Y') AS RegistrationDate,
               DATE_FORMAT(documentlist.ValidDate ,'%d-%m-%Y') AS ValidDate,
-              documentlist.ModifyDate
+              documentlist.ModifyDate,
+
+              doctype_detail.ID AS docdetail_id,
+              doctype_detail.TypeDetail_Name
           FROM
           documentlist
+          INNER JOIN doctype_detail ON documentlist.DocType_detail = doctype_detail.ID
             WHERE documentlist.ID = '$ID'
+            AND doctype_detail.ID = '$docdetail_id'
           ";
           
   $meQuery = mysqli_query($conn, $Sql);
