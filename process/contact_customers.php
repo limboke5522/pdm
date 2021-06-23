@@ -112,6 +112,7 @@ function show_data($conn)
               cuscontact.email,
               cuscontact.Tel,
               cuscontact.ID, 
+              customer.ID AS cus_id, 
               customer.CustomerName
             FROM
               cuscontact
@@ -136,7 +137,7 @@ function show_data($conn)
 function show_Detail($conn)
 {
   $ID = $_POST["ID"];
-
+  $cus_id = $_POST["cus_id"];
 
   $Sql = "SELECT
               cuscontact.ContactName,
@@ -144,10 +145,14 @@ function show_Detail($conn)
               cuscontact.email,
               cuscontact.Tel,
               cuscontact.ID, 
-              cuscontact.CustomerID
+              cuscontact.CustomerID,
+              customer.ID AS cus_id, 
+              customer.CustomerName
           FROM
           cuscontact
+            INNER JOIN customer ON cuscontact.CustomerID = customer.ID 
             WHERE cuscontact.ID = '$ID'
+            AND customer.ID = '$cus_id'
           ";
           
   $meQuery = mysqli_query($conn, $Sql);

@@ -73,17 +73,17 @@ function editData($conn)
   $txt_DocNo    = $_POST['txt_DocNo'];
   $txt_Doc_name    = $_POST['txt_Doc_name'];
   $txt_Doc_numbar     = $_POST['txt_Doc_numbar'];
-  $txt_date_doc     = $_POST['txt_date_doc'];
+  // $txt_date_doc     = $_POST['txt_date_doc'];
   $txt_expira_date     = $_POST['txt_expira_date'];
   $txt_detail     = $_POST['txt_detail'];
   $StatusRadio     = $_POST['StatusRadio'];
   $select_doctype2    = $_POST['select_doctype2'];
   
-  $txt_date_doc = explode("-", $txt_date_doc);
-  $txt_date_doc = $txt_date_doc[2].'-'.$txt_date_doc[1].'-'.$txt_date_doc[0];
+  // $txt_date_doc = explode("-", $txt_date_doc);
+  // $txt_date_doc = $txt_date_doc[2].'-'.$txt_date_doc[1].'-'.$txt_date_doc[0];
 
-  $txt_expira_date = explode("-", $txt_expira_date);
-  $txt_expira_date = $txt_expira_date[2].'-'.$txt_expira_date[1].'-'.$txt_expira_date[0];
+  // $txt_expira_date = explode("-", $txt_expira_date);
+  // $txt_expira_date = $txt_expira_date[2].'-'.$txt_expira_date[1].'-'.$txt_expira_date[0];
 
   $ID_txt     = $_POST['ID_txt'];
 
@@ -96,8 +96,8 @@ function editData($conn)
                     documentlist.DocType_Detail = '$select_doctype2',
                     documentlist.Description = '$txt_detail',
                     documentlist.SignificantFigure = '$txt_Doc_numbar',
-                    documentlist.RegistrationDate = '$txt_date_doc',
-                    documentlist.ValidDate = '$txt_expira_date',
+                    -- documentlist.RegistrationDate = '$txt_date_doc',
+                    -- documentlist.ValidDate = '$txt_expira_date',
                     documentlist.ModifyDate = NOW()
                 WHERE ID = '$ID_txt'";
 
@@ -116,17 +116,17 @@ function saveData($conn)
   $txt_DocNo    = $_POST['txt_DocNo'];
   $txt_Doc_name    = $_POST['txt_Doc_name'];
   $txt_Doc_numbar     = $_POST['txt_Doc_numbar'];
-  $txt_date_doc     = $_POST['txt_date_doc'];
+  // $txt_date_doc     = $_POST['txt_date_doc'];
   $txt_expira_date     = $_POST['txt_expira_date'];
   $txt_detail     = $_POST['txt_detail'];
   $StatusRadio     = $_POST['StatusRadio'];
   $select_doctype2     = $_POST['select_doctype2'];
   
-  $txt_date_doc = explode("-", $txt_date_doc);
-  $txt_date_doc = $txt_date_doc[2].'-'.$txt_date_doc[1].'-'.$txt_date_doc[0];
+  // $txt_date_doc = explode("-", $txt_date_doc);
+  // $txt_date_doc = $txt_date_doc[2].'-'.$txt_date_doc[1].'-'.$txt_date_doc[0];
 
-  $txt_expira_date = explode("-", $txt_expira_date);
-  $txt_expira_date = $txt_expira_date[2].'-'.$txt_expira_date[1].'-'.$txt_expira_date[0];
+  // $txt_expira_date = explode("-", $txt_expira_date);
+  // $txt_expira_date = $txt_expira_date[2].'-'.$txt_expira_date[1].'-'.$txt_expira_date[0];
 
             $Sql2 = " SELECT
                        documentlist.DocNumber
@@ -149,8 +149,8 @@ function saveData($conn)
                       documentlist.DocType_Detail = '$select_doctype2',
                       documentlist.Description = '$txt_detail',
                       documentlist.SignificantFigure = '$txt_Doc_numbar',
-                      documentlist.RegistrationDate = '$txt_date_doc',
-                      documentlist.ValidDate = '$txt_expira_date',
+                      -- documentlist.RegistrationDate = '$txt_date_doc',
+                      -- documentlist.ValidDate = '$txt_expira_date',
                       documentlist.ModifyDate = NOW()
                       ";
 
@@ -196,7 +196,8 @@ function show_data($conn)
               documentlist.ModifyDate,
 
               doctype_detail.ID AS docdetail_id,
-              doctype_detail.TypeDetail_Name
+              doctype_detail.TypeDetail_Name,
+              doctype_detail.IsCancel AS detail_IsCancel
             FROM
             documentlist
             INNER JOIN doctype_detail ON documentlist.DocType_Detail = doctype_detail.ID

@@ -26,8 +26,8 @@
   $(function() {
 
     
-    $("#txt_date_doc").val(output);
-    $("#txt_expira_date").val(output);
+    // $("#txt_date_doc").val(output);
+    // $("#txt_expira_date").val(output);
     $("#txt_edit_date").val(output);
 
 
@@ -196,8 +196,8 @@
           $('#txt_Doc_name').val("");
           $('#txt_Doc_numbar').val("");
 
-          $('#txt_date_doc').val(output);
-          $('#txt_expira_date').val(output);
+          // $('#txt_date_doc').val(output);
+          // $('#txt_expira_date').val(output);
           $('#txt_detail').val("");
           $("#txt_DocNo").prop('disabled', false);
         $('#btnSaveDoc').show();
@@ -218,8 +218,8 @@
       var txt_Doc_name= $('#txt_Doc_name').val();
       var txt_Doc_numbar= $('#txt_Doc_numbar').val();
 
-      var txt_date_doc= $('#txt_date_doc').val();
-      var txt_expira_date= $('#txt_expira_date').val();
+      // var txt_date_doc= $('#txt_date_doc').val();
+      // var txt_expira_date= $('#txt_expira_date').val();
       var txt_detail= $('#txt_detail').val();
 
 
@@ -268,8 +268,8 @@
           'txt_DocNo': txt_DocNo,
           'txt_Doc_name': txt_Doc_name,
           'txt_Doc_numbar': txt_Doc_numbar,
-          'txt_date_doc': txt_date_doc,
-          'txt_expira_date': txt_expira_date,
+          // 'txt_date_doc': txt_date_doc,
+          // 'txt_expira_date': txt_expira_date,
           'txt_detail': txt_detail,
           'StatusRadio': StatusRadio,
           'select_doctype2': select_doctype2,
@@ -288,8 +288,8 @@
           $('#txt_Doc_name').val("");
           $('#txt_Doc_numbar').val("");
           $("#txt_DocNo").prop('disabled', false);
-          $('#txt_date_doc').val(output);
-          $('#txt_expira_date').val(output);
+          // $('#txt_date_doc').val(output);
+          // $('#txt_expira_date').val(output);
           $('#txt_detail').val("");
     
         }
@@ -303,8 +303,8 @@
     var txt_Doc_name= $('#txt_Doc_name').val();
     var txt_Doc_numbar= $('#txt_Doc_numbar').val();
 
-    var txt_date_doc= $('#txt_date_doc').val();
-    var txt_expira_date= $('#txt_expira_date').val();
+    // var txt_date_doc= $('#txt_date_doc').val();
+    // var txt_expira_date= $('#txt_expira_date').val();
     var txt_detail= $('#txt_detail').val();
 
       if(document.getElementById("StatusRadio1").checked == true && document.getElementById("StatusRadio2").checked == false ){
@@ -346,8 +346,8 @@
         'txt_DocNo': txt_DocNo,
         'txt_Doc_name': txt_Doc_name,
         'txt_Doc_numbar': txt_Doc_numbar,
-        'txt_date_doc': txt_date_doc,
-        'txt_expira_date': txt_expira_date,
+        // 'txt_date_doc': txt_date_doc,
+        // 'txt_expira_date': txt_expira_date,
         'txt_detail': txt_detail,
         'StatusRadio': StatusRadio,
         'select_doctype2': select_doctype2,
@@ -362,8 +362,8 @@
         $('#txt_Doc_name').val("");
         $('#txt_Doc_numbar').val("");
 
-        $('#txt_date_doc').val(output);
-        $('#txt_expira_date').val(output);
+        // $('#txt_date_doc').val(output);
+        // $('#txt_expira_date').val(output);
         $('#txt_detail').val("");
         $("#txt_DocNo").prop('disabled', false);
         $('#btnEditDoc').hide();
@@ -401,6 +401,12 @@
                   var DocType="เอกสารภายนอก";
                 }
 
+                if(value.detail_IsCancel==1){
+                  var DocDetail="";
+                }else{
+                  var DocDetail=value.TypeDetail_Name;
+                }
+
 
 
 
@@ -412,7 +418,7 @@
                     "<td style='width:20%;text-align: left;'>" + value.DocName + "</td>" +
                     "<td style='width:15%;text-align: center;'>" + value.SignificantFigure + "</td>" +
                     "<td style='width:10%;text-align: center;'>" + DocType + "</td>" +
-                    "<td style='width:10%;text-align: center;'>" + value.TypeDetail_Name + "</td>" +
+                    "<td style='width:10%;text-align: center;'>" + DocDetail + "</td>" +
                     // "<td style='width:10%;text-align: center;'>" + value.RegistrationDate + "</td>" +
                     // "<td style='width:10%;text-align: center;'>" + value.ValidDate + "</td>" +
                     "</tr>";
@@ -451,8 +457,8 @@
                   $('#txt_Doc_numbar').val(value.SignificantFigure);
                   $('#txt_detail').val(value.Description);
 
-                  $('#txt_date_doc').val(value.RegistrationDate);
-                  $('#txt_expira_date').val(value.ValidDate);
+                  // $('#txt_date_doc').val(value.RegistrationDate);
+                  // $('#txt_expira_date').val(value.ValidDate);
                   $("#txt_DocNo").prop('disabled', true);
                   
                     if(value.DocType==1){
@@ -493,8 +499,8 @@
           $('#txt_Doc_name').val("");
           $('#txt_Doc_numbar').val("");
 
-          $('#txt_date_doc').val(output);
-          $('#txt_expira_date').val(output);
+          // $('#txt_date_doc').val(output);
+          // $('#txt_expira_date').val(output);
           $('#txt_detail').val("");
 
           $('#select_doctype2').val(0);

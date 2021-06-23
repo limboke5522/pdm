@@ -23,6 +23,7 @@
 
     
     $('#ID_txt').val("");
+    $('#select_cus').val("");
     $("#StatusRadio1").prop("checked", true);
     show_data();
     Get_customers();
@@ -266,7 +267,7 @@
                 $.each(ObjData, function(key, value) {
 
 
-                  var chkDoc = "<input class='form-control chk_Cus' type='radio' value='1' name='id_Cus' id='id_Cus" + key + "' value='" + value.ID + "' onclick='show_Detail(\"" + value.ID + "\",\"" + key + "\")' style='width: 25%;height:20px;'>";
+                  var chkDoc = "<input class='form-control chk_Cus' type='radio' value='1' name='id_Cus' id='id_Cus" + key + "' value='" + value.ID + "' value='" +value.cus_id+ "' onclick='show_Detail(\"" + value.ID + "\",\"" + value.cus_id + "\",\"" + key + "\")' style='width: 25%;height:20px;'>";
                   StrTR += "<tr style='border-radius: 15px 15px 15px 15px;margin-top: 6px;margin-bottom: 6px;'>" +
                     "<td style='width:6%;text-align: center;'><center>"+chkDoc+"</center></td>" +
                     "<td style='width:7%;text-align: center;'>" + (key + 1) + "</td>" +
@@ -285,7 +286,7 @@
 
   }
 
-  function show_Detail(ID){
+  function show_Detail(ID,cus_id){
     
     $('#ID_txt').val(ID);
 
@@ -294,7 +295,8 @@
       type: 'POST',
       data: {
         'FUNC_NAME': 'show_Detail',
-        'ID': ID
+        'ID': ID,
+        'cus_id': cus_id
       },
       success: function(result) {
         var ObjData = JSON.parse(result);
@@ -305,8 +307,10 @@
                   $('#txtcustomers_ID').val(value.CustomerCode);
                   $('#txtcustomers_name').val(value.CustomerName);
 
-
-                  $('#select_cus').val(value.CustomerID);
+                  
+                  $('#select2-select_cus-container').text(value.CustomerName);
+                  $('#select_cus').val(cus_id);
+                  
                   $('#txt_contact_name').val(value.ContactName);
                   $('#txt_deb_name').val(value.Department);
                   $('#txt_email').val(value.email);
