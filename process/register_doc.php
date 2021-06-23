@@ -143,16 +143,16 @@ function saveData($conn)
 
 
             $query = "INSERT INTO documentlist 
-            SET DocNumber = '$txt_DocNo',
-                DocName = '$txt_Doc_name',
-                DocType = '$StatusRadio',
-                DocType_detail = '$select_doctype2',
-                Description = '$txt_detail',
-                SignificantFigure = '$txt_Doc_numbar',
-                RegistrationDate = '$txt_date_doc',
-                ValidDate = '$txt_expira_date',
-                ModifyDate = NOW()
-            ";
+                      SET documentlist.DocNumber = '$txt_DocNo',
+                      documentlist.DocName = '$txt_Doc_name',
+                      documentlist.DocType = '$StatusRadio',
+                      documentlist.DocType_Detail = '$select_doctype2',
+                      documentlist.Description = '$txt_detail',
+                      documentlist.SignificantFigure = '$txt_Doc_numbar',
+                      documentlist.RegistrationDate = '$txt_date_doc',
+                      documentlist.ValidDate = '$txt_expira_date',
+                      documentlist.ModifyDate = NOW()
+                      ";
 
             $return = "เพิ่มข้อมูล สำเร็จ";
             mysqli_query($conn, $query);

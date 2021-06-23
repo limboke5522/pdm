@@ -264,14 +264,15 @@
         type: 'POST',
         data: {
           'FUNC_NAME': 'saveData',
-          'select_doctype2': select_doctype2,
+          
           'txt_DocNo': txt_DocNo,
           'txt_Doc_name': txt_Doc_name,
           'txt_Doc_numbar': txt_Doc_numbar,
           'txt_date_doc': txt_date_doc,
           'txt_expira_date': txt_expira_date,
           'txt_detail': txt_detail,
-          'StatusRadio': StatusRadio
+          'StatusRadio': StatusRadio,
+          'select_doctype2': select_doctype2,
         },
         success: function(result) {
           if(result=="0"){
