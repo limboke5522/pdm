@@ -92,7 +92,12 @@ $page = isset($_GET['page']) ? $_GET['page'] : 'notification_doc';
                 case "notification_doc":
                     _groupMenu = "notification";
                     break
-                
+                case "permission_doc":
+                    _groupMenu = "permission";
+                    break
+                case "setting_user":
+                    _groupMenu = "permission";
+                    break
             }
 
             $(`#li_${_groupMenu}`).addClass("menu-open");

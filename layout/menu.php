@@ -50,6 +50,14 @@
                          </li>
                      </ul> -->
 
+                     <ul class="nav nav-treeview ul_general" style="display: none;">
+                         <li class="nav-item">
+                             <a href="index.php?page=search_upload_doc" class="nav-link " id="search_upload_doc">
+                             <i class="fas fa-cloud-upload-alt"></i>
+                                 <p>ค้นหาเอกสารอัพโหลด</p>
+                             </a>
+                         </li>
+                     </ul>
 
                      <ul class="nav nav-treeview ul_general" style="display: none;">
                          <li class="nav-item">
@@ -166,9 +174,34 @@
                              </a>
                          </li>
                      </ul>
+
+                     <ul class="nav nav-treeview ul_permission" style="display: none;">
+                         <li class="nav-item">
+                             <a href="index.php?page=setting_user" class="nav-link" id="setting_user">
+                             <i class="fas fa-users-cog"></i>
+                                 <p>สิทธิ์การเข้าใช้งาน</p>
+                             </a>
+                         </li>
+                     </ul>
                  </li>
 
-
+                 <!-- <li class="nav-item has-treeview " id="li_setting_user">
+                     <a href="#" class="nav-link " id="a_setting_user">
+                     <i class="fas fa-users-cog"></i>
+                         <p>
+                             จัดการระบบ
+                             <i class="right fas fa-angle-left"></i>
+                         </p>
+                     </a>
+                     <ul class="nav nav-treeview ul_setting_user" style="display: none;">
+                         <li class="nav-item">
+                             <a href="index.php?page=setting_user" class="nav-link" id="setting_user">
+                             <i class="fas fa-users-cog"></i>
+                                 <p>สิทธิ์การเข้าใช้งาน</p>
+                             </a>
+                         </li>
+                     </ul>
+                 </li> -->
 
 
 
