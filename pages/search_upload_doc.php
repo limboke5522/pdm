@@ -49,6 +49,7 @@
                     <table id="Data_TableLeft" class="table table-bordered table-hover w-100 table-head-fixed">
                       <thead>
                         <tr class="text-center">
+                          <th  class="bg_tableAll">เลขที่เอกสาร</th>
                           <th  class="bg_tableAll">เอกสาร</th>
                           <th  class="bg_tableAll">Product</th>
                           <th  class="bg_tableAll">ประเภทเอกสาร</th>

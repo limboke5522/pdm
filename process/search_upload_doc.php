@@ -144,32 +144,46 @@ function show_DataLeft($conn)
   }
 
   $Sql_product = "SELECT
-                    productdoc.DocumentID,
-                    productdoc.ID,
-                    productdoc.ProductID,
-                    docrevision.version,
-                    docrevision.fileName,
-                    DATE_FORMAT(docrevision.UploadDate ,'%d-%m-%Y') AS UploadDate,
-                    documentlist.DocNumber,
-                    documentlist.DocName,
-                    DATE_FORMAT(documentlist.ValidDate ,'%d-%m-%Y') AS ValidDate,
-                    documentlist.DocType_Detail,
-
-                    doctype_detail.TypeDetail_Name,
-                    product.ID,
-                    product.ProductName
-                  FROM
-                    productdoc
-                    INNER JOIN docrevision ON productdoc.ID_FileDoc = docrevision.ID
-                    INNER JOIN documentlist ON productdoc.DocumentID = documentlist.ID 
-                    INNER JOIN doctype_detail ON documentlist.DocType_Detail = doctype_detail.ID 
-                    INNER JOIN product ON productdoc.ProductID = product.ID
+                          documentlist.DocName,
+                          CASE WHEN product.ProductName IS NULL THEN 'เอกสารกลาง' ELSE
+	                        product.ProductName END AS ProductName,
+                          doctype_detail.TypeDetail_Name,
+                          docrevision.version AS lasrVersion,
+                          documentlist.DocNumber,
+                          productdoc.MFGDate,
+                          productdoc.ExpireDate,
+                          docrevision.fileName,
+                          docrevision.DocumentID AS DocID,
+                          docrevision.productID AS ProducID,
+                          (
+                            SELECT
+                              docrevision.version
+                            FROM
+                              docrevision
+                            WHERE
+                              docrevision.DocumentID = DocID
+                            AND docrevision.productID = ProducID
+                            ORDER BY
+                              docrevision.version DESC
+                            LIMIT 1
+                          ) AS newVersion,
+                          DATE_FORMAT(productdoc.MFGDate ,'%d-%m-%Y') AS MFGDate,
+                          DATE_FORMAT(productdoc.EXpireDate ,'%d-%m-%Y') AS ExpireDatee,
+                          DATE_FORMAT(productdoc.UploadDate ,'%d-%m-%Y') AS UploadDate
+                        FROM
+                          documentlist
+                        LEFT JOIN docrevision ON documentlist.ID = docrevision.DocumentID
+                        LEFT JOIN product ON docrevision.productID = product.ID
+                        INNER JOIN productdoc ON docrevision.ID = productdoc.ID_FileDoc
+                        INNER JOIN doctype_detail ON productdoc.DocTypeID = doctype_detail.ID
                   WHERE
                   (documentlist.DocName LIKE '%$Search_txt%'
                   OR  documentlist.DocNumber LIKE '%$Search_txt%' )
                   $ANDdoc
                   $ANDdoc_type
                   $ANDdoc_head
+                  HAVING lasrVersion >= newVersion
+                  ORDER BY documentlist.DocName ASC
                   LIMIT 10
           ";
 

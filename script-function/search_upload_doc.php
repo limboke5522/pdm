@@ -208,13 +208,13 @@
             var btn_preview = '<a href="javascript:void(0)"  onclick="preview(\'' + value.fileName + '\');"><img src="img/pdf.png" style="width:35px;"></a>';
 
             StrTR += "<tr style='border-radius: 15px 15px 15px 15px;margin-top: 6px;margin-bottom: 6px;'>" +
-             
+              "<td style='width:10%;text-align: center;'>" + value.DocNumber + "</td>" +
               "<td style='width:15%;text-align: center;'>" + value.DocName + "</td>" +
               "<td style='width:15%;text-align: center;'>" + value.ProductName + "</td>" +
               "<td style='width:15%;text-align: center;'>" + value.TypeDetail_Name + "</td>" +
-              "<td style='width:5%;text-align: center;'>" + value.version + "</td>" +
-              "<td style='width:15%;text-align: center;'>" + value.DocNumber + "</td>" +
-              "<td style='width:15%;text-align: center;'>" + value.ValidDate + "</td>" +
+              "<td style='width:5%;text-align: center;'>" + value.newVersion + "</td>" +
+              "<td style='width:15%;text-align: center;'>" + value.MFGDate + "</td>" +
+              "<td style='width:15%;text-align: center;'>" + value.ExpireDatee + "</td>" +
               "<td style='width:15%;text-align: center;'>" + value.UploadDate + "</td>" +
               "<td style='width:5%;text-align:  center;'>" + btn_preview + "</td>" +
               "</tr>";

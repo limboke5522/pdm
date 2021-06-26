@@ -46,6 +46,7 @@
 
         $("#select_DocDetail_"+key).html(Str);
 
+        
 
               if(DocDetail_ID==null || DocDetail_ID==0){
                 $('#select_DocDetail_'+key).val(0);
@@ -53,9 +54,13 @@
               }else{
                 $('#select_DocDetail_'+key).val(DocDetail_ID);
               }
+
+            
+           
       }
     });
   }
+ 
   function selection_Product(key,Product_ID) {
     $.ajax({
       url: "process/upload_doc.php",
@@ -86,9 +91,13 @@
               }else{
                 $('#select_Product_'+key).val(Product_ID);
               }
+
+              
       }
     });
   }
+
+
   function selection_Doc(key,Doc_ID) {
     $.ajax({
       url: "process/upload_doc.php",
@@ -103,7 +112,7 @@
         Str += "<option value=0 >กรุณาเลือก หัวข้อเอกสาร</option>";
         if (!$.isEmptyObject(ObjData)) {
           $.each(ObjData, function(key, value) {
-            Str += "<option value=" + value.ID + " >" + value.DocName + "</option>";
+            Str += "<option value=" + value.ID + " >" + value.DocNumber + " : " + value.DocName + "</option>";
 
           });
         }
@@ -119,6 +128,8 @@
               }else{
                 $('#select_Doc_'+key).val(Doc_ID);
               }
+
+              
       }
     });
   }
@@ -127,7 +138,7 @@
   function upload_Doc() {
 
     var upload_fileRight = $('#upload_fileRight').prop('files')[0];
-    var select_product = $("#select_product").val();
+    // var select_Product = $("#select_Product").val();
     // var id_docLeft = $('input[name=id_docLeft]:checked').val();
 
     // if(select_product == 0){
@@ -148,7 +159,7 @@
     var form_data = new FormData();
     form_data.append('FUNC_NAME', 'upload_Doc');
     form_data.append('upload_fileRight', upload_fileRight);
-    form_data.append('select_product', select_product);
+    // form_data.append('select_Product', select_Product);
     // form_data.append('id_docLeft', id_docLeft);
 
     $.ajax({
@@ -195,13 +206,13 @@
             var btn_preview = '<a href="javascript:void(0)"  onclick="preview(\'' + value.fileName + '\');"><img src="img/pdf.png" style="width:35px;"></a>';
 
             StrTR += "<tr style='border-radius: 15px 15px 15px 15px;margin-top: 6px;margin-bottom: 6px;'>" +
-              "<td style='width:10%;text-align: center;'><center>" + chkDoc + "</center></td>" +
-              "<td style='width:5%; text-align: center;'>" + (key + 1) + "</td>" +
-              "<td style='width:20%;text-align: center;'>" + value.DocName + "</td>" +
-              "<td style='width:5%;text-align:  center;'>" + btn_preview + "</td>" +
-              "<td style='width:20%;text-align: center;'>" + value.DocNumber + "</td>" +
-              "<td style='width:10%;text-align: center;'>" + value.version + "</td>" +
-              "<td style='width:25%;text-align: center;'>" + value.UploadDate + "</td>" +
+              "<td style='width:15%; text-align: center;'><center>" + chkDoc + "</center></td>" +
+              "<td style='width:10%; text-align: center;'>" + (key + 1) + "</td>" +
+              "<td style='width:10%; text-align: center;'>" + value.DocName + "</td>" +
+              "<td style='width:10%; text-align: center;'>" + btn_preview + "</td>" +
+              "<td style='width:5%;  text-align: center;'>" + value.DocNumber + "</td>" +
+              "<td style='width:5%;  text-align: center;'>" + value.version + "</td>" +
+              "<td style='width:5%;  text-align: center;'>" + value.UploadDate + "</td>" +
 
               "</tr>";
           });
@@ -227,7 +238,7 @@
       data: {
         'FUNC_NAME': 'show_DataRight',
         'txtSearch2': txtSearch2,
-        'select_product': $("#select_product").val(),
+        'select_Product': $("#select_Product").val(),
         'id_docLeft': $('input[name=id_docLeft]:checked').val()
       },
       success: function(result) {
@@ -236,70 +247,53 @@
         if (!$.isEmptyObject(ObjData)) {
           $.each(ObjData, function(key, value) {
 
+           
             
-
             // var chkDoc = "<input class='form-control chk_docLeft' type='radio'  name='id_docLeft' id='id_docLeft" + key + "' value='" + value.ID + "'  style='width: 50%;'>";
   
             var select_DocDetail = "<select style='width: 100%' class='form-control select2 select_DocDetaill' id='select_DocDetail_"+key+"' onchange ='show_bt_save("+key+");'></select>";
             var select_Product = "<select style='width: 100%' class='form-control select2 select_Productt' id='select_Product_"+key+"' onchange ='show_bt_save("+key+");'></select>";
             var select_Doc = "<select style='width: 100%' class='form-control select2 select_Docc' id='select_Doc_"+key+"' onchange ='show_bt_save("+key+");'></select>";
            
-            var bt_MFGDate = " <input type='text' autocomplete='off' ' class='form-control  datepicker-here bt_MFGDatee' id='bt_MFGDate_"+key+"' value='<?php echo date('d/m/Y'); ?>' data-language='en' data-date-format='dd-mm-yyyy' placeholder='วันที่' readonly>";
-            var bt_ExpireDate = "<input type='text' autocomplete='off' class='form-control  datepicker-here bt_ExpireDatee' id='bt_ExpireDate_"+key+"' value='<?php echo date('d/m/Y'); ?>' data-language='en' data-date-format='dd-mm-yyyy' placeholder='วันที่' readonly>";
-            var bt_UploadDate = "<input type='text' autocomplete='off' class='form-control  datepicker-here bt_UploadDatee' id='bt_UploadDate_"+key+"' onclick ='show_modal1("+key+");' value='<?php echo date('d/m/Y'); ?>'  data-language='en' data-date-format='dd-mm-yyyy' placeholder='วันที่' readonly>";
+            var bt_MFGDate = " <input type='text' autocomplete='off' ' class='form-control  datepicker-here bt_MFGDatee' onclick ='show_modal1("+key+");' id='bt_MFGDate_"+key+"' value='<?php echo date('d/m/Y'); ?>' data-language='en' data-date-format='dd-mm-yyyy' placeholder='วันที่' readonly>";
+            var bt_ExpireDate = "<input type='text' autocomplete='off' class='form-control  datepicker-here bt_ExpireDatee' onclick ='show_modal1("+key+");' id='bt_ExpireDate_"+key+"' value='<?php echo date('d/m/Y'); ?>' data-language='en' data-date-format='dd-mm-yyyy' placeholder='วันที่' readonly>";
+            var bt_UploadDate = "<input type='text' autocomplete='off' class='form-control   bt_UploadDatee' id='bt_UploadDate_"+key+"'  readonly>";
 
             var bt_savedoc = "<button type='submit' class='btn btn-success btn_savedocc' id='btn_savedoc_"+key+"' onclick='Save_FileDoc("+key+","+value.ID+");'>บันทึก</button>";
             var bt_deletedoc = "<button type='submit' class='btn btn-danger btn_deletedocc' id='btn_deletedoc_"+key+"' onclick='chk_del("+key+","+value.ID+");'>ลบ</button>";
-            
-            
 
             StrTR += "<tr style='border-radius: 15px 15px 15px 15px;margin-top: 6px;margin-bottom: 6px;'>" +
               
               
-              "<td >" + value.fileName + "</td>" +
-              "<td >" + select_DocDetail + "</td>" +
-              "<td >" + select_Product + "</td>" +
-              "<td >" + select_Doc + "</td>" +
-              "<td style='width:10%;'>" + bt_ExpireDate +"</td>" +
-              "<td style='width:10%;'>" + bt_ExpireDate + "</td>" +
-              "<td style='width:10%;'>" + bt_UploadDate + "</td>" +
-              "<td ><center>"+bt_savedoc + bt_deletedoc +"</center></td>" +
+              "<td style='width:10%;' >" + value.fileName + "</td>" +
+              "<td style='width:5%;' >" + select_DocDetail + "</td>" +
+              "<td style='width:5%;' >" + select_Product + "</td>" +
+              "<td style='width:5%;' >" + select_Doc + "</td>" +
+              "<td style='width:5%;' >" + bt_ExpireDate +"</td>" +
+              "<td style='width:5%;' >" + bt_ExpireDate + "</td>" +
+              "<td style='width:2%;' ><center>"+bt_savedoc + bt_deletedoc +"</center></td>" +
 
               "</tr>";
             
-              
-              // show_modal1(key);
               selection_DocDetail(key,value.DocumentID);
               selection_Product(key,value.DocumentID);
               selection_Doc(key,value.DocumentID);
-
-              
-
           });
           
         }
+        
         $('#Data_TableRight tbody').html(StrTR);
+      
         $(".select2").select2();
-
         $('.btn_savedocc').hide();
         $('.btn_deletedocc').hide();
        
       }
     });
-
   }
-  // $("#Data_TableRight").change(function() {
-  //   setTimeout(() => {
-  //     if($("#bt_UploadDate_").click()){
-  //       $("#Modaldetail_Doc").modal('show');
 
-  //     }
-      
-  //     show_DataRight();
-  //   }, 150);
-  // });
 
-  function show_modal1() {
+  function show_modal1(key) {
     $("#Modaldetail_Doc").modal('show');
     
       show_DataRight();
@@ -310,14 +304,43 @@
     var select_DocDetail = $('#select_DocDetail_'+key).val();
     var select_Product = $('#select_Product_'+key).val();
     var select_Doc = $('#select_Doc_'+key).val();
-    // alert(select_Doc);
-    if(select_Doc == 0 ){
+
+    if(select_DocDetail == 0 || select_Product == 0 || select_Doc == 0){
                 $('#btn_deletedoc_'+key).show();
                 $('#btn_savedoc_'+key).hide();
             }else{
               $('#btn_savedoc_'+key).show();
               $('#btn_deletedoc_'+key).hide();
+      }
+
+      if(select_DocDetail == 2 && select_Product == 0 && select_Doc != 0){
+               $('#btn_savedoc_'+key).show();
+              $('#btn_deletedoc_'+key).hide();
             }
+    // alert(select_Doc);
+    // if(select_Product == 0){
+    //             $('#btn_deletedoc_'+key).show();
+    //             $('#btn_savedoc_'+key).hide();
+    //         }else{
+    //           $('#btn_savedoc_'+key).show();
+    //           $('#btn_deletedoc_'+key).hide();
+    //   }
+
+    //  if(select_DocDetail == 0){
+    //             $('#btn_deletedoc_'+key).show();
+    //             $('#btn_savedoc_'+key).hide();
+    //         }else{
+    //           $('#btn_savedoc_'+key).show();
+    //           $('#btn_deletedoc_'+key).hide();
+    //   }
+      
+
+      if(select_DocDetail != 2){
+        $('#select_Product_'+key).attr('disabled',false);
+          
+      }else{
+        $('#select_Product_'+key).attr('disabled',true);
+      }      
 
   }
 
