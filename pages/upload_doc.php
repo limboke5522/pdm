@@ -14,27 +14,81 @@
             <!-- /.content-header -->
 
             <div class="card">
-            <div class="card-body">
+            <div class="col-12 mt-3">
+              <label class="col-2"> ประเภทเอกสาร : </label>
+              <label class="col-2"> Product : </label>
+              <label class="col-2"> หัวข้อเอกสาร : </label>
+                <div class="row">
+                      <div class="col-2">
+                          <select class="custom-select form-control " id="select_doctype" onchange="check_selection();show_DataLeft();" ></select>
+                      </div>
+
+                      <div class="col-2">
+                              <select class="form-control select2" id="select_product"  onchange="show_DataLeft();" ></select>
+                      </div>
+
+                      <div class="col-2">
+                              <select class=" form-control select2" id="select_dochead" onchange="show_DataLeft();" ></select>
+                      </div>
+
+                      <div class="col-2">
+                        <input type="text"  class="form-control" id="txtSearch" onkeyup="show_DataLeft();" placeholder="ค้นหารายการ">
+                      </div>
+                
+                </div>
+
+
             <div class="row">
+              <div class="col-12">
+                <div class="row mt-2  table-responsive p-0" id="tb_Data" style="height: 500px;max-height: 500px;overflow-y: auto;">
+                  <div class="col-12">
+                    <table id="Data_TableLeft" class="table table-bordered table-hover w-100 table-head-fixed">
+                      <thead>
+                        <tr class="text-center">
+                          <th  class="bg_tableAll">เลขที่เอกสาร</th>
+                          <th  class="bg_tableAll">เอกสาร</th>
+                          <th  class="bg_tableAll">Product</th>
+                          <th  class="bg_tableAll">ประเภทเอกสาร</th>
+                          <th  class="bg_tableAll">Ver.</th>
+                          <th  class="bg_tableAll">วันที่ผลิตเอกสาร</th>
+                          <th  class="bg_tableAll">วันหมดอายุ</th>
+                          <th  class="bg_tableAll">วันที่อัปโหลด</th>
+                          <th  class="bg_tableAll">Preview</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+
               
-              <div class="col-6">
+            </div>
+            </div>
+          </div>
+          
+            <div class="card">
+            <div class="card-body">
+            <div class="row ">
+              
+              <div class="col-8">
                 <div class="row " style="margin-left: 1px;">
 
-                  <div class="col-4">
+                  <div class="col-3">
                     <input type="text" style="width: 250px;" class="form-control" id="txtSearch2" onkeyup="show_DataRight();" placeholder="ค้นหาเอกสาร">
                   </div>
     
-                  <div class="col-5">
-                  <div class="form-group" id="div_upload">
-                          <div class="custom-file ">
-                            <input type="file" class="custom-file-input" name="inputFile" id="upload_fileRight" accept="application/pdf">
-                            <label class="custom-file-label" for="inputFile">เลือกไฟล์</label>
-                          </div>
-                   
-                  </div>
-
-        
+                  <div class="col-6">
+                      <div class="form-group" id="div_upload">
+                              <div class="custom-file ">
+                                <input type="file" class="custom-file-input" name="inputFile" id="upload_fileRight" accept="application/pdf">
+                                <label class="custom-file-label" for="inputFile">เลือกไฟล์</label>
+                              </div>
+                      
                       </div>
+                  </div>
                       <div class="col-3">
                   <button style="width: 50%;margin-left: 50px;" type="button" class="btn btn-outline-primary" onclick="upload_Doc();">Upload</button>
                   
@@ -47,9 +101,9 @@
 
             <div class="row">
               <div class="col-12">
-                <div class="row mt-2 card-body table-responsive" id="tb_Data" style="height: 620px;max-height: 620px;overflow-y: auto;">
+                <div class="row mt-2 card-body table-responsive p-0" id="tb_Data" style="height: 500px;max-height: 500px;overflow-y: auto;">
                   <div class="col-12">
-                    <table id="Data_TableRight" class="table table-bordered table-hover table-head-fixed">
+                    <table id="Data_TableRight" class="table table-bordered table-hover w-100 table-head-fixed">
                       <thead>
                         <tr class="text-center">
                           <th  style='width:10%;' class="bg_tableAll">เอกสาร</th>
@@ -76,7 +130,7 @@
           </div>
 
 
-          <div  class="modal fade" id="Modaldetail_Doc" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+          <!-- <div  class="modal fade" id="Modaldetail_Doc" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
             <div class="modal-dialog modal-lg ">
                 <div class="modal-content col-6" role="document">
                     <div class="modal-header">
@@ -102,4 +156,4 @@
                     </div>
                 </div>
             </div>
-          </div>
+          </div> -->

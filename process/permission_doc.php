@@ -47,12 +47,27 @@ function showData_Doc($conn)
   $Sql_product2 = "SELECT
                     documentlist.ID,
                     documentlist.DocNumber,
-                    documentlist.DocName
+                    documentlist.DocName,
+                    documentlist.DocType,
+                    documentlist.DocType_Detail,
+                    documentlist.Description,
+                    documentlist.SignificantFigure,
+                    DATE_FORMAT(documentlist.RegistrationDate ,'%d-%m-%Y') AS RegistrationDate,
+                    DATE_FORMAT(documentlist.ValidDate ,'%d-%m-%Y') AS ValidDate,
+                    documentlist.ModifyDate,
 
-                  FROM documentlist 
+                    doctype_detail.ID AS docdetail_id,
+                    doctype_detail.TypeDetail_Name,
+                    doctype_detail.IsCancel AS detail_IsCancel
+                  FROM
+                  documentlist
+                  INNER JOIN doctype_detail ON documentlist.DocType_Detail = doctype_detail.ID
+                  WHERE (documentlist.DocName LIKE '%$Search_txt%' OR documentlist.DocNumber LIKE '%$Search_txt%'	)
+                  $ANDdoc
+                  $ANDdoc_type
 
-                  WHERE documentlist.DocName LIKE '%$Search_txt%'
-                  ORDER BY documentlist.ID ASC
+                  AND documentlist.IsCancel = 0
+                  ORDER BY  documentlist.DocName ASC
           ";
 
 

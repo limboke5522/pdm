@@ -1,53 +1,41 @@
 <script>
 $(function() {
-  // showData_Doc();
-  showData_User();
-  // $('#tb_contact2').hide();
-  // var d = new Date();
+  showData_Doc();
 
-  // var month = d.getMonth()+1;
-  // var day = d.getDate();
-
-  // var output =  (day<10 ? '0' : '') + day + '-' +
-  //   (month<10 ? '0' : '') + month + '-' +
-  //     d.getFullYear();
-
-  //   $('#txt_Sdate_doc').val(output);
-  //   $('#txt_Edate_doc').val(output);
   })
 
 // show
-function showData_User() {
+// function showData_User() {
 
-    $.ajax({
-      url: "process/permission_doc.php",
-      type: 'POST',
-      data: {
-        'FUNC_NAME': 'showData_User'
-      },
-      success: function(result) {
-        var ObjData = JSON.parse(result);
-        var StrTR = "";
-        if (!$.isEmptyObject(ObjData)) {
-          $.each(ObjData, function(key, value) {
+//     $.ajax({
+//       url: "process/permission_doc.php",
+//       type: 'POST',
+//       data: {
+//         'FUNC_NAME': 'showData_User'
+//       },
+//       success: function(result) {
+//         var ObjData = JSON.parse(result);
+//         var StrTR = "";
+//         if (!$.isEmptyObject(ObjData)) {
+//           $.each(ObjData, function(key, value) {
 
 
-            var chkUser = "<input class='form-control chk_user' type='radio'  name='id_user' id='id_user" + key + "' value='" + value.ID + "' onclick='showData_Doc(\"" + value.ID + "\")'  style='width: 25%;'>";
+//             var chkUser = "<input class='form-control chk_user' type='radio'  name='id_user' id='id_user" + key + "' value='" + value.ID + "' onclick='showData_Doc(\"" + value.ID + "\")'  style='width: 25%;'>";
 
-            StrTR += "<tr style='border-radius: 15px 15px 15px 15px;margin-top: 6px;margin-bottom: 6px;'>" +
-                      "<td style='width:15%;text-align: center;'><center>" + chkUser + "</center></td>" +
-                      "<td style='width:70%;text-align: left;'>" + value.UserType + "</td>" +
+//             StrTR += "<tr style='border-radius: 15px 15px 15px 15px;margin-top: 6px;margin-bottom: 6px;'>" +
+//                       "<td style='width:15%;text-align: center;'><center>" + chkUser + "</center></td>" +
+//                       "<td style='width:70%;text-align: left;'>" + value.UserType + "</td>" +
                       
-                      "</tr>";
-           });
-        }
+//                       "</tr>";
+//            });
+//         }
 
-        $('#Data_TableLeft tbody').html(StrTR);
+//         $('#Data_TableLeft tbody').html(StrTR);
 
-      }
-    });
+//       }
+//     });
 
-  }
+//   }
 
   // show
   function showData_Doc(ID) {
@@ -57,11 +45,11 @@ function showData_User() {
       $(".chk_user:checked").each(function() {
         count++;
       });
-      if (count == 0) {
-        text = "กรุณาเลือก User";
-        showDialogFailed(text);
-        return;
-      }
+      // if (count == 0) {
+      //   text = "กรุณาเลือก User";
+      //   showDialogFailed(text);
+      //   return;
+      // }
     
     $.ajax({
       url: "process/permission_doc.php",
@@ -77,12 +65,15 @@ function showData_User() {
         if (!$.isEmptyObject(ObjData)) {
           $.each(ObjData.documentlist, function(key, value) {
 
-
-            var chkDoc = "<input class='form-control chk_docA' type='checkbox'  name='id_docA' id='id_docA" + value.ID + "' value='" + value.ID + "'  style='width: 30%;'>";
+            var chkUser = "<input class='form-control chk_user' type='radio'  name='id_user' id='id_user" + key + "' value='" + value.ID + "'  style='width: 15%;'>";
+            var chkDoc = "<input class='form-control chk_docA' type='checkbox'  name='id_docA' id='id_docA" + value.ID + "' value='" + value.ID + "'  style='width:15%;'>";
 
             StrTR += "<tr style='border-radius: 15px 15px 15px 15px;margin-top: 6px;margin-bottom: 6px;'>" +
+                      "<td style='width:10%;text-align: center;'><center>" + chkUser + "</center></td>" + 
+                      "<td style='width:60%;text-align: left;'>" + value.DocName + "</td>" +
                       "<td style='width:10%;text-align: center;'><center>" + chkDoc + "</center></td>" +
-                      "<td style='width:90%;text-align: left;'>" + value.DocName + "</td>" +
+                      "<td style='width:10%;text-align: center;'><center>" + chkDoc + "</center></td>" +
+                      "<td style='width:10%;text-align: center;'><center>" + chkDoc + "</center></td>" +
                       
                       "</tr>";
            });
@@ -132,11 +123,11 @@ function saveData() {
     $(".chk_user:checked").each(function() {
       count++;
     });
-    if (count == 0) {
-      text = "กรุณาเลือก User";
-      showDialogFailed(text);
-      return;
-    }
+    // if (count == 0) {
+    //   text = "กรุณาเลือก User";
+    //   showDialogFailed(text);
+    //   return;
+    // }
       var id_user = $(".chk_user:checked").val();
 
     $(".chk_docA:checked").each(function() {

@@ -9,6 +9,8 @@ if (!empty($_POST['FUNC_NAME'])) {
     upload_Doc($conn);
   }else   if ($_POST['FUNC_NAME'] == 'show_DataRight') {
     show_DataRight($conn);
+  }else   if ($_POST['FUNC_NAME'] == 'show_DataLeft') {
+    show_DataLeft($conn);
   }else if ($_POST['FUNC_NAME'] == 'selection_DocDetail') {
     selection_DocDetail($conn);
   }else   if ($_POST['FUNC_NAME'] == 'selection_Doc') {
@@ -22,28 +24,7 @@ if (!empty($_POST['FUNC_NAME'])) {
   
 }
 
-// function selection_Product($conn)
-// {
-//   $Sql = "SELECT
-//             product.ID, 
-//             product.ProductCode, 
-//             product.ProductName
-//           FROM
-//             product
-//           WHERE product.IsCancel = 0
-//             ORDER BY  product.ProductName ASC
-//        ";
 
-//   $meQuery = mysqli_query($conn, $Sql);
-//   while ($row = mysqli_fetch_assoc($meQuery)) {
-//     $return[] = $row;
-//   }
-
-
-//   echo json_encode($return);
-//   mysqli_close($conn);
-//   die;
-// }
 
 function selection_DocDetail($conn){
   $Sql = "SELECT
@@ -116,26 +97,64 @@ function selection_Doc($conn)
 function show_DataLeft($conn)
 {
   $Search_txt = $_POST["txtSearch"];
-  
+
+  $select_doctype = $_POST["select_doctype"];
   $select_product = $_POST["select_product"];
+  $select_dochead = $_POST["select_dochead"];
+  
+
+  if($select_doctype == 0 ){
+    $ANDdoc_type = "";
+  }else{
+    $ANDdoc_type = "AND (productdoc.DocTypeID = '$select_doctype') ";
+  }
+
+  if($select_product == 0 ){
+    $ANDdoc = "";
+  }else{
+    $ANDdoc = "AND (productdoc.ProductID = '$select_product') ";
+  }
+
+  if($select_dochead == 0 ){
+    $ANDdoc_head = "";
+  }else{
+    $ANDdoc_head = "AND (documentlist.DocumentID = '$select_dochead') ";
+  }
 
   $Sql_product = "SELECT
-                    productdoc.DocumentID,
-                    productdoc.ID,
-                    productdoc.ProductID,
-                    docrevision.version,
-                    docrevision.fileName,
-                    DATE_FORMAT(docrevision.UploadDate ,'%d-%m-%Y') AS UploadDate,
-                    documentlist.DocNumber,
-                    documentlist.DocName 
-                  FROM
-                    productdoc
-                    INNER JOIN docrevision ON productdoc.ID_FileDoc = docrevision.ID
-                    INNER JOIN documentlist ON productdoc.DocumentID = documentlist.ID 
+                          documentlist.DocName,
+                          CASE WHEN product.ProductName IS NULL THEN 'ทุกProduct' ELSE
+	                        product.ProductName END AS ProductName,
+                          doctype_detail.TypeDetail_Name,
+                          docrevision.version AS lasrVersion,
+                          documentlist.DocNumber,
+                          productdoc.MFGDate,
+                          productdoc.ExpireDate,
+                          docrevision.fileName,
+                          docrevision.DocumentID AS DocID,
+                          docrevision.productID AS ProducID,
+                          (SELECT docrevision.version FROM docrevision
+                            WHERE docrevision.DocumentID = DocID
+                            AND docrevision.productID = ProducID
+                            ORDER BY docrevision.version DESC
+                            LIMIT 1 ) AS newVersion,
+                          DATE_FORMAT(productdoc.MFGDate ,'%d-%m-%Y') AS MFGDate,
+                          DATE_FORMAT(productdoc.EXpireDate ,'%d-%m-%Y') AS ExpireDatee,
+                          DATE_FORMAT(productdoc.UploadDate ,'%d-%m-%Y') AS UploadDate
+                        FROM
+                          documentlist
+                        LEFT JOIN docrevision ON documentlist.ID = docrevision.DocumentID
+                        LEFT JOIN product ON docrevision.productID = product.ID
+                        INNER JOIN productdoc ON docrevision.ID = productdoc.ID_FileDoc
+                        INNER JOIN doctype_detail ON productdoc.DocTypeID = doctype_detail.ID
                   WHERE
-                    
                   (documentlist.DocName LIKE '%$Search_txt%'
                   OR  documentlist.DocNumber LIKE '%$Search_txt%' )
+                  $ANDdoc
+                  $ANDdoc_type
+                  $ANDdoc_head
+                  HAVING lasrVersion >= newVersion
+                  ORDER BY documentlist.DocName ASC
                   LIMIT 10
           ";
 
@@ -182,6 +201,10 @@ function Save_FileDoc($conn)
   $select_DocDetail = $_POST["select_DocDetail"];
   $select_Product = $_POST["select_Product"];
   $select_Doc = $_POST["select_Doc"];
+
+  $bt_MFGDate = $_POST["bt_MFGDate"];
+  $bt_ExpireDate = $_POST["bt_ExpireDate"];
+
   $select_product = $_POST["select_product"];
   $ID = $_POST["ID"];
 
@@ -215,6 +238,8 @@ function Save_FileDoc($conn)
                                        productdoc.DocumentID = '$select_Doc',
                                        productdoc.ID_FileDoc = '$ID' , 
                                        productdoc.DocTypeID = '$select_DocDetail' ,
+                                       productdoc.MFGDate = '$bt_MFGDate' ,
+                                       productdoc.ExpireDate = '$bt_ExpireDate' ,
                                        productdoc.UploadDate = NOW() ";
             mysqli_query($conn, $Sql);
 

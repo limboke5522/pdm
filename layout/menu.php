@@ -41,23 +41,16 @@
                              <i class="right fas fa-angle-left"></i>
                          </p>
                      </a>
-                     <!-- <ul class="nav nav-treeview ul_general" style="display: none;">
-                         <li class="nav-item">
-                             <a href="index.php?page=general" class="nav-link" id="general">
-                                 <i class="fas fa-home"></i>
-                                 <p>ทั่วไป</p>
-                             </a>
-                         </li>
-                     </ul> -->
+                    
 
-                     <ul class="nav nav-treeview ul_general" style="display: none;">
+                     <!-- <ul class="nav nav-treeview ul_general" style="display: none;">
                          <li class="nav-item">
                              <a href="index.php?page=search_upload_doc" class="nav-link " id="search_upload_doc">
                              <i class="fas fa-cloud-upload-alt"></i>
                                  <p>ค้นหาเอกสารอัพโหลด</p>
                              </a>
                          </li>
-                     </ul>
+                     </ul> -->
 
                      <ul class="nav nav-treeview ul_general" style="display: none;">
                          <li class="nav-item">

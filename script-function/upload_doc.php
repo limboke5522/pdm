@@ -9,10 +9,14 @@
   $(function() {
     
     // selection_Product();
-    
-    
-    // show_DataLeft();
-    
+    selection_DocDetail();
+    selection_Product();
+    selection_Doc();
+
+    // check_selection();
+
+
+    show_DataLeft();
     show_DataRight();
     // แสดงชื่อไฟล์
     $('.custom-file-input').on('change', function() {
@@ -21,7 +25,7 @@
     });
   })
 
- 
+
 
   function selection_DocDetail(key,DocDetail_ID) {
     $.ajax({
@@ -33,16 +37,23 @@
       },
       success: function(result) {
         var ObjData = JSON.parse(result);
+        $("#select_doctype").empty();
+        $("#select_DocDetail_").empty();
         var Str = "";
         Str += "<option value=0 >กรุณาเลือก ประเภทเอกสาร</option>";
+
+        var Str2 = "";
+              Str2 += "<option value=0 >ทั้งหมด</option>";
+
         if (!$.isEmptyObject(ObjData)) {
           $.each(ObjData, function(key, value) {
             Str += "<option value=" + value.ID + " >" + value.TypeDetail_Name + "</option>";
-
+            Str2 += "<option value=" + value.ID + " >" + value.TypeDetail_Name + "</option>";
           });
         }
 
         
+        $("#select_doctype").append(Str2);
 
         $("#select_DocDetail_"+key).html(Str);
 
@@ -55,7 +66,7 @@
                 $('#select_DocDetail_'+key).val(DocDetail_ID);
               }
 
-            
+             
            
       }
     });
@@ -71,18 +82,28 @@
       },
       success: function(result) {
         var ObjData = JSON.parse(result);
+        $("#select_product").empty();
+        $("#select_Product_").empty();
         var Str = "";
         Str += "<option value=0 >กรุณาเลือก Product</option>";
+        var Str2 = "";
+        Str2 += "<option value=0 >กรุณาเลือก Product</option>";
+        
         if (!$.isEmptyObject(ObjData)) {
           $.each(ObjData, function(key, value) {
+
+
             Str += "<option value=" + value.ID + " >" + value.ProductName + "</option>";
 
+            Str2 += "<option value=" + value.ID + " >" + value.ProductName + "</option>";
           });
         }
 
         
+        $("#select_product").append(Str2);
 
         $("#select_Product_"+key).html(Str);
+        
 
 
               if(Product_ID==null || Product_ID==0){
@@ -108,17 +129,21 @@
       },
       success: function(result) {
         var ObjData = JSON.parse(result);
+        $("#select_dochead").empty();
+        $("#select_Doc_").empty();
         var Str = "";
         Str += "<option value=0 >กรุณาเลือก หัวข้อเอกสาร</option>";
+        var Str2 = "";
+        Str2 += "<option value=0 >กรุณาเลือก หัวข้อเอกสาร</option>";
         if (!$.isEmptyObject(ObjData)) {
           $.each(ObjData, function(key, value) {
             Str += "<option value=" + value.ID + " >" + value.DocNumber + " : " + value.DocName + "</option>";
-
+            Str2 += "<option value=" + value.ID + " >" + value.DocNumber + " : " + value.DocName + "</option>";
           });
         }
 
         
-
+        $("#select_dochead").html(Str2);
         $("#select_Doc_"+key).html(Str);
 
 
@@ -186,6 +211,9 @@
   function show_DataLeft() {
     var  txtSearch = $('#txtSearch').val();
     
+    var  select_doctype =  $("#select_doctype").val();
+    var  select_product =  $("#select_product").val();
+    var  select_dochead =  $("#select_dochead").val();
 
     $.ajax({
       url: "process/upload_doc.php",
@@ -193,7 +221,10 @@
       data: {
         'FUNC_NAME': 'show_DataLeft',
         'txtSearch': txtSearch,
-        'select_product': $("#select_product").val()
+        'select_doctype': select_doctype,
+        'select_product': select_product,
+        'select_dochead': select_dochead
+        
       },
       success: function(result) {
         var ObjData = JSON.parse(result);
@@ -201,30 +232,45 @@
         if (!$.isEmptyObject(ObjData)) {
           $.each(ObjData, function(key, value) {
 
-
-            var chkDoc = "<input class='form-control chk_docLeft' type='radio'  name='id_docLeft' id='id_docLeft" + key + "' value='" + value.ID + "'  style='width:50%;'>";
             var btn_preview = '<a href="javascript:void(0)"  onclick="preview(\'' + value.fileName + '\');"><img src="img/pdf.png" style="width:35px;"></a>';
 
             StrTR += "<tr style='border-radius: 15px 15px 15px 15px;margin-top: 6px;margin-bottom: 6px;'>" +
-              "<td style='width:15%; text-align: center;'><center>" + chkDoc + "</center></td>" +
-              "<td style='width:10%; text-align: center;'>" + (key + 1) + "</td>" +
-              "<td style='width:10%; text-align: center;'>" + value.DocName + "</td>" +
-              "<td style='width:10%; text-align: center;'>" + btn_preview + "</td>" +
-              "<td style='width:5%;  text-align: center;'>" + value.DocNumber + "</td>" +
-              "<td style='width:5%;  text-align: center;'>" + value.version + "</td>" +
-              "<td style='width:5%;  text-align: center;'>" + value.UploadDate + "</td>" +
-
+              "<td style='width:10%;text-align: center;'>" + value.DocNumber + "</td>" +
+              "<td style='width:15%;text-align: center;'>" + value.DocName + "</td>" +
+              "<td style='width:15%;text-align: center;'>" + value.ProductName + "</td>" +
+              "<td style='width:15%;text-align: center;'>" + value.TypeDetail_Name + "</td>" +
+              "<td style='width:5%;text-align: center;'>" + value.newVersion + "</td>" +
+              "<td style='width:15%;text-align: center;'>" + value.MFGDate + "</td>" +
+              "<td style='width:15%;text-align: center;'>" + value.ExpireDatee + "</td>" +
+              "<td style='width:15%;text-align: center;'>" + value.UploadDate + "</td>" +
+              "<td style='width:5%;text-align:  center;'>" + btn_preview + "</td>" +
               "</tr>";
           });
         }
-        // $tree = show_DataLeft($rows);
-        
         $('#Data_TableLeft tbody').html(StrTR);
-
+        check_selection(key);
       }
     });
 
   }
+
+  function check_selection(){
+  var select_doctype= $('#select_doctype').val();
+  var select_product= $('#select_product').val();
+
+  
+          if(select_doctype != 2){
+                      $('#select_product').attr('disabled',false);
+                      $('#select2-select_product-container').text("กรุณาเลือก Product");
+                      $('#select_product').val(0);
+                    }else{
+                      $('#select_product').attr('disabled',true);
+                      $('#select2-select_product-container').text("ทุก Product");
+                      $('#select_product').val(0);
+                    } 
+          show_DataLeft(); 
+  
+ }
   function preview(fileName) {
     var url="process/file/"+fileName;
     window.open(url);
@@ -247,17 +293,14 @@
         if (!$.isEmptyObject(ObjData)) {
           $.each(ObjData, function(key, value) {
 
-           
-            
-            // var chkDoc = "<input class='form-control chk_docLeft' type='radio'  name='id_docLeft' id='id_docLeft" + key + "' value='" + value.ID + "'  style='width: 50%;'>";
+          
   
-            var select_DocDetail = "<select style='width: 100%' class='form-control select2 select_DocDetaill' id='select_DocDetail_"+key+"' onchange ='show_bt_save("+key+");'></select>";
+            var select_DocDetail = "<select style='width: 100%' class='form-control select2 select_DocDetaill' id='select_DocDetail_"+key+"' onchange ='show_bt_save("+key+",1);'></select>";
             var select_Product = "<select style='width: 100%' class='form-control select2 select_Productt' id='select_Product_"+key+"' onchange ='show_bt_save("+key+");'></select>";
             var select_Doc = "<select style='width: 100%' class='form-control select2 select_Docc' id='select_Doc_"+key+"' onchange ='show_bt_save("+key+");'></select>";
            
-            var bt_MFGDate = " <input type='text' autocomplete='off' ' class='form-control  datepicker-here bt_MFGDatee' onclick ='show_modal1("+key+");' id='bt_MFGDate_"+key+"' value='<?php echo date('d/m/Y'); ?>' data-language='en' data-date-format='dd-mm-yyyy' placeholder='วันที่' readonly>";
-            var bt_ExpireDate = "<input type='text' autocomplete='off' class='form-control  datepicker-here bt_ExpireDatee' onclick ='show_modal1("+key+");' id='bt_ExpireDate_"+key+"' value='<?php echo date('d/m/Y'); ?>' data-language='en' data-date-format='dd-mm-yyyy' placeholder='วันที่' readonly>";
-            var bt_UploadDate = "<input type='text' autocomplete='off' class='form-control   bt_UploadDatee' id='bt_UploadDate_"+key+"'  readonly>";
+            var bt_MFGDate = " <input type='date'   class='form-control datepicker-here  bt_MFGDatee'  id='bt_MFGDate_"+key+"'  data-language='en' data-date-format='dd-mm-yyyy'  >";
+            var bt_ExpireDate = "<input type='date'  class='form-control datepicker-here  bt_ExpireDatee'  id='bt_ExpireDate_"+key+"'  data-language='en' data-date-format='dd-mm-yyyy'  >";
 
             var bt_savedoc = "<button type='submit' class='btn btn-success btn_savedocc' id='btn_savedoc_"+key+"' onclick='Save_FileDoc("+key+","+value.ID+");'>บันทึก</button>";
             var bt_deletedoc = "<button type='submit' class='btn btn-danger btn_deletedocc' id='btn_deletedoc_"+key+"' onclick='chk_del("+key+","+value.ID+");'>ลบ</button>";
@@ -269,15 +312,17 @@
               "<td style='width:5%;' >" + select_DocDetail + "</td>" +
               "<td style='width:5%;' >" + select_Product + "</td>" +
               "<td style='width:5%;' >" + select_Doc + "</td>" +
-              "<td style='width:5%;' >" + bt_ExpireDate +"</td>" +
+              "<td style='width:5%;' >" + bt_MFGDate +"</td>" +
               "<td style='width:5%;' >" + bt_ExpireDate + "</td>" +
               "<td style='width:2%;' ><center>"+bt_savedoc + bt_deletedoc +"</center></td>" +
 
               "</tr>";
             
-              selection_DocDetail(key,value.DocumentID);
-              selection_Product(key,value.DocumentID);
-              selection_Doc(key,value.DocumentID);
+              selection_DocDetail(key,value.DocDetail_ID);
+              selection_Product(key,value.Product_ID);
+              selection_Doc(key,value.Doc_ID);
+
+              check_selection(key);
           });
           
         }
@@ -291,16 +336,9 @@
       }
     });
   }
-
-
-  function show_modal1(key) {
-    $("#Modaldetail_Doc").modal('show');
-    
-      show_DataRight();
-  }
- 
   
-  function show_bt_save(key) {
+
+  function show_bt_save(key,num) {
     var select_DocDetail = $('#select_DocDetail_'+key).val();
     var select_Product = $('#select_Product_'+key).val();
     var select_Doc = $('#select_Doc_'+key).val();
@@ -314,33 +352,26 @@
       }
 
       if(select_DocDetail == 2 && select_Product == 0 && select_Doc != 0){
+       
                $('#btn_savedoc_'+key).show();
               $('#btn_deletedoc_'+key).hide();
             }
-    // alert(select_Doc);
-    // if(select_Product == 0){
-    //             $('#btn_deletedoc_'+key).show();
-    //             $('#btn_savedoc_'+key).hide();
-    //         }else{
-    //           $('#btn_savedoc_'+key).show();
-    //           $('#btn_deletedoc_'+key).hide();
-    //   }
 
-    //  if(select_DocDetail == 0){
-    //             $('#btn_deletedoc_'+key).show();
-    //             $('#btn_savedoc_'+key).hide();
-    //         }else{
-    //           $('#btn_savedoc_'+key).show();
-    //           $('#btn_deletedoc_'+key).hide();
-    //   }
-      
-
-      if(select_DocDetail != 2){
+if(num == 1){
+  if(select_DocDetail != 2){
         $('#select_Product_'+key).attr('disabled',false);
-          
+        $("#select2-select_Product_"+key +"-container").text("กรุณาเลือก Product");
+
+        $('#select_Product_'+key).val(0);
       }else{
         $('#select_Product_'+key).attr('disabled',true);
-      }      
+        $("#select2-select_Product_"+key +"-container").text("ทุก Product");
+       
+        $("#select_Product_"+key).val(0);
+      }     
+}
+ 
+
 
   }
 
@@ -352,6 +383,9 @@
     var select_Product = $('#select_Product_'+key).val();
     var select_Doc = $('#select_Doc_'+key).val();
 
+    var bt_MFGDate = $('#bt_MFGDate_'+key).val();
+    var bt_ExpireDate = $('#bt_ExpireDate_'+key).val();
+
     var select_product = $("#select_product").val();
 
         $.ajax({
@@ -362,6 +396,8 @@
             'select_DocDetail':select_DocDetail,
             'select_Product':select_Product,
             'select_Doc':select_Doc,
+            'bt_MFGDate':bt_MFGDate,
+            'bt_ExpireDate':bt_ExpireDate,
             'select_product': select_product,
             'ID': ID
           },
@@ -369,7 +405,7 @@
 
             showDialogSuccess(result);
             $('#btn_savedoc_'+key).hide();
-            // show_DataLeft();
+            show_DataLeft();
             show_DataRight();
 
           }
@@ -425,7 +461,7 @@
 
         // showDialogSuccess(result);
         $('#bt_deletedoc'+key).hide();
-        // show_DataLeft();
+        show_DataLeft();
         show_DataRight();
 
       }
