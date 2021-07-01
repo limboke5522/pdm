@@ -13,12 +13,18 @@ if (!empty($_POST['FUNC_NAME'])) {
     show_DataLeft($conn);
   }else if ($_POST['FUNC_NAME'] == 'selection_DocDetail') {
     selection_DocDetail($conn);
+  }else if ($_POST['FUNC_NAME'] == 'selection_DocDetaill') {
+    selection_DocDetaill($conn);
   }else   if ($_POST['FUNC_NAME'] == 'selection_Doc') {
     selection_Doc($conn);
+  }else   if ($_POST['FUNC_NAME'] == 'selection_Docc') {
+    selection_Docc($conn);
   }else   if ($_POST['FUNC_NAME'] == 'Save_FileDoc') {
     Save_FileDoc($conn);
   }else   if ($_POST['FUNC_NAME'] == 'Delete_FileDoc') {
     Delete_FileDoc($conn);
+  } else   if ($_POST['FUNC_NAME'] == 'selection_PRODUCTT') {
+    selection_PRODUCTT($conn);
   }
 
   
@@ -46,15 +52,46 @@ echo json_encode($return);
 mysqli_close($conn);
 die;
 }
+
+function selection_DocDetaill($conn){
+  $Sql = "SELECT
+            doctype_detail.ID,
+            doctype_detail.TypeDetail_Name 
+          FROM
+            doctype_detail
+            WHERE doctype_detail.IsCancel = 0
+            ORDER BY  doctype_detail.TypeDetail_Name ASC
+       ";
+
+$meQuery = mysqli_query($conn, $Sql);
+while ($row = mysqli_fetch_assoc($meQuery)) {
+$return[] = $row;
+}
+
+
+echo json_encode($return);
+mysqli_close($conn);
+die;
+}
+
 function selection_Product($conn)
 {
+  $select_doctype = $_POST["select_doctype"];
+  $select_product = $_POST["select_product"];
+  $select_dochead = $_POST["select_dochead"];
+
   $Sql = "SELECT
             product.ID, 
             product.ProductCode, 
-            product.ProductName
+            product.ProductName,
+            documentlist.DocType_Detail,
+            documentlist.productID
           FROM
             product
-          WHERE product.IsCancel = 0
+          INNER JOIN documentlist ON product.ID = documentlist.productID
+            WHERE product.IsCancel = 0
+            AND documentlist.DocType_Detail = '$select_doctype'
+            GROUP BY product.ProductName
             ORDER BY  product.ProductName ASC
        ";
 
@@ -69,16 +106,25 @@ function selection_Product($conn)
   die;
 }
 
-function selection_Doc($conn)
+function selection_PRODUCTT($conn)
 {
+  $select_DocDetail = $_POST["select_DocDetail"];
+  $select_Product = $_POST["select_Product"];
+  $select_Doc = $_POST["select_Doc"];
+
   $Sql = "SELECT
-            documentlist.ID,
-            documentlist.DocNumber,
-            documentlist.DocName
+            product.ID, 
+            product.ProductCode, 
+            product.ProductName,
+            documentlist.DocType_Detail,
+            documentlist.productID
           FROM
-            documentlist
-          WHERE documentlist.IsCancel = 0
-            ORDER BY  documentlist.DocNumber ASC
+            product
+          INNER JOIN documentlist ON product.ID = documentlist.productID
+            WHERE product.IsCancel = 0
+            AND documentlist.DocType_Detail = '$select_DocDetail'
+            GROUP BY product.ProductName
+            ORDER BY  product.ProductName ASC
        ";
 
   $meQuery = mysqli_query($conn, $Sql);
@@ -93,6 +139,85 @@ function selection_Doc($conn)
 }
 
 
+function selection_Doc($conn)
+{
+  $select_doctype = $_POST["select_doctype"];
+  $select_product = $_POST["select_product"];
+  $select_dochead = $_POST["select_dochead"];
+
+  if($select_doctype == 2){
+    $ANDdoc_pro = "AND documentlist.productID = 0 ";
+  }else{
+    $ANDdoc_pro = "AND documentlist.productID = '$select_product' ";
+  
+  }
+  $Sql2 = "SELECT
+            documentlist.ID,
+            documentlist.DocNumber,
+            documentlist.DocName,
+            documentlist.DocType_Detail,
+            documentlist.productID
+          FROM
+            documentlist
+        
+          WHERE documentlist.IsCancel = 0
+          AND documentlist.DocType_Detail = '$select_doctype'
+					$ANDdoc_pro
+          GROUP BY documentlist.DocName
+            ORDER BY  documentlist.DocNumber ASC
+       ";
+
+
+// echo $Sql2;
+
+  $meQuery = mysqli_query($conn, $Sql2);
+  while ($row = mysqli_fetch_assoc($meQuery)) {
+    $return[] = $row;
+  }
+
+
+  echo json_encode($return);
+  mysqli_close($conn);
+  die;
+}
+
+function selection_Docc($conn)
+{
+  $select_DocDetail = $_POST["select_DocDetail"];
+  $select_Product = $_POST["select_Product"];
+  $select_Doc = $_POST["select_Doc"];
+
+  if($select_DocDetail == 2){
+    $ANDdoc_pro = "AND documentlist.productID = 0 ";
+  }else{
+    $ANDdoc_pro = "AND documentlist.productID = '$select_Product' ";
+  
+  }
+
+  $Sql = "SELECT
+            documentlist.ID,
+            documentlist.DocNumber,
+            documentlist.DocName
+          FROM
+            documentlist
+          -- INNER JOIN product ON product.ID = documentlist.productID
+          WHERE documentlist.IsCancel = 0
+          AND documentlist.DocType_Detail = '$select_DocDetail'
+					$ANDdoc_pro
+            ORDER BY  documentlist.DocNumber ASC
+       ";
+// echo $Sql;
+  $meQuery = mysqli_query($conn, $Sql);
+  while ($row = mysqli_fetch_assoc($meQuery)) {
+    $return[] = $row;
+  }
+
+
+  echo json_encode($return);
+  mysqli_close($conn);
+  die;
+}
+
 
 function show_DataLeft($conn)
 {
@@ -106,7 +231,7 @@ function show_DataLeft($conn)
   if($select_doctype == 0 ){
     $ANDdoc_type = "";
   }else{
-    $ANDdoc_type = "AND (productdoc.DocTypeID = '$select_doctype') ";
+    $ANDdoc_type = "AND (documentlist.DocType_Detail = '$select_doctype') ";
   }
 
   if($select_product == 0 ){
@@ -118,7 +243,7 @@ function show_DataLeft($conn)
   if($select_dochead == 0 ){
     $ANDdoc_head = "";
   }else{
-    $ANDdoc_head = "AND (documentlist.DocumentID = '$select_dochead') ";
+    $ANDdoc_head = "AND (documentlist.ID = '$select_dochead') ";
   }
 
   $Sql_product = "SELECT
@@ -158,6 +283,7 @@ function show_DataLeft($conn)
                   LIMIT 10
           ";
 
+// echo $Sql_product;
   $meQuery1 = mysqli_query($conn, $Sql_product);
   while ($row = mysqli_fetch_assoc($meQuery1)) {
         $return[] = $row;

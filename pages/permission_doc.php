@@ -44,10 +44,23 @@
               </div> -->
             
               <div class="col-12">
+              <label class="col-2"> ประเภทเอกสาร : </label>
+                <label class="col-2"> หัวข้อเอกสาร : </label>
+                <div class="row">
+                      <div class="col-2">
+                          <select class="custom-select form-control " id="select_doctype" onchange="showData_Doc();" ></select>
+                      </div>
 
-                <div class="col-3">
-                  <input type="text" class="form-control" id="txtSearch" onkeyup="showData_Doc();" placeholder="ค้นหารายการ">
+                      <div class="col-2">
+                              <select class=" form-control select2" id="select_dochead" onchange="showData_Doc();" ></select>
+                      </div>
+
+                      <div class="col-3">
+                        <input type="text" class="form-control" id="txtSearch" onkeyup="showData_Doc();" placeholder="ค้นหารายการ">
+                      </div>
+                
                 </div>
+                
 
                 <div class="row mt-2 card-body table-responsive p-0" id="tb_Data2" style="height: 500px;max-height: 500px;overflow-y: auto;">
                   <div class="col-12">

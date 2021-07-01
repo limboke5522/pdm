@@ -168,14 +168,14 @@
                          </li>
                      </ul>
 
-                     <ul class="nav nav-treeview ul_permission" style="display: none;">
+                     <!-- <ul class="nav nav-treeview ul_permission" style="display: none;">
                          <li class="nav-item">
                              <a href="index.php?page=setting_user" class="nav-link" id="setting_user">
                              <i class="fas fa-users-cog"></i>
                                  <p>สิทธิ์การเข้าใช้งาน</p>
                              </a>
                          </li>
-                     </ul>
+                     </ul> -->
                  </li>
 
                  <!-- <li class="nav-item has-treeview " id="li_setting_user">

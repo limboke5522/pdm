@@ -8,16 +8,17 @@
   // userID = "";
   $(function() {
     
-    // selection_Product();
     selection_DocDetail();
+    selection_DocDetaill();
+
     selection_Product();
+    selection_PRODUCTT();
+
     selection_Doc();
-
-    // check_selection();
-
+    selection_Docc();
 
     show_DataLeft();
-    show_DataRight();
+    $(".select2").select2();
     // แสดงชื่อไฟล์
     $('.custom-file-input').on('change', function() {
       let fileName = $(this).val().split('\\').pop();
@@ -25,35 +26,26 @@
     });
   })
 
-
-
-  function selection_DocDetail(key,DocDetail_ID) {
+  function selection_DocDetaill(key,DocDetail_ID) {
     $.ajax({
       url: "process/upload_doc.php",
       type: 'POST',
       data: {
-        'FUNC_NAME': 'selection_DocDetail'
+        'FUNC_NAME': 'selection_DocDetaill'
         // 'select_Doc_': $("#select_Doc_").val()
       },
       success: function(result) {
         var ObjData = JSON.parse(result);
-        $("#select_doctype").empty();
         $("#select_DocDetail_").empty();
         var Str = "";
         Str += "<option value=0 >กรุณาเลือก ประเภทเอกสาร</option>";
 
-        var Str2 = "";
-              Str2 += "<option value=0 >ทั้งหมด</option>";
-
         if (!$.isEmptyObject(ObjData)) {
           $.each(ObjData, function(key, value) {
             Str += "<option value=" + value.ID + " >" + value.TypeDetail_Name + "</option>";
-            Str2 += "<option value=" + value.ID + " >" + value.TypeDetail_Name + "</option>";
           });
         }
 
-        
-        $("#select_doctype").append(Str2);
 
         $("#select_DocDetail_"+key).html(Str);
 
@@ -71,39 +63,66 @@
       }
     });
   }
- 
-  function selection_Product(key,Product_ID) {
+
+  function selection_DocDetail(key,DocDetail_ID) {
     $.ajax({
       url: "process/upload_doc.php",
       type: 'POST',
       data: {
-        'FUNC_NAME': 'selection_Product'
+        'FUNC_NAME': 'selection_DocDetail'
         // 'select_Doc_': $("#select_Doc_").val()
       },
       success: function(result) {
         var ObjData = JSON.parse(result);
-        $("#select_product").empty();
+        $("#select_doctype").empty();
+
+        var Str2 = "";
+              Str2 += "<option value=0 >ทั้งหมด</option>";
+
+        if (!$.isEmptyObject(ObjData)) {
+          $.each(ObjData, function(key, value) {
+            Str2 += "<option value=" + value.ID + " >" + value.TypeDetail_Name + "</option>";
+          });
+        }
+
+        
+        $("#select_doctype").append(Str2);
+
+      }
+    });
+  }
+
+  
+
+  function selection_PRODUCTT(key,Product_ID) {
+    var select_DocDetail = $('#select_DocDetail_'+key).val();
+    var select_Product = $('#select_Product_'+key).val();
+    var select_Doc = $('#select_Doc_'+key).val();
+
+    $.ajax({
+      url: "process/upload_doc.php",
+      type: 'POST',
+      data: {
+        'FUNC_NAME': 'selection_PRODUCTT',
+        'select_DocDetail':select_DocDetail,
+        'select_Product':select_Product,
+        'select_Doc':select_Doc
+        // 'select_Doc_': $("#select_Doc_").val()
+      },
+      success: function(result) {
+        var ObjData = JSON.parse(result);
         $("#select_Product_").empty();
         var Str = "";
         Str += "<option value=0 >กรุณาเลือก Product</option>";
-        var Str2 = "";
-        Str2 += "<option value=0 >กรุณาเลือก Product</option>";
         
         if (!$.isEmptyObject(ObjData)) {
           $.each(ObjData, function(key, value) {
 
 
-            Str += "<option value=" + value.ID + " >" + value.ProductName + "</option>";
-
-            Str2 += "<option value=" + value.ID + " >" + value.ProductName + "</option>";
+            Str += "<option value=" + value.ID  + " >" + value.ProductCode + " : " + value.ProductName + "</option>";
           });
         }
-
-        
-        $("#select_product").append(Str2);
-
         $("#select_Product_"+key).html(Str);
-        
 
 
               if(Product_ID==null || Product_ID==0){
@@ -112,38 +131,70 @@
               }else{
                 $('#select_Product_'+key).val(Product_ID);
               }
-
-              
       }
     });
   }
 
+  function selection_Product() {
 
-  function selection_Doc(key,Doc_ID) {
+    var  select_doctype =  $("#select_doctype").val();
+    var  select_product =  $("#select_product").val();
+    var  select_dochead =  $("#select_dochead").val();
+
+
     $.ajax({
       url: "process/upload_doc.php",
       type: 'POST',
       data: {
-        'FUNC_NAME': 'selection_Doc'
+        'FUNC_NAME': 'selection_Product',
+        'select_doctype':select_doctype,
+        'select_product':select_product,
+        'select_dochead':select_dochead
         // 'select_Doc_': $("#select_Doc_").val()
       },
       success: function(result) {
         var ObjData = JSON.parse(result);
-        $("#select_dochead").empty();
-        $("#select_Doc_").empty();
-        var Str = "";
-        Str += "<option value=0 >กรุณาเลือก หัวข้อเอกสาร</option>";
+        $("#select_product").empty();
         var Str2 = "";
-        Str2 += "<option value=0 >กรุณาเลือก หัวข้อเอกสาร</option>";
+        Str2 += "<option value=0 >กรุณาเลือก Product</option>";
+        
         if (!$.isEmptyObject(ObjData)) {
           $.each(ObjData, function(key, value) {
-            Str += "<option value=" + value.ID + " >" + value.DocNumber + " : " + value.DocName + "</option>";
-            Str2 += "<option value=" + value.ID + " >" + value.DocNumber + " : " + value.DocName + "</option>";
+            Str2 += "<option value=" + value.ID  + " >" + value.ProductCode + " : " + value.ProductName + "</option>";
           });
         }
 
-        
-        $("#select_dochead").html(Str2);
+        $("#select_product").append(Str2);
+      }
+    });
+  }
+
+  
+  function selection_Docc(key,Doc_ID) {
+    var select_DocDetail = $('#select_DocDetail_'+key).val();
+    var select_Product = $('#select_Product_'+key).val();
+    var select_Doc = $('#select_Doc_'+key).val();
+    
+    $.ajax({
+      url: "process/upload_doc.php",
+      type: 'POST',
+      data: {
+        'FUNC_NAME': 'selection_Docc',
+        'select_DocDetail':select_DocDetail,
+        'select_Product':select_Product,
+        'select_Doc':select_Doc
+      },
+      success: function(result) {
+        var ObjData = JSON.parse(result);
+        $("#select_Doc_").empty();
+        var Str = "";
+        Str += "<option value=0 >กรุณาเลือก หัวข้อเอกสาร</option>";
+        if (!$.isEmptyObject(ObjData)) {
+          $.each(ObjData, function(key, value) {
+            Str += "<option value=" + value.ID + " >" + value.DocNumber + " : " + value.DocName + "</option>";
+          });
+        }
+        $("#select_Doc_"+key).val(0);
         $("#select_Doc_"+key).html(Str);
 
 
@@ -159,6 +210,44 @@
     });
   }
 
+  function selection_Doc() {
+
+    var  select_doctype =  $("#select_doctype").val();
+    var  select_product =  $("#select_product").val();
+    var  select_dochead =  $("#select_dochead").val();
+
+
+    $.ajax({
+      url: "process/upload_doc.php",
+      type: 'POST',
+      data: {
+        'FUNC_NAME': 'selection_Doc',
+        'select_doctype':select_doctype,
+        'select_product':select_product,
+        'select_dochead':select_dochead
+        // 'select_Doc_': $("#select_Doc_").val()
+      },
+      success: function(result) {
+        var ObjData = JSON.parse(result);
+        $("#select_dochead").empty();
+        var Str2 = "";
+        Str2 += "<option value=0 >กรุณาเลือก หัวข้อเอกสาร</option>";
+        if (!$.isEmptyObject(ObjData)) {
+          $.each(ObjData, function(key, value) {
+            Str2 += "<option value=" + value.ID + " >" + value.DocNumber + " : " + value.DocName + "</option>";
+          });
+        }
+
+        
+        $("#select_dochead").html(Str2);
+
+
+              
+      }
+    });
+  }
+
+  
 
   function upload_Doc() {
 
@@ -210,7 +299,17 @@
   // show
   function show_DataLeft() {
     var  txtSearch = $('#txtSearch').val();
+
+    $('#tb_Data_RR').hide();
+    $('#tb_Data_LL').show();
+
+    // $("#little_exp").removeClass("bg-light");
+    // $("#little_exp").addClass("bg-lightblue");
+
+    // $("#little_exp2").removeClass("bg-lightblue");
+    // $("#little_exp2").addClass("bg-light");
     
+
     var  select_doctype =  $("#select_doctype").val();
     var  select_product =  $("#select_product").val();
     var  select_dochead =  $("#select_dochead").val();
@@ -245,31 +344,58 @@
               "<td style='width:15%;text-align: center;'>" + value.UploadDate + "</td>" +
               "<td style='width:5%;text-align:  center;'>" + btn_preview + "</td>" +
               "</tr>";
+              
+              // selection_Product();
+              // selection_Doc();
           });
         }
+        
+        $('#tb_Data_LL').show();
         $('#Data_TableLeft tbody').html(StrTR);
-        check_selection(key);
+
+        $('#tb_Data_RR').hide();
+        // check_selection();
       }
     });
 
   }
 
-  function check_selection(){
+  function check_selection(numm){
   var select_doctype= $('#select_doctype').val();
   var select_product= $('#select_product').val();
+  var select_dochead= $('#select_dochead').val();
 
-  
+  // alert(select_doctype);
+  // alert(select_product);
+  // alert(select_dochead);
+  if(numm==1){
+     
+      
+
+    // selection_DocDetail();
           if(select_doctype != 2){
                       $('#select_product').attr('disabled',false);
-                      $('#select2-select_product-container').text("กรุณาเลือก Product");
-                      $('#select_product').val(0);
+                      // $('#select2-select_product-container').text("กรุณาเลือก Product");
+                      // $('#select2-select_product-container').val(0);
+                      selection_Product();
+                      selection_Doc();
+                      
                     }else{
+                      selection_Doc();
                       $('#select_product').attr('disabled',true);
                       $('#select2-select_product-container').text("ทุก Product");
-                      $('#select_product').val(0);
+                      $('#select2-select_product-container').val(0);
+                      show_DataLeft();
                     } 
-          show_DataLeft(); 
-  
+
+  }else if(numm==2){
+    selection_Doc();
+    show_DataLeft();
+  }else{
+    show_DataLeft();
+  }       
+                                    
+          
  }
   function preview(fileName) {
     var url="process/file/"+fileName;
@@ -278,6 +404,15 @@
 
   function show_DataRight() {
     var  txtSearch2 = $('#txtSearch2').val();
+    $('#tb_Data_RR').show();
+    $('#tb_Data_LL').hide();
+
+    // $("#little_exp").removeClass("bg-lightblue");
+    // $("#little_exp").addClass("bg-light");
+
+    // $("#little_exp2").removeClass("bg-light");
+    // $("#little_exp2").addClass("bg-lightblue");
+    
     $.ajax({
       url: "process/upload_doc.php",
       type: 'POST',
@@ -293,10 +428,8 @@
         if (!$.isEmptyObject(ObjData)) {
           $.each(ObjData, function(key, value) {
 
-          
-  
-            var select_DocDetail = "<select style='width: 100%' class='form-control select2 select_DocDetaill' id='select_DocDetail_"+key+"' onchange ='show_bt_save("+key+",1);'></select>";
-            var select_Product = "<select style='width: 100%' class='form-control select2 select_Productt' id='select_Product_"+key+"' onchange ='show_bt_save("+key+");'></select>";
+            var select_DocDetail = "<select style='width: 100%' class='form-control select2 select_DocDetaill' id='select_DocDetail_"+key+"'  onchange ='show_bt_save("+key+",1);'></select>";
+            var select_Product = "<select style='width: 100%' class='form-control select2 select_Productt' id='select_Product_"+key+"' onchange ='show_bt_save("+key+",2);'></select>";
             var select_Doc = "<select style='width: 100%' class='form-control select2 select_Docc' id='select_Doc_"+key+"' onchange ='show_bt_save("+key+");'></select>";
            
             var bt_MFGDate = " <input type='date'   class='form-control datepicker-here  bt_MFGDatee'  id='bt_MFGDate_"+key+"'  data-language='en' data-date-format='dd-mm-yyyy'  >";
@@ -318,17 +451,19 @@
 
               "</tr>";
             
-              selection_DocDetail(key,value.DocDetail_ID);
-              selection_Product(key,value.Product_ID);
-              selection_Doc(key,value.Doc_ID);
+              selection_DocDetaill(key,value.DocDetail_ID);
+              selection_PRODUCTT(key,value.Product_ID);
+              selection_Docc(key,value.Doc_ID);
 
-              check_selection(key);
+              // check_selection();
           });
           
         }
         
         $('#Data_TableRight tbody').html(StrTR);
       
+        
+
         $(".select2").select2();
         $('.btn_savedocc').hide();
         $('.btn_deletedocc').hide();
@@ -343,35 +478,53 @@
     var select_Product = $('#select_Product_'+key).val();
     var select_Doc = $('#select_Doc_'+key).val();
 
-    if(select_DocDetail == 0 || select_Product == 0 || select_Doc == 0){
-                $('#btn_deletedoc_'+key).show();
-                $('#btn_savedoc_'+key).hide();
-            }else{
-              $('#btn_savedoc_'+key).show();
-              $('#btn_deletedoc_'+key).hide();
-      }
-
-      if(select_DocDetail == 2 && select_Product == 0 && select_Doc != 0){
-       
-               $('#btn_savedoc_'+key).show();
-              $('#btn_deletedoc_'+key).hide();
-            }
-
 if(num == 1){
+  // alert(select_DocDetail);
   if(select_DocDetail != 2){
         $('#select_Product_'+key).attr('disabled',false);
         $("#select2-select_Product_"+key +"-container").text("กรุณาเลือก Product");
+        $("#select_Product_"+key ).val(0);
 
-        $('#select_Product_'+key).val(0);
+        $("#select2-select_Doc_"+key +"-container").text("กรุณาเลือก หัวข้อเอกสาร");
+        $("#select_Doc_"+key ).val(0);
+        selection_PRODUCTT(key);
       }else{
+        selection_Docc(key);
         $('#select_Product_'+key).attr('disabled',true);
         $("#select2-select_Product_"+key +"-container").text("ทุก Product");
-       
-        $("#select_Product_"+key).val(0);
-      }     
-}
- 
+        $("#select_Product_"+key ).val(0);
 
+        $("#select2-select_Doc_"+key +"-container").text("กรุณาเลือก หัวข้อเอกสาร");
+        $("#select_Doc_"+key ).val(0);
+        
+      }  
+
+      
+}else if(num == 2){
+      selection_Docc(key); 
+  
+}
+
+var select_DocDetail = $('#select_DocDetail_'+key).val();
+    var select_Product = $('#select_Product_'+key).val();
+    var select_Doc = $('#select_Doc_'+key).val();
+
+  
+    
+    if(select_DocDetail != 0 && select_Product != 0 && select_Doc != 0){
+      $('#btn_savedoc_'+key).show();
+              $('#btn_deletedoc_'+key).hide();
+                
+            }else{
+              $('#btn_deletedoc_'+key).show();
+                $('#btn_savedoc_'+key).hide();
+            }
+     if(select_DocDetail == 2 && select_Product == 0 && select_Doc != 0){
+       
+       $('#btn_savedoc_'+key).show();
+      $('#btn_deletedoc_'+key).hide();
+    }       
+          
 
   }
 

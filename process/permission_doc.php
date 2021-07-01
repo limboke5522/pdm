@@ -12,9 +12,57 @@ if (!empty($_POST['FUNC_NAME'])) {
     showData_User($conn);
   } else   if ($_POST['FUNC_NAME'] == 'saveData') {
     saveData($conn);
+  }else if ($_POST['FUNC_NAME'] == 'selection_DocDetail') {
+    selection_DocDetail($conn);
+  }else   if ($_POST['FUNC_NAME'] == 'selection_Doc') {
+    selection_Doc($conn);
   }
 
   
+}
+
+function selection_DocDetail($conn){
+  $Sql = "SELECT
+            doctype_detail.ID,
+            doctype_detail.TypeDetail_Name 
+          FROM
+            doctype_detail
+            WHERE doctype_detail.IsCancel = 0
+            ORDER BY  doctype_detail.TypeDetail_Name ASC
+       ";
+
+$meQuery = mysqli_query($conn, $Sql);
+while ($row = mysqli_fetch_assoc($meQuery)) {
+$return[] = $row;
+}
+
+
+echo json_encode($return);
+mysqli_close($conn);
+die;
+}
+
+function selection_Doc($conn)
+{
+  $Sql = "SELECT
+            documentlist.ID,
+            documentlist.DocNumber,
+            documentlist.DocName
+          FROM
+            documentlist
+          WHERE documentlist.IsCancel = 0
+            ORDER BY  documentlist.DocNumber ASC
+       ";
+
+  $meQuery = mysqli_query($conn, $Sql);
+  while ($row = mysqli_fetch_assoc($meQuery)) {
+    $return[] = $row;
+  }
+
+
+  echo json_encode($return);
+  mysqli_close($conn);
+  die;
 }
 
 function showData_User($conn)
@@ -44,6 +92,22 @@ function showData_Doc($conn)
   $Search_txt = $_POST["txtSearch"];
   $ID = $_POST["ID"];
 
+  $select_doctype = $_POST["select_doctype"];
+  $select_dochead = $_POST["select_dochead"];
+  
+
+  if($select_doctype == 0 ){
+    $ANDdoc_type = "";
+  }else{
+    $ANDdoc_type = "AND (productdoc.DocTypeID = '$select_doctype') ";
+  }
+
+  if($select_dochead == 0 ){
+    $ANDdoc_head = "";
+  }else{
+    $ANDdoc_head = "AND (documentlist.DocumentID = '$select_dochead') ";
+  }
+
   $Sql_product2 = "SELECT
                     documentlist.ID,
                     documentlist.DocNumber,
@@ -63,12 +127,11 @@ function showData_Doc($conn)
                   documentlist
                   INNER JOIN doctype_detail ON documentlist.DocType_Detail = doctype_detail.ID
                   WHERE (documentlist.DocName LIKE '%$Search_txt%' OR documentlist.DocNumber LIKE '%$Search_txt%'	)
-                  $ANDdoc
                   $ANDdoc_type
+                  $ANDdoc_head  
 
                   AND documentlist.IsCancel = 0
-                  ORDER BY  documentlist.DocName ASC
-          ";
+                  ORDER BY  documentlist.DocName ASC ";
 
 
   $meQuery2 = mysqli_query($conn, $Sql_product2);

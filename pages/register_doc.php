@@ -27,14 +27,23 @@
                           <option value="2">เอกสารภายนอก</option>
                       </select>
               </div>
+              
+              <div class="ml-1">
+                <label> Product : </label>
+              </div> 
+              <div class="col-2">
+                       <select class="form-control select2" id="select_productt"  onchange="show_data();" ></select>
+              </div>
 
-              <div class="ml-5">
+              <div class="ml-1">
                       <label> ประเภทเอกสาร : </label>
+                      
               </div>       
               <div class="col-2">
                       <select class="custom-select form-control " id="select_doctype" onchange="show_data();" ></select>
               </div>
               
+
               <div class="col-2">
                 <input type="text" class="form-control" id="txtSearch" onkeyup="show_data();" placeholder="ค้นหารายการ">
               </div>
@@ -91,7 +100,7 @@
 
             </div>
 
-            <div class="row ml-4 mt-1">
+            <div class="row col-12 ml-4 mt-1">
               <div class="col-3 mt-3">
                 <label>เอกสาร :</label>
                   <div class="row ">
@@ -111,18 +120,23 @@
                 <label>ประเภทเอกสาร :</label>
                 <div class="row ">
 
-                                  <div class="col-12 form-check form-check-inline">
-                                      <select class="custom-select form-control " id="select_doctype2"></select>
+                                  <div class="col-10 form-check form-check-inline">
+                                      <select class="custom-select form-control "  id="select_doctype2" onchange="chk_selectDoc(1);"></select>
+                                  </div>
+                  </div>
+              </div>
+
+              <div class="col-3 mt-3">
+                <label>Product :</label>
+                <div class="row ">
+
+                                  <div class="col-10 form-check form-check-inline">
+                                      <select class="custom-select form-control select2" id="select_Product"></select>
                                   </div>
                   </div>
               </div>
               
-              <div class="col-3 mt-5">
-                <button style="width: 100px;" type="button" class="btn btn-outline-success ml-2" id="btnSaveDoc" onclick="saveData();">บันทึก</button>
-                <button style="width: 100px;" type="button" class="btn btn-outline-warning ml-2" id="btnEditDoc">แก้ไข</button>
-                <button style="width: 100px;" type="button" class="btn btn-outline-danger ml-2" id="btnDeleteDoc">ลบ</button>
-                <button style="width: 100px;" type="button" class="btn btn-outline-secondary ml-2" id="btncleanDoc" onclick="clean();">ล้างข้อมูล</button>
-              </div>
+              
               </div>  
             <!-- <div class="row ml-4 mt-1">
               <div class="col-3 mt-3">
@@ -146,6 +160,12 @@
                 <label>คำอธิบาย :</label>
                 <textarea  class="form-control" id="txt_detail" rows="3"></textarea>
               </div>
+              <div class="col-3 mt-5">
+                <button style="width: 100px;" type="button" class="btn btn-outline-success ml-2" id="btnSaveDoc" onclick="saveData();">บันทึก</button>
+                <button style="width: 100px;" type="button" class="btn btn-outline-warning ml-2" id="btnEditDoc">แก้ไข</button>
+                <button style="width: 100px;" type="button" class="btn btn-outline-danger ml-2" id="btnDeleteDoc">ลบ</button>
+                <button style="width: 100px;" type="button" class="btn btn-outline-secondary ml-2" id="btncleanDoc" onclick="clean();">ล้างข้อมูล</button>
+              </div>
             </div>
 
 <div class="modal fade" id="Modaldetail_Doc" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
@@ -165,6 +185,7 @@
                   <label>ประเภทเอกสาร :</label>
                   <input type="text" class="form-control" id="txt_detail_name" placeholder="ชื่อประเภทเอกสาร">
                   </div>
+                  
                   <div class="col-6 mt-5 ">
                     <button style="width: 100px;" type="button" class="btn btn-outline-success" id="btnSaveDoc2" onclick="saveData2();">บันทึก</button>
                   </div>
