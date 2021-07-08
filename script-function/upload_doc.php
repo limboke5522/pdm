@@ -194,7 +194,10 @@
             Str += "<option value=" + value.ID + " >" + value.DocNumber + " : " + value.DocName + "</option>";
           });
         }
-        $("#select_Doc_"+key).val(0);
+
+        Str += "<option value='@'> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp --- เพิ่ม --- </option>";
+
+        // $("#select_Doc_"+key).val(0);
         $("#select_Doc_"+key).html(Str);
 
 
@@ -209,6 +212,8 @@
       }
     });
   }
+  
+
 
   function selection_Doc() {
 
@@ -502,6 +507,20 @@ if(num == 1){
       
 }else if(num == 2){
       selection_Docc(key); 
+      
+}else{
+
+  
+    setTimeout(() => {
+      if($('#select_Doc_'+key).val() == '@'){
+        $("#Modaldetail_Doc").modal('show');
+
+        
+      }
+      
+      
+    }, 150);
+ 
   
 }
 

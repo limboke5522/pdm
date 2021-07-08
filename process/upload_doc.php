@@ -402,12 +402,14 @@ function show_DataRight($conn)
           FROM
             docrevision
 
-            INNER JOIN productdoc ON docrevision.productID = productdoc.ProductID
+            LEFT JOIN productdoc ON docrevision.productID = productdoc.ProductID
           WHERE docrevision.DocumentID = 0
           AND docrevision.fileName LIKE '%$Search_txt%' 
           GROUP BY docrevision.ID
           ORDER BY  docrevision.ID DESC
           ";
+
+        // echo $Sql;
   $meQuery = mysqli_query($conn, $Sql);
   while ($row = mysqli_fetch_assoc($meQuery)) {
     $return[] = $row;

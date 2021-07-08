@@ -1,19 +1,19 @@
             <!-- Content Header (Page header) -->
             <div class="content-header">
               <div class="container-fluid">
-                <div class="row">
-                  <div class="col-sm-5">
+                <div class="row ">
+                  <div class="col-sm-6">
                     <ol class="breadcrumb">
                       <li class="breadcrumb-item"><a href="#">ระบบ</a></li>
                       <li class="breadcrumb-item active">ส่งเอกสาร</li>
                     </ol>
                   </div><!-- /.col -->
 
-                  <div class="col-6 d-flex justify-content-end">
-                    <div class="form-group row">
+                  <div class="col-sm-6" style="margin-left:51%">
+                    <div class="form-group row justify-content-end"> 
                         <label for="txt_email" class=" col-form-label">Email ผู้ส่ง : </label>
-                      <div class="col-8" >
-                        <input type="text" style="width: 150%;" class="form-control" id="txt_email_send" placeholder="Email" disabled>
+                      <div class="col-6 justify-content-end" >
+                        <input type="text"  class="form-control" id="txt_email_send" placeholder="Email" disabled>
                       </div>
                     </div>
                   </div>
@@ -23,8 +23,8 @@
             </div>
             <!-- /.content-header -->
 
-            <div class="card">
-              <div class="card-body" style=" background-color: #b5efec57;">
+            <div class="card ">
+              <div class="card-body " style=" background-color: #b5efec57;">
              
                 <div class="row">
 
@@ -123,6 +123,7 @@
                 </div>
                 
               </div>
+           
             </div>
 
             <!-- <div class="row mt-4">
@@ -169,8 +170,13 @@
               <div class="col-4">
                 <div class="card-body" >
                 <div class="form-group row">
+                <!-- <label for="select_hospital" class="col-2 col-form-label">ประเภทเอกสาร</label> -->
+                      <div class="col-6">
+                        <select class="form-control" id="select_DocTypeID" placeholder="ประเภทเอกสาร" onchange="checkProduct(id,name);" disabled></select>
+                      </div>
+
                   <label for="txt_product_center" class="col-sm-2 col-form-label">ชื่อสินค้า</label>
-                  <div class="col-sm-9">
+                  <div class="col-sm-4">
                     <input type="text" class="form-control" id="txt_product_center" placeholder="ชื่อสินค้า" onkeyup="checkProduct(id,name);" disabled>
                   </div>
                 </div>
@@ -182,6 +188,7 @@
                           <th class="bg_tableAll">ลำดับ</th>
                           <th class="bg_tableAll">เอกสาร</th>
                           <th class="bg_tableAll">version</th>
+                          <th class="bg_tableAll">สิทธิ</th>
                           <th class="bg_tableAll">Preview</th>
                           <th class="bg_tableAll"><br></th>
                         </tr>

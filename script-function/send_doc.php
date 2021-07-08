@@ -5,7 +5,7 @@
     selection_Customer();
     selection_Purpose();
     selection_Product();
-
+    selection_DocDetail();
     chkremark();
     checkProduct(id,name);
     
@@ -109,8 +109,7 @@
         Str += "<option value=0 >กรุณาเลือก Product</option>";
         if (!$.isEmptyObject(ObjData)) {
           $.each(ObjData, function(key, value) {
-            // Str += "<option value=" + value.ID + " >" + value.ProductCode + " : " + value.ProductName + "</option>";
-            Str += "<option value=" + value.ID + " >"  + value.ProductName + "</option>";
+            Str += "<option value=" + value.ID + " >" + value.ProductCode + " : " + value.ProductName + "</option>";
           });
         }
         $("#select_product").html(Str);
@@ -119,7 +118,33 @@
     });
   }
 
+  function selection_DocDetail() {
+    $.ajax({
+      url: "process/send_doc.php",
+      type: 'POST',
+      data: {
+        'FUNC_NAME': 'selection_DocDetail'
+        // 'select_Doc_': $("#select_Doc_").val()
+      },
+      success: function(result) {
+        var ObjData = JSON.parse(result);
+        $("#select_DocTypeID").empty();
 
+        var Str2 = "";
+              Str2 += "<option value=0 >ประเภทเอกสาร</option>";
+
+        if (!$.isEmptyObject(ObjData)) {
+          $.each(ObjData, function(key, value) {
+            Str2 += "<option value=" + value.ID + " >" + value.TypeDetail_Name + "</option>";
+          });
+        }
+
+        
+        $("#select_DocTypeID").append(Str2);
+
+      }
+    });
+  }
 
 
   // showcontact
@@ -171,7 +196,7 @@
     var TableItemx = "";
     $.each(objReal.productName, function(index, productName) {
       var btn = '<button  onclick="deleteProduct(\'' + index + '\')"  class="btn"><i class="fas fa-trash-alt" style="color: orangered;"></i></button>';
-      var chkProduct = "<input class='form-control chk_product' type='radio'  name='id_docLeft' id='id_product" + index + "' data-value='" + productName + "' value='" + objReal.productID[index] + "'  onclick='checkProduct(\"" + index + "\",\"" + productName + "\")'>";
+      var chkProduct = "<input class='form-control chk_product' type='radio'  name='id_docLeft' id='id_product" + index + "' data-value='" + productName + "' value='" + objReal.productID[index] + "'   onclick='checkProduct(\"" + index + "\",\"" + productName + "\")'>";
       TableItemx += "<tr id='trProduct_" + index + "'>" +
         "<td style='text-align: center;width: 7%;'>" + chkProduct + "</td>" +
         "<td style='text-align: center;width: 10%;'>" + (index + 1) + "</td>" +
@@ -224,21 +249,28 @@
 
     var id_product =  $("#id_product"+id).val();
     var txt_product_center = $("#txt_product_center").val();
-
+    var select_DocTypeID = $("#select_DocTypeID"+id).val();
+    
+    $("#select_DocTypeID").attr('disabled', false);
     $("#txt_product_center").attr('disabled', false);
+    $("#txt_product_center").val("");
    $.ajax({
       url: "process/send_doc.php",
       type: 'POST',
       data: {
         'FUNC_NAME': 'product_file',
         'id_product': id_product,
-        'txt_product_center': txt_product_center
+        'txt_product_center': txt_product_center,
+        'select_DocTypeID': select_DocTypeID
       },
       success: function(result) {
         var ObjData = JSON.parse(result);
         var StrTR = "";
         if (!$.isEmptyObject(ObjData)) {
           $.each(ObjData, function(key, value) {
+
+            $('#select_DocTypeID').val(value.doctype_detailID);
+
             var btn_preview = '<a href="javascript:void(0)"  onclick="preview(\'' + value.fileName + '\');"><img src="img/pdf.png" style="width:35px;"></a>';
        
             if (value.DocumentID == value.sub) {
@@ -251,12 +283,14 @@
                     "<td style='width:7%;text-align: center;'>" + (key + 1) + "</td>" +
                     "<td style='width:25%;text-align: left;'>" + value.DocName + "</td>" +
                     "<td style='width:5%;text-align: center;'>" + value.version + "</td>" +
+                    "<td style='width:5%;text-align: center;'>"+value.UserType+"</td>" +
                     "<td style='width:5%;text-align: center;'>"+btn_preview+"</td>" +
                     "<td style='width:10%;text-align: center;'><center>"+bt+"</center></td>" +
                     "</tr>";
 
           });
         }
+        
         $('#table_product_list_document tbody').html(StrTR);
 
 
@@ -395,6 +429,7 @@ function save_sendDoc() {
     var txt_remark = $('#txt_remark').val();
     var productID = objReal_doc.product_Doc_ID;
     var DocID = objReal_doc.DocID;
+    var table_product_docment = $('#table_product_docment tbody').val();
 
     var text = "";
      if (select_hospital == "0") {
@@ -411,6 +446,12 @@ function save_sendDoc() {
 
       if (select_contact == "0") {
         text = "กรุณาเลือกผู้ติดต่อ";
+        showDialogFailed(text);
+        return;
+      }
+
+      if (DocID == "") {
+        text = "กรุณาเลือก Product";
         showDialogFailed(text);
         return;
       }
@@ -523,6 +564,9 @@ function save_sendDoc() {
       var txt_deb_name= $('#txt_deb_name').val();
       var txt_email2= $('#txt_email2').val();
       var txt_phonenumber= $('#txt_phonenumber').val();
+
+      // var select_product = $('#select_product').val();
+      
       
  
       var text = "";
@@ -547,6 +591,12 @@ function save_sendDoc() {
 
       if (txt_phonenumber == "") {
         text = "กรุณากรอกข้อมูลเบอร์โทร";
+        showDialogFailed(text);
+        return;
+      }
+
+      if (table_product_docment == "") {
+        text = "กรุณาเลือก Product";
         showDialogFailed(text);
         return;
       }

@@ -26,7 +26,7 @@
                      <ul class="nav nav-treeview ul_notification" style="display: none;">
                          <li class="nav-item">
                              <a href="index.php?page=notification_doc" class="nav-link" id="notification_doc">
-                             <i class="fas fa-exclamation-circle"></i>
+                             <!-- <i class="fas fa-exclamation-circle"></i> -->
                                  <p>การแจ้งเตือน</p>
                              </a>
                          </li>
@@ -43,19 +43,10 @@
                      </a>
                     
 
-                     <!-- <ul class="nav nav-treeview ul_general" style="display: none;">
-                         <li class="nav-item">
-                             <a href="index.php?page=search_upload_doc" class="nav-link " id="search_upload_doc">
-                             <i class="fas fa-cloud-upload-alt"></i>
-                                 <p>ค้นหาเอกสารอัพโหลด</p>
-                             </a>
-                         </li>
-                     </ul> -->
-
                      <ul class="nav nav-treeview ul_general" style="display: none;">
                          <li class="nav-item">
                              <a href="index.php?page=upload_doc" class="nav-link " id="upload_doc">
-                             <i class="fas fa-cloud-upload-alt"></i>
+                             <!-- <i class="fas fa-cloud-upload-alt"></i> -->
                                  <p>อัพโหลดเอกสาร</p>
                              </a>
                          </li>
@@ -73,7 +64,7 @@
                      <ul class="nav nav-treeview ul_send" style="display: none;">
                          <li class="nav-item">
                              <a href="index.php?page=send_doc" class="nav-link" id="send_doc">
-                             <i class="fas fa-envelope"></i>
+                             <!-- <i class="fas fa-envelope"></i> -->
                                  <p>ส่งเอกสาร</p>
                              </a>
                          </li>
@@ -81,7 +72,7 @@
                      <ul class="nav nav-treeview ul_send" style="display: none;">
                          <li class="nav-item">
                              <a href="index.php?page=history_doc" class="nav-link" id="history_doc">
-                             <i class="fas fa-file-alt"></i>
+                             <!-- <i class="fas fa-file-alt"></i> -->
                                  <p>ประวัติเอกสาร</p>
                              </a>
                          </li>
@@ -101,7 +92,7 @@
                      <ul class="nav nav-treeview ul_system" style="display: none;">
                          <li class="nav-item">
                              <a href="index.php?page=manage_customers" class="nav-link" id="manage_customers">
-                                 <i class="fas fa-cogs"></i>
+                                 <!-- <i class="fas fa-cogs"></i> -->
                                  <p>จัดการข้อมูลลูกค้า</p>
                              </a>
                          </li>
@@ -111,7 +102,7 @@
                      <ul class="nav nav-treeview ul_system" style="display: none;">
                          <li class="nav-item">
                              <a href="index.php?page=contact_customers" class="nav-link " id="contact_customers">
-                                 <i class="fas fa-cogs"></i>
+                                 <!-- <i class="fas fa-cogs"></i> -->
                                  <p>จัดการข้อมูลติดต่อลูกค้า</p>
                              </a>
                          </li>
@@ -119,7 +110,7 @@
                      <ul class="nav nav-treeview ul_system" style="display: none;">
                          <li class="nav-item">
                              <a href="index.php?page=manage_item" class="nav-link " id="manage_item">
-                                 <i class="fas fa-cogs"></i>
+                                 <!-- <i class="fas fa-cogs"></i> -->
                                  <p>จัดการข้อมูลสินค้า</p>
                              </a>
                          </li>
@@ -127,7 +118,7 @@
                      <ul class="nav nav-treeview ul_system" style="display: none;">
                          <li class="nav-item">
                              <a href="index.php?page=register_doc" class="nav-link " id="register_doc">
-                                 <i class="fas fa-cogs"></i>
+                                 <!-- <i class="fas fa-cogs"></i> -->
                                  <p>ลงทะเบียนเอกสาร</p>
                              </a>
                          </li>
@@ -135,7 +126,7 @@
                      <ul class="nav nav-treeview ul_system" style="display: none;">
                          <li class="nav-item">
                              <a href="index.php?page=purpose" class="nav-link " id="purpose">
-                                 <i class="fas fa-cogs"></i>
+                                 <!-- <i class="fas fa-cogs"></i> -->
                                  <p>วัตถุประสงค์</p>
                              </a>
                          </li>
@@ -143,7 +134,7 @@
                      <ul class="nav nav-treeview ul_system" style="display: none;">
                          <li class="nav-item">
                              <a href="index.php?page=doctype_detail" class="nav-link " id="doctype_detail">
-                                 <i class="fas fa-cogs"></i>
+                                 <!-- <i class="fas fa-cogs"></i> -->
                                  <p>ประเภทเอกสาร</p>
                              </a>
                          </li>
@@ -162,7 +153,7 @@
                      <ul class="nav nav-treeview ul_permission" style="display: none;">
                          <li class="nav-item">
                              <a href="index.php?page=permission_doc" class="nav-link" id="permission_doc">
-                             <i class="fas fa-users-cog"></i>
+                             <!-- <i class="fas fa-users-cog"></i> -->
                                  <p>กำหนดสิทธ์เอกสาร</p>
                              </a>
                          </li>

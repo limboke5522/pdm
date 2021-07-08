@@ -44,15 +44,18 @@
               </div> -->
             
               <div class="col-12">
-              <label class="col-2"> ประเภทเอกสาร : </label>
-                <label class="col-2"> หัวข้อเอกสาร : </label>
+                          <label class="col-2"> ประเภทเอกสาร : </label>
+                          <label class="col-2"> Product : </label>
+                          <label class="col-2"> หัวข้อเอกสาร : </label>
                 <div class="row">
                       <div class="col-2">
-                          <select class="custom-select form-control " id="select_doctype" onchange="showData_Doc();" ></select>
+                          <select class="custom-select form-control " id="select_doctype" onchange="check_selection(1);showData_Doc();" ></select>
                       </div>
-
                       <div class="col-2">
-                              <select class=" form-control select2" id="select_dochead" onchange="showData_Doc();" ></select>
+                           <select style="width: 100%" class="custom-select form-control select2" id="select_product"  onchange="check_selection(2);" ></select>
+                      </div>
+                      <div class="col-2">
+                              <select class=" form-control select2" id="select_dochead" onchange="check_selection();" ></select>
                       </div>
 
                       <div class="col-3">
@@ -67,7 +70,7 @@
                     <table id="Data_TableRight" class="table table-bordered table-hover w-100 table-head-fixed">
                       <thead>
                         <tr class="text-center">
-                          <th style="width: 10%;" class="bg_tableAll">เลือก</th>
+                          <!-- <th style="width: 10%;" class="bg_tableAll">เลือก</th> -->
                           <th style="width: 60%;" class="bg_tableAll">เอกสาร</th>
                           <th style="width: 10%;" class="bg_tableAll">Admin(Sale)</th>
                           <th style="width: 10%;" class="bg_tableAll">Phamarcy</th>
@@ -85,12 +88,12 @@
               </div>
             </div>
 
-            <div class="row ml-4 mt-5 text-right">
+            <!-- <div class="row ml-4 mt-5 text-right">
               
               <div class="col-12 mt-5">
                 <button style=" width: 100px;" type="button" class="btn btn-outline-success ml-2" id="btnSaveDoc">บันทึก</button>
               </div>
-            </div>
+            </div> -->
 
             <hr>
 
