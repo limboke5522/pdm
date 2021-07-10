@@ -96,12 +96,13 @@
   }
 
   function selection_Product() {
-    
+    var  select_DocTypeID =  $("#select_DocTypeID").val();
     $.ajax({
       url: "process/send_doc.php",
       type: 'POST',
       data: {
-        'FUNC_NAME': 'selection_Product'
+        'FUNC_NAME': 'selection_Product',
+        'select_DocTypeID': $("#select_DocTypeID").val()
       },
       success: function(result) {
         var ObjData = JSON.parse(result);
@@ -109,8 +110,9 @@
         Str += "<option value=0 >กรุณาเลือก Product</option>";
         if (!$.isEmptyObject(ObjData)) {
           $.each(ObjData, function(key, value) {
-            Str += "<option value=" + value.ID + " >" + value.ProductCode + " : " + value.ProductName + "</option>";
-          });
+            Str += "<option value=" + value.ID + " data-value2=" + value.DocType_Detail + ">" + value.ProductCode + " : " + value.ProductName + "</option>";
+
+            });
         }
         $("#select_product").html(Str);
 
@@ -123,8 +125,8 @@
       url: "process/send_doc.php",
       type: 'POST',
       data: {
-        'FUNC_NAME': 'selection_DocDetail'
-        // 'select_Doc_': $("#select_Doc_").val()
+        'FUNC_NAME': 'selection_DocDetail',
+        'select_DocTypeID': $("#select_DocTypeID").val()
       },
       success: function(result) {
         var ObjData = JSON.parse(result);
@@ -184,19 +186,41 @@
     this.versionDoc = [];
     this.rowDoc = [];
     this.product_Doc_ID = [];
+    this.Doctype_Id = [];
     this.user_Doc_ID = [];
   }
 
   function createObj_() {
     this.productID = [];
     this.productName = [];
+    this.productDocTypeID = [];
   }
+  function createDetail_ID() {
+  $.ajax({
+      url: "process/send_doc.php",
+      type: 'POST',
+      data: {
+        'FUNC_NAME': 'selection_Product',
+        'select_DocTypeID': $("#select_DocTypeID").val()
+      },
+      success: function(result) {
+        var ObjData = JSON.parse(result);
+        if (!$.isEmptyObject(ObjData)) {
+          $.each(ObjData, function(key, value) {
+            Str += "<option value=" + value.ID + " data-value2=" + value.DocType_Detail + ">" + value.ProductCode + " : " + value.ProductName + "</option>";
 
+            });
+        }
+        $("#select_product").html(Str);
+
+      }
+    });
+  }
   function showData_product() {
     var TableItemx = "";
     $.each(objReal.productName, function(index, productName) {
       var btn = '<button  onclick="deleteProduct(\'' + index + '\')"  class="btn"><i class="fas fa-trash-alt" style="color: orangered;"></i></button>';
-      var chkProduct = "<input class='form-control chk_product' type='radio'  name='id_docLeft' id='id_product" + index + "' data-value='" + productName + "' value='" + objReal.productID[index] + "'   onclick='checkProduct(\"" + index + "\",\"" + productName + "\")'>";
+      var chkProduct = "<input class='form-control chk_product' type='radio'  name='id_docLeft' id='id_product" + index + "' data-value='" + productName + "' data-value2='" + objReal.productDocTypeID[index] + "' value='" + objReal.productID[index] + "'   onclick='checkProduct(\"" + index + "\",\"" + productName + "\",\"" + objReal.productDocTypeID[index] + "\")'>";
       TableItemx += "<tr id='trProduct_" + index + "'>" +
         "<td style='text-align: center;width: 7%;'>" + chkProduct + "</td>" +
         "<td style='text-align: center;width: 10%;'>" + (index + 1) + "</td>" +
@@ -226,9 +250,15 @@
     $("#trProduct_" + index).remove();
     objReal.productID.splice(index, 1);
     objReal.productName.splice(index, 1);
+    objReal.productDocTypeID.splice(index, 1);
 
     
     $("#txt_product_center").val("");
+    
+    $("#select_DocTypeID").val(0);
+    $("#list_document_").remove();
+    $("#list_document_").empty();
+
     showData_product();
   }
 
@@ -240,20 +270,35 @@
     objReal_doc.versionDoc.splice(index, 1);
     objReal_doc.rowDoc.splice(index, 1);
     objReal_doc.product_Doc_ID.splice(index, 1);
+    objReal_doc.Doctype_Id.splice(index, 1);
     showData_Doc();
     $("#btn_send_"+row).show();
   }
 
-  function checkProduct(id,name){
-    // $("#txt_product_center").val(name);
-
+  function checkProduct(id,name,doctypeidLeft){
+    
     var id_product =  $("#id_product"+id).val();
     var txt_product_center = $("#txt_product_center").val();
-    var select_DocTypeID = $("#select_DocTypeID"+id).val();
-    
+
+    var select_DocTypeID = $("#select_DocTypeID").val();
+
+
+    if(id_product != undefined){
+      $("#select_DocTypeID_hide").val(id_product);
+    }else{
+      id_product = $("#select_DocTypeID_hide").val();
+      
+    }
+
+    if(doctypeidLeft != undefined){
+      $("#select_DocTypeID").val(doctypeidLeft);
+    }else{
+      doctypeidLeft = $("#select_DocTypeID").val();
+    }
+      
     $("#select_DocTypeID").attr('disabled', false);
     $("#txt_product_center").attr('disabled', false);
-    $("#txt_product_center").val("");
+   
    $.ajax({
       url: "process/send_doc.php",
       type: 'POST',
@@ -261,7 +306,7 @@
         'FUNC_NAME': 'product_file',
         'id_product': id_product,
         'txt_product_center': txt_product_center,
-        'select_DocTypeID': select_DocTypeID
+        'select_DocTypeID' : doctypeidLeft
       },
       success: function(result) {
         var ObjData = JSON.parse(result);
@@ -269,21 +314,19 @@
         if (!$.isEmptyObject(ObjData)) {
           $.each(ObjData, function(key, value) {
 
-            $('#select_DocTypeID').val(value.doctype_detailID);
 
             var btn_preview = '<a href="javascript:void(0)"  onclick="preview(\'' + value.fileName + '\');"><img src="img/pdf.png" style="width:35px;"></a>';
        
             if (value.DocumentID == value.sub) {
-              var bt = ' <button type="button" style="font-size: 10px;" hidden class="btn btn-outline-primary" id="btn_send_'+key+'"  onclick="add_DocProduct(\'' + key + '\',\'' + value.ID + '\',\'' + value.DocName + '\',\'' + value.version + '\',\'' + id_product + '\')" >เลือก >> </button>';
-
+              var bt = ' <button type="button" style="font-size: 10px;"  class="btn btn-outline-primary" id="btn_send_'+key+'"  onclick="add_DocProduct(\'' + key + '\',\'' + value.ID + '\',\'' + value.DocName + '\',\'' + value.version + '\',\'' + id_product + '\',\'' + doctypeidLeft + '\')" >เลือก >> </button>';
             }else{
-              var bt = ' <button type="button" style="font-size: 10px;"  class="btn btn-outline-primary" id="btn_send_'+key+'"  onclick="add_DocProduct(\'' + key + '\',\'' + value.ID + '\',\'' + value.DocName + '\',\'' + value.version + '\',\'' + id_product + '\')" >เลือก >> </button>';
+              var bt = ' <button type="button" style="font-size: 10px;" hidden class="btn btn-outline-primary" id="btn_send_'+key+'"  onclick="add_DocProduct(\'' + key + '\',\'' + value.ID + '\',\'' + value.DocName + '\',\'' + value.version + '\',\'' + id_product + '\',\'' + doctypeidLeft + '\')" >เลือก >> </button>';
             }
-           StrTR += "<tr style='border-radius: 15px 15px 15px 15px;margin-top: 6px;margin-bottom: 6px;'>" +
+           StrTR += "<tr id='list_document_' style='border-radius: 15px 15px 15px 15px;margin-top: 6px;margin-bottom: 6px;'>" +
                     "<td style='width:7%;text-align: center;'>" + (key + 1) + "</td>" +
                     "<td style='width:25%;text-align: left;'>" + value.DocName + "</td>" +
                     "<td style='width:5%;text-align: center;'>" + value.version + "</td>" +
-                    "<td style='width:5%;text-align: center;'>"+value.UserType+"</td>" +
+                    "<td style='width:5%;text-align: center;'>"+value.permis+"</td>" +
                     "<td style='width:5%;text-align: center;'>"+btn_preview+"</td>" +
                     "<td style='width:10%;text-align: center;'><center>"+bt+"</center></td>" +
                     "</tr>";
@@ -295,7 +338,7 @@
 
 
         setTimeout(() => {
-          chk_btn(id_product);
+          chk_btn(id_product,doctypeidLeft);
         }, 100);
       }
     });
@@ -343,7 +386,9 @@
   $("#select_product").change(function() {
     setTimeout(() => {
       var productID2 = $(this).val();
+
       var productName = $("#select2-select_product-container").text();
+
 
       var chk_idProduct = 0;
       $.each(objReal.productID, function(key, productID) {//เช็ครายการซ้ำ
@@ -357,34 +402,65 @@
         if(chk_idProduct == 0){
           objReal.productID.push(productID2);
           objReal.productName.push(productName);
-        }else{
 
+          $.ajax({
+              url: "process/send_doc.php",
+              type: 'POST',
+              data: {
+                'FUNC_NAME': 'showDocTypeID',
+                'productID2': productID2,
+              },
+              success: function(result) {
+                var ObjData = JSON.parse(result);
+                if (!$.isEmptyObject(ObjData)) {
+                  $.each(ObjData, function(key, value) {
+                    objReal.productDocTypeID.push(value.DocType_Detail);
+                  });
+                }
+          
+              }
+            });
         }
       }else{
         
       }
-  
-      showData_product();
+      
+      setTimeout(() => {
+        console.log(objReal.productID);
+        console.log(objReal.productName);
+        console.log(objReal.productDocTypeID);
+
+        showData_product();
+      }, 300);
+
       $("#table_product_list_document tbody").empty();
     }, 150);
 
    
   });
 
-  function chk_btn(id_product) {
+  function chk_btn(id_product,doctypeidLeft) {
     $.each(objReal_doc.rowDoc, function(key, rowDoc) {//เช็ครายการซ้ำ
        
 
-        if(id_product == objReal_doc.product_Doc_ID[key]){
+        // if(id_product == objReal_doc.product_Doc_ID[key] ){
+          
+        //   $("#btn_send_"+rowDoc).hide();
+        // }else {
+          
+        // }
+
+        if(doctypeidLeft == objReal_doc.Doctype_Id[key]){
           $("#btn_send_"+rowDoc).hide();
           
         }else{
 
-        }       
+        }  
+
       });
   }
 
-  function add_DocProduct(key,ID,DocName,version,id_product) {
+  function add_DocProduct(key,ID,DocName,version,id_product,doctypeidLeft) {
     $("#btn_send_"+key).hide();
 
     objReal_doc.DocID.push(ID);
@@ -392,7 +468,8 @@
     objReal_doc.versionDoc.push(version);
     objReal_doc.rowDoc.push(key);
     objReal_doc.product_Doc_ID.push(id_product);
-    
+    objReal_doc.Doctype_Id.push(doctypeidLeft);
+
     showData_Doc();
     console.log(objReal_doc);
 
@@ -428,6 +505,7 @@ function save_sendDoc() {
     var Copy_doc = $('#Copy_doc').val();
     var txt_remark = $('#txt_remark').val();
     var productID = objReal_doc.product_Doc_ID;
+    var DoctypeId = objReal_doc.Doctype_Id;
     var DocID = objReal_doc.DocID;
     var table_product_docment = $('#table_product_docment tbody').val();
 
@@ -468,6 +546,7 @@ function save_sendDoc() {
         'Copy_doc': Copy_doc,
         'txt_remark': txt_remark,
         'productID':productID,
+        'DoctypeId':DoctypeId,
         'DocID':DocID
       },
       success: function(result) {
@@ -525,6 +604,7 @@ function save_sendDoc() {
           objReal_doc.versionDoc= [];
           objReal_doc.rowDoc= [];
           objReal_doc.product_Doc_ID= [];
+          objReal_doc.Doctype_Id= [];
 
           objReal.productID = [];
           objReal.productName = [];
@@ -728,6 +808,7 @@ function save_sendDoc() {
       objReal_doc.versionDoc= [];
       objReal_doc.rowDoc= [];
       objReal_doc.product_Doc_ID= [];
+      objReal_doc.Doctype_Id= [];
 
       objReal.productID = [];
       objReal.productName = [];

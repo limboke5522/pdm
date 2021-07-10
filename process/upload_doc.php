@@ -279,7 +279,7 @@ function show_DataLeft($conn)
                   $ANDdoc_type
                   $ANDdoc_head
                   HAVING lasrVersion >= newVersion
-                  ORDER BY documentlist.DocName ASC
+                  ORDER BY docrevision.ID DESC
                   LIMIT 10
           ";
 

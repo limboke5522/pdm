@@ -195,7 +195,7 @@
           });
         }
 
-        Str += "<option value='@'> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp --- เพิ่ม --- </option>";
+        // Str += "<option value='@'> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp --- เพิ่ม --- </option>";
 
         // $("#select_Doc_"+key).val(0);
         $("#select_Doc_"+key).html(Str);
@@ -304,6 +304,8 @@
   // show
   function show_DataLeft() {
     var  txtSearch = $('#txtSearch').val();
+    
+// $("#StatusRadio1").prop("checked", true);
 
     $('#tb_Data_RR').hide();
     $('#tb_Data_LL').show();
@@ -409,6 +411,7 @@
 
   function show_DataRight() {
     var  txtSearch2 = $('#txtSearch2').val();
+    // $('#home-tab').selected();
     $('#tb_Data_RR').show();
     $('#tb_Data_LL').hide();
 
@@ -577,7 +580,7 @@ var select_DocDetail = $('#select_DocDetail_'+key).val();
 
             showDialogSuccess(result);
             $('#btn_savedoc_'+key).hide();
-            show_DataLeft();
+            // show_DataLeft();
             show_DataRight();
 
           }
@@ -633,7 +636,7 @@ var select_DocDetail = $('#select_DocDetail_'+key).val();
 
         // showDialogSuccess(result);
         $('#bt_deletedoc'+key).hide();
-        show_DataLeft();
+        // show_DataLeft();
         show_DataRight();
 
       }

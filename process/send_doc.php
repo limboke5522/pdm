@@ -23,7 +23,32 @@ if (!empty($_POST['FUNC_NAME'])) {
     saveData2($conn);
   }else if ($_POST['FUNC_NAME'] == 'selection_DocDetail') {
     selection_DocDetail($conn);
+  }else if ($_POST['FUNC_NAME'] == 'showDocTypeID') {
+    showDocTypeID($conn);
   }
+}
+
+function showDocTypeID($conn)
+{
+  $productID = $_POST["productID2"];
+
+  $Sql = "SELECT
+            documentlist.DocType_Detail
+          FROM
+            documentlist
+          WHERE
+            documentlist.productID = $productID
+          GROUP BY
+            DocType_Detail ";
+  $meQuery = mysqli_query($conn, $Sql);
+  while ($row = mysqli_fetch_assoc($meQuery)) {
+    $return[] = $row;
+  }
+
+
+  echo json_encode($return);
+  mysqli_close($conn);
+  die;
 }
 
 
@@ -130,6 +155,7 @@ function selection_Product($conn)
 }
 
 function selection_DocDetail($conn){
+  $select_DocTypeID = $_POST["select_DocTypeID"];
   $Sql = "SELECT
             doctype_detail.ID,
             doctype_detail.TypeDetail_Name 
@@ -179,13 +205,17 @@ function showDetail_contact($conn)
 function product_file($conn)
 {
   $id_product = $_POST["id_product"];
+  $DocType_Detail = $_POST["DocType_Detail"];
   $txt_product_center = $_POST["txt_product_center"];
   
-  $select_DocTypeID = $_POST["select_DocTypeID"];
+  
   $UserTypeID = $_SESSION["userData"]["UserTypeID"];
+  $select_DocTypeID = $_POST["select_DocTypeID"];
+  
 
   $Sql = "SELECT
-            docrevision.DocumentID 
+            docrevision.DocumentID ,
+            productdoc.DocTypeID
           FROM
             productdoc
             INNER JOIN docrevision ON productdoc.ID_FileDoc = docrevision.ID
@@ -202,46 +232,75 @@ function product_file($conn)
   while ($row = mysqli_fetch_assoc($meQuery)) {
     $DocumentID = $row['DocumentID'];
     $UserID = $row['UserID'];
-    // $select_DocTypeID = $_POST["select_DocTypeID"];
-    
+    $DocTypeID = $row['DocTypeID'];
+
+
+    if($select_DocTypeID == 2){
+      $ANDdoc_type = "AND (productdoc.DocumentID  ='$DocumentID' 
+                      AND productdoc.DocTypeID = 2) ";     
+}else{
+      if($DocTypeID !=  $select_DocTypeID){
+        $ANDdoc_type = "AND (productdoc.DocumentID  ='$DocumentID' 
+                        AND productdoc.ProductID = '$id_product'
+                        AND productdoc.DocTypeID = ''
+        ) ";  
+      }else{
+        $ANDdoc_type = "AND (productdoc.DocumentID  ='$DocumentID' 
+                        AND productdoc.ProductID = '$id_product'
+                        AND productdoc.DocTypeID = '$select_DocTypeID') ";
+      }  
+}
+
+
     $Sql_2 = "SELECT
-              docrevision.fileName,
-              docrevision.version,
-              productdoc.ID,
-              productdoc.DocTypeID,
-              docrevision.DocumentID,
-              documentlist.DocNumber,
-              documentlist.DocName,
-              (SELECT DocumentID FROM userdoc WHERE UserTypeID = '$UserTypeID' AND DocumentID = '$DocumentID') AS sub,
-              doctype_detail.ID AS doctype_detailID,
-              doctype_detail.TypeDetail_Name
-            FROM
-              productdoc
+                docrevision.fileName,
+                docrevision.DocumentID,
+                productdoc.ID,
+                productdoc.DocTypeID,
+                docrevision.version AS lasrVersion,
+                docrevision.version,
+                productdoc.DocumentID AS DType,
+              (SELECT GROUP_CONCAT(CONCAT(usertype.UserType2))FROM userdoc 
+              INNER JOIN usertype ON userdoc.UserTypeID = usertype.ID
+              where userdoc.DocumentID = DType) AS permis ,
+              docrevision.DocumentID AS DocID,
+              docrevision.productID AS ProducID,
+                    (SELECT docrevision.version FROM docrevision
+                              WHERE docrevision.DocumentID = DocID
+                              AND docrevision.productID = ProducID
+                              ORDER BY docrevision.version DESC LIMIT 1) AS newVersion,
+                documentlist.DocNumber,
+                documentlist.DocName,
+                (
+                SELECT
+                  DocumentID
+                FROM
+                  userdoc
+                WHERE
+                  UserTypeID = '$UserTypeID'
+                AND DocumentID = '$DocumentID'
+                ) AS sub,
+                doctype_detail.ID AS doctype_detailID,
+                doctype_detail.TypeDetail_Name
+              FROM
+                productdoc
               INNER JOIN docrevision ON productdoc.ID_FileDoc = docrevision.ID
-              INNER JOIN documentlist ON docrevision.DocumentID = documentlist.ID 
-              INNER JOIN doctype_detail ON productdoc.DocTypeID = doctype_detail.ID
-            WHERE
-              ( productdoc.DocumentID='$DocumentID'
-            AND productdoc.ProductID = '$id_product' 
-            AND doctype_detail.ID LIKE '%$select_DocTypeID%')
-
-            AND  documentlist.DocName LIKE '%$txt_product_center%' 
-            
-            ORDER BY docrevision.version DESC
-            LIMIT 1 
+              INNER JOIN documentlist ON docrevision.DocumentID = documentlist.ID
+              INNER JOIN doctype_detail ON documentlist.DocType_Detail = doctype_detail.ID
+              WHERE
+                documentlist.DocName LIKE '%$txt_product_center%'
+              $ANDdoc_type 
+              HAVING lasrVersion>=newVersion
+              ORDER BY
+                docrevision.version,
+                docrevision.DocumentID DESC
             ";
-
 // echo $Sql_2;
     $meQuery2 = mysqli_query($conn, $Sql_2);
     while ($row2 = mysqli_fetch_assoc($meQuery2)) {
       $return[] = $row2;
     }
-
-
-    
   }
-
-
   echo json_encode($return);
   mysqli_close($conn);
   die;

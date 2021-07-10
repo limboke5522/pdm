@@ -173,6 +173,7 @@
                 <!-- <label for="select_hospital" class="col-2 col-form-label">ประเภทเอกสาร</label> -->
                       <div class="col-6">
                         <select class="form-control" id="select_DocTypeID" placeholder="ประเภทเอกสาร" onchange="checkProduct(id,name);" disabled></select>
+                        <input type="text" class="form-control" id="select_DocTypeID_hide" hidden>
                       </div>
 
                   <label for="txt_product_center" class="col-sm-2 col-form-label">ชื่อสินค้า</label>

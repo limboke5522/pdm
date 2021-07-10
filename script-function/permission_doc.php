@@ -91,7 +91,7 @@ $.ajax({
     var ObjData = JSON.parse(result);
     $("#select_product").empty();
     var Str = "";
-    Str += "<option value=0 >กรุณาเลือก Product</option>";
+    Str += "<option value=0 >กรุณาเลือก เอกสาร</option>";
     
     if (!$.isEmptyObject(ObjData)) {
       $.each(ObjData, function(key, value) {
