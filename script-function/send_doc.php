@@ -248,6 +248,11 @@
 
   function deleteProduct(index) {
     $("#trProduct_" + index).remove();
+
+    // $("#btn_send_"+row).show();
+    // $("#trDoc_" + index).remove();
+    
+
     objReal.productID.splice(index, 1);
     objReal.productName.splice(index, 1);
     objReal.productDocTypeID.splice(index, 1);
@@ -449,6 +454,14 @@
         // }else {
           
         // }
+
+        // if(id_product == 0 ){
+          
+        //   $("#btn_send_"+rowDoc).show();
+        // }else {
+          
+        // }
+
 
         if(doctypeidLeft == objReal_doc.Doctype_Id[key]){
           $("#btn_send_"+rowDoc).hide();

@@ -305,8 +305,9 @@
   function show_DataLeft() {
     var  txtSearch = $('#txtSearch').val();
     
-// $("#StatusRadio1").prop("checked", true);
-
+    // $("#home-tab").prop("selected", true);
+    $('.nav-tabs a:first').tab('show') 
+    
     $('#tb_Data_RR').hide();
     $('#tb_Data_LL').show();
 
@@ -580,7 +581,7 @@ var select_DocDetail = $('#select_DocDetail_'+key).val();
 
             showDialogSuccess(result);
             $('#btn_savedoc_'+key).hide();
-            // show_DataLeft();
+            show_DataLeft();
             show_DataRight();
 
           }
