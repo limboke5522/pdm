@@ -34,27 +34,73 @@ function showData_exp($conn)
   $txt_Edate_doc = $txt_Edate_doc[2] .'-'. $txt_Edate_doc[1] .'-'. $txt_Edate_doc[0];
 
   $Sql_product = " SELECT
-                  documentlist.ID,
-                  documentlist.DocNumber,
-                  documentlist.DocName,
-                  DATE_FORMAT(documentlist.ValidDate,'%d-%m-%Y') AS ValidDate,DATEDIFF(documentlist.ValidDate,
-                    DATE(NOW())) AS diffday,
-                  docrevision.DocumentID AS DocID,
-                  docrevision.productID AS ProducID,
-                  ( SELECT docrevision.version
-                    FROM docrevision
-                    WHERE docrevision.DocumentID = DocID
-                    AND docrevision.productID = ProducID
-                    ORDER BY docrevision.version DESC
-                    LIMIT 1 ) AS LastVersion
-                  FROM documentlist
-                  INNER JOIN docrevision ON documentlist.ID = docrevision.DocumentID
-                  WHERE DATEDIFF(documentlist.ValidDate,DATE(NOW()) ) < 120
-                  AND DATEDIFF(documentlist.ValidDate,DATE(NOW())) > 0 
-                  -- AND documentlist.ValidDate BETWEEN '18-02-2021' AND '18-06-2021'
-                  AND documentlist.DocName LIKE '%$Search_txt%'
-                  GROUP BY docrevision.DocumentID
-                  ORDER BY DATEDIFF(documentlist.ValidDate,DATE(NOW())) ASC
+	productdoc.DocumentID,
+	documentlist.ID,
+	documentlist.DocNumber,
+	documentlist.DocName,
+	DATE_FORMAT(
+		productdoc.ExpireDate,
+		'%d-%m-%Y'
+	) AS ValidDate,
+	DATEDIFF(
+		productdoc.ExpireDate,
+		DATE(NOW())
+	) AS diffday,
+	doctype_detail.TypeDetail_Name,
+	productdoc.DocumentID AS DocID,
+	productdoc.productID AS ProducID,
+	(
+		SELECT
+			DATEDIFF(
+				productdoc.ExpireDate,
+				DATE(NOW())
+			)
+		FROM
+			docrevision
+		INNER JOIN productdoc ON docrevision.ID = productdoc.ID_FileDoc
+		WHERE
+			docrevision.DocumentID = DocID
+		AND docrevision.productID = ProducID
+		ORDER BY
+			docrevision.version DESC
+		LIMIT 1
+	) AS daynow,
+	(
+		SELECT
+			docrevision.version
+		FROM
+			docrevision
+		WHERE
+			docrevision.DocumentID = DocID
+		AND docrevision.productID = ProducID
+		ORDER BY
+			docrevision.version DESC
+		LIMIT 1
+	) AS LastVersion
+FROM
+	productdoc
+INNER JOIN documentlist ON productdoc.DocumentID = documentlist.ID
+INNER JOIN doctype_detail ON documentlist.DocType_Detail = doctype_detail.ID
+WHERE
+	DATEDIFF(
+		productdoc.ExpireDate,
+		DATE(NOW())
+	) < 120
+AND DATEDIFF(
+	productdoc.ExpireDate,
+	DATE(NOW())
+) >= 0 -- AND documentlist.ValidDate BETWEEN '18-02-2021' AND '18-06-2021'
+AND documentlist.DocName LIKE '%$Search_txt%'
+GROUP BY
+	productdoc.DocumentID
+HAVING
+	daynow <= 120
+AND daynow > 0
+ORDER BY
+	DATEDIFF(
+		productdoc.ExpireDate,
+		DATE(NOW())
+	) ASC
           ";
 
   $meQuery1 = mysqli_query($conn, $Sql_product);
@@ -74,18 +120,69 @@ function showData_exp2($conn)
   $Search_txt2 = $_POST["txtSearch2"];
 
   $Sql_product = "SELECT
-      documentlist.DocName,
-      documentlist.ValidDate,
-      docrevision.version,
-      DATE_FORMAT(documentlist.ValidDate ,'%d-%m-%Y') AS ValidDate,
-      DATEDIFF(documentlist.ValidDate, DATE(NOW())) AS diffdayexp
-      FROM
-      documentlist
-      INNER JOIN docrevision ON documentlist.ID = docrevision.DocumentID
-      WHERE DATEDIFF(documentlist.ValidDate, DATE(NOW())) < 0
-      AND documentlist.DocName LIKE '%$Search_txt2%'
-      GROUP BY documentlist.DocName,docrevision.version
-      ORDER BY diffdayexp ASC
+  productdoc.DocumentID,
+  documentlist.ID,
+  documentlist.DocNumber,
+  documentlist.DocName,
+   DATE_FORMAT(
+    productdoc.ExpireDate,
+    '%d-%m-%Y'
+   ) AS ValidDate,
+   DATEDIFF(
+    productdoc.ExpireDate,
+    DATE(NOW())
+   ) AS diffday,
+  doctype_detail.TypeDetail_Name,
+  productdoc.DocumentID AS DocID,
+   productdoc.productID AS ProducID,
+  (
+  SELECT
+     DATEDIFF(
+    productdoc.ExpireDate,
+    DATE(NOW())
+   )
+    FROM
+     docrevision
+    INNER JOIN productdoc ON docrevision.ID = productdoc.ID_FileDoc
+    WHERE
+     docrevision.DocumentID = DocID
+    AND docrevision.productID = ProducID
+    ORDER BY
+     docrevision.version DESC
+    LIMIT 1
+  )AS daynow,
+  (
+    SELECT
+     docrevision.version
+    FROM
+     docrevision
+    WHERE
+     docrevision.DocumentID = DocID
+    AND docrevision.productID = ProducID
+    ORDER BY
+     docrevision.version DESC
+    LIMIT 1
+   ) AS LastVersion
+  FROM
+  productdoc
+  INNER JOIN documentlist ON productdoc.DocumentID = documentlist.ID
+  INNER JOIN doctype_detail ON documentlist.DocType_Detail = doctype_detail.ID
+  WHERE
+  DATEDIFF(
+   productdoc.ExpireDate,
+   DATE(NOW())
+  ) >= 0 
+  -- AND documentlist.ValidDate BETWEEN '18-02-2021' AND '18-06-2021'
+  AND documentlist.DocName LIKE '%$Search_txt2%'
+  
+  GROUP BY
+   productdoc.DocumentID
+  HAVING  daynow <=0
+  ORDER BY
+   DATEDIFF(
+    productdoc.ExpireDate,
+    DATE(NOW())
+   ) ASC
           ";
 
   $meQuery1 = mysqli_query($conn, $Sql_product);

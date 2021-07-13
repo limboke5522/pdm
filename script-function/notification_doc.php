@@ -147,8 +147,8 @@ function showData_exp2() {
                       // "<td style='width:7%;text-align: center;'><center>" + chkDoc + "</center></td>" +
                       "<td style='width:5%; text-align: center;'>" + (key + 1) + "</td>" +
                       "<td style='width:20%;text-align: center;'>" + value.DocName + "</td>" +
-                      "<td style='width:20%;text-align: center;'>" + value.version + "</td>" +
-                      "<td style='width:20%;text-align: center;'>" + value.diffdayexp + "</td>" +
+                      "<td style='width:20%;text-align: center;'>" + value.LastVersion + "</td>" +
+                      "<td style='width:20%;text-align: center;'>" + value.daynow + "</td>" +
                       "</tr>";
 
                       count++;

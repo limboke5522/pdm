@@ -70,7 +70,7 @@ $Sql_item = "SELECT
 				INNER JOIN send_doc_detail ON send_doc.SendDocNo = send_doc_detail.SendDocNo
 				INNER JOIN productdoc ON send_doc_detail.Product_DocID = productdoc.ID
 				INNER JOIN docrevision ON productdoc.ID_FileDoc = docrevision.ID
-				INNER JOIN product ON docrevision.productID = product.ID 
+				INNER JOIN product ON send_doc_detail.ProductID = product.ID 
 				WHERE
 				send_doc.SendDocNo = '$sendDocNo'
 				ORDER BY  product.ProductName ASC ";

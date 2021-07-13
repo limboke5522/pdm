@@ -188,7 +188,7 @@
                         <tr   class="text-center">
                           <th class="bg_tableAll">ลำดับ</th>
                           <th class="bg_tableAll">เอกสาร</th>
-                          <th class="bg_tableAll">version</th>
+                          <!-- <th class="bg_tableAll">version</th> -->
                           <th class="bg_tableAll">สิทธิ</th>
                           <th class="bg_tableAll">Preview</th>
                           <th class="bg_tableAll"><br></th>

@@ -145,7 +145,9 @@ function showData_Doc($conn)
   $select_product = $_POST["select_product"];
   $select_dochead = $_POST["select_dochead"];
   
-
+  $UserTypeID = $_POST["UserTypeID"];
+  $DocumentID = $_POST["DocumentID"];
+  
   if($select_doctype == 0 ){
     $ANDdoc_type = "";
   }else{
@@ -190,7 +192,7 @@ function showData_Doc($conn)
                   $ANDdoc_type
                   $ANDdoc_head 
                   GROUP BY documentlist.DocName
-                  ORDER BY  documentlist.DocName ASC ";
+                  ORDER BY  documentlist.ID DESC ";
 
 // echo $Sql_product2;
 
@@ -199,13 +201,7 @@ function showData_Doc($conn)
         $return['documentlist'][] = $row;
 
      $ID = $row["ID"];    
-  // if($DocumentID != 1 || $DocumentID != 2 || $DocumentID != 3){
-  //   $ANDDocumentID = "";
-  // }else{
-  //   $ANDDocumentID = "AND userdoc.DocumentID = '$DocumentID' ";
-  
-  // }
-
+    
       $Sql_userdoc = "SELECT
                               userdoc.ID,
                               userdoc.UserTypeID,
@@ -222,7 +218,14 @@ function showData_Doc($conn)
 
   }
 
-
+  
+  
+//   for($i = 406; $i<= 1000; $i++) {
+//     for($a = 1; $a<=3; $a++){
+//       $dbc = "INSERT INTO userdoc (UserTypeID,DocumentID) VALUES (".$a.",".$i.") " ;
+//     mysqli_query($conn, $dbc);
+//     }
+// }
 
   echo json_encode($return);
   mysqli_close($conn);
@@ -241,30 +244,44 @@ function saveData($conn)
         $UserTypeID = $_POST["UserTypeID"];
         $DocumentID = $_POST["DocumentID"];
         
-        
-
-        $Sql_userdoc = "SELECT
+       
+  $Sql_userdoc = "SELECT
+                        userdoc.ID,
                         COUNT(userdoc.DocumentID) AS COUNTDocumentID,
                         COUNT(userdoc.UserTypeID) AS COUNTUserTypeID
 
                         FROM userdoc 
                         WHERE userdoc.DocumentID = $UserTypeID
 	                      AND userdoc.UserTypeID = $DocumentID
-";
+"; 
 
-$meQuery1 = mysqli_query($conn, $Sql_userdoc);
-while ($row = mysqli_fetch_assoc($meQuery1)) {
+$meQuery2 = mysqli_query($conn, $Sql_userdoc);
+while ($row = mysqli_fetch_assoc($meQuery2)) {
   $COUNTDocumentID = $row["COUNTDocumentID"];    
-
+  $userdocID = $row["ID"];
 }
+        // if($COUNTDocumentID == 1){
+        //   $query_havedata = "UPDATE userdoc SET userdoc.UserTypeID = 0 WHERE userdoc.DocumentID = $UserTypeID AND userdoc.ID = $userdocID ";
+        //   mysqli_query($conn, $query_havedata);
+        // }else{
+        //   $query = "UPDATE userdoc SET userdoc.UserTypeID = '$DocumentID' ,userdoc.DocumentID = '$UserTypeID' WHERE  userdoc.ID = $userdocID ";
+        //   mysqli_query($conn, $query);
+        // }
+
+          
+
         if($COUNTDocumentID == 1){
           $Sql_del ="DELETE FROM userdoc WHERE DocumentID = $UserTypeID AND UserTypeID = $DocumentID   " ;
           mysqli_query($conn, $Sql_del);
         }else{
           // echo  $Sql_del;
-          $Sql_save =" INSERT INTO userdoc (UserTypeID,DocumentID) VALUES ($DocumentID,$UserTypeID)";
+          $Sql_save =" INSERT INTO userdoc (UserTypeID,DocumentID) VALUES ($DocumentID,$UserTypeID) ";
           mysqli_query($conn, $Sql_save);
+          
         }
+
+
+        
        
 
         // $id_Product = array($id_AD,$id_PHA,$id_DC);

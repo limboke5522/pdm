@@ -185,7 +185,7 @@
         if (!$.isEmptyObject(ObjData)) {
           $.each(ObjData, function(key, value) {
             var btn_preview = '<a href="javascript:void(0)"  onclick="show_preview(\'' + value.fileName + '\');"><img src="img/pdf.png" style="width:35px;"></a>';
-            if(value.version==value.newVersion){
+            if(value.version == value.newVersion){
               var style_bgcolor ="";
             }else{
               var style_bgcolor ="color: #FF0000;";

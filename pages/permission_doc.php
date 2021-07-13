@@ -45,7 +45,7 @@
             
               <div class="col-12">
                           <label class="col-2"> ประเภทเอกสาร : </label>
-                          <label class="col-2"> เอกสาร : </label>
+                          <label class="col-2"> Product  : </label>
                           <label class="col-2"> หัวข้อเอกสาร : </label>
                 <div class="row">
                       <div class="col-2">

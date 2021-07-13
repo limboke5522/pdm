@@ -167,23 +167,102 @@
     <div class="modal-dialog modal-lg ">
         <div class="modal-content" role="document">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalScrollableTitle">เพิ่มหัวข้อเรื่อง</h5>
+                <h5 class="modal-title" id="exampleModalScrollableTitle">เพิ่มหัวข้อเอกสาร</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body col-12">
                 
-                <div class="row  mt-2 mb-5" style="margin-left: 20%">
+                <!-- <div class="row  mt-2 mb-5" style="margin-left: 20%"> -->
               
-                  <div class="col-6 mt-3">
-                  <label>วัตถุประสงค์ :</label>
-                  <input type="text" class="form-control" id="txt_purpose_name" placeholder="ชื่อวัตถุประสงค์">
-                  </div>
-                  <div class="col-6 mt-5 ">
-                    <button style="width: 100px;" type="button" class="btn btn-outline-success" id="btnSaveDoc2" onclick="saveData2();">บันทึก</button>
-                  </div>
+                <div class="row ml-5 mt-1">
+                    <div class="col-4 mt-3">
+                      <label>เลขที่คุมเอกสาร :</label>
+                      <input type="text" class="form-control" id="txt_DocNo" placeholder="เลขที่คุมเอกสาร" autocomplete="off">
+                    </div>
+
+                    <div class="col-4 mt-3">
+                      <label>ชื่อเอกสาร :</label>
+                      <input type="text" class="form-control" id="ID_txt" hidden>
+                      <input type="text" class="form-control" id="txt_Doc_name" placeholder="ชื่อเอกสาร" autocomplete="off">
+                    </div>
+
+                    <div class="col-3 mt-3">
+                      <label>เลขสำคัญ :</label>
+                      <input type="text" class="form-control" id="txt_Doc_numbar" placeholder="เลขสำคัญ" autocomplete="off">
+                    </div>
                 </div>
+
+                <div class="row ml-5 mt-1">
+                  <div class="col-6  mt-2">
+                    <label>เอกสาร :</label>
+                      <div class="row ml-2">
+
+                                      <div class=" form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" value="1" name="StatusRadio" id="StatusRadio1" style="width: 20px; height: 20px;" >
+                                        <label class="ml-2" for="StatusRadio1"  > เอกสารภายใน </label>
+                                      </div>
+                                      <div class=" form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" value="2" name="StatusRadio" id="StatusRadio2" style="width: 20px; height: 20px;">
+                                        <label class="ml-2" for="StatusRadio2" > เอกสารภายนอก </label>
+                                      </div>
+                      </div>
+
+                  </div>
+                  <div class="col-5 mt-2 ">
+                        <label>คำอธิบาย :</label>
+                        <textarea  class="form-control" id="txt_detail" rows="3"></textarea>
+                      </div>
+                </div>
+
+              </div> 
+                  
+
+                  <div class="row ml-1 mb-4 justify-content-end">
+                      
+                      <div class="col-3 mt-2 ">
+                        <button style="width: 100px;" type="button" class="btn btn-outline-success ml-2" id="btnSaveDoc" onclick="saveData();">บันทึก</button>
+                      </div>
+                  </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="Modaldetail_Product" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+    <div class="modal-dialog modal-lg ">
+        <div class="modal-content" role="document">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalScrollableTitle">เพิ่ม Product</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body col-12">
+                
+                <!-- <div class="row  mt-2 mb-5" style="margin-left: 20%"> -->
+              
+                <div class="row ml-2 mt-1 justify-content-center">
+                      <div class="col-4 mt-3">
+                        <label>รหัสสินค้า :</label>
+                        <input type="text" class="form-control" id="ID_txt" hidden>
+                        <input type="text" class="form-control" id="txt_item_code" placeholder="รหัสสินค้า">
+                      </div>
+                      <div class="col-4 mt-3">
+                        <label>ชื่อสินค้า :</label>
+                        <input type="text" class="form-control" id="txt_item_name" placeholder="ชื่อสินค้า">
+                      </div>
+                
+                </div>
+
+                  <div class="row mb-3  justify-content-end ">
+                      <div class="col-4 mt-2 ">
+                        <button style="width: 100px;" type="button" class="btn btn-outline-success ml-2" id="btnSaveDoc" onclick="saveData();">บันทึก</button>
+                      </div>
+                  </div>
+
             </div>
         </div>
     </div>

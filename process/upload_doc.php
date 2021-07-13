@@ -347,10 +347,13 @@ function Save_FileDoc($conn)
   $row_docrevision = mysqli_fetch_assoc($meQuery_docrevision);
   $ID_docrevision = $row_docrevision['ID'];
   $version = $row_docrevision['version'];
+
   
     if(empty($ID_docrevision)){
-      $query = "UPDATE docrevision SET docrevision.productID = '$select_Product' ,docrevision.DocumentID = '$select_Doc' WHERE ID = '$ID' ";
+      $query = "UPDATE docrevision SET docrevision.productID = '$select_Product' ,docrevision.DocumentID = '$select_Doc'  WHERE ID = '$ID' ";
       mysqli_query($conn, $query);
+       
+      
     }else{
       $version=($version+1);
      
@@ -371,7 +374,7 @@ function Save_FileDoc($conn)
 
 
 
-
+// echo  $Sql;
             // $return =$version;
 
   $return = "บันทึกข้อมูลสำเร็จ";

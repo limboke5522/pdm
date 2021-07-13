@@ -303,7 +303,9 @@
       
     $("#select_DocTypeID").attr('disabled', false);
     $("#txt_product_center").attr('disabled', false);
-   
+    
+
+
    $.ajax({
       url: "process/send_doc.php",
       type: 'POST',
@@ -319,7 +321,7 @@
         if (!$.isEmptyObject(ObjData)) {
           $.each(ObjData, function(key, value) {
 
-
+            // var text = 'ยังไม่ได้กำหนดสิทธิ';
             var btn_preview = '<a href="javascript:void(0)"  onclick="preview(\'' + value.fileName + '\');"><img src="img/pdf.png" style="width:35px;"></a>';
        
             if (value.DocumentID == value.sub) {
@@ -327,11 +329,18 @@
             }else{
               var bt = ' <button type="button" style="font-size: 10px;" hidden class="btn btn-outline-primary" id="btn_send_'+key+'"  onclick="add_DocProduct(\'' + key + '\',\'' + value.ID + '\',\'' + value.DocName + '\',\'' + value.version + '\',\'' + id_product + '\',\'' + doctypeidLeft + '\')" >เลือก >> </button>';
             }
+
+            if(value.permis != null){
+                      var text = value.permis ;
+                    }else{
+                      var text = '<p style="color: #FF0000">ยังไม่ได้กำหนดสิทธิ</p>';
+                    }
+
            StrTR += "<tr id='list_document_' style='border-radius: 15px 15px 15px 15px;margin-top: 6px;margin-bottom: 6px;'>" +
                     "<td style='width:7%;text-align: center;'>" + (key + 1) + "</td>" +
                     "<td style='width:25%;text-align: left;'>" + value.DocName + "</td>" +
-                    "<td style='width:5%;text-align: center;'>" + value.version + "</td>" +
-                    "<td style='width:5%;text-align: center;'>"+value.permis+"</td>" +
+                    // "<td style='width:5%;text-align: center;'>" + value.version + "</td>" +
+                    "<td style='width:5%;text-align: center;'>"+text+"</td>" +
                     "<td style='width:5%;text-align: center;'>"+btn_preview+"</td>" +
                     "<td style='width:10%;text-align: center;'><center>"+bt+"</center></td>" +
                     "</tr>";
