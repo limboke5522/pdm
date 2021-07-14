@@ -377,6 +377,7 @@
         $("#Modaldetail_Doc").modal('show');
         $("#Modaldetail_Doc2").modal('hide');
 
+
         $("#select_contact").val(0);
       }
       
@@ -660,6 +661,8 @@ function save_sendDoc() {
   }
 
   function saveData() {
+
+    
     var select_hospital = $('#select_hospital').val();
 
       var txt_contact_name= $('#txt_contact_name').val();

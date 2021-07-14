@@ -279,8 +279,6 @@
       var txt_Doc_name= $('#txt_Doc_name').val();
       var txt_Doc_numbar= $('#txt_Doc_numbar').val();
 
-      // var txt_date_doc= $('#txt_date_doc').val();
-      // var txt_expira_date= $('#txt_expira_date').val();
       var txt_detail= $('#txt_detail').val();
 
 

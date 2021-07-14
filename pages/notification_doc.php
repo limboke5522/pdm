@@ -51,43 +51,63 @@
             </div>
 
             <div class="row">
-							<div class="col-md-4">
-								<div type="submit" class="card card-stats bg-warning" id="little_exp" onclick="showData_exp();">
-									<div class="card-body ">
-										<div class="row">
-											<div class="col-4">
-											</div>
-											<div  class="col-8 d-flex align-items-center">
-												<div  class="numbers"  >
-													<p class="card-category">เอกสารใกล้หมดอายุ  <i id="bells" class="fas fa-bell bellClapper"><span class="number" id="exp_1"></span>  </i></p>
-                          <h2 style="text-align: center" id="exp" ></h2>
+							<div class="col-md-6">							   
+                <div class="card-body ">
+                      <div class="row">
+                        <div class="col-5">
 
-													
-												</div>
-											</div>
+                        <img type="submit" src="img/Group 59.png" alt="AdminLTE Logo" class="brand-image col-center img_ref" style="margin-left: 40px; width:250px;" id="little_exp" onclick="showData_exp();">
+                        <i type="submit" id="bells" class="fasbell fas fa-bell bellClapper" onclick="showData_exp();" >  </i>
+                            <span class=" number" id="exp_1" onclick="showData_exp();"></span>
+                            <h2 class="number2"  id="exp" ></h2>
+                          </img>
 
-										</div>
-									</div>
-								</div>
+                        </div>
+                        <div class="col-5">
+
+                        <img type="submit" src="img/Group 58.png" alt="AdminLTE Logo" class="brand-image col-center img_ref" style="margin-left: 40px; width:250px;" id="little_exp" onclick="showData_exp2();">
+                        
+                             <i type="submit" id="bells2"  class="fasbell_2 fas fa-bell bellClapper"> </i>  
+                              <span class="number_2" id="exp2_1" onclick="showData_exp2();"></span> 
+                              <h2 class="number2_2"  id="exp2"></h2>
+                        </img>      
+                      
+                      </div>
+                        <div  class="col-2 d-flex align-items-center">
+                          <div  class="numbers"  >
+                          <!-- <img type="submit" src="img/Group 59.png" alt="AdminLTE Logo" class="brand-image col-center " style="margin-left: 40px; width:250px;" id="little_exp" onclick="showData_exp();"> -->
+                            <!-- <i type="submit" id="bells" class="fasbell fas fa-bell bellClapper" onclick="showData_exp();" >  </i>
+                            <span class=" number" id="exp_1" onclick="showData_exp();"></span>
+                            <h2 class="number2" style="text-align: center" id="exp" ></h2> -->
+
+                                <!-- <i type="submit" id="bells2"  class="fasbell_2 fas fa-bell bellClapper"> </i>  
+                              <span class="number_2" id="exp2_1" onclick="showData_exp2();"></span> 
+                              <h2 class="number2_2" style="text-align: center" id="exp2"></h2> -->
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
 							</div>
 							
-							<div class="col-md-4">
-								<div type="submit" class=" card card-stats bg-danger" id="little_exp2" onclick="showData_exp2();">
+							<!-- <div class="col-md-6">
+              
 									<div class="card-body">
 										<div class="row">
-											<div class="col-4">
+											<div class="col-3">
 											</div>
 											<div  class="col-8 d-flex align-items-center">
 												<div  class="numbers" >
-													<p class="card-category bom" >เอกสารหมดอายุ  <i id="bells2"  class="fas fa-bell bellClapper"><span class="number" id="exp2_1"></span>  </i>  </p>
-                          
-                          <h2 style="text-align: center" id="exp2"></h2>
+													<i type="submit" id="bells2"  class="fasbell fas fa-bell bellClapper"> </i>  
+                          <span class="number" id="exp2_1" onclick="showData_exp2();"></span> 
+                          <h2 class="number2" style="text-align: center" id="exp2"></h2>
 												</div>
 											</div>
 										</div>
 									</div>
 								</div>
-							</div>
+							</div> -->
 							
               <!-- <div class="col-md-4">
 								<div type="submit"class="card card-stats bg-primary" id="little_exp3" onclick="showData_exp3();">

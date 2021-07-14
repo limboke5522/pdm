@@ -25,6 +25,10 @@ if (!empty($_POST['FUNC_NAME'])) {
     Delete_FileDoc($conn);
   } else   if ($_POST['FUNC_NAME'] == 'selection_PRODUCTT') {
     selection_PRODUCTT($conn);
+  }else   if ($_POST['FUNC_NAME'] == 'Save_product') {
+    Save_product($conn);
+  }else   if ($_POST['FUNC_NAME'] == 'Save_Doc') {
+    Save_Doc($conn);
   }
 
   
@@ -378,6 +382,100 @@ function Save_FileDoc($conn)
             // $return =$version;
 
   $return = "บันทึกข้อมูลสำเร็จ";
+  echo $return;
+  unset($conn);
+  die;
+}
+
+function Save_product($conn)
+{
+  $txt_item_code = $_POST["txt_item_code"];
+  $txt_item_name = $_POST["txt_item_name"];
+
+  $select_DocDetail = $_POST["select_DocDetail"];
+  $select_Product = $_POST["select_Product"];
+  $select_Doc = $_POST["select_Doc"];
+
+  $bt_MFGDate = $_POST["bt_MFGDate"];
+  $bt_ExpireDate = $_POST["bt_ExpireDate"];
+
+  $select_product = $_POST["select_product"];
+  $ID = $_POST["ID"];
+
+  $Sql_docrevision = "SELECT
+                        docrevision.ID,
+                        docrevision.version 
+                      FROM
+                        docrevision
+                      LEFT JOIN productdoc ON docrevision.ID = productdoc.ID_FileDoc
+
+                      WHERE docrevision.productID = '$select_Product'  
+                      AND docrevision.DocumentID = '$select_Doc'
+                      ORDER BY docrevision.version DESC LIMIT 1";
+
+  $meQuery_docrevision = mysqli_query($conn, $Sql_docrevision);
+  $row_docrevision = mysqli_fetch_assoc($meQuery_docrevision);
+  $ID_docrevision = $row_docrevision['ID'];
+  $version = $row_docrevision['version'];
+
+
+    $Sql = "INSERT INTO product SET product.ProductCode = '$txt_item_code' , 
+                                    product.ProductName = '$txt_item_name' ";
+            mysqli_query($conn, $Sql);
+
+
+  $return = "บันทึกข้อมูลสำเร็จ";
+  echo $return;
+  unset($conn);
+  die;
+}
+
+function Save_Doc($conn)
+{
+
+  $txt_DocNo    = $_POST['txt_DocNo'];
+  $txt_Doc_name    = $_POST['txt_Doc_name'];
+  $txt_Doc_numbar     = $_POST['txt_Doc_numbar'];
+  // $txt_date_doc     = $_POST['txt_date_doc'];
+  $txt_expira_date     = $_POST['txt_expira_date'];
+  $txt_detail     = $_POST['txt_detail'];
+  $StatusRadio     = $_POST['StatusRadio'];
+  $select_doctype2     = $_POST['select_doctype2'];
+  $select_Product    = $_POST['select_Product'];
+  
+            $Sql2 = " SELECT
+                       documentlist.DocNumber
+                      FROM
+                      documentlist
+                      WHERE  documentlist.DocNumber = '$txt_DocNo'
+                    ";
+
+          $result = mysqli_query($conn, $Sql2);
+          $num_rows = mysqli_num_rows($result);
+          if($num_rows>0){
+          $return = "0";
+          }else{
+
+
+            $query = "INSERT INTO documentlist 
+                      SET documentlist.DocNumber = '$txt_DocNo',
+                      documentlist.DocName = '$txt_Doc_name',
+                      documentlist.SignificantFigure = '$txt_Doc_numbar',
+                      
+                      documentlist.Description = '$txt_detail',
+                      documentlist.DocType = '$StatusRadio',
+                      -- documentlist.DocType_Detail = '$select_doctype2',
+                      -- documentlist.productID = '$select_Product',
+                      
+                      documentlist.ModifyDate = NOW()
+                      ";
+
+            $return = "เพิ่มข้อมูล สำเร็จ";
+            mysqli_query($conn, $query);
+          }
+            
+    
+ 
   echo $return;
   unset($conn);
   die;

@@ -200,7 +200,7 @@
                       <div class="row ml-2">
 
                                       <div class=" form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" value="1" name="StatusRadio" id="StatusRadio1" style="width: 20px; height: 20px;" >
+                                        <input class="form-check-input" type="radio" value="1" name="StatusRadio" id="StatusRadio1" style="width: 20px; height: 20px;" selected="true">
                                         <label class="ml-2" for="StatusRadio1"  > เอกสารภายใน </label>
                                       </div>
                                       <div class=" form-check form-check-inline">
@@ -222,7 +222,7 @@
                   <div class="row ml-1 mb-4 justify-content-end">
                       
                       <div class="col-3 mt-2 ">
-                        <button style="width: 100px;" type="button" class="btn btn-outline-success ml-2" id="btnSaveDoc" onclick="saveData();">บันทึก</button>
+                        <button style="width: 100px;" type="button" class="btn btn-outline-success ml-2" id="btnSaveDoc" onclick="Save_Doc();">บันทึก</button>
                       </div>
                   </div>
 
@@ -247,7 +247,7 @@
                 <div class="row ml-2 mt-1 justify-content-center">
                       <div class="col-4 mt-3">
                         <label>รหัสสินค้า :</label>
-                        <input type="text" class="form-control" id="ID_txt" hidden>
+                        <!-- <input type="text" class="form-control" id="ID_txt" hidden> -->
                         <input type="text" class="form-control" id="txt_item_code" placeholder="รหัสสินค้า">
                       </div>
                       <div class="col-4 mt-3">
@@ -259,7 +259,7 @@
 
                   <div class="row mb-3  justify-content-end ">
                       <div class="col-4 mt-2 ">
-                        <button style="width: 100px;" type="button" class="btn btn-outline-success ml-2" id="btnSaveDoc" onclick="saveData();">บันทึก</button>
+                        <button style="width: 100px;" type="button" class="btn btn-outline-success ml-2" id="btnSaveDoc" onclick="Save_product();">บันทึก</button>
                       </div>
                   </div>
 

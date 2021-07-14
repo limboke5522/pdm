@@ -171,6 +171,7 @@
     }
 
     .fas {
+        
         font-size:1.5rem;
     }
     .bom{
@@ -183,17 +184,88 @@
 	}
 	.number{
 		position:relative ;
-        top: -15px;
-        right: 10px;
+        top: -183px;
+        right: -194px;
         font-size:1rem;
-		background-color: #ff0000;
-		color: #FFFFFF;
-		border-radius: 23px;
-		padding:0.3rem 0.7rem 0.3rem 0.7rem;
+		background-color: #FFFFFF;
+		color: #000000;
+		border-radius: 360px;
+		padding:0.0rem 0.5rem 0.0rem 0.5rem;
 		animation: shake 5s infinite;
 
 	}
+
+    .number2{
+		position:relative ;
+        top: -175px;
+        right: -230px;
+        font-size:2rem;
+		/* background-color: #FFFFFF; */
+		color: #000000;
+		border-radius: 23px;
+		padding:0.3rem 0.7rem 0.3rem 0.7rem;
+		/* animation: shake 5s infinite; */
+
+	}
+
+    .fasbell{
+		position:relative ;
+        top: -169px;
+        right: -220px;
+        font-size:2rem;
+		/* background-color: #ff0000; */
+		color: #000000;
+		border-radius: 23px;
+		padding:0.3rem 0.7rem 0.3rem 0.7rem;
+		/* animation: shake 5s infinite; */
+
+	}
+
+    .number_2{
+		position:relative ;
+        top: -186px;
+        right: -193px;
+        font-size:1rem;
+		background-color: #ff0000;
+		color: #000000;
+		border-radius: 360px;
+		padding:0.0rem 0.5rem 0.0rem 0.5rem;
+		animation: shake 5s infinite;
+
+	}
+
+    .number2_2{
+		position:relative ;
+        top: -175px;
+        right: -230px;
+        font-size:2rem;
+		/* background-color: #ff0000; */
+		color: #000000;
+		border-radius: 23px;
+		padding:0.3rem 0.7rem 0.3rem 0.7rem;
+		/* animation: shake 5s infinite; */
+
+	}
+
+    .fasbell_2{
+		position:relative ;
+        top: -171px;
+        right: -219px;
+        font-size:2rem;
+		/* background-color: #ff0000; */
+		color: #000000;
+		border-radius: 23px;
+		padding:0.3rem 0.7rem 0.3rem 0.7rem;
+		/* animation: shake 5s infinite; */
+
+	}
+
+    .img_ref{
+		position:relative ;
+
+	}
     .bellClapper:hover{
+        
         animation: shake 5s infinite;
         
     }
