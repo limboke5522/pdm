@@ -1,6 +1,11 @@
 <script>
   $(function() {
     $("#txt_remark").hide();
+    $("#txt_headdoc").hide();
+
+    $("#memo_headdoc").hide();
+    $("#memo").hide();
+
     $(".select2").select2();
     selection_Customer();
     selection_Purpose();
@@ -9,12 +14,29 @@
     chkremark();
     checkProduct(id,name);
     
+    
   })
   function chkremark(){
     if(document.getElementById("chk_remark").checked == true){
       $("#txt_remark").show();
+      $("#memo").show();
     }else{
       $("#txt_remark").hide();
+      $('#txt_remark').val("");
+
+      $("#memo").hide();
+      // $('#memo').val("");
+    }
+
+    if(document.getElementById("chk_headdoc").checked == true){
+      $("#txt_headdoc").show();
+      $("#memo_headdoc").show();
+    }else{
+      $("#txt_headdoc").hide();
+      $('#txt_headdoc').val("");
+
+      $("#memo_headdoc").hide();
+      // $('#memo_headdoc').val("");
     }
   }
 
@@ -513,6 +535,7 @@
           text: 'ตกลง',
           action: function() {
             save_sendDoc();
+            
           }
         }
       }
@@ -527,11 +550,13 @@ function save_sendDoc() {
     var email = $('#txt_email').val();
     var Copy_doc = $('#Copy_doc').val();
     var txt_remark = $('#txt_remark').val();
+    var txt_headdoc = $('#txt_headdoc').val();
     var productID = objReal_doc.product_Doc_ID;
     var DoctypeId = objReal_doc.Doctype_Id;
     var DocID = objReal_doc.DocID;
     var table_product_docment = $('#table_product_docment tbody').val();
 
+    var box22 = $('#box22').val();
     var text = "";
      if (select_hospital == "0") {
         text = "กรุณาเลือกโรงพยาบาล";
@@ -568,15 +593,49 @@ function save_sendDoc() {
         'email': email,
         'Copy_doc': Copy_doc,
         'txt_remark': txt_remark,
+        'txt_headdoc': txt_headdoc,
         'productID':productID,
         'DoctypeId':DoctypeId,
-        'DocID':DocID
+        'DocID':DocID,
+        'box22':box22
       },
       success: function(result) {
-          send_mail(result,email); 
-          if(Copy_doc != ""){
-            send_mail_copy(result,Copy_doc); 
-          }
+
+        $("#Modaldetail_Preview").modal('show');
+        show_Preview();
+        showFooter();
+
+        
+
+            $("#btnSaveDoc_Preview").click(function() {
+
+                $.confirm({
+                  title: 'แจ้งเตือน!',
+                  content: 'ยืนยันการส่งข้อมูล ใช่ หรือ ไม่?',
+                  type: 'orange',
+                  autoClose: 'cancel|8000',
+                  buttons: {
+                    cancel:  {text: 'ยกเลิก'},
+                    confirm: {
+                      btnClass: 'btn-primary',
+                      text: 'ตกลง',
+                      action: function() {
+                        // saveData_Preview();
+
+                      send_mail(result,email,box22); 
+                      if(Copy_doc != ""){
+                        send_mail_copy(result,Copy_doc,box22); 
+                      }
+
+                      }
+                    }
+                  }
+                });
+                });
+
+          
+
+
       }
     });
   }
@@ -584,19 +643,22 @@ function save_sendDoc() {
 
   function send_mail(sendDocNo,email) {
 // alert(sendDocNo+"|"+email);
+     var boxArea =  $('#box22').val();
+   
+     
     swal({
             title: 'กรุณารอสักครู่',
             text: 'ระบบกำลังประมวลผล',
             allowOutsideClick: false
         })
         swal.showLoading();
-
     $.ajax({
       url: "process/send_mail.php",
       type: 'POST',
       data: {
         'email': email,
-        'sendDocNo': sendDocNo
+        'sendDocNo': sendDocNo,
+        'boxArea': boxArea
       },
       success: function(result) {
         swal.close();
@@ -615,6 +677,8 @@ function save_sendDoc() {
          $('#txt_email_send').val("");
          $('#email').val("");
          $('#txt_remark').val("");
+         $('#txt_headdoc').val("");
+         
          $("#txt_email").val("");
          $("#txt_phone").val("");
          $("#txt_product_center").val("");
@@ -640,13 +704,14 @@ function save_sendDoc() {
   function send_mail_copy(sendDocNo,Copy_doc) {
 // alert(sendDocNo+"|"+email);
 
-
+var boxArea =  $('#box22').val();
     $.ajax({
       url: "process/send_mail_copy.php",
       type: 'POST',
       data: {
         'email': Copy_doc,
-        'sendDocNo': sendDocNo
+        'sendDocNo': sendDocNo,
+        'boxArea': boxArea
       },
       success: function(result) {
       
@@ -821,6 +886,7 @@ function save_sendDoc() {
       $('#txt_email_send').val("");
       $('#email').val("");
       $('#txt_remark').val("");
+      $('#txt_headdoc').val("");
       $("#txt_email").val("");
       $("#txt_phone").val("");
       $("#txt_product_center").val("");
@@ -842,6 +908,165 @@ function save_sendDoc() {
   });
 
 
+// show
+function show_Preview() {
+    var  POSEINT = $('#POSEINT').val();
+    var  date_upload =  $("#date_upload").val();
+    var  send_name =  $("#send_name").val();
 
+    var  memo_headdoc =  $("#memo_headdoc").val();
+
+    var  head_list_items =  $("#head_list_items").val();
+    var  list_items =  $("#list_items").val();
+
+    var  file_items =  $("#file_items").val();
+
+    var  memo =  $("#memo").val();
+    
+    var  headdoc =  $("#headdoc").val();
+    var  memoo =  $("#memoo").val();
+
+    var  box =  $("#box").val();
+    $gmail_username = "janekootest@gmail.com";
+    $.ajax({
+      url: "process/send_doc.php",
+      type: 'POST',
+      data: {
+        'FUNC_NAME': 'show_Preview',
+        'POSEINT': POSEINT,
+        'date_upload': date_upload,
+        'send_name': send_name,
+        'memo_headdoc': memo_headdoc,
+        'head_list_items': head_list_items,
+        'list_items': list_items,
+        'file_items': file_items,
+        'memo': memo
+        
+      },
+      success: function(result) {
+        var ObjData = JSON.parse(result);
+        var StrTR = "";
+        var BoxArea = "";
+        var btn_previewer = "";
+        var fileNameer = "";
+
+        var DocNameer ="";
+        var headdocer = "";
+        var memoo ="";
+        if (!$.isEmptyObject(ObjData)) {
+          $.each(ObjData, function(key, value) {
+
+            btn_previewer += '<a href="javascript:void(0)"  onclick="preview(\'' + value.fileName + '\');"><img src="img/pdf.png" style="margin-left: 50px; width:75px;"></a>';
+            fileNameer += "<label style='margin-left: 40px; width:100px;'>" + value.fileName + "</label>";
+
+            StrTR += "<tr style='border-radius: 15px 15px 15px 15px;margin-top: 6px;margin-bottom: 6px;'>" +
+                    "<td style='border: none; width:5%;text-align: center;'>" + (key + 1) + "</td>" +
+                    "<td style='border: none; width:40%;text-align: left;'>" + value.DocName + "</td>" +
+                    // "<td style='border: none; width:15%;text-align: right;'>"+btn_previewer+"</td>" +
+                    // "<td style='border: none; width:40%;text-align: left;'>"+value.fileName+"</td>" +
+                    "</tr>";
+
+                    
+                    // BoxArea =
+                    //   '<label>'+value.Memo_Headdoc+'</label>'+
+                    //   '<label>รายการสินค้า</label>'+
+                    //   '<label>'+value.ProductName+'</label>'+
+                    //   '<label>'+value.Memo+'</label>';
+
+                     headdocer = "<label >" + value.Memo_Headdoc + "</label>";
+                     DocNameer += "" + (key + 1) +" . "+ value.DocName + "\n"+"          ";
+                     memoo = "<label >" + value.Memo + "</label>";
+
+            $('#POSEINT').text($gmail_username);
+            $('#date_upload').text(value.DocDate);
+            $('#send_name').text(value.email);
+
+            // $('#memo_headdoc').text(value.Memo_Headdoc);
+            // $('#head_list_items').text(value.ProductName);
+            // $('#memo').text(value.Memo);
+
+            $('#headdoc').text(value.Memo_Headdoc);
+            $('#head_list_items').text(value.ProductName);
+            $('#box').html(StrTR);
+            $('#memoo').text(value.Memo);
+
+            // $('#box22').text(StrTR);
+            
+
+            $('#box22').html(value.Memo_Headdoc + "\n" +" "+ "รายการสินค้า" + "\n" +"    "+ value.ProductName + "\n" + "          " + DocNameer + "\n" + value.Memo);
+
+            $('#boxfile').html(btn_previewer);
+            $('#fileeee').html(fileNameer);
+          });
+        }
+        // $('#table_list_items tbody').html(StrTR);
+        
+      
+      }
+    });
+
+  }
+
+  function showFooter() {
+    var  footer_title = $('#footer_title').val();
+    var  f_l_name = $('#f_l_name').val();
+    var  Tel = $('#Tel').val();
+    
+    $.ajax({
+      url: "process/send_doc.php",
+      type: 'POST',
+      data: {
+        'FUNC_NAME': 'showFooter',
+        'footer_title': footer_title,
+        'f_l_name': f_l_name,
+        'Tel': Tel
+        
+      },
+     
+      success: function(result) {
+        var ObjData = JSON.parse(result);
+        var StrTR = "";
+        if (!$.isEmptyObject(ObjData)) {
+          $.each(ObjData, function(key, value) {
+
+            // alert(footer_title);
+
+            $('#footer_title').text(value.footer_title);
+            $('#f_l_name').text(value.fname + " " + value.lname);
+            $('#Tel').text(value.telephone_organization);
+           
+          });
+        }
+      }
+    });
+  }
+
+
+function saveData_Preview() {
+var email = $('#txt_email').val();
+var Copy_doc = $('#Copy_doc').val();
+
+var  memo_headdoc =  $("#memo_headdoc").val();
+var  memo =  $("#memo").val();
+
+
+$.ajax({
+  url: "process/send_doc.php",
+  type: 'POST',
+  data: {
+    'FUNC_NAME': 'saveData_Preview',
+    'email': email,
+    'Copy_doc': Copy_doc,
+    'memo_headdoc': memo_headdoc,
+    'memo': memo
+  },
+  success: function(result) {
+
+
+      $("#Modaldetail_Preview").modal('hide');
+
+  }
+});
+}
 
 </script>

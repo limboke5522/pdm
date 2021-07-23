@@ -29,6 +29,8 @@ if (!empty($_POST['FUNC_NAME'])) {
     Save_product($conn);
   }else   if ($_POST['FUNC_NAME'] == 'Save_Doc') {
     Save_Doc($conn);
+  }else   if ($_POST['FUNC_NAME'] == 'get_refNum') {
+    get_refNum($conn);
   }
 
   
@@ -60,11 +62,12 @@ die;
 function selection_DocDetaill($conn){
   $Sql = "SELECT
             doctype_detail.ID,
-            doctype_detail.TypeDetail_Name 
+            doctype_detail.TypeDetail_Name,
+            doctype_detail.SortNo
           FROM
             doctype_detail
             WHERE doctype_detail.IsCancel = 0
-            ORDER BY  doctype_detail.TypeDetail_Name ASC
+            ORDER BY  doctype_detail.SortNo ASC
        ";
 
 $meQuery = mysqli_query($conn, $Sql);
@@ -119,16 +122,17 @@ function selection_PRODUCTT($conn)
   $Sql = "SELECT
             product.ID, 
             product.ProductCode, 
-            product.ProductName,
-            documentlist.DocType_Detail,
-            documentlist.productID
+            product.ProductName
+            -- ,
+            -- documentlist.DocType_Detail,
+            -- documentlist.productID
           FROM
             product
-          INNER JOIN documentlist ON product.ID = documentlist.productID
+          -- INNER JOIN documentlist ON product.ID = documentlist.productID
             WHERE product.IsCancel = 0
-            AND documentlist.DocType_Detail = '$select_DocDetail'
+            -- AND documentlist.DocType_Detail = '$select_DocDetail'
             GROUP BY product.ProductName
-            ORDER BY  product.ProductName ASC
+            ORDER BY  product.ProductCode ASC
        ";
 
   $meQuery = mysqli_query($conn, $Sql);
@@ -204,11 +208,41 @@ function selection_Docc($conn)
             documentlist.DocName
           FROM
             documentlist
-          -- INNER JOIN product ON product.ID = documentlist.productID
+            -- INNER JOIN docproductlist ON documentlist.ID = docproductlist.DocumentID
           WHERE documentlist.IsCancel = 0
           AND documentlist.DocType_Detail = '$select_DocDetail'
-					$ANDdoc_pro
+					
             ORDER BY  documentlist.DocNumber ASC
+       ";
+// echo $Sql;
+  $meQuery = mysqli_query($conn, $Sql);
+  while ($row = mysqli_fetch_assoc($meQuery)) {
+    $return[] = $row;
+  }
+
+
+  echo json_encode($return);
+  mysqli_close($conn);
+  die;
+}
+
+function get_refNum($conn)
+{
+  $select_Product = $_POST["select_Product"];
+  $select_Doc = $_POST["select_Doc"];
+  
+  
+
+  $Sql = "SELECT
+            docproductlist.ID,
+            docproductlist.DocumentID,
+            docproductlist.ProductID,
+            docproductlist.refNumber
+          FROM
+            docproductlist
+          WHERE docproductlist.DocumentID = '$select_Doc'
+          AND docproductlist.ProductID = '$select_Product'
+					
        ";
 // echo $Sql;
   $meQuery = mysqli_query($conn, $Sql);
@@ -334,6 +368,7 @@ function Save_FileDoc($conn)
 
   $bt_MFGDate = $_POST["bt_MFGDate"];
   $bt_ExpireDate = $_POST["bt_ExpireDate"];
+  $txt_Refcode = $_POST["txt_Refcode"];
 
   $select_product = $_POST["select_product"];
   $ID = $_POST["ID"];
@@ -354,14 +389,16 @@ function Save_FileDoc($conn)
 
   
     if(empty($ID_docrevision)){
-      $query = "UPDATE docrevision SET docrevision.productID = '$select_Product' ,docrevision.DocumentID = '$select_Doc'  WHERE ID = '$ID' ";
+      $query = "UPDATE docrevision SET docrevision.productID = '$select_Product' ,docrevision.DocumentID = '$select_Doc', 
+                docrevision.IsActive = '1' ,  docrevision.RegistrationDate = '$bt_MFGDate', docrevision.ExpireDate = '$bt_ExpireDate' WHERE ID = '$ID' ";
       mysqli_query($conn, $query);
        
       
     }else{
       $version=($version+1);
      
-      $query = "UPDATE docrevision SET docrevision.productID = '$select_Product' ,docrevision.DocumentID = '$select_Doc',version = '$version' WHERE ID = '$ID' ";
+      $query = "UPDATE docrevision SET docrevision.productID = '$select_Product' ,docrevision.DocumentID = '$select_Doc',version = '$version' ,
+                docrevision.IsActive = '0', docrevision.RegistrationDate = '$bt_MFGDate', docrevision.ExpireDate = '$bt_ExpireDate' WHERE ID = '$ID' ";
       mysqli_query($conn, $query);
     }
   
@@ -375,6 +412,38 @@ function Save_FileDoc($conn)
                                        productdoc.ExpireDate = '$bt_ExpireDate' ,
                                        productdoc.UploadDate = NOW() ";
             mysqli_query($conn, $Sql);
+
+            $Sql_refNumber = "SELECT
+                            docproductlist.ID,
+                            docproductlist.DocumentID,
+                            docproductlist.ProductID,
+                            docproductlist.refNumber
+                          FROM
+                            docproductlist
+                            WHERE docproductlist.ProductID = '$select_Product'  
+                            AND docproductlist.DocumentID = '$select_Doc'";
+
+                          $meQuery_refNumber = mysqli_query($conn, $Sql_refNumber);
+                          $row_refNumber = mysqli_fetch_assoc($meQuery_refNumber);
+                          
+                          $ID_refNumber = $row_refNumber['ID'];
+
+
+                          if(empty($ID_refNumber)){
+                            $Sql = "INSERT INTO docproductlist SET docproductlist.ProductID = '$select_Product' , 
+                                       docproductlist.DocumentID = '$select_Doc',
+                                       docproductlist.refNumber = '$txt_Refcode' ";
+                           mysqli_query($conn, $Sql);
+                          }else{
+                           $query = "UPDATE docproductlist SET docproductlist.DocumentID = '$select_Doc' ,docproductlist.ProductID = '$select_Product', 
+                                      docproductlist.refNumber = '$txt_Refcode'  
+                                      WHERE ID = '$ID_refNumber' 
+                                      AND docproductlist.ProductID = '$select_Product'  
+                                      AND docproductlist.DocumentID = '$select_Doc' ";
+                            mysqli_query($conn, $query);
+                          }
+
+                          
 
 
 
@@ -432,6 +501,8 @@ function Save_product($conn)
 
 function Save_Doc($conn)
 {
+  
+  $select_DocDetail    = $_POST['select_DocDetail'];
 
   $txt_DocNo    = $_POST['txt_DocNo'];
   $txt_Doc_name    = $_POST['txt_Doc_name'];
@@ -450,29 +521,30 @@ function Save_Doc($conn)
                       WHERE  documentlist.DocNumber = '$txt_DocNo'
                     ";
 
-          $result = mysqli_query($conn, $Sql2);
-          $num_rows = mysqli_num_rows($result);
-          if($num_rows>0){
-          $return = "0";
-          }else{
+      $meQuery = mysqli_query($conn, $Sql2);
+      while ($row = mysqli_fetch_assoc($meQuery)) {
+        $return[] = $row;
 
+        
+      }
+      $query = "INSERT INTO documentlist 
+      SET documentlist.DocNumber = '$txt_DocNo',
+      documentlist.DocName = '$txt_Doc_name',
+      documentlist.SignificantFigure = '$txt_Doc_numbar',
 
-            $query = "INSERT INTO documentlist 
-                      SET documentlist.DocNumber = '$txt_DocNo',
-                      documentlist.DocName = '$txt_Doc_name',
-                      documentlist.SignificantFigure = '$txt_Doc_numbar',
-                      
-                      documentlist.Description = '$txt_detail',
-                      documentlist.DocType = '$StatusRadio',
-                      -- documentlist.DocType_Detail = '$select_doctype2',
-                      -- documentlist.productID = '$select_Product',
-                      
-                      documentlist.ModifyDate = NOW()
-                      ";
+      documentlist.Description = '$txt_detail',
+      documentlist.DocType = '$StatusRadio',
+      documentlist.DocType_Detail = '$select_DocDetail',
+      -- documentlist.productID = '$select_Product',
+      
+      documentlist.ModifyDate = NOW()
+      ";
 
-            $return = "เพิ่มข้อมูล สำเร็จ";
-            mysqli_query($conn, $query);
-          }
+$return = "เพิ่มข้อมูล สำเร็จ";
+mysqli_query($conn, $query);
+
+            
+          
             
     
  
@@ -499,12 +571,15 @@ function show_DataRight($conn)
             docrevision.fileName, 
             docrevision.version, 
             DATE_FORMAT(docrevision.UploadDate ,'%d-%m-%Y') AS UploadDate_R,
-            docrevision.DocumentID
+            docrevision.DocumentID,
+            productdoc.DocTypeID
           FROM
             docrevision
 
-            LEFT JOIN productdoc ON docrevision.productID = productdoc.ProductID
+            INNER JOIN productdoc ON docrevision.productID = productdoc.ProductID
+            -- LEFT JOIN docproductlist ON docproductlist.DocumentID = docrevision.DocumentID
           WHERE docrevision.DocumentID = 0
+          -- OR docrevision.IsActive = 1
           AND docrevision.fileName LIKE '%$Search_txt%' 
           GROUP BY docrevision.ID
           ORDER BY  docrevision.ID DESC

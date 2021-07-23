@@ -42,6 +42,7 @@
       success: function(result) {
         var ObjData = JSON.parse(result);
         $("#select_DocDetail_").empty();
+        
         var Str = "";
         Str += "<option value=0 >กรุณาเลือก ประเภทเอกสาร</option>";
 
@@ -61,6 +62,7 @@
                 $('.btn_deletedocc').show();
               }else{
                 $('#select_DocDetail_'+key).val(DocDetail_ID);
+                
               }
 
              
@@ -185,7 +187,6 @@
     var select_DocDetail = $('#select_DocDetail_'+key).val();
     var select_Product = $('#select_Product_'+key).val();
     var select_Doc = $('#select_Doc_'+key).val();
-    
     $.ajax({
       url: "process/upload_doc.php",
       type: 'POST',
@@ -199,16 +200,17 @@
         var ObjData = JSON.parse(result);
         $("#select_Doc_").empty();
         var Str = "";
+        // var txt_Refcode = "";
         Str += "<option value=0 >กรุณาเลือก หัวข้อเอกสาร</option>";
         if (!$.isEmptyObject(ObjData)) {
           $.each(ObjData, function(key, value) {
             Str += "<option value=" + value.ID + " >" + value.DocNumber + " : " + value.DocName + "</option>";
+
           });
         }
 
         Str += "<option value='@D'> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp --- เพิ่ม --- </option>";
 
-        // $("#select_Doc_"+key).attr('disabled', true);
         $("#select_Doc_"+key).html(Str);
 
 
@@ -224,6 +226,39 @@
     });
   }
   
+  function get_refNum(key) {
+    var select_Product = $('#select_Product_'+key).val();
+    var select_Doc = $('#select_Doc_'+key).val();
+    $.ajax({
+      url: "process/upload_doc.php",
+      type: 'POST',
+      data: {
+        'FUNC_NAME': 'get_refNum',
+        'select_Product':select_Product,
+        'select_Doc':select_Doc
+      },
+     
+      success: function(result) {
+        var ObjData = JSON.parse(result);
+       
+        
+        if (!$.isEmptyObject(ObjData)) {
+          $.each(ObjData, function(key, value) {
+            $( "#txt_Refcode_"+key).val(value.refNumber);
+          });
+        }
+        
+
+        if(value.refNumber==null || value.refNumber==""){
+
+            $("#txt_Refcode_"+key).empty();
+
+              }else{
+                $('#txt_Refcode_'+key).val(value.refNumber);
+              }
+      }
+    });
+  }
 
 
   function selection_Doc() {
@@ -315,19 +350,11 @@
   // show
   function show_DataLeft() {
     var  txtSearch = $('#txtSearch').val();
-    
-    // $("#home-tab").prop("selected", true);
     $('.nav-tabs a:first').tab('show') 
     
     $('#tb_Data_RR').hide();
     $('#tb_Data_LL').show();
 
-    // $("#little_exp").removeClass("bg-light");
-    // $("#little_exp").addClass("bg-lightblue");
-
-    // $("#little_exp2").removeClass("bg-lightblue");
-    // $("#little_exp2").addClass("bg-light");
-    
 
     var  select_doctype =  $("#select_doctype").val();
     var  select_product =  $("#select_product").val();
@@ -384,9 +411,7 @@
   var select_product= $('#select_product').val();
   var select_dochead= $('#select_dochead').val();
 
-  // alert(select_doctype);
-  // alert(select_product);
-  // alert(select_dochead);
+
   if(numm==1){
      
       
@@ -451,14 +476,23 @@
 
             var select_DocDetail = "<select style='width: 100%' class='form-control select2 select_DocDetaill' id='select_DocDetail_"+key+"'  onchange ='show_bt_save("+key+",1);'></select>";
             var select_Product = "<select style='width: 100%' class='form-control select2 select_Productt' id='select_Product_"+key+"' onchange ='show_bt_save("+key+",2);' disabled ></select>";
-            var select_Doc = "<select style='width: 100%' class='form-control select2 select_Docc' id='select_Doc_"+key+"' onchange ='show_bt_save("+key+");' disabled ></select>";
-           
-            var bt_MFGDate = " <input type='date'   class='form-control datepicker-here  bt_MFGDatee'  id='bt_MFGDate_"+key+"' onchange ='show_bt_save("+key+");' data-language='en' data-date-format='dd-mm-yyyy'  >";
-            var bt_ExpireDate = "<input type='date'  class='form-control datepicker-here  bt_ExpireDatee'  id='bt_ExpireDate_"+key+"' onchange ='show_bt_save("+key+");' data-language='en' data-date-format='dd-mm-yyyy'  >";
+            var select_Doc = "<select style='width: 100%' class='form-control select2 select_Docc' id='select_Doc_"+key+"' onchange ='show_bt_save("+key+",3);' disabled ></select>";
+            
+            // if(txt_Refcode == undefined){
+              var txt_Refcode = "<input type='text' style='width: 175px' class='form-control  '  id='txt_Refcode_"+key+"'  disabled >";
+            // }else{
+            // var txt_Refcode = "<input type='text' style='width: 175px' class='form-control  '  id='txt_Refcode_"+key+"' value="+value.refNumber+" disabled>";
+            //   }
+
+            var bt_MFGDate = " <input type='date' style='width: 175px'  class='form-control datepicker-here  bt_MFGDatee'  id='bt_MFGDate_"+key+"' onchange ='show_bt_save("+key+");' data-language='en' data-date-format='dd-mm-yyyy'  >";
+            var bt_ExpireDate = "<input type='date' style='width: 175px' class='form-control datepicker-here  bt_ExpireDatee'  id='bt_ExpireDate_"+key+"' onchange ='show_bt_save("+key+");' data-language='en' data-date-format='dd-mm-yyyy'  >";
 
             var bt_savedoc = "<button type='submit' class='btn btn-success btn_savedocc' id='btn_savedoc_"+key+"' onclick='Save_FileDoc("+key+","+value.ID+");'>บันทึก</button>";
             var bt_deletedoc = "<button type='submit' class='btn btn-danger btn_deletedocc' id='btn_deletedoc_"+key+"' onclick='chk_del("+key+","+value.ID+");'>ลบ</button>";
 
+            var btnSave_Doc = "<input type='text'  class='form-control  '  id='btnSave_Doc"+key+"' value="+value.DocDetail_ID+"  >";
+
+         
             StrTR += "<tr style='border-radius: 15px 15px 15px 15px;margin-top: 6px;margin-bottom: 6px;'>" +
               
               
@@ -466,6 +500,7 @@
               "<td style='width:5%;' >" + select_DocDetail + "</td>" +
               "<td style='width:5%;' >" + select_Product + "</td>" +
               "<td style='width:5%;' >" + select_Doc + "</td>" +
+              "<td style='width:5%;' >" + txt_Refcode + "</td>" +
               "<td style='width:5%;' >" + bt_MFGDate +"</td>" +
               "<td style='width:5%;' >" + bt_ExpireDate + "</td>" +
               "<td style='width:2%;' ><center>"+bt_savedoc + bt_deletedoc +"</center></td>" +
@@ -475,7 +510,7 @@
               selection_DocDetaill(key,value.DocDetail_ID);
               selection_PRODUCTT(key,value.Product_ID);
               selection_Docc(key,value.Doc_ID);
-
+              get_refNum(key);
               // check_selection();
           });
           
@@ -493,13 +528,15 @@
     });
   }
   
+  
+
 
   function show_bt_save(key,num) {
     var select_DocDetail = $('#select_DocDetail_'+key).val();
     var select_Product = $('#select_Product_'+key).val();
     var select_Doc = $('#select_Doc_'+key).val();
 
-    
+    var txt_Refcode = $('#txt_Refcode'+key).val();
     
     
 if(num == 1){
@@ -508,7 +545,8 @@ if(num == 1){
   if(select_DocDetail != 2){
         
         $('#select_Product_'+key).attr('disabled',false);
-        $('#select_Doc_'+key).attr('disabled',false);
+        // $('#select_Doc_'+key).attr('disabled',false);
+        $('#txt_Refcode_'+key).attr('disabled',false);
 
         $("#select2-select_Product_"+key +"-container").text("กรุณาเลือก Product");
         $("#select_Product_"+key ).val(0);
@@ -520,6 +558,7 @@ if(num == 1){
         selection_Docc(key);
         $('#select_Product_'+key).attr('disabled',true);
         $('#select_Doc_'+key).attr('disabled',false);
+        $('#txt_Refcode_'+key).attr('disabled',false);
 
         $("#select2-select_Product_"+key +"-container").text("ทุก Product");
         $("#select_Product_"+key ).val(0);
@@ -530,16 +569,20 @@ if(num == 1){
       }  
 
 }else if(num == 2){
+       $('#select_Doc_'+key).attr('disabled',false);
       selection_Docc(key); 
+      get_refNum(key);
         setTimeout(() => {
             if($('#select_Product_'+key).val() == '@P'){
               $("#Modaldetail_Product").modal('show');
             }
           
         }, 150);
-}else{
+}else {
+  if(num == 3){
+    get_refNum(key);
+  }
   
-
   setTimeout(() => {
       if($('#select_Doc_'+key).val() == '@D'){
         $("#Modaldetail_Doc").modal('show');
@@ -552,7 +595,7 @@ if(num == 1){
     var select_Doc = $('#select_Doc_'+key).val();
     var bt_MFGDate = $('#bt_MFGDate_'+key).val();
     var bt_ExpireDate = $('#bt_ExpireDate_'+key).val();
-  
+    var txt_Refcode = $('#txt_Refcode_'+key).val();
 
     if(select_DocDetail != 0 && select_Product != 0 && select_Doc != 0){
         if(bt_MFGDate != '' && bt_ExpireDate != ''){
@@ -579,8 +622,6 @@ if(num == 1){
 var txt_item_code = $('#txt_item_code').val();
 var txt_item_name = $('#txt_item_name').val();
 
-// alert(txt_item_code);
-// alert(txt_item_name);
 var text = "";
 
     if (txt_item_code == "") {
@@ -617,16 +658,42 @@ var text = "";
 
 }
 
-function Save_Doc(key,mID) {
-    var select_DocDetail = $('#select_DocDetail_'+key).val();
-    var select_Product = $('#select_Product_'+key).val();
+$("#btnSave_Doc").click(function() {
+
+        $.confirm({
+          title: 'แจ้งเตือน!',
+          content: 'ต้องการจะเพิ่มข้อมูล ใช่ หรือ ไม่?',
+          type: 'orange',
+          autoClose: 'cancel|8000',
+          buttons: {
+            cancel:  {
+              text: 'ยกเลิก'
+            },
+            confirm: {
+              btnClass: 'btn-primary',
+              text: 'ตกลง',
+              action: function() {
+                // selection_DocDetaill(value.DocDeta/il_ID);
+                Save_Doc();
+              }
+            }
+          }
+        });
+});
+
+function Save_Doc() {
+
+  // selection_DocDetaill(value.DocDetail_ID);
+    var select_DocDetail = selection_DocDetaill();
+    
+
+    var select_Product = $('#select_Product_').val();
 
       var txt_DocNo= $('#txt_DocNo').val();
       var txt_Doc_name= $('#txt_Doc_name').val();
       var txt_Doc_numbar= $('#txt_Doc_numbar').val();
 
       var txt_detail= $('#txt_detail').val();
-
 
       if(document.getElementById("StatusRadio1").checked == true && document.getElementById("StatusRadio2").checked == false ){
         var StatusRadio = 1
@@ -662,7 +729,9 @@ function Save_Doc(key,mID) {
           'txt_Doc_numbar': txt_Doc_numbar,
           'txt_detail': txt_detail,
           'StatusRadio': StatusRadio,
-        'ID':ID
+          'select_Product': select_Product,
+          'StatusRadio': StatusRadio
+            // 'ID':ID
       },
       success: function(result) {
 
@@ -674,7 +743,7 @@ function Save_Doc(key,mID) {
           $('#txt_Doc_numbar').val("");
           $('#txt_detail').val("");
         $("#Modaldetail_Doc").modal('hide');
-        show_DataRight();
+        // show_DataRight();
 
       }
     });
@@ -690,6 +759,8 @@ function Save_Doc(key,mID) {
     var bt_MFGDate = $('#bt_MFGDate_'+key).val();
     var bt_ExpireDate = $('#bt_ExpireDate_'+key).val();
 
+    var txt_Refcode = $('#txt_Refcode_'+key).val();
+
     var select_product = $("#select_product").val();
 
         $.ajax({
@@ -703,6 +774,7 @@ function Save_Doc(key,mID) {
             'bt_MFGDate':bt_MFGDate,
             'bt_ExpireDate':bt_ExpireDate,
             'select_product': select_product,
+            'txt_Refcode': txt_Refcode,
             'ID': ID
           },
           success: function(result) {

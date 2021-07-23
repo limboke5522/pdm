@@ -5,11 +5,14 @@ require '../connect/connect.php';
 
 $sendDocNo = $_POST['sendDocNo'];
 $email = $_POST['email'];
+$boxArea = $_POST['boxArea'];
 
 $Sql_item = "SELECT
 				send_doc_detail.ProductID,
 				product.ProductName,
-				purpose.Purpose 
+				purpose.Purpose,
+				send_doc.Memo,
+				send_doc.Memo_Headdoc
 				FROM
 				send_doc
 				INNER JOIN send_doc_detail ON send_doc.SendDocNo = send_doc_detail.SendDocNo
@@ -28,6 +31,7 @@ while ($Result = mysqli_fetch_assoc($meQuery_item)) {
 	$Purpose = 	$Result['Purpose'];
 	$ProductID[$count] = 	$Result['ProductID'];
 	$ProductName[$count] = 	$Result['ProductName'];
+	
 
 	$ProductID_detail = 	$Result['ProductID'];
 
@@ -53,6 +57,7 @@ while ($Result = mysqli_fetch_assoc($meQuery_item)) {
 
 			$DocName_detail[$count][$count_detail] = 	$Result_item_detail['DocName'];
 			$version_detail[$count][$count_detail] = 	$Result_item_detail['version'];
+
 			$count_detail++;
 			$count_detail2[$count]++;
 		}
@@ -64,7 +69,9 @@ $Sql_item = "SELECT
 				productdoc.ID_FileDoc,
 				docrevision.fileName,
 				docrevision.version,
-				product.ProductName 
+				product.ProductName,
+				send_doc.Memo,
+				send_doc.Memo_Headdoc
 				FROM
 				send_doc
 				INNER JOIN send_doc_detail ON send_doc.SendDocNo = send_doc_detail.SendDocNo
@@ -79,8 +86,12 @@ $meQuery_item = mysqli_query($conn, $Sql_item);
 $count_file=0;
 while ($Result = mysqli_fetch_assoc($meQuery_item)) {
 	$ProductNameFile[$count_file] = $Result['ProductName'];
+	
 	$ID_FileDoc[$count_file] = 	$Result['ID_FileDoc'];
 	$fileName[$count_file] = 	$Result['fileName'];
+
+	$Memo = 	$Result['Memo'];
+	$Memo_Headdoc = 	$Result['Memo_Headdoc'];
 	$count_file++;
 }
 
@@ -103,7 +114,7 @@ $gmail_password = "a0831529878"; // รหัสผ่าน gmail
 $sender = "POSEINT"; // ชื่อผู้ส่ง
 $email_sender = "janekootest@gmail.com"; // เมล์ผู้ส่ง 
 $email_receiver = $email; // เมล์ผู้รับ ***
-
+$email_box22 =$box22;
 $subject = $Purpose; // หัวข้อเมล์
 
 
@@ -116,37 +127,46 @@ $c=1;
 for($j=0;$j<$count_file;$j++){
 	$file_name= $fileName[$j];
 	$producname = $ProductNameFile[$j];
+
 	$filename_TH = iconv("UTF-8", "TIS-620", $file_name);
-	// $mail->addAttachment('file/'.$filename_TH, $c.".".$producname."_".$file_name);// แทรกไฟล์  LOCAL *****
+	// $filename_TH = $fileName[$j];
+	// $mail->addAttachment('file/'.$filename_TH, $c.".".$producname."_".$filename_TH);// แทรกไฟล์  LOCAL *****
 	$mail->addAttachment('file/'.$file_name, $c.".".$producname."_".$file_name);// แทรกไฟล์ SERVER *****
 	$c++;
 }
 
 $mail->Subject = $subject;
+		
 
-$email_content = "
-	<!DOCTYPE html>
-	<html>
-		<head>
-			<meta charset=utf-8'/>
-			<title></title>
-		</head>
-		<body><h1>รายการสินค้า</h1>";
-$NO=1;
-for($i=0;$i<$count;$i++){
-	$email_content .="<h4>".$NO.". ".$ProductName[$i]."</h4>";
-		$NO_detail=1;
-		for($j=0;$j<$count_detail2[$i];$j++){
-			$email_content .="<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;".$NO_detail.". ".$DocName_detail[$i][$j]."</h6>";
-			$NO_detail++;
-		}
-	$NO++;
-}
-	
+		$email_content = "
+			<!DOCTYPE html>
+			<html>
+				<head>
+					<meta charset=utf-8'/>
+					<title></title>
+				</head>
+				<body> ";
+		
+		// $email_content .="<h1>รายการสินค้า</h1>";
+// $NO=1;
+// for($i=0;$i<$count;$i++){
+// 	$email_content .="<h4>".$NO.". ".$ProductName[$i]."</h4>";
+// 		$NO_detail=1;
+// 		for($j=0;$j<$count_detail2[$i];$j++){
+// 			$email_content .="<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;".$NO_detail.". ".$DocName_detail[$i][$j]."</h6>";
+
+// 			$NO_detail++;
+// 		}
+// 	$NO++;
+// }
+
+$email_content .=$boxArea;
 
 $email_content .="	</body>
 	</html>
 ";
+
+
 
 //  ถ้ามี email ผู้รับ
 if($email_receiver){
@@ -158,7 +178,7 @@ if($email_receiver){
 		echo $mail->ErrorInfo; // ข้อความ รายละเอียดการ error
 	}else{
 		// กรณีส่ง email สำเร็จ
-		echo "ระบบได้ทำการส่ง E-Mail ไปเรียบร้อยลแล้ว";
+		echo "ระบบได้ทำการส่ง E-Mail ไปเรียบร้อยแล้ว";
 	}	
 }
 

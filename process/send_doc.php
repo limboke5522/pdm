@@ -25,6 +25,12 @@ if (!empty($_POST['FUNC_NAME'])) {
     selection_DocDetail($conn);
   }else if ($_POST['FUNC_NAME'] == 'showDocTypeID') {
     showDocTypeID($conn);
+  }else if ($_POST['FUNC_NAME'] == 'show_Preview') {
+    show_Preview($conn);
+  }else if ($_POST['FUNC_NAME'] == 'saveData_Preview') {
+    saveData_Preview($conn);
+  }else if ($_POST['FUNC_NAME'] == 'showFooter') {
+    showFooter($conn);
   }
 }
 
@@ -314,6 +320,7 @@ function save_sendDoc($conn)
   $select_contact    = $_POST['select_contact'];
   $email             = $_POST['email'];
   $txt_remark        = $_POST['txt_remark'];
+  $txt_headdoc        = $_POST['txt_headdoc'];
   $productID         = $_POST['productID'];
   $DocID             = $_POST['DocID'];
   $Copy_doc             = $_POST['Copy_doc'];
@@ -336,6 +343,7 @@ function save_sendDoc($conn)
                   Subject = '$select_subject',
                   Copy_doc = '$Copy_doc',
                   Memo = '$txt_remark',
+                  Memo_Headdoc = '$txt_headdoc',
                   DocDate = NOW(),
                   email = '$email'
           ";
@@ -405,6 +413,107 @@ function saveData2($conn)
   unset($conn);
   die;
 }
+function show_Preview($conn)
+{
+  $POSEINT = $_POST["POSEINT"];
+$date_upload = $_POST["date_upload"];
+$send_name = $_POST["send_name"];
+$memo_headdoc = $_POST["memo_headdoc"];
+$head_list_items = $_POST["head_list_items"];
+$list_items = $_POST["list_items"];
+$file_items = $_POST["file_items"];
+$memo = $_POST["memo"];
 
+$Sql = "SELECT	LPAD( ( COALESCE ( MAX( CONVERT ( SUBSTRING( SendDocNo, 2, 6 ), UNSIGNED INTEGER )), 0 )+ 0 ), 7, 0 ) AS SendDocNo 
+FROM
+  send_doc 
+ORDER BY
+  SendDocNo DESC 
+  LIMIT 1";
+$meQuery = mysqli_query($conn, $Sql);
+$row = mysqli_fetch_assoc($meQuery);
+$sendDocNo = $row['SendDocNo'];
 
+      $Sqll = "SELECT
+              productdoc.ID_FileDoc,
+              docrevision.fileName,
+              docrevision.version,
+              documentlist.DocName,
+              product.ProductName,
+              send_doc.DocDate,
+              send_doc.email,
+              send_doc.Memo,
+              send_doc.Memo_Headdoc
+              FROM
+              send_doc
+              INNER JOIN send_doc_detail ON send_doc.SendDocNo = send_doc_detail.SendDocNo
+              INNER JOIN productdoc ON send_doc_detail.Product_DocID = productdoc.ID
+              INNER JOIN docrevision ON productdoc.ID_FileDoc = docrevision.ID
+              INNER JOIN documentlist ON docrevision.DocumentID = documentlist.ID 
+              INNER JOIN product ON send_doc_detail.ProductID = product.ID 
+              WHERE
+              send_doc.SendDocNo = '$sendDocNo'
+              ORDER BY  product.ProductName ASC   ";
+
+// echo $Sqll;
+  $meQuery = mysqli_query($conn, $Sqll);
+  while ($row = mysqli_fetch_assoc($meQuery)) {
+    $return[] = $row;
+  }
+  echo json_encode($return);
+  mysqli_close($conn);
+  die;
+}
+
+function showFooter($conn)
+{
+
+  $footer_title = $_POST["footer_title"];
+  $f_l_name = $_POST["f_l_name"];
+  $Tel = $_POST["Tel"];
+
+          $Sqlluser = "SELECT
+                        employee.fname,
+                        employee.lname,
+                        footer_sendemail.footer_title,
+                        footer_sendemail.telephone_organization
+                        FROM
+                        user
+                        INNER JOIN employee ON `user`.ID = employee.emp_code
+                        INNER JOIN footer_sendemail ON employee.footer_code = footer_sendemail.footer_code
+                        WHERE `user`.ID = '1'   ";
+
+        // echo $Sqlluser;
+        $meQuery = mysqli_query($conn, $Sqlluser);
+        while ($row = mysqli_fetch_assoc($meQuery)) {
+        $return[] = $row;
+        }
+        echo json_encode($return);
+        mysqli_close($conn);
+        die;
+}
+
+function saveData_Preview($conn)
+{
+$memo_headdoc = $_POST["memo_headdoc"];
+$memo = $_POST["memo"];
+
+$Sql = "SELECT	LPAD( ( COALESCE ( MAX( CONVERT ( SUBSTRING( SendDocNo, 2, 6 ), UNSIGNED INTEGER )), 0 )+ 0 ), 7, 0 ) AS SendDocNo 
+FROM
+  send_doc 
+ORDER BY
+  SendDocNo DESC 
+  LIMIT 1";
+$meQuery = mysqli_query($conn, $Sql);
+$row = mysqli_fetch_assoc($meQuery);
+$sendDocNo = $row['SendDocNo'];
+
+      $query = "UPDATE send_doc SET send_doc.Memo = '$memo' ,send_doc.Memo_Headdoc = '$memo_headdoc'  WHERE send_doc.SendDocNo = '$sendDocNo' ";
+      mysqli_query($conn, $query);
+
+      $return = $sendDocNo;
+  echo json_encode($return);
+  mysqli_close($conn);
+  die;
+}
 

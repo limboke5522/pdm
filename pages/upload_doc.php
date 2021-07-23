@@ -114,6 +114,7 @@
                             <th  style='width:5%;' class="bg_tableAll">ประเภทเอกสาร</th>
                             <th  style='width:5%;' class="bg_tableAll">Product</th>
                             <th  style='width:5%;' class="bg_tableAll">หัวข้อเอกสาร</th>
+                            <th  style='width:5%;' class="bg_tableAll">Ref Doc</th>
                             <th  style='width:5%;' class="bg_tableAll">วันที่ผลิตเอกสาร</th>
                             <th  style='width:5%;' class="bg_tableAll">วันหมดอายุ</th>
                             <!-- <th  class="bg_tableAll">วันที่อัปโหลด</th> -->

@@ -139,7 +139,14 @@
                              </a>
                          </li>
                      </ul>
-
+                     <ul class="nav nav-treeview ul_system" style="display: none;">
+                         <li class="nav-item">
+                             <a href="index.php?page=email_sender" class="nav-link " id="email_sender">
+                                 <!-- <i class="fas fa-cogs"></i> -->
+                                 <p>จัดการข้อมูลผู้ส่ง E-mail</p>
+                             </a>
+                         </li>
+                     </ul>
                  </li>
 
                  <li class="nav-item has-treeview " id="li_permission">
