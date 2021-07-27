@@ -88,20 +88,28 @@ function selection_Product($conn)
   $select_dochead = $_POST["select_dochead"];
 
   $Sql = "SELECT
-            product.ID, 
-            product.ProductCode, 
+            product.ID,
+            product.ProductCode,
             product.ProductName,
-            documentlist.DocType_Detail,
-            documentlist.productID
+                      documentlist.DocType_Detail,
+                      documentlist.productID
           FROM
-            product
-          INNER JOIN documentlist ON product.ID = documentlist.productID
-            WHERE product.IsCancel = 0
-            AND documentlist.DocType_Detail = '$select_doctype'
-            GROUP BY product.ProductName
-            ORDER BY  product.ProductName ASC
-       ";
+          documentlist
+          LEFT JOIN docrevision ON documentlist.ID = docrevision.DocumentID
+          LEFT JOIN product ON docrevision.productID = product.ID
+          INNER JOIN productdoc ON docrevision.ID = productdoc.ID_FileDoc
+          INNER JOIN doctype_detail ON productdoc.DocTypeID = doctype_detail.ID
 
+          WHERE
+            product.IsCancel = 0
+          AND documentlist.DocType_Detail = '$select_doctype'
+          GROUP BY
+            product.ProductName
+          ORDER BY
+            product.ProductName ASC
+       ";
+ 
+//  echo $Sql;
   $meQuery = mysqli_query($conn, $Sql);
   while ($row = mysqli_fetch_assoc($meQuery)) {
     $return[] = $row;
@@ -154,9 +162,9 @@ function selection_Doc($conn)
   $select_dochead = $_POST["select_dochead"];
 
   if($select_doctype == 2){
-    $ANDdoc_pro = "AND documentlist.productID = 0 ";
+    $ANDdoc_pro = "AND productdoc.productID = 0 ";
   }else{
-    $ANDdoc_pro = "AND documentlist.productID = '$select_product' ";
+    $ANDdoc_pro = "AND productdoc.productID = '$select_product' ";
   
   }
   $Sql2 = "SELECT
@@ -166,8 +174,12 @@ function selection_Doc($conn)
             documentlist.DocType_Detail,
             documentlist.productID
           FROM
-            documentlist
-        
+          documentlist
+          LEFT JOIN docrevision ON documentlist.ID = docrevision.DocumentID
+          LEFT JOIN product ON docrevision.productID = product.ID
+          INNER JOIN productdoc ON docrevision.ID = productdoc.ID_FileDoc
+          INNER JOIN doctype_detail ON productdoc.DocTypeID = doctype_detail.ID
+
           WHERE documentlist.IsCancel = 0
           AND documentlist.DocType_Detail = '$select_doctype'
 					$ANDdoc_pro

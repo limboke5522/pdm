@@ -350,6 +350,17 @@
                                 
                           
                           </textarea>
+                                <!-- <div id="standalone-container">
+                                        <div id="box22" class="ql-container ql-snow">
+                                            <div class="ql-editor ql-blank" data-gramm="false" contenteditable="true" data-placeholder="Compose an epic..."><p><br></p></div>
+                                            <div class="ql-clipboard" contenteditable="true" tabindex="-1"></div>
+                                                <label  id="headdoc" ></label><br> 
+                                                <label style="margin-left: 30px; "> รายการสินค้า </label><br>
+                                                
+                                                <label  id="memoo" ></label>
+                                                
+                                          </div>
+                                  </div>         -->
                           </div>
                       
                     </div>

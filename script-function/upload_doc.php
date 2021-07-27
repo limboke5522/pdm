@@ -178,6 +178,8 @@
 
         
         $("#select_product").append(Str2);
+        
+
       }
     });
   }
@@ -350,10 +352,10 @@
   // show
   function show_DataLeft() {
     var  txtSearch = $('#txtSearch').val();
-    $('.nav-tabs a:first').tab('show') 
+    // $('.nav-tabs a:first').tab('show') 
     
     $('#tb_Data_RR').hide();
-    $('#tb_Data_LL').show();
+    // $('#tb_Data_LL').show();
 
 
     var  select_doctype =  $("#select_doctype").val();
@@ -448,15 +450,9 @@
 
   function show_DataRight() {
     var  txtSearch2 = $('#txtSearch2').val();
-    // $('#home-tab').selected();
     $('#tb_Data_RR').show();
     $('#tb_Data_LL').hide();
 
-    // $("#little_exp").removeClass("bg-lightblue");
-    // $("#little_exp").addClass("bg-light");
-
-    // $("#little_exp2").removeClass("bg-light");
-    // $("#little_exp2").addClass("bg-lightblue");
     
     $.ajax({
       url: "process/upload_doc.php",
@@ -781,7 +777,7 @@ function Save_Doc() {
 
             showDialogSuccess(result);
             $('#btn_savedoc_'+key).hide();
-            show_DataLeft();
+            // show_DataLeft();
             show_DataRight();
 
           }
