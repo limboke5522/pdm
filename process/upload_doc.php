@@ -31,6 +31,8 @@ if (!empty($_POST['FUNC_NAME'])) {
     Save_Doc($conn);
   }else   if ($_POST['FUNC_NAME'] == 'get_refNum') {
     get_refNum($conn);
+  }else   if ($_POST['FUNC_NAME'] == 'selection_DocDetaill_popup') {
+    selection_DocDetaill_popup($conn);
   }
 
   
@@ -41,11 +43,12 @@ if (!empty($_POST['FUNC_NAME'])) {
 function selection_DocDetail($conn){
   $Sql = "SELECT
             doctype_detail.ID,
-            doctype_detail.TypeDetail_Name 
+            doctype_detail.TypeDetail_Name ,
+            doctype_detail.SortNo
           FROM
             doctype_detail
             WHERE doctype_detail.IsCancel = 0
-            ORDER BY  doctype_detail.TypeDetail_Name ASC
+            ORDER BY  doctype_detail.SortNo ASC
        ";
 
 $meQuery = mysqli_query($conn, $Sql);
@@ -70,6 +73,28 @@ function selection_DocDetaill($conn){
             ORDER BY  doctype_detail.SortNo ASC
        ";
 
+$meQuery = mysqli_query($conn, $Sql);
+while ($row = mysqli_fetch_assoc($meQuery)) {
+$return[] = $row;
+}
+
+
+echo json_encode($return);
+mysqli_close($conn);
+die;
+}
+
+function selection_DocDetaill_popup($conn){
+
+  $Sql = "SELECT
+            doctype_detail.ID,
+            doctype_detail.TypeDetail_Name,
+            doctype_detail.SortNo
+          FROM
+            doctype_detail
+            WHERE doctype_detail.IsCancel = 0
+            ORDER BY  doctype_detail.SortNo ASC
+       ";
 $meQuery = mysqli_query($conn, $Sql);
 while ($row = mysqli_fetch_assoc($meQuery)) {
 $return[] = $row;
@@ -208,22 +233,30 @@ function selection_Docc($conn)
   $select_Doc = $_POST["select_Doc"];
 
   if($select_DocDetail == 2){
-    $ANDdoc_pro = "AND documentlist.productID = 0 ";
+    $ANDdoc_pro = "AND productdoc.productID = 0 ";
   }else{
-    $ANDdoc_pro = "AND documentlist.productID = '$select_Product' ";
+    $ANDdoc_pro = "AND productdoc.productID = '$select_Product' ";
   
   }
 
   $Sql = "SELECT
-            documentlist.ID,
+             documentlist.ID,
             documentlist.DocNumber,
-            documentlist.DocName
+            documentlist.DocName,
+            documentlist.DocType_Detail,
+            documentlist.productID
           FROM
             documentlist
-            -- INNER JOIN docproductlist ON documentlist.ID = docproductlist.DocumentID
+
+            LEFT JOIN docrevision ON documentlist.ID = docrevision.DocumentID
+            LEFT JOIN product ON docrevision.productID = product.ID
+            INNER JOIN productdoc ON docrevision.ID = productdoc.ID_FileDoc
+            INNER JOIN doctype_detail ON productdoc.DocTypeID = doctype_detail.ID
+
           WHERE documentlist.IsCancel = 0
           AND documentlist.DocType_Detail = '$select_DocDetail'
-					
+          AND productdoc.ProductID = '$select_Product'
+					GROUP BY documentlist.DocNumber
             ORDER BY  documentlist.DocNumber ASC
        ";
 // echo $Sql;
@@ -516,6 +549,7 @@ function Save_Doc($conn)
   
   $select_DocDetail    = $_POST['select_DocDetail'];
 
+  $select_doctype_popup    = $_POST['select_doctype_popup'];
   $txt_DocNo    = $_POST['txt_DocNo'];
   $txt_Doc_name    = $_POST['txt_Doc_name'];
   $txt_Doc_numbar     = $_POST['txt_Doc_numbar'];
@@ -546,7 +580,7 @@ function Save_Doc($conn)
 
       documentlist.Description = '$txt_detail',
       documentlist.DocType = '$StatusRadio',
-      documentlist.DocType_Detail = '$select_DocDetail',
+      documentlist.DocType_Detail = '$select_doctype_popup',
       -- documentlist.productID = '$select_Product',
       
       documentlist.ModifyDate = NOW()

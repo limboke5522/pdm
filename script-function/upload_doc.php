@@ -11,6 +11,8 @@
     selection_DocDetail();
     selection_DocDetaill();
 
+    selection_DocDetaill_popup();
+
     selection_Product();
     // selection_PRODUCTT();
 
@@ -18,6 +20,7 @@
     // selection_Docc();
 
     show_DataLeft();
+    // show_DataRight();
     $(".select2").select2();
 
     $("#StatusRadio1").prop("checked", true);
@@ -31,18 +34,17 @@
     });
   })
 
-  function selection_DocDetaill(key,DocDetail_ID) {
+  function selection_DocDetaill_popup() {
+    // alert(select_DocDetail);
     $.ajax({
       url: "process/upload_doc.php",
       type: 'POST',
       data: {
-        'FUNC_NAME': 'selection_DocDetaill'
-        // 'select_Doc_': $("#select_Doc_").val()
+        'FUNC_NAME': 'selection_DocDetaill_popup'
       },
       success: function(result) {
         var ObjData = JSON.parse(result);
-        $("#select_DocDetail_").empty();
-        
+        $("#select_doctype_popup").empty();
         var Str = "";
         Str += "<option value=0 >กรุณาเลือก ประเภทเอกสาร</option>";
 
@@ -52,9 +54,35 @@
           });
         }
 
+        $("#select_doctype_popup").html(Str);
+           
+      }
+    });
+  }
 
+  function selection_DocDetaill(key,DocDetail_ID) {
+    
+    $.ajax({
+      url: "process/upload_doc.php",
+      type: 'POST',
+      data: {
+        'FUNC_NAME': 'selection_DocDetaill'
+      },
+      success: function(result) {
+        var ObjData = JSON.parse(result);
+        $("#select_DocDetail_").empty();
+        var Str = "";
+        Str += "<option value=0 >กรุณาเลือก ประเภทเอกสาร</option>";
+
+        if (!$.isEmptyObject(ObjData)) {
+          $.each(ObjData, function(key, value) {
+            Str += "<option value=" + value.ID + " >" + value.TypeDetail_Name + "</option>";
+          });
+        }
+
+        $("#txt_Refcode_"+key).val("");
         $("#select_DocDetail_"+key).html(Str);
-
+        
         
 
               if(DocDetail_ID==null || DocDetail_ID==0){
@@ -62,7 +90,6 @@
                 $('.btn_deletedocc').show();
               }else{
                 $('#select_DocDetail_'+key).val(DocDetail_ID);
-                
               }
 
              
@@ -135,7 +162,7 @@
 
         // $("#select_Product_"+key).attr('disabled', true);
         $("#select_Product_"+key).html(Str);
-
+        $('#select_Product_'+key).val(0);
 
               if(Product_ID==null || Product_ID==0){
                 $('#select_Product_'+key).val(0);
@@ -189,6 +216,8 @@
     var select_DocDetail = $('#select_DocDetail_'+key).val();
     var select_Product = $('#select_Product_'+key).val();
     var select_Doc = $('#select_Doc_'+key).val();
+    
+    
     $.ajax({
       url: "process/upload_doc.php",
       type: 'POST',
@@ -206,7 +235,16 @@
         Str += "<option value=0 >กรุณาเลือก หัวข้อเอกสาร</option>";
         if (!$.isEmptyObject(ObjData)) {
           $.each(ObjData, function(key, value) {
-            Str += "<option value=" + value.ID + " >" + value.DocNumber + " : " + value.DocName + "</option>";
+
+            var number = "<p text-align: center;'>" + value.DocNumber + "</p>" ;
+
+            if(value.DocNumber == null){
+               number = "<p text-align: center;'></p>" ;
+            }else{
+               number = "<p text-align: center;'>" + value.DocNumber + " : " + "</p>" ;
+            }
+
+            Str += "<option value=" + value.ID + " >" + number + value.DocName + "</option>";
 
           });
         }
@@ -214,9 +252,9 @@
         Str += "<option value='@D'> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp --- เพิ่ม --- </option>";
 
         $("#select_Doc_"+key).html(Str);
+        
 
-
-              if(Doc_ID==null || Doc_ID==0){
+              if(Doc_ID==undefined || Doc_ID==0){
                 $('#select_Doc_'+key).val(0);
                 $('.btn_deletedocc').show();
               }else{
@@ -231,6 +269,7 @@
   function get_refNum(key) {
     var select_Product = $('#select_Product_'+key).val();
     var select_Doc = $('#select_Doc_'+key).val();
+    $("#txt_Refcode_"+key).val("");
     $.ajax({
       url: "process/upload_doc.php",
       type: 'POST',
@@ -253,7 +292,7 @@
 
         if(value.refNumber==null || value.refNumber==""){
 
-            $("#txt_Refcode_"+key).empty();
+            $("#txt_Refcode_"+key).val("");
 
               }else{
                 $('#txt_Refcode_'+key).val(value.refNumber);
@@ -284,10 +323,22 @@
         var ObjData = JSON.parse(result);
         $("#select_dochead").empty();
         var Str2 = "";
+        
+
         Str2 += "<option value=0 >กรุณาเลือก หัวข้อเอกสาร</option>";
         if (!$.isEmptyObject(ObjData)) {
           $.each(ObjData, function(key, value) {
-            Str2 += "<option value=" + value.ID + " >" + value.DocNumber + " : " + value.DocName + "</option>";
+
+            var number = "<p text-align: center;'>" + value.DocNumber + "</p>" ;
+
+            if(value.DocNumber == null){
+               number = "<p text-align: center;'></p>" ;
+            }else{
+              number = "<p text-align: center;'>" + value.DocNumber + " : " + "</p>" ;
+            }
+
+
+            Str2 += "<option value=" + value.ID + " >" + number + value.DocName + "</option>";
           });
         }
 
@@ -380,9 +431,20 @@
           $.each(ObjData, function(key, value) {
 
             var btn_preview = '<a href="javascript:void(0)"  onclick="preview(\'' + value.fileName + '\');"><img src="img/pdf.png" style="width:35px;"></a>';
+            var number = "<p text-align: center;'>" + value.DocNumber + "</p>" ;
 
+            if(value.DocNumber == null){
+               number = "<p text-align: center;'></p>" ;
+            }else{
+               number = "<p text-align: center;'>" + value.DocNumber + "</p>" ;
+            }
             StrTR += "<tr style='border-radius: 15px 15px 15px 15px;margin-top: 6px;margin-bottom: 6px;'>" +
-              "<td style='width:10%;text-align: center;'>" + value.DocNumber + "</td>" +
+
+            // if(value.DocNumber == ""){
+            //   "<td style='width:10%;text-align: center;'></td>" +
+            // }else{
+              "<td style='width:10%;text-align: center;'>" + number + "</td>" +
+            // }
               "<td style='width:15%;text-align: center;'>" + value.DocName + "</td>" +
               "<td style='width:15%;text-align: center;'>" + value.ProductName + "</td>" +
               "<td style='width:15%;text-align: center;'>" + value.TypeDetail_Name + "</td>" +
@@ -473,12 +535,8 @@
             var select_DocDetail = "<select style='width: 100%' class='form-control select2 select_DocDetaill' id='select_DocDetail_"+key+"'  onchange ='show_bt_save("+key+",1);'></select>";
             var select_Product = "<select style='width: 100%' class='form-control select2 select_Productt' id='select_Product_"+key+"' onchange ='show_bt_save("+key+",2);' disabled ></select>";
             var select_Doc = "<select style='width: 100%' class='form-control select2 select_Docc' id='select_Doc_"+key+"' onchange ='show_bt_save("+key+",3);' disabled ></select>";
-            
-            // if(txt_Refcode == undefined){
-              var txt_Refcode = "<input type='text' style='width: 175px' class='form-control  '  id='txt_Refcode_"+key+"'  disabled >";
-            // }else{
-            // var txt_Refcode = "<input type='text' style='width: 175px' class='form-control  '  id='txt_Refcode_"+key+"' value="+value.refNumber+" disabled>";
-            //   }
+
+            var txt_Refcode = "<input type='text' style='width: 175px' class='form-control  '  id='txt_Refcode_"+key+"' disabled >";
 
             var bt_MFGDate = " <input type='date' style='width: 175px'  class='form-control datepicker-here  bt_MFGDatee'  id='bt_MFGDate_"+key+"' onchange ='show_bt_save("+key+");' data-language='en' data-date-format='dd-mm-yyyy'  >";
             var bt_ExpireDate = "<input type='date' style='width: 175px' class='form-control datepicker-here  bt_ExpireDatee'  id='bt_ExpireDate_"+key+"' onchange ='show_bt_save("+key+");' data-language='en' data-date-format='dd-mm-yyyy'  >";
@@ -507,6 +565,7 @@
               selection_PRODUCTT(key,value.Product_ID);
               selection_Docc(key,value.Doc_ID);
               get_refNum(key);
+
               // check_selection();
           });
           
@@ -519,7 +578,7 @@
         $(".select2").select2();
         $('.btn_savedocc').hide();
         $('.btn_deletedocc').hide();
-       
+        
       }
     });
   }
@@ -533,11 +592,13 @@
     var select_Doc = $('#select_Doc_'+key).val();
 
     var txt_Refcode = $('#txt_Refcode'+key).val();
-    
-    
+
+   
+
 if(num == 1){
-
-
+  selection_Docc(key);
+  selection_PRODUCTT(key);
+  $("#txt_Refcode_"+key).val("");
   if(select_DocDetail != 2){
         
         $('#select_Product_'+key).attr('disabled',false);
@@ -563,6 +624,8 @@ if(num == 1){
         $("#select_Doc_"+key ).val(0);
         
       }  
+      $("#select_Product_"+key ).val(0);
+      $("#select_Doc_"+key ).val(0);
 
 }else if(num == 2){
        $('#select_Doc_'+key).attr('disabled',false);
@@ -576,6 +639,10 @@ if(num == 1){
         }, 150);
 }else {
   if(num == 3){
+    // if(select_Product == 0){
+    //   selection_Docc(key);
+    // }
+
     get_refNum(key);
   }
   
@@ -681,9 +748,10 @@ function Save_Doc() {
 
   // selection_DocDetaill(value.DocDetail_ID);
     var select_DocDetail = selection_DocDetaill();
-    
-
+     
     var select_Product = $('#select_Product_').val();
+
+    var select_doctype_popup = $('#select_doctype_popup').val();
 
       var txt_DocNo= $('#txt_DocNo').val();
       var txt_Doc_name= $('#txt_Doc_name').val();
@@ -698,6 +766,12 @@ function Save_Doc() {
       }
 
     var text = "";
+
+    if (select_doctype_popup == 0) {
+      text = "กรุณาเลือกประเภทเอกสาร";
+      showDialogFailed(text);
+      return;
+    }
 
     if (txt_DocNo == "") {
       text = "กรุณากรอกรหัสเอกสาร";
@@ -726,7 +800,8 @@ function Save_Doc() {
           'txt_detail': txt_detail,
           'StatusRadio': StatusRadio,
           'select_Product': select_Product,
-          'StatusRadio': StatusRadio
+          'StatusRadio': StatusRadio,
+          'select_doctype_popup': select_doctype_popup
             // 'ID':ID
       },
       success: function(result) {
@@ -738,6 +813,7 @@ function Save_Doc() {
           $('#txt_Doc_name').val("");
           $('#txt_Doc_numbar').val("");
           $('#txt_detail').val("");
+          $('#select_doctype_popup').val(0);
         $("#Modaldetail_Doc").modal('hide');
         // show_DataRight();
 

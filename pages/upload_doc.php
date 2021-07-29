@@ -178,40 +178,49 @@
                 <!-- <div class="row  mt-2 mb-5" style="margin-left: 20%"> -->
               
                 <div class="row ml-5 mt-1">
-                    <div class="col-4 mt-3">
+                    <div class="col-5 mt-3">
+                            <label>ประเภทเอกสาร :</label>
+                            <select class="custom-select form-control " id="select_doctype_popup"  ></select>
+                          </div>
+
+                    <div class="col-5 ml-5 mt-3">
                       <label>เลขที่คุมเอกสาร :</label>
                       <input type="text" class="form-control" id="txt_DocNo" placeholder="เลขที่คุมเอกสาร" autocomplete="off">
                     </div>
 
-                    <div class="col-4 mt-3">
-                      <label>ชื่อเอกสาร :</label>
-                      <input type="text" class="form-control" id="ID_txt" hidden>
-                      <input type="text" class="form-control" id="txt_Doc_name" placeholder="ชื่อเอกสาร" autocomplete="off">
-                    </div>
-
-                    <div class="col-3 mt-3">
-                      <label>เลขสำคัญ :</label>
-                      <input type="text" class="form-control" id="txt_Doc_numbar" placeholder="เลขสำคัญ" autocomplete="off">
-                    </div>
+                   
                 </div>
 
                 <div class="row ml-5 mt-1">
-                  <div class="col-6  mt-2">
+                    <div class="col-5 mt-3">
+                          <label>ชื่อเอกสาร :</label>
+                          <input type="text" class="form-control" id="ID_txt" hidden>
+                          <input type="text" class="form-control" id="txt_Doc_name" placeholder="ชื่อเอกสาร" autocomplete="off">
+                        </div>
+
+                        <div class="col-5 ml-5 mt-3">
+                          <label>เลขสำคัญ :</label>
+                          <input type="text" class="form-control" id="txt_Doc_numbar" placeholder="เลขสำคัญ" autocomplete="off">
+                        </div>
+                </div>
+
+                <div class="row ml-5 mt-1">
+                  <div class="col-5  mt-2">
                     <label>เอกสาร :</label>
                       <div class="row ml-2">
 
                                       <div class=" form-check form-check-inline">
                                         <input class="form-check-input" type="radio" value="1" name="StatusRadio" id="StatusRadio1" style="width: 20px; height: 20px;" selected="true">
-                                        <label class="ml-2" for="StatusRadio1"  > เอกสารภายใน </label>
+                                        <label class="ml-1" for="StatusRadio1"  > เอกสารภายใน </label>
                                       </div>
                                       <div class=" form-check form-check-inline">
                                         <input class="form-check-input" type="radio" value="2" name="StatusRadio" id="StatusRadio2" style="width: 20px; height: 20px;">
-                                        <label class="ml-2" for="StatusRadio2" > เอกสารภายนอก </label>
+                                        <label class="ml-1" for="StatusRadio2" > เอกสารภายนอก </label>
                                       </div>
                       </div>
 
                   </div>
-                  <div class="col-5 mt-2 ">
+                  <div class="col-5 ml-5">
                         <label>คำอธิบาย :</label>
                         <textarea  class="form-control" id="txt_detail" rows="3"></textarea>
                       </div>
@@ -246,6 +255,8 @@
                 <!-- <div class="row  mt-2 mb-5" style="margin-left: 20%"> -->
               
                 <div class="row ml-2 mt-1 justify-content-center">
+                    
+
                       <div class="col-4 mt-3">
                         <label>รหัสสินค้า :</label>
                         <!-- <input type="text" class="form-control" id="ID_txt" hidden> -->

@@ -173,6 +173,7 @@
 
   // showcontact
   function showDetail_contact() {
+
     $.ajax({
       url: "process/send_doc.php",
       type: 'POST',
@@ -182,14 +183,18 @@
       },
       success: function(result) {
         var ObjData = JSON.parse(result);
+        var mail = "janekootest@gmail.com";
         if (!$.isEmptyObject(ObjData)) {
           $.each(ObjData, function(key, value) {
 
             $("#txt_email").val(value.email);
             $("#txt_phone").val(value.Tel);
-            $('#txt_email_send').val("janekootest@gmail.com");
+
+            $('#txt_email_send').val(mail);
           });
         }
+        $('#txt_email_send').show();
+            $('#txt_email_send').text(mail);
 
       }
     });
