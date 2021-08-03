@@ -23,6 +23,8 @@ if (!empty($_POST['FUNC_NAME'])) {
     saveData2($conn);
   }else if ($_POST['FUNC_NAME'] == 'selection_DocDetail') {
     selection_DocDetail($conn);
+  }else if ($_POST['FUNC_NAME'] == 'selection_DocDetail_L') {
+    selection_DocDetail_L($conn);
   }else if ($_POST['FUNC_NAME'] == 'showDocTypeID') {
     showDocTypeID($conn);
   }else if ($_POST['FUNC_NAME'] == 'show_Preview') {
@@ -31,6 +33,10 @@ if (!empty($_POST['FUNC_NAME'])) {
     saveData_Preview($conn);
   }else if ($_POST['FUNC_NAME'] == 'showFooter') {
     showFooter($conn);
+  }else   if ($_POST['FUNC_NAME'] == 'selection_Doc') {
+    selection_Doc($conn);
+  }else   if ($_POST['FUNC_NAME'] == 'selection_Doclist') {
+    selection_Doclist($conn);
   }
 }
 
@@ -38,14 +44,20 @@ function showDocTypeID($conn)
 {
   $productID = $_POST["productID2"];
 
-  $Sql = "SELECT
-            documentlist.DocType_Detail
-          FROM
-            documentlist
-          WHERE
-            documentlist.productID = $productID
-          GROUP BY
-            DocType_Detail ";
+                $Sql = "SELECT
+                          productdoc.productID,
+                          documentlist.DocType_Detail
+                        FROM
+                          documentlist
+                        LEFT JOIN docrevision ON documentlist.ID = docrevision.DocumentID
+                                            LEFT JOIN product ON docrevision.productID = product.ID
+                                            INNER JOIN productdoc ON docrevision.ID = productdoc.ID_FileDoc
+                                            INNER JOIN doctype_detail ON productdoc.DocTypeID = doctype_detail.ID
+                        WHERE
+                          productdoc.productID = $productID 
+                        GROUP BY
+                          DocType_Detail ";
+            // echo $Sql;
   $meQuery = mysqli_query($conn, $Sql);
   while ($row = mysqli_fetch_assoc($meQuery)) {
     $return[] = $row;
@@ -134,21 +146,46 @@ function selection_Contact($conn)
 
 function selection_Product($conn)
 {
-            $Sql = "SELECT
-            product.ID, 
-            product.ProductCode, 
-            product.ProductName,
-            documentlist.DocType_Detail,
-            documentlist.productID
-          FROM
-            product
-          INNER JOIN documentlist ON product.ID = documentlist.productID
-            WHERE product.IsCancel = 0
-            -- AND documentlist.DocType_Detail = '$select_doctype'
-            GROUP BY product.ProductName
-            ORDER BY  product.ProductName ASC
-            LIMIT 15 ";
+          //   $Sql = "SELECT
+          //   product.ID, 
+          //   product.ProductCode, 
+          //   product.ProductName,
+          //   documentlist.DocType_Detail,
+          //   documentlist.productID
+          // FROM
+          //   product
+          // INNER JOIN documentlist ON product.ID = documentlist.productID
+          //   WHERE product.IsCancel = 0
+          //   -- AND documentlist.DocType_Detail = '$select_doctype'
+          //   GROUP BY product.ProductName
+          //   ORDER BY  product.ProductName ASC
+          //   LIMIT 15 ";
 
+          $select_DocTypeID_L = $_POST["select_DocTypeID_L"];
+
+             $Sql = "SELECT
+                      product.ID,
+                      product.ProductCode,
+                      product.ProductName,
+                                documentlist.DocType_Detail,
+                                documentlist.productID
+                    FROM
+                    documentlist
+                    LEFT JOIN docrevision ON documentlist.ID = docrevision.DocumentID
+                    LEFT JOIN product ON docrevision.productID = product.ID
+                    INNER JOIN productdoc ON docrevision.ID = productdoc.ID_FileDoc
+                    INNER JOIN doctype_detail ON productdoc.DocTypeID = doctype_detail.ID
+          
+                    WHERE
+                      product.IsCancel = 0
+                    AND documentlist.DocType_Detail = '$select_DocTypeID_L'
+                    GROUP BY
+                      product.ProductName
+                    ORDER BY
+                      product.ProductName ASC
+                      LIMIT 15 ";
+
+//  echo $Sql;
   $meQuery = mysqli_query($conn, $Sql);
   while ($row = mysqli_fetch_assoc($meQuery)) {
     $return[] = $row;
@@ -180,6 +217,136 @@ $return[] = $row;
 echo json_encode($return);
 mysqli_close($conn);
 die;
+}
+
+function selection_DocDetail_L($conn){
+  $select_DocTypeID_L = $_POST["select_DocTypeID_L"];
+  $Sql = "SELECT
+            doctype_detail.ID,
+            doctype_detail.TypeDetail_Name 
+          FROM
+            doctype_detail
+            WHERE doctype_detail.IsCancel = 0
+            ORDER BY  doctype_detail.TypeDetail_Name ASC
+       ";
+
+$meQuery = mysqli_query($conn, $Sql);
+while ($row = mysqli_fetch_assoc($meQuery)) {
+$return[] = $row;
+}
+
+
+echo json_encode($return);
+mysqli_close($conn);
+die;
+}
+
+function selection_Doclist($conn){
+  // $select_Doclist = $_POST["select_Doclist"];
+  $select_DocTypeID_L = $_POST["select_DocTypeID_L"];
+  
+  $Sql = "SELECT
+            docrevision.DocumentID ,
+            productdoc.DocTypeID,
+            documentlist.DocNumber,
+            documentlist.DocType_Detail
+          FROM
+            productdoc
+            INNER JOIN docrevision ON productdoc.ID_FileDoc = docrevision.ID
+            INNER JOIN documentlist ON docrevision.DocumentID = documentlist.ID 
+         
+          GROUP BY
+            docrevision.DocumentID 
+          ORDER BY
+            documentlist.DocName ASC , docrevision.version DESC 
+            ";
+
+  $meQuery = mysqli_query($conn, $Sql);
+  while ($row = mysqli_fetch_assoc($meQuery)) {
+    $DocumentID = $row['DocumentID'];
+    $UserID = $row['UserID'];
+    $DocTypeID = $row['DocTypeID'];
+
+//     if($select_DocTypeID_L == 2){
+//       $ANDdoc_type = "AND (documentlist.DocType_Detail = 2) ";     
+// }else{
+//       if($DocTypeID !=  $select_DocTypeID_L){
+//         $ANDdoc_type = "AND (documentlist.DocType_Detail LIKE ='%%'
+//         ) ";  
+//       }else{
+//         $ANDdoc_type = "AND (documentlist.DocType_Detail LIKE '%$select_DocTypeID_L%') ";
+//       }  
+// }
+
+              $Sql2 = "SELECT
+                        documentlist.ID,
+                      documentlist.DocNumber,
+                      documentlist.DocName,
+                      documentlist.DocType_Detail,
+                      documentlist.productID
+                      FROM
+                      documentlist
+
+                      WHERE documentlist.IsCancel = 0
+                      AND documentlist.DocType_Detail LIKE '%$select_DocTypeID_L%'
+                      ORDER BY  documentlist.DocNumber ASC
+                  ";
+          // echo ($Sql);
+          $meQuery = mysqli_query($conn, $Sql2);
+          while ($row = mysqli_fetch_assoc($meQuery)) {
+          $return[] = $row;
+          }
+
+  }
+echo json_encode($return);
+mysqli_close($conn);
+die;
+}
+
+function selection_Doc($conn)
+{
+  $select_doctype = $_POST["select_doctype"];
+  $select_product = $_POST["select_product"];
+  $select_dochead = $_POST["select_dochead"];
+
+  if($select_doctype == 2){
+    $ANDdoc_pro = "AND productdoc.productID = 0 ";
+  }else{
+    $ANDdoc_pro = "AND productdoc.productID = '$select_product' ";
+  
+  }
+  $Sql2 = "SELECT
+            documentlist.ID,
+            documentlist.DocNumber,
+            documentlist.DocName,
+            documentlist.DocType_Detail,
+            documentlist.productID
+          FROM
+          documentlist
+          LEFT JOIN docrevision ON documentlist.ID = docrevision.DocumentID
+          LEFT JOIN product ON docrevision.productID = product.ID
+          INNER JOIN productdoc ON docrevision.ID = productdoc.ID_FileDoc
+          INNER JOIN doctype_detail ON productdoc.DocTypeID = doctype_detail.ID
+
+          WHERE documentlist.IsCancel = 0
+          AND documentlist.DocType_Detail = '$select_doctype'
+					$ANDdoc_pro
+          GROUP BY documentlist.DocName
+            ORDER BY  documentlist.DocNumber ASC
+       ";
+
+
+// echo $Sql2;
+
+  $meQuery = mysqli_query($conn, $Sql2);
+  while ($row = mysqli_fetch_assoc($meQuery)) {
+    $return[] = $row;
+  }
+
+
+  echo json_encode($return);
+  mysqli_close($conn);
+  die;
 }
 
 // detailcontact
@@ -218,10 +385,13 @@ function product_file($conn)
   $UserTypeID = $_SESSION["userData"]["UserTypeID"];
   $select_DocTypeID = $_POST["select_DocTypeID"];
   
+  $select_DocTypeID_L = $_POST["select_DocTypeID_L"];
+  $select_Doclist = $_POST["select_Doclist"];
 
   $Sql = "SELECT
             docrevision.DocumentID ,
-            productdoc.DocTypeID
+            productdoc.DocTypeID,
+            documentlist.DocType_Detail
           FROM
             productdoc
             INNER JOIN docrevision ON productdoc.ID_FileDoc = docrevision.ID
@@ -239,24 +409,33 @@ function product_file($conn)
     $DocumentID = $row['DocumentID'];
     $UserID = $row['UserID'];
     $DocTypeID = $row['DocTypeID'];
+    $documentlist_DocType_Detail = $row['DocType_Detail'];
 
 
-    if($select_DocTypeID == 2){
+    if($select_Doclist == 0 ){
+      $ANDdoctype = "";
+    }else{
+      $ANDdoctype = "AND (productdoc.DocTypeID = '$select_Doclist') ";
+    }
+
+    if($select_DocTypeID_L == 2){
       $ANDdoc_type = "AND (productdoc.DocumentID  ='$DocumentID' 
                       AND productdoc.DocTypeID = 2) ";     
 }else{
-      if($DocTypeID !=  $select_DocTypeID){
-        $ANDdoc_type = "AND (productdoc.DocumentID  ='$DocumentID' 
-                        AND productdoc.ProductID = '$id_product'
-                        AND productdoc.DocTypeID = ''
-        ) ";  
+
+      if($DocTypeID !=  $select_DocTypeID_L){
+        $ANDdoc_type = " (documentlist.ID = '$DocumentID'
+                        AND  productdoc.ProductID = '$id_product'
+                        AND productdoc.DocTypeID = '' )";  
       }else{
-        $ANDdoc_type = "AND (productdoc.DocumentID  ='$DocumentID' 
+        $ANDdoc_type = " ( documentlist.ID = '$DocumentID'
                         AND productdoc.ProductID = '$id_product'
-                        AND productdoc.DocTypeID = '$select_DocTypeID') ";
+                        AND productdoc.DocTypeID  = '$documentlist_DocType_Detail') ";
       }  
+     
 }
 
+     
 
     $Sql_2 = "SELECT
                 docrevision.fileName,
@@ -266,7 +445,7 @@ function product_file($conn)
                 docrevision.version AS lasrVersion,
                 docrevision.version,
                 productdoc.DocumentID AS DType,
-              (SELECT GROUP_CONCAT(CONCAT(usertype.UserType2))FROM userdoc 
+              (SELECT GROUP_CONCAT(CONCAT(usertype.UserType2)  ORDER BY usertype.SortUserTypeNo ASC )FROM userdoc 
               INNER JOIN usertype ON userdoc.UserTypeID = usertype.ID
               where userdoc.DocumentID = DType) AS permis ,
               docrevision.DocumentID AS DocID,
@@ -274,7 +453,7 @@ function product_file($conn)
                     (SELECT docrevision.version FROM docrevision
                               WHERE docrevision.DocumentID = DocID
                               AND docrevision.productID = ProducID
-                              ORDER BY docrevision.version DESC LIMIT 1) AS newVersion,
+                              ORDER BY docrevision.version DESC  LIMIT 1) AS newVersion,
                 documentlist.DocNumber,
                 documentlist.DocName,
                 (
@@ -294,12 +473,12 @@ function product_file($conn)
               INNER JOIN documentlist ON docrevision.DocumentID = documentlist.ID
               INNER JOIN doctype_detail ON documentlist.DocType_Detail = doctype_detail.ID
               WHERE
-                documentlist.DocName LIKE '%$txt_product_center%'
+              $ANDdoctype
               $ANDdoc_type 
               HAVING lasrVersion>=newVersion
               ORDER BY
                 docrevision.version,
-                docrevision.DocumentID DESC
+                docrevision.DocumentID DESC 
             ";
 // echo $Sql_2;
     $meQuery2 = mysqli_query($conn, $Sql_2);
@@ -418,6 +597,7 @@ function show_Preview($conn)
   $POSEINT = $_POST["POSEINT"];
 $date_upload = $_POST["date_upload"];
 $send_name = $_POST["send_name"];
+$txtPopup_purpose_name = $_POST["txtPopup_purpose_name"];
 $memo_headdoc = $_POST["memo_headdoc"];
 $head_list_items = $_POST["head_list_items"];
 $list_items = $_POST["list_items"];
@@ -437,9 +617,12 @@ $sendDocNo = $row['SendDocNo'];
       $Sqll = "SELECT
               productdoc.ID_FileDoc,
               docrevision.fileName,
+              SUBSTRING(docrevision.fileName, 1, 12) AS fileNameee,
               docrevision.version,
               documentlist.DocName,
               product.ProductName,
+              send_doc.`Subject`,
+	            purpose.Purpose,
               send_doc.DocDate,
               send_doc.email,
               send_doc.Memo,
@@ -450,7 +633,8 @@ $sendDocNo = $row['SendDocNo'];
               INNER JOIN productdoc ON send_doc_detail.Product_DocID = productdoc.ID
               INNER JOIN docrevision ON productdoc.ID_FileDoc = docrevision.ID
               INNER JOIN documentlist ON docrevision.DocumentID = documentlist.ID 
-              INNER JOIN product ON send_doc_detail.ProductID = product.ID 
+              LEFT JOIN product ON send_doc_detail.ProductID = product.ID 
+              INNER JOIN purpose ON send_doc.`Subject` = purpose.ID
               WHERE
               send_doc.SendDocNo = '$sendDocNo'
               ORDER BY  product.ProductName ASC   ";
@@ -508,7 +692,7 @@ $meQuery = mysqli_query($conn, $Sql);
 $row = mysqli_fetch_assoc($meQuery);
 $sendDocNo = $row['SendDocNo'];
 
-      $query = "UPDATE send_doc SET send_doc.Memo = '$memo' ,send_doc.Memo_Headdoc = '$memo_headdoc'  WHERE send_doc.SendDocNo = '$sendDocNo' ";
+      $query = "UPDATE send_doc SET send_doc.Send_Status = '1' WHERE send_doc.SendDocNo = '$sendDocNo' ";
       mysqli_query($conn, $query);
 
       $return = $sendDocNo;

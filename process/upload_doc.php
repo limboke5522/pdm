@@ -248,15 +248,15 @@ function selection_Docc($conn)
           FROM
             documentlist
 
-            LEFT JOIN docrevision ON documentlist.ID = docrevision.DocumentID
-            LEFT JOIN product ON docrevision.productID = product.ID
-            INNER JOIN productdoc ON docrevision.ID = productdoc.ID_FileDoc
-            INNER JOIN doctype_detail ON productdoc.DocTypeID = doctype_detail.ID
+            -- LEFT JOIN docrevision ON documentlist.ID = docrevision.DocumentID
+            -- LEFT JOIN product ON docrevision.productID = product.ID
+            -- INNER JOIN productdoc ON docrevision.ID = productdoc.ID_FileDoc
+            -- INNER JOIN doctype_detail ON productdoc.DocTypeID = doctype_detail.ID
 
           WHERE documentlist.IsCancel = 0
           AND documentlist.DocType_Detail = '$select_DocDetail'
-          AND productdoc.ProductID = '$select_Product'
-					GROUP BY documentlist.DocNumber
+          -- AND productdoc.ProductID = '$select_Product'
+					-- GROUP BY documentlist.DocNumber
             ORDER BY  documentlist.DocNumber ASC
        ";
 // echo $Sql;

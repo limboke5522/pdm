@@ -232,7 +232,7 @@
                   <div class="row ml-1 mb-4 justify-content-end">
                       
                       <div class="col-3 mt-2 ">
-                        <button style="width: 100px;" type="button" class="btn btn-outline-success ml-2" id="btnSaveDoc" onclick="Save_Doc();">บันทึก</button>
+                        <button style="width: 100px;" type="button" class="btn btn-outline-success ml-2" id="btnSaveDocc" onclick="Save_Doc();">บันทึก</button>
                       </div>
                   </div>
 

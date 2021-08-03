@@ -269,20 +269,51 @@
         animation: shake 5s infinite;
         
     }
-    @keyframes shake {
-    0%,
-    25%,
-    83%,
-    100% {
-        transform: rotatez(0deg);
-    }
-    32.5%,
-    62.5% {
-        transform: rotatez(-5deg);
-    }
-    47.5%,
-    75.5% {
-        transform: rotatez(5deg);
-    }
-    }
+            @keyframes shake {
+                    0%,
+                    25%,
+                    83%,
+                    100% {
+                        transform: rotatez(0deg);
+                    }
+                    32.5%,
+                    62.5% {
+                        transform: rotatez(-5deg);
+                    }
+                    47.5%,
+                    75.5% {
+                        transform: rotatez(5deg);
+                    }
+            }
+
+            input[type="date"]::-webkit-datetime-edit, input[type="date"]::-webkit-inner-spin-button, input[type="date"]::-webkit-clear-button {
+                color: #fff;
+                position: relative;
+                }
+
+                input[type="date"]::-webkit-datetime-edit-year-field{
+                position: absolute !important;
+                border-left:1px solid #8c8c8c;
+                padding: 1px;
+                color:#000;
+                left: 60px;
+                }
+
+                input[type="date"]::-webkit-datetime-edit-month-field{
+                position: absolute !important;
+                border-left:1px solid #8c8c8c;
+                padding: 1px;
+                color:#000;
+                left: 26px;
+                }
+
+
+                input[type="date"]::-webkit-datetime-edit-day-field{
+                position: absolute !important;
+                color:#000;
+                padding: 1px;
+                left: 3px;
+                
+                }
+    
 </style>

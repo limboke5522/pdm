@@ -7,12 +7,15 @@
     $("#memo").hide();
 
     $(".select2").select2();
+    selection_Contact();
     selection_Customer();
     selection_Purpose();
     selection_Product();
-    selection_DocDetail();
+    // selection_DocDetail();
+    selection_DocDetail_L();
+    selection_Doclist();
     chkremark();
-    checkProduct(id,name);
+    // checkProduct(id,name);
     
     
   })
@@ -40,6 +43,47 @@
     }
   }
 
+  function check_selection(numm){
+  var select_DocTypeID_L= $('#select_DocTypeID_L').val();
+  var select_product= $('#select_product').val();
+  var select_Doclist= $('#select_Doclist').val();
+
+  if(numm==1){
+
+    objReal.productName = [];
+    selection_Product();
+    selection_Doclist();
+    $("#table_product_list_document tbody").empty();
+
+                    if(select_DocTypeID_L != 2){
+                      $("#table_product tbody").empty();
+                      $('#select_product').attr('disabled',false);
+                      
+                      // selection_Doclist();
+                      selection_Product();
+                      showData_product();
+                    }else{
+                      // objReal.productName = [];
+                      $('#select_product').attr('disabled',true);
+                      $('#select_Doclist').attr('disabled',false);
+                      $('#select2-select_product-container').text("ทุก Product");
+                      $('#select2-select_product-container').val(0);
+                      $("#table_product tbody").empty();
+                      selection_Doclist();
+                      checkProduct();
+                    } 
+
+        // showData_product();
+        
+
+    } else {
+      if(numm==2){
+        $('#select_Doclist').attr('disabled',false);
+              showData_product();
+              selection_Doclist();
+      }    
+    } 
+  }
   function selection_Customer() {
     $.ajax({
       url: "process/send_doc.php",
@@ -91,6 +135,7 @@
   }
 
   function selection_Contact() {
+    
     $.ajax({
       url: "process/send_doc.php",
       type: 'POST',
@@ -118,16 +163,21 @@
   }
 
   function selection_Product() {
-    var  select_DocTypeID =  $("#select_DocTypeID").val();
+    // var  select_DocTypeID =  $("#select_DocTypeID").val();
+    
+    var  select_DocTypeID_L =  $("#select_DocTypeID_L").val();
+    var  select_product =  $("#select_product").val();
     $.ajax({
       url: "process/send_doc.php",
       type: 'POST',
       data: {
         'FUNC_NAME': 'selection_Product',
-        'select_DocTypeID': $("#select_DocTypeID").val()
+        'select_product': $("#select_product").val(),
+        'select_DocTypeID_L': $("#select_DocTypeID_L").val()
       },
       success: function(result) {
         var ObjData = JSON.parse(result);
+        $("#select_product").empty();
         var Str = "";
         Str += "<option value=0 >กรุณาเลือก Product</option>";
         if (!$.isEmptyObject(ObjData)) {
@@ -137,6 +187,72 @@
             });
         }
         $("#select_product").html(Str);
+
+      }
+    });
+  }
+
+  function selection_DocDetail_L() {
+    $.ajax({
+      url: "process/send_doc.php",
+      type: 'POST',
+      data: {
+        'FUNC_NAME': 'selection_DocDetail_L',
+        'select_DocTypeID_L': $("#select_DocTypeID_L").val()
+      },
+      success: function(result) {
+        var ObjData = JSON.parse(result);
+        $("#select_DocTypeID_L").empty();
+
+        var Str2 = "";
+              Str2 += "<option value=0 >ประเภทเอกสาร</option>";
+
+        if (!$.isEmptyObject(ObjData)) {
+          $.each(ObjData, function(key, value) {
+            Str2 += "<option value=" + value.ID + " >" + value.TypeDetail_Name + "</option>";
+          });
+        }
+
+        
+        $("#select_DocTypeID_L").append(Str2);
+
+      }
+    });
+  }
+
+  function selection_Doclist() {
+    var  select_DocTypeID_L =  $("#select_DocTypeID_L").val();
+    $.ajax({
+      url: "process/send_doc.php",
+      type: 'POST',
+      data: {
+        'FUNC_NAME': 'selection_Doclist',
+        // 'select_Doclist': $("#select_Doclist").val(),
+        'select_DocTypeID_L': select_DocTypeID_L
+      },
+      success: function(result) {
+        var ObjData = JSON.parse(result);
+        $("#select_Doclist").empty();
+
+        var Str2 = "";
+              Str2 += "<option value=0 >หัวข้อเอกสาร</option>";
+
+        if (!$.isEmptyObject(ObjData)) {
+          $.each(ObjData, function(key, value) {
+            var number = "<p text-align: center;'>" + value.DocNumber + "</p>" ;
+
+            if(value.DocNumber == null){
+               number = "<p text-align: center;'></p>" ;
+            }else{
+               number = "<p text-align: center;'>" + value.DocNumber + " : " + "</p>" ;
+            }
+            
+            Str2 += "<option value=" + value.ID + " >" + value.DocName + "</option>";
+          });
+        }
+
+        
+        $("#select_Doclist").append(Str2);
 
       }
     });
@@ -155,7 +271,7 @@
         $("#select_DocTypeID").empty();
 
         var Str2 = "";
-              Str2 += "<option value=0 >ประเภทเอกสาร</option>";
+              Str2 += "<option value=0 >หัวข้อเอกสาร</option>";
 
         if (!$.isEmptyObject(ObjData)) {
           $.each(ObjData, function(key, value) {
@@ -228,7 +344,7 @@
       type: 'POST',
       data: {
         'FUNC_NAME': 'selection_Product',
-        'select_DocTypeID': $("#select_DocTypeID").val()
+        'select_DocTypeID_L': $("#select_DocTypeID_L").val()
       },
       success: function(result) {
         var ObjData = JSON.parse(result);
@@ -247,7 +363,9 @@
     var TableItemx = "";
     $.each(objReal.productName, function(index, productName) {
       var btn = '<button  onclick="deleteProduct(\'' + index + '\')"  class="btn"><i class="fas fa-trash-alt" style="color: orangered;"></i></button>';
-      var chkProduct = "<input class='form-control chk_product' type='radio'  name='id_docLeft' id='id_product" + index + "' data-value='" + productName + "' data-value2='" + objReal.productDocTypeID[index] + "' value='" + objReal.productID[index] + "'   onclick='checkProduct(\"" + index + "\",\"" + productName + "\",\"" + objReal.productDocTypeID[index] + "\")'>";
+      // var chkProduct = "<input class='form-control chk_product' type='radio'  name='id_docLeft' id='id_product" + index + "' data-value='" + productName + "' data-value2='" + objReal.productDocTypeID[index] + "' value='" + objReal.productID[index] + "'   onclick='checkProduct(\"" + index + "\",\"" + productName + "\",\"" + objReal.productDocTypeID[index] + "\")'>";
+      var chkProduct = "<input class='form-control chk_product' type='radio'  name='id_docLeft' id='id_product" + index + "' data-value='" + productName + "' value='" + objReal.productID[index] + "'   onclick='checkProduct(\"" + index + "\",\"" + productName + "\")'>";
+      
       TableItemx += "<tr id='trProduct_" + index + "'>" +
         "<td style='text-align: center;width: 7%;'>" + chkProduct + "</td>" +
         "<td style='text-align: center;width: 10%;'>" + (index + 1) + "</td>" +
@@ -287,7 +405,7 @@
     
     $("#txt_product_center").val("");
     
-    $("#select_DocTypeID").val(0);
+    // $("#select_DocTypeID_L").val(0);
     $("#list_document_").remove();
     $("#list_document_").empty();
 
@@ -312,23 +430,25 @@
     var id_product =  $("#id_product"+id).val();
     var txt_product_center = $("#txt_product_center").val();
 
-    var select_DocTypeID = $("#select_DocTypeID").val();
-
+    var select_DocTypeID_L = $("#select_DocTypeID_L").val();
+    var select_Doclist = $("#select_Doclist").val();
+    
+    // var select_DocTypeID = $("#select_DocTypeID").val();
 
     if(id_product != undefined){
-      $("#select_DocTypeID_hide").val(id_product);
+      $("#select_DocTypeID_L_hide").val(id_product);
     }else{
-      id_product = $("#select_DocTypeID_hide").val();
+      id_product = $("#select_DocTypeID_L_hide").val();
       
     }
 
     if(doctypeidLeft != undefined){
-      $("#select_DocTypeID").val(doctypeidLeft);
+      $("#select_DocTypeID_L").val(doctypeidLeft);
     }else{
-      doctypeidLeft = $("#select_DocTypeID").val();
+      doctypeidLeft = $("#select_DocTypeID_L").val();
     }
       
-    $("#select_DocTypeID").attr('disabled', false);
+    // $("#select_DocTypeID").attr('disabled', false);
     $("#txt_product_center").attr('disabled', false);
     
 
@@ -340,7 +460,9 @@
         'FUNC_NAME': 'product_file',
         'id_product': id_product,
         'txt_product_center': txt_product_center,
-        'select_DocTypeID' : doctypeidLeft
+        'select_DocTypeID_L' : doctypeidLeft,
+        'select_Doclist' : $("#select_Doclist").val()
+        // 'select_DocTypeID_L' : select_DocTypeID_L
       },
       success: function(result) {
         var ObjData = JSON.parse(result);
@@ -356,7 +478,6 @@
             }else{
               var bt = ' <button type="button" style="font-size: 10px;" hidden class="btn btn-outline-primary" id="btn_send_'+key+'"  onclick="add_DocProduct(\'' + key + '\',\'' + value.ID + '\',\'' + value.DocName + '\',\'' + value.version + '\',\'' + id_product + '\',\'' + doctypeidLeft + '\')" >เลือก >> </button>';
             }
-
             if(value.permis != null){
                       var text = value.permis ;
                     }else{
@@ -377,7 +498,7 @@
         
         $('#table_product_list_document tbody').html(StrTR);
 
-
+       
         setTimeout(() => {
           chk_btn(id_product,doctypeidLeft);
         }, 100);
@@ -457,6 +578,7 @@
                 if (!$.isEmptyObject(ObjData)) {
                   $.each(ObjData, function(key, value) {
                     objReal.productDocTypeID.push(value.DocType_Detail);
+                    
                   });
                 }
           
@@ -482,30 +604,17 @@
   });
 
   function chk_btn(id_product,doctypeidLeft) {
+    
     $.each(objReal_doc.rowDoc, function(key, rowDoc) {//เช็ครายการซ้ำ
-       
-
-        // if(id_product == objReal_doc.product_Doc_ID[key] ){
+      
+      
+        if(id_product == objReal_doc.product_Doc_ID[key] && doctypeidLeft == objReal_doc.Doctype_Id[key]){
           
-        //   $("#btn_send_"+rowDoc).hide();
-        // }else {
-          
-        // }
-
-        // if(id_product == 0 ){
-          
-        //   $("#btn_send_"+rowDoc).show();
-        // }else {
-          
-        // }
-
-
-        if(doctypeidLeft == objReal_doc.Doctype_Id[key]){
           $("#btn_send_"+rowDoc).hide();
+        }else {
           
-        }else{
+        }
 
-        }  
 
       });
   }
@@ -539,7 +648,10 @@
           btnClass: 'btn-primary',
           text: 'ตกลง',
           action: function() {
-            save_sendDoc();
+            // save_sendDoc();
+            $("#Modaldetail_Preview").modal('show');
+            show_Preview();
+            showFooter();
             
           }
         }
@@ -561,6 +673,7 @@ function save_sendDoc() {
     var DocID = objReal_doc.DocID;
     var table_product_docment = $('#table_product_docment tbody').val();
 
+    var txtPopup_purpose_name = $('#txtPopup_purpose_name').val();
     var box22 = $('#box22').val();
     var text = "";
      if (select_hospital == "0") {
@@ -602,7 +715,8 @@ function save_sendDoc() {
         'productID':productID,
         'DoctypeId':DoctypeId,
         'DocID':DocID,
-        'box22':box22
+        'box22':box22,
+        'txtPopup_purpose_name':txtPopup_purpose_name
       },
       success: function(result) {
 
@@ -625,11 +739,11 @@ function save_sendDoc() {
                       btnClass: 'btn-primary',
                       text: 'ตกลง',
                       action: function() {
-                        // saveData_Preview();
-
-                      send_mail(result,email,box22); 
+                        saveData_Preview();
+                        $("#Modaldetail_Preview").modal('hide');
+                      send_mail(result,email,box22,txtPopup_purpose_name); 
                       if(Copy_doc != ""){
-                        send_mail_copy(result,Copy_doc,box22); 
+                        send_mail_copy(result,Copy_doc,box22,txtPopup_purpose_name); 
                       }
 
                       }
@@ -649,7 +763,7 @@ function save_sendDoc() {
   function send_mail(sendDocNo,email) {
 // alert(sendDocNo+"|"+email);
      var boxArea =  $('#box22').val();
-   
+     var purpose_name =  $('#txtPopup_purpose_name').val();
      
     swal({
             title: 'กรุณารอสักครู่',
@@ -663,12 +777,14 @@ function save_sendDoc() {
       data: {
         'email': email,
         'sendDocNo': sendDocNo,
-        'boxArea': boxArea
+        'boxArea': boxArea,
+        'purpose_name': purpose_name
       },
       success: function(result) {
         swal.close();
         showDialogSuccess(result);
 
+         $('#select_DocTypeID_L').val(0);
          $('#select_product').val(0);
          $('#select_hospital').val(0);
          $('#select_subject').val(0);
@@ -677,6 +793,7 @@ function save_sendDoc() {
          $('#select2-select_hospital-container').text("กรุณาเลือก โรงพยาบาล");
          $('#select2-select_subject-container').text("กรุณาเลือก เรื่อง");
          $('#select2-select_contact-container').text("กรุณาเลือก ผู้ติดต่อ");
+         $('#select2-select_DocTypeID_L-container').text("กรุณาเลือก ประเภทเอกสาร");
          $('#select2-select_product-container').text("กรุณาเลือก Product");
          
          $('#txt_email_send').val("");
@@ -698,6 +815,7 @@ function save_sendDoc() {
           objReal_doc.product_Doc_ID= [];
           objReal_doc.Doctype_Id= [];
 
+          objReal.DocType_DetailID = [];
           objReal.productID = [];
           objReal.productName = [];
 
@@ -878,6 +996,7 @@ var boxArea =  $('#box22').val();
 
   $("#btn_cancel").click(function() {
 
+      $('#select_DocTypeID_L').val(0);
       $('#select_product').val(0);
       $('#select_hospital').val(0);
       $('#select_subject').val(0);
@@ -886,6 +1005,7 @@ var boxArea =  $('#box22').val();
       $('#select2-select_hospital-container').text("กรุณาเลือก โรงพยาบาล");
       $('#select2-select_subject-container').text("กรุณาเลือก เรื่อง");
       $('#select2-select_contact-container').text("กรุณาเลือก ผู้ติดต่อ");
+      $('#select2-select_DocTypeID_L-container').text("กรุณาเลือก Product");
       $('#select2-select_product-container').text("กรุณาเลือก Product");
 
       $('#txt_email_send').val("");
@@ -906,6 +1026,7 @@ var boxArea =  $('#box22').val();
       objReal_doc.product_Doc_ID= [];
       objReal_doc.Doctype_Id= [];
 
+      objReal.DocType_DetailID = [];
       objReal.productID = [];
       objReal.productName = [];
 
@@ -919,6 +1040,8 @@ function show_Preview() {
     var  date_upload =  $("#date_upload").val();
     var  send_name =  $("#send_name").val();
 
+    var  txtPopup_purpose_name =  $("#txtPopup_purpose_name").val();
+    
     var  memo_headdoc =  $("#memo_headdoc").val();
 
     var  head_list_items =  $("#head_list_items").val();
@@ -941,6 +1064,7 @@ function show_Preview() {
         'POSEINT': POSEINT,
         'date_upload': date_upload,
         'send_name': send_name,
+        'txtPopup_purpose_name': txtPopup_purpose_name,
         'memo_headdoc': memo_headdoc,
         'head_list_items': head_list_items,
         'list_items': list_items,
@@ -961,8 +1085,8 @@ function show_Preview() {
         if (!$.isEmptyObject(ObjData)) {
           $.each(ObjData, function(key, value) {
 
-            btn_previewer += '<a href="javascript:void(0)"  onclick="preview(\'' + value.fileName + '\');"><img src="img/pdf.png" style="margin-left: 50px; width:75px;"></a>';
-            fileNameer += "<label style='margin-left: 40px; width:100px;'>" + value.fileName + "</label>";
+            btn_previewer += '<a href="javascript:void(0)"  onclick="preview(\'' + value.fileName + '\');"><img src="img/pdf.png" style="margin-left: 40px; width:75px;"></a>';
+            fileNameer += "<label style='margin-left: 20px; width:100px;'><br>" + value.fileNameee + "</label>";
 
             StrTR += "<tr style='border-radius: 15px 15px 15px 15px;margin-top: 6px;margin-bottom: 6px;'>" +
                     "<td style='border: none; width:5%;text-align: center;'>" + (key + 1) + "</td>" +
@@ -985,6 +1109,8 @@ function show_Preview() {
             $('#POSEINT').text($gmail_username);
             $('#date_upload').text(value.DocDate);
             $('#send_name').text(value.email);
+
+            $('#txtPopup_purpose_name').val(value.Purpose);
 
             // $('#memo_headdoc').text(value.Memo_Headdoc);
             // $('#head_list_items').text(value.ProductName);

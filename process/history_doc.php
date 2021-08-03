@@ -71,8 +71,9 @@ function show_data($conn)
         WHERE
         DATE( send_doc.DocDate ) BETWEEN '$txt_Sdate_doc' AND '$txt_Edate_doc' 
         $AND
+        AND send_doc.Send_Status = '1'
         ORDER BY
-        DATE( send_doc.DocDate ) DESC ";
+        send_doc.ID DESC ";
 
   $meQuery = mysqli_query($conn, $Sql);
   while ($row = mysqli_fetch_assoc($meQuery)) {

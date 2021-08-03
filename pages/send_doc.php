@@ -9,14 +9,7 @@
                     </ol>
                   </div><!-- /.col -->
 
-                  <!-- <div class="col-sm-6" style="margin-left:51%">
-                    <div class="form-group row justify-content-end"> 
-                        <label for="txt_email" class=" col-form-label">Email ผู้ส่ง : </label>
-                      <div class="col-6 justify-content-end" >
-                        <input type="text"  class="form-control" id="txt_email_send" placeholder="Email" disabled>
-                      </div>
-                    </div>
-                  </div> -->
+                 
 
                 </div><!-- /.row -->
               </div><!-- /.container-fluid -->
@@ -52,84 +45,98 @@
 
                 </div>
 
-                <div class="row ml-1">
+                <div class="row ">
 
-                  <div class="col-12">
-                    <div class="form-group row ">
-                      <label for="select_contact" class="col-form-label">ผู้ติดต่อ</label>
-                      <div class="col-4 " style="margin-left: 51px;">
-                        <select class="form-control select2" id="select_contact" placeholder="ผู้ติดต่อ "></select>
+                      <div class="col-4 ">
+                        <div class="form-group row ">
+                          <label for="select_contact" class="col-2  col-form-label">ผู้ติดต่อ</label>
+                          <div class="col-8 ml-4">
+                            <select class="form-control select2" id="select_contact" placeholder="ผู้ติดต่อ "></select>
+                          </div>
+                        </div>
                       </div>
 
-                      <label for="txt_phone" class="ml-2 col-form-label">เบอร์โทร </label>
+                      <div class="col-3">
+                        <div class="form-group row">
+                          <label for="txt_phone" class="ml-2 col-form-label">โทร </label>
+                          <div class="col-9">
+                            <input type="text" class="form-control" id="txt_phone" placeholder="โทร">
+                          </div>
+                        </div> 
+                      </div>
+
+                      <div class="col-3">
+                        <div class="form-group row">
+                          <label for="txt_email" class="ml-2 col-form-label">Email ผู้รับ</label>
+                          <div class="col-9">
+                            <input type="text"   class="form-control" id="txt_email" placeholder="Email">
+                          </div>
+                        </div>
+                      </div>
+
                       <div class="col-2">
-                        <input type="text" class="form-control" id="txt_phone" placeholder="โทร">
-                      </div>
-
-                      <label for="txt_email" class="ml-2 col-form-label">Email ผู้รับ</label>
-                      <div class="col-2">
-                        <input type="text" style="margin-left: 5px;"  class="form-control" id="txt_email" placeholder="Email">
-                      </div>
-                      <div class="col-2 ml-4 justify-content-end">
                         <button type="submit"  class="btn btn-danger btn-block" id="btn_cancel">ยกเลิก</button>
                       </div>
-                    </div>
-
                     
-                  </div>
 
                 </div>
 
-
-                  <div class="col-10">
+                <div class="row ">
+                  <div class="col-4">
                     <div class="form-group row ">
-                      <label for="email" class="col-form-label">สำเนา</label>
-                      <!-- <div class="col-1 ml-1"></div> -->
-                      <div class="col-4 ml-5">
-                        <input type="text" style="margin-left: 20px;" class="form-control" id="Copy_doc" name="Copy_doc" placeholder="สำเนา">
+                      <label for="Copy_doc" class="col-2 col-form-label">สำเนา</label>
+                      <div class="col-8 ml-4">
+                        <input type="text"  class="form-control" id="Copy_doc" name="Copy_doc" placeholder="สำเนา">
                       </div>
 
-                      <input class="ml-4" style="width:20px; height: 20px; margin-left: 10px; margin-top: 13px" type="checkbox" id="chk_remark" onclick="chkremark();">
-                        
-                      <label for="txt_remark" class="col-2 col-form-label">บันทึกช่วยจำ</label>
+                    </div>
+                  </div>
+
+                  <div class="col-5">
+                    <div class="form-group row ">
+                      <input class="" style="width:20px; height: 20px; margin-left: 10px; margin-top: 13px" type="checkbox" id="chk_remark" onclick="chkremark();">
+                      <label for="txt_remark" class="col-4 col-form-label">บันทึกช่วยจำ</label>
 
                       <input style="width:20px; height: 20px;  margin-top: 13px" type="checkbox" id="chk_headdoc" onclick="chkremark();">
-                        
-                      <label for="txt_remark" class="col-2 col-form-label">หัวเรื่อง E-Mail</label>
-
+                      <label for="txt_remark" class="ml-2 col-6 col-form-label">หัวเรื่อง E-Mail</label>
                     </div>
+                  </div>
+                  
+                      <div class="col-3  justify-content-end">
+                        <div class="form-group row ml-5 justify-content-end">
+                          <label for="txt_email" class="ml-4 col-form-label">Email ผู้ส่ง : </label>
+                            <div class="col-8 ml-2 mt-1 " >
+                              <u style="font-size: 18px;" id="txt_email_send"  > </u>
+                            </div>
+                        </div>  
+                      </div>
+                </div>
 
                     <div class="row">
 
-                  <div class="col-12 ml-5">
-                    <div class="form-group row ml-1">
+                        <div class="col-12 mt-2">
+                          <div class="form-group row ">
+                            <div class="col-12 " >
+                              <textarea style="height: 80px;" class="form-control" id="txt_remark" placeholder="บันทึกช่วยจำ"></textarea>
+                            </div>
 
-                      <div class="col-11 ml-5" >
-                        <textarea style="height: 80px;" class="form-control" id="txt_remark" placeholder="บันทึกช่วยจำ"></textarea>
-                      </div>
+                            <div class="col-12 mt-1 " >
+                              <textarea style="height: 80px;" class="form-control" id="txt_headdoc" placeholder="หัวเรื่อง E-Mail"></textarea>
+                            </div>
+                          </div>
+                        </div>
 
-                      <div class="col-11 mt-1 ml-5" >
-                        <textarea style="height: 80px;" class="form-control" id="txt_headdoc" placeholder="หัวเรื่อง E-Mail"></textarea>
-                      </div>
-
-                      
                     </div>
-                    
-                  </div>
 
                   
-                  
-                </div>
-
-                  </div>
-                  <div class="col-sm-6" style="margin-left:51%">
+                  <!-- <div class="col-sm-6" style="margin-left:51%">
                     <div class="form-group row justify-content-end"> 
                         <label for="txt_email" class=" col-form-label">Email ผู้ส่ง : </label>
                       <div class="col-4 mt-1 justify-content-end" >
                         <u style="font-size: 18px;" id="txt_email_send"  > </u>
                       </div>
                     </div>
-                  </div>
+                  </div> -->
                 </div>
 
                 
@@ -144,10 +151,33 @@
               <div class="col-4">
               <div class="card-body" >
               <div class="form-group row">
-                    <label for="select_product" class="col-sm-2 col-form-label">product</label>
-                    <div class="col-sm-8">
-                      <select class="form-control select2" id="select_product" placeholder="product"></select>
+                
+                  <div class="col-10">
+                    <div class="form-group row">
+                      <label for="select_subject" class="col-4 col-form-label">ประเภทเอกสาร</label>
+                      <div class="col-8 ">
+                        <select class="form-control select2" id="select_DocTypeID_L"  onchange="check_selection(1);"></select>
+                        <input type="text" class="form-control" id="select_DocTypeID_L_hide" hidden />
+                        
+                      </div>
                     </div>
+                  </div>
+
+                      
+                      <div class="col-2 ">
+                        <input type="checkbox" style=" margin-left: 15px; width: 20px; height: 20px;"  class="btn btn-danger btn-block " id="checkbox_all">ทั้งหมด</input>
+                      </div>
+                    <!-- <label for="select_product" class="col-sm-2 col-form-label">product</label> -->
+                    <div class="col-10">
+                    <div class="form-group row">
+                      <label for="select_subject" class="col-4  col-form-label">เลือกProduct </label>
+                      <div class="col-8 mt-2 ">
+                      <select class="form-control select2" id="select_product" placeholder="product" onchange="check_selection(2);"></select>
+                    </div>
+                    </div>
+                  </div>
+
+                    
                   </div>
                 <table id="table_product" class="table table-bordered table-hover w-100 table-head-fixed">
                   <thead>
@@ -168,15 +198,17 @@
               <div class="col-4">
                 <div class="card-body" >
                 <div class="form-group row">
-                      <div class="col-6">
-                        <select class="form-control" id="select_DocTypeID" placeholder="ประเภทเอกสาร" onchange="checkProduct(id,name);" disabled></select>
+                <label for="select_subject" class="col-3 col-form-label">หัวข้อเอกสาร</label>
+                      <div class="col-9">
+                      <!-- <select class="form-control" id="select_DocTypeID" placeholder="ประเภทเอกสาร" onchange="checkProduct(id,name);" disabled></select> -->
+                        <select class="form-control select2" id="select_Doclist"  onchange="checkProduct();" disabled></select>
                         <input type="text" class="form-control" id="select_DocTypeID_hide" hidden>
                       </div>
 
-                  <label for="txt_product_center" class="col-sm-2 col-form-label">ชื่อสินค้า</label>
+                  <!-- <label for="txt_product_center" class="col-sm-2 col-form-label">ชื่อสินค้า</label>
                   <div class="col-sm-4">
                     <input type="text" class="form-control" id="txt_product_center" placeholder="ชื่อสินค้า" onkeyup="checkProduct(id,name);" disabled>
-                  </div>
+                  </div> -->
                 </div>
                 <div class="row ">
                   <div class="col-12">
@@ -299,7 +331,7 @@
     </div>
 </div>
 
-<div class="modal fade" id="Modaldetail_Preview" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true" >
+<div class="modal fade " data-keyboard="false" data-backdrop="static" id="Modaldetail_Preview" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle"  aria-hidden="true">
     <div class="modal-dialog modal-lg " >
         <div class="modal-content " role="document" >
             <div class="modal-header">
@@ -337,6 +369,15 @@
                       </div>
                     </div>
 
+                    <div class="row  " >
+                      <div class="row ml-3 col-8">
+                        <label>เรื่อง :</label>
+                          <div class="col-6  ">
+                          <input type="text" class="form-control" id="txtPopup_purpose_name" > <!-- ชื่อเรื่อง  -->
+                          </div>
+                      </div>
+                    </div>
+
                     <div class="divider"></div> <!-- ขีดเส้นใต้ -->
 
                     <div class="row  " >
@@ -367,9 +408,9 @@
 
 
                     <div class="row mt-3" >
-                      <div class="col-8  ">
-                            <div  id="boxfile" style="margin-right: 5px;"></div>
-                              <div  id="fileeee" style="margin-right: 5px;"></div>
+                      <div class="col-12  ">
+                            <div  id="boxfile" class="ml-2  "></br></div>
+                              <div  id="fileeee" ></div>
                         </div>  
                      </div>
 
@@ -398,7 +439,7 @@
 
                           <div div class="divider"></div>  <!-- ขีดเส้นใต้ -->
                       <div class="row mt-1 ml-2 justify-content-end">
-                                <button  type="button" class="btn btn-outline-success" id="btnSaveDoc_Preview">บันทึก</button>
+                                <button  type="button" class="btn btn-outline-success" id="btnSaveDoc_Preview" >บันทึก</button>
                       </div>
             </div>
         </div>

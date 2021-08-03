@@ -16,7 +16,7 @@ $Sql_item = "SELECT
 				FROM
 				send_doc
 				INNER JOIN send_doc_detail ON send_doc.SendDocNo = send_doc_detail.SendDocNo
-				INNER JOIN product ON send_doc_detail.ProductID = product.ID
+				LEFT JOIN product ON send_doc_detail.ProductID = product.ID
 				INNER JOIN purpose ON send_doc.`Subject` = purpose.ID 
 				WHERE
 				send_doc.SendDocNo = '$sendDocNo' 
@@ -40,7 +40,7 @@ while ($Result = mysqli_fetch_assoc($meQuery_item)) {
 							docrevision.version 
 						FROM
 							send_doc_detail
-							INNER JOIN product ON send_doc_detail.ProductID = product.ID
+							LEFT JOIN product ON send_doc_detail.ProductID = product.ID
 							INNER JOIN productdoc ON send_doc_detail.Product_DocID = productdoc.ID
 							INNER JOIN documentlist ON productdoc.DocumentID = documentlist.ID
 							INNER JOIN docrevision ON productdoc.ID_FileDoc = docrevision.ID 
@@ -77,7 +77,7 @@ $Sql_item = "SELECT
 				INNER JOIN send_doc_detail ON send_doc.SendDocNo = send_doc_detail.SendDocNo
 				INNER JOIN productdoc ON send_doc_detail.Product_DocID = productdoc.ID
 				INNER JOIN docrevision ON productdoc.ID_FileDoc = docrevision.ID
-				INNER JOIN product ON send_doc_detail.ProductID = product.ID 
+				LEFT JOIN product ON send_doc_detail.ProductID = product.ID 
 				WHERE
 				send_doc.SendDocNo = '$sendDocNo'
 				ORDER BY  product.ProductName ASC ";
