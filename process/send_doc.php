@@ -415,25 +415,25 @@ function product_file($conn)
     if($select_Doclist == 0 ){
       $ANDdoctype = "";
     }else{
-      $ANDdoctype = "AND (productdoc.DocTypeID = '$select_Doclist') ";
+      $ANDdoctype = " (productdoc.DocTypeID = '$select_Doclist') ";
     }
 
     if($select_DocTypeID_L == 2){
-      $ANDdoc_type = "AND (productdoc.DocumentID  ='$DocumentID' 
+      $ANDdoc_type = " (productdoc.DocumentID  ='$DocumentID' 
                       AND productdoc.DocTypeID = 2) ";     
-}else{
+        }else{
 
-      if($DocTypeID !=  $select_DocTypeID_L){
-        $ANDdoc_type = " (documentlist.ID = '$DocumentID'
-                        AND  productdoc.ProductID = '$id_product'
-                        AND productdoc.DocTypeID = '' )";  
-      }else{
-        $ANDdoc_type = " ( documentlist.ID = '$DocumentID'
-                        AND productdoc.ProductID = '$id_product'
-                        AND productdoc.DocTypeID  = '$documentlist_DocType_Detail') ";
-      }  
+                if($DocTypeID !=  $select_DocTypeID_L){
+                  $ANDdoc_type = " (documentlist.ID = '$DocumentID'
+                                  AND  productdoc.ProductID = '$id_product'
+                                  AND productdoc.DocTypeID = '' )";  
+                }else{
+                  $ANDdoc_type = " ( documentlist.ID = '$DocumentID'
+                                  AND productdoc.ProductID = '$id_product'
+                                  AND productdoc.DocTypeID  = '$documentlist_DocType_Detail') ";
+                }  
      
-}
+        }
 
      
 
@@ -617,7 +617,7 @@ $sendDocNo = $row['SendDocNo'];
       $Sqll = "SELECT
               productdoc.ID_FileDoc,
               docrevision.fileName,
-              SUBSTRING(docrevision.fileName, 1, 12) AS fileNameee,
+              SUBSTRING(docrevision.fileName, 1, 13) AS fileNameee,
               docrevision.version,
               documentlist.DocName,
               product.ProductName,

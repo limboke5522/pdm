@@ -354,32 +354,32 @@
                     <div class="row  " >
                       <div class="row ml-3 ">
                         <label>วันที่ส่ง : </label>
-                          <div class="row ml-3 ">
+                          <div class="row ml-4 ">
                             <h5  id="date_upload">  </h5> <!-- วันที่ส่ง  -->
                           </div>
                       </div>
                     </div>
                   
                     <div class="row  " >
-                      <div class="row ml-3 ">
-                        <label>ถึง :</label>
-                          <div class="col-8  ">
-                          <h4  id="send_name">  </h4> <!-- ชื่อไอเท็ม  -->
+                      <div class="row ml-1 col-10">
+                        <label class=" col-1 ">ถึง :</label>
+                          <div class="col-8 ml-3" >
+                          <h5  id="send_name" style="margin-left: 5px;">  </h5> <!-- ชื่อไอเท็ม  -->
                           </div>
                       </div>
                     </div>
 
                     <div class="row  " >
-                      <div class="row ml-3 col-8">
-                        <label>เรื่อง :</label>
-                          <div class="col-6  ">
+                      <div class="row ml-1 col-12">
+                        <label class="col-1 ">เรื่อง :</label>
+                          <div class="col-11  ">
                           <input type="text" class="form-control" id="txtPopup_purpose_name" > <!-- ชื่อเรื่อง  -->
                           </div>
                       </div>
                     </div>
 
                     <div class="divider"></div> <!-- ขีดเส้นใต้ -->
-
+                    <h4  id="detail"><b>รายละเอียด</b></h4>
                     <div class="row  " >
                           <div class="col-12  ">
                           <textarea style="height: 200px;" class="form-control" id="box22" >

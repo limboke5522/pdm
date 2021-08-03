@@ -648,10 +648,10 @@
           btnClass: 'btn-primary',
           text: 'ตกลง',
           action: function() {
-            // save_sendDoc();
-            $("#Modaldetail_Preview").modal('show');
-            show_Preview();
-            showFooter();
+            save_sendDoc();
+            // $("#Modaldetail_Preview").modal('show');
+            // show_Preview();
+            // showFooter();
             
           }
         }
