@@ -416,7 +416,7 @@ function product_file($conn)
     $documentlist_DocType_Detail = $row['DocType_Detail'];
     $pro_id = $row['ProductID'];
   
-    
+    aaa
     
 
     if($select_DocTypeID_L == 2 ){
