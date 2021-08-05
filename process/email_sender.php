@@ -21,13 +21,14 @@ if (!empty($_POST['FUNC_NAME'])) {
 
 function editData($conn)
 {
-  $txt_doctype_detail_name    = $_POST['txt_doctype_detail_name'];
+  $txt_email_sender_name    = $_POST['txt_email_sender_name'];
+  $txt_email_sender_password    = $_POST['txt_email_sender_password'];
+  $txt_email_sender    = $_POST['txt_email_sender'];
   $ID_txt     = $_POST['ID_txt'];
 
   
-    $query = "UPDATE doctype_detail 
-                SET TypeDetail_Name = '$txt_doctype_detail_name'
-              WHERE ID = '$ID_txt'";
+    $query = "UPDATE email_sender SET email_sender.Username = '$txt_email_sender_name' ,  email_sender.Password = '$txt_email_sender_password' ,  email_sender.Sender = '$txt_email_sender' 
+    WHERE ID = '$ID_txt'";
 
     $return = "แก้ไขข้อมูล สำเร็จ";
   
@@ -41,13 +42,15 @@ function editData($conn)
 function saveData($conn)
 {
 
-  $txt_doctype_detail_name    = $_POST['txt_doctype_detail_name'];
-
+  $txt_email_sender_name    = $_POST['txt_email_sender_name'];
+  $txt_email_sender_password    = $_POST['txt_email_sender_password'];
+  $txt_email_sender    = $_POST['txt_email_sender'];
+  
   $Sql2 = "SELECT
-            doctype_detail.TypeDetail_Name
+            email_sender.Username
           FROM
-          doctype_detail
-            WHERE  doctype_detail.TypeDetail_Name = '$txt_doctype_detail_name'
+          email_sender
+            WHERE  email_sender.Username = '$txt_email_sender_name'
           ";
   $result = mysqli_query($conn, $Sql2);
   $num_rows = mysqli_num_rows($result);
@@ -56,9 +59,8 @@ function saveData($conn)
    }else{
         
 
-          $query = "INSERT INTO doctype_detail 
-          SET TypeDetail_Name = '$txt_doctype_detail_name'
-          ";
+    $query = "INSERT INTO email_sender SET  email_sender.Username = '$txt_email_sender_name' ,  email_sender.Password = '$txt_email_sender_password' ,email_sender.Sender = '$txt_email_sender'
+    ";
 
           $return = "เพิ่มข้อมูล สำเร็จ";
           mysqli_query($conn, $query);
@@ -76,13 +78,15 @@ function show_data($conn)
 
 
   $Sql = "SELECT
-            doctype_detail.ID, 
-            doctype_detail.TypeDetail_Name
+            email_sender.ID, 
+            email_sender.Username,
+            email_sender.Password,
+            email_sender.Sender
           FROM
-          doctype_detail
-            WHERE (doctype_detail.TypeDetail_Name LIKE '%$Search_txt%')
-            AND doctype_detail.IsCancel = 0
-            ORDER BY  doctype_detail.TypeDetail_Name ASC
+            email_sender
+            WHERE (email_sender.Username LIKE '%$Search_txt%')
+           
+            ORDER BY  email_sender.ID DESC
           ";
 
   $meQuery = mysqli_query($conn, $Sql);
@@ -103,11 +107,13 @@ function show_Detail($conn)
 
 
   $Sql = "SELECT
-             doctype_detail.ID, 
-            doctype_detail.TypeDetail_Name
+             email_sender.ID, 
+             email_sender.Username,
+             email_sender.Password,
+             email_sender.Sender
           FROM
-          doctype_detail
-            WHERE doctype_detail.ID = '$ID'
+          email_sender
+            WHERE email_sender.ID = '$ID'
           ";
           
   $meQuery = mysqli_query($conn, $Sql);
@@ -126,11 +132,12 @@ function deleteData($conn)
 {
   $ID_txt = $_POST['ID_txt'];
 
-  $query = "UPDATE doctype_detail 
-                SET doctype_detail.IsCancel = 1
-              WHERE doctype_detail.ID = '$ID_txt'";
+  // $query = "UPDATE email_sender 
+  //               SET email_sender.IsCancel = 1
+  //             WHERE email_sender.ID = '$ID_txt'";
 
-  // $query = "DELETE FROM doctype_detail WHERE ID = $ID_txt";
+  $query = "DELETE FROM email_sender WHERE ID = $ID_txt";
+
   mysqli_query($conn, $query);
   echo "ลบ ข้อมูลสำเร็จ";
   unset($conn);
