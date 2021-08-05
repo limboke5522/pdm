@@ -89,6 +89,9 @@ $page = isset($_GET['page']) ? $_GET['page'] : 'notification_doc';
                 case "doctype_detail":
                     _groupMenu = "system";
                     break
+                case "email_sender":
+                    _groupMenu = "system";
+                    break    
                 case "notification_doc":
                     _groupMenu = "notification";
                     break

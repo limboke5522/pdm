@@ -55,11 +55,11 @@
             </div> -->
 
             <div class="row ml-4 mt-1">
-              <!-- <div class="col-3 mt-3">
-                <label>E-Mail :</label>
-                <input type="text" class="form-control" id="txt_email_sender_name" placeholder="Username">
-                <input type="text" class="form-control" id="txt_email_sender_password" placeholder="Password">
-              </div> -->
+            <div class="col-3 mt-3" hidden>
+                <label>mail :</label>
+                <input type="text" class="form-control" id="ID_txt" hidden>
+                <input type="text" class="form-control" id="txt_item_code" placeholder="รหัสประเภทเอกสาร">
+              </div>
 
               
                       <div class="row ml-3 mt-3">
@@ -68,14 +68,20 @@
                       </div>
                     
                       <div class="row ml-3 mt-3">
-                      <label>E-Mail :</label>
+                      <label>Password :</label>
                           <input type="text" class="form-control" id="txt_email_sender_password" placeholder="Password">
                       </div>
+
+                      <div class="row ml-3 mt-3">
+                      <label>Sender :</label>
+                          <input type="text" class="form-control" id="txt_email_sender" placeholder="Sender">
+                      </div>
+
 
               <div class="col-3 mt-5">
                 <button style="width: 100px;" type="button" class="btn btn-outline-success ml-2" id="btnSaveDoc" onclick="saveData();">บันทึก</button>
                 <button style="width: 100px;" type="button" class="btn btn-outline-warning ml-2" id="btnEditDoc">แก้ไข</button>
                 <button style="width: 100px;" type="button" class="btn btn-outline-danger ml-2" id="btnDeleteDoc">ลบ</button>
-                <button style="width: 100px;" type="button" class="btn btn-outline-secondary ml-2" id="btncleanDoc" onclick="clean();">ล้างข้อมูล</button>
+                <button style="width: 100px;" type="button" class="btn btn-outline-secondary ml-2" id="btncleanDoc" >ล้างข้อมูล</button>
               </div>
             </div>

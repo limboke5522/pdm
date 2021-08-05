@@ -179,6 +179,8 @@ $.ajax({
             var userAd_1 = "";
             var userPha_2 = "";
             var userDc_3 = "";
+            var userSale_4 = "";
+
             if (!$.isEmptyObject(ObjData.userdoc)) {
             $.each(ObjData.userdoc[value.ID], function(key2, value2) {
                         if(value2.UserTypeID == 1 ){
@@ -195,13 +197,18 @@ $.ajax({
                           userDc_3 = "checked";
                         }       
                       });
+            $.each(ObjData.userdoc[value.ID], function(key2, value2) {
+                        if(value2.UserTypeID == 4){
+                          userSale_4 = "checked";
+                        }       
+                      });          
             }
             var chkDoc = "<input class='form-control chk_docA' type='radio'  name='id_docA' id='id_docA" + value.ID + "'  value='" + value.ID + "'  style='width:15%;'>";
 
             var chkUser_Ad = "<input class='form-control chkUser_Ad' "+userAd_1+" type='checkbox'  name='id_user_Ad' id='id_user_Ad" + value.ID + "' value='" + value.ID + "'  onclick='saveData("+value.ID+",1);' style='width: 15%;'>";
             var chkUser_Pha = "<input class='form-control chkUser_Pha' "+userPha_2+" type='checkbox'  name='id_user_Pha' id='id_user_Pha" + value.ID + "' value='" + value.ID + "' onclick='saveData("+value.ID+",2);' style='width: 15%;'>";
             var chkUser_Dc = "<input class='form-control chkUser_Dc' "+userDc_3+" type='checkbox'  name='id_user_Dc' id='id_user_Dc" + value.ID + "' value='" + value.ID + "' onclick='saveData("+value.ID+",3);' style='width: 15%;'>";
-
+            var chkUser_Sale = "<input class='form-control chkUser_Sale' "+userSale_4+" type='checkbox'  name='id_user_Sale' id='id_user_Sale" + value.ID + "' value='" + value.ID + "' onclick='saveData("+value.ID+",4);' style='width: 15%;'>";
 
             StrTR += "<tr style='border-radius: 15px 15px 15px 15px;margin-top: 6px;margin-bottom: 6px;'>" +
                       // "<td style='width:10%;text-align: center;'><center>" + chkDoc + "</center></td>" + 
@@ -209,7 +216,7 @@ $.ajax({
                       "<td style='width:10%;text-align: center;'><center>" + chkUser_Ad + "</center></td>" +
                       "<td style='width:10%;text-align: center;'><center>" + chkUser_Pha + "</center></td>" +
                       "<td style='width:10%;text-align: center;'><center>" + chkUser_Dc + "</center></td>" +
-                      
+                      "<td style='width:10%;text-align: center;'><center>" + chkUser_Sale + "</center></td>" +
                       "</tr>";
 
                       $('#Data_TableRight tbody').html(StrTR);
@@ -277,7 +284,7 @@ function saveData(UserTypeID,DocumentID) {
     var id_user_Ad = $('#id_user_Ad').val(); 
     var id_user_Pha = $('#id_user_Pha').val(); 
     var id_user_Dc= $('#id_user_Dc').val(); 
-
+    var id_user_Sale= $('#id_user_Sale').val(); 
     
     var count = 0;
 
@@ -292,6 +299,9 @@ $(".id_userAD:checked").each(function() {
     $(".id_userDC:checked").each(function() {
       count++;
     });
+    $(".id_userSale:checked").each(function() {
+      count++;
+    });
     // if (count == 0) {
     //   text = "กรุณาเลือก User";
     //   showDialogFailed(text);
@@ -300,6 +310,7 @@ $(".id_userAD:checked").each(function() {
       var id_AD = $(".id_userAD:checked").val();
       var id_PHA = $(".id_userPHA:checked").val();
       var id_DC = $(".id_userDC:checked").val();
+      var id_SA = $(".id_userSale:checked").val();
 
     $(".id_userAD:checked").each(function() {
       ID_Doc.push($(this).val());
@@ -308,6 +319,9 @@ $(".id_userAD:checked").each(function() {
       ID_Doc.push($(this).val());
     });
     $(".id_userDC:checked").each(function() {
+      ID_Doc.push($(this).val());
+    });
+    $(".id_userSale:checked").each(function() {
       ID_Doc.push($(this).val());
     });
 
@@ -335,7 +349,8 @@ $(".id_userAD:checked").each(function() {
         'DocumentID':DocumentID,
         'id_AD':id_AD,
         'id_PHA':id_PHA,
-        'id_DC':id_DC
+        'id_DC':id_DC,
+        'id_SA':id_SA
         
       },
       // success: function(result) {

@@ -75,6 +75,7 @@
                           <th style="width: 10%;" class="bg_tableAll">Admin(Sale)</th>
                           <th style="width: 10%;" class="bg_tableAll">Phamarcy</th>
                           <th style="width: 10%;" class="bg_tableAll">DC</th>
+                          <th style="width: 10%;" class="bg_tableAll">Sale</th>
                         </tr>
                       </thead>
                       <tbody>

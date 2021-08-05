@@ -55,7 +55,9 @@
         $('#btnEditDoc').hide();
         $('#btnDeleteDoc').hide();
         $('#btncleanDoc').hide();
-        $('#txt_doctype_detail_name').val("");
+        $('#txt_email_sender_name').val("");
+        $('#txt_email_sender_password').val("");
+        $('#txt_email_sender').val("");
         $('#ID_txt').val("");
 
         $(".chk_Cus").prop("checked", false);
@@ -68,7 +70,8 @@
   function saveData() {
     var txt_email_sender_name= $('#txt_email_sender_name').val();
     var txt_email_sender_password= $('#txt_email_sender_password').val();
-
+    var txt_email_sender= $('#txt_email_sender').val();
+   
 
     var text = "";
 
@@ -84,13 +87,20 @@
       return;
     }
 
+    if (txt_email_sender == "") {
+      text = "กรุณากรอกชื่อผู้ส่ง";
+      showDialogFailed(text);
+      return;
+    }
+
     $.ajax({
       url: "process/email_sender.php",
       type: 'POST',
       data: {
         'FUNC_NAME': 'saveData',
         'txt_email_sender_name': txt_email_sender_name,
-        'txt_email_sender_password': txt_email_sender_password
+        'txt_email_sender_password': txt_email_sender_password,
+        'txt_email_sender': txt_email_sender
       },
       success: function(result) {
         if(result=="0"){
@@ -102,6 +112,7 @@
         show_data();
         $('#txt_email_sender_name').val("");
         $('#txt_email_sender_password').val("");
+        $('#txt_email_sender').val("");
         $('#ID_txt').val("");
       
    
@@ -113,7 +124,7 @@
     var ID_txt = $('#ID_txt').val();
     var txt_email_sender_name= $('#txt_email_sender_name').val();
     var txt_email_sender_password= $('#txt_email_sender_password').val();
-
+    var txt_email_sender= $('#txt_email_sender').val();
 
 
     if (txt_email_sender_name == "") {
@@ -127,14 +138,20 @@
       showDialogFailed(text);
       return;
     }
+    if (txt_email_sender == "") {
+      text = "กรุณากรอกชื่อผู้ส่ง";
+      showDialogFailed(text);
+      return;
+    }
 
     $.ajax({
-      url: "process/doctype_detail.php",
+      url: "process/email_sender.php",
       type: 'POST',
       data: {
         'FUNC_NAME': 'editData',
         'txt_email_sender_name': txt_email_sender_name,
         'txt_email_sender_password': txt_email_sender_password,
+        'txt_email_sender': txt_email_sender,
         'ID_txt':ID_txt
       },
       success: function(result) {
@@ -142,6 +159,7 @@
         show_data();
         $('#txt_email_sender_name').val("");
         $('#txt_email_sender_password').val("");
+        $('#txt_email_sender').val("");
         $('#ID_txt').val("");
 
         $('#btnEditDoc').hide();
@@ -158,7 +176,7 @@
     var  txtSearch =  $("#txtSearch").val();
 
     $.ajax({
-      url: "process/doctype_detail.php",
+      url: "process/email_sender.php",
       type: 'POST',
       data: {
         'FUNC_NAME': 'show_data',
@@ -170,16 +188,16 @@
               if (!$.isEmptyObject(ObjData)) {
                 $.each(ObjData, function(key, value) {
 
-                  if(value.Status==1){
-                    var Status_txt = "ลูกค้าใหม่";
-                  }else{
-                    var Status_txt = "เปิดบิล";
-                  }
+                  // if(value.Status==1){
+                  //   var Status_txt = "ลูกค้าใหม่";
+                  // }else{
+                  //   var Status_txt = "เปิดบิล";
+                  // }
                   var chkDoc = "<input class='form-control chk_Cus' type='radio' value='1' name='id_Cus' id='id_Cus" + key + "' value='" + value.ID + "' onclick='show_Detail(\"" + value.ID + "\",\"" + key + "\")' style='width: 25%;height:20px;'>";
                   StrTR += "<tr style='border-radius: 15px 15px 15px 15px;margin-top: 6px;margin-bottom: 6px;'>" +
                     "<td style='width:10%;text-align: center;'><center>"+chkDoc+"</center></td>" +
                     "<td style='width:10%;text-align: center;'>" + (key + 1) + "</td>" +
-                    "<td style='width:23%;text-align: center;'>" + value.TypeDetail_Name + "</td>" +
+                    "<td style='width:23%;text-align: center;'>" + value.Username + "</td>" +
                     "</tr>";
                 });
               }
@@ -195,7 +213,7 @@
     $('#ID_txt').val(ID);
 
     $.ajax({
-      url: "process/doctype_detail.php",
+      url: "process/email_sender.php",
       type: 'POST',
       data: {
         'FUNC_NAME': 'show_Detail',
@@ -207,9 +225,10 @@
               if (!$.isEmptyObject(ObjData)) {
                 $.each(ObjData, function(key, value) {
 
-                  $('#txt_doctype_detail_name').val(value.TypeDetail_Name);
+                  $('#txt_email_sender_name').val(value.Username);
+                  $('#txt_email_sender_password').val(value.Password);
+                  $('#txt_email_sender').val(value.Sender);
 
-                 
                   $('#btnEditDoc').show();
                   $('#btnSaveDoc').hide();
                   $('#btnDeleteDoc').show();
@@ -225,7 +244,7 @@
   function deleteData() {
     var  ID_txt = $('#ID_txt').val();
     $.ajax({
-      url: "process/doctype_detail.php",
+      url: "process/email_sender.php",
       type: 'POST',
       data: {
         'FUNC_NAME': 'deleteData',
@@ -234,7 +253,9 @@
       success: function(result) {
         // feedData();
 
-          $('#txt_doctype_detail_name').val("");
+          $('#txt_email_sender_name').val("");
+          $('#txt_email_sender_password').val("");
+          $('#txt_email_sender').val("");
           $('#ID_txt').val("");
       
           $(".chk_Cus").prop("checked", false);
