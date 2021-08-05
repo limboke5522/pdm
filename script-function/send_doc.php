@@ -52,8 +52,8 @@
       selection_Doclist();
       selection_Product();
       objReal.productName = [];
-
-
+      objReal.productID = [];
+      objReal.productDocTypeID = [];
       if (select_DocTypeID_L != 2) {
         $("#table_product tbody").empty();
         $('#select_product').attr('disabled', false);
@@ -61,6 +61,7 @@
         selection_Product();
         showData_product();
 
+        $("#table_product_list_document tbody").empty();
 
       } else {
         // objReal.productName = [];
@@ -89,11 +90,11 @@
   }
 
 
-// new =================
-  function showProductCenter(){
-      alert($("#select_DocTypeID_L").val());
+  // new =================
+  function showProductCenter() {
+    alert($("#select_DocTypeID_L").val());
   }
-// =====================
+  // =====================
   function selection_Customer() {
     $.ajax({
       url: "process/send_doc.php",
@@ -572,6 +573,8 @@
 
       if (productID2 != 0) {
         if (chk_idProduct == 0) {
+
+          // alert(productID2);
           objReal.productID.push(productID2);
           objReal.productName.push(productName);
 

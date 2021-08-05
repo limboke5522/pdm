@@ -408,7 +408,6 @@ function product_file($conn)
             documentlist.DocName ASC,
             docrevision.version DESC 
             ";
-
   $meQuery = mysqli_query($conn, $Sql);
   while ($row = mysqli_fetch_assoc($meQuery)) {
     $DocumentID = $row['DocumentID'];
