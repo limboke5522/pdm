@@ -112,6 +112,7 @@
         show_data();
         $('#txt_email_sender_name').val("");
         $('#txt_email_sender_password').val("");
+        $('#txt_email_sender').val("");
         $('#ID_txt').val("");
       
    
@@ -123,7 +124,7 @@
     var ID_txt = $('#ID_txt').val();
     var txt_email_sender_name= $('#txt_email_sender_name').val();
     var txt_email_sender_password= $('#txt_email_sender_password').val();
-
+    var txt_email_sender= $('#txt_email_sender').val();
 
 
     if (txt_email_sender_name == "") {
@@ -137,6 +138,11 @@
       showDialogFailed(text);
       return;
     }
+    if (txt_email_sender == "") {
+      text = "กรุณากรอกชื่อผู้ส่ง";
+      showDialogFailed(text);
+      return;
+    }
 
     $.ajax({
       url: "process/email_sender.php",
@@ -145,6 +151,7 @@
         'FUNC_NAME': 'editData',
         'txt_email_sender_name': txt_email_sender_name,
         'txt_email_sender_password': txt_email_sender_password,
+        'txt_email_sender': txt_email_sender,
         'ID_txt':ID_txt
       },
       success: function(result) {
@@ -152,6 +159,7 @@
         show_data();
         $('#txt_email_sender_name').val("");
         $('#txt_email_sender_password').val("");
+        $('#txt_email_sender').val("");
         $('#ID_txt').val("");
 
         $('#btnEditDoc').hide();
@@ -219,7 +227,8 @@
 
                   $('#txt_email_sender_name').val(value.Username);
                   $('#txt_email_sender_password').val(value.Password);
-                 
+                  $('#txt_email_sender').val(value.Sender);
+
                   $('#btnEditDoc').show();
                   $('#btnSaveDoc').hide();
                   $('#btnDeleteDoc').show();
@@ -246,6 +255,7 @@
 
           $('#txt_email_sender_name').val("");
           $('#txt_email_sender_password').val("");
+          $('#txt_email_sender').val("");
           $('#ID_txt').val("");
       
           $(".chk_Cus").prop("checked", false);
