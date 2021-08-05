@@ -49,11 +49,12 @@
   var select_Doclist= $('#select_Doclist').val();
 
   if(numm==1){
-
-    objReal.productName = [];
-    selection_Product();
+    $('#select2-select_product-container').val(0);
     selection_Doclist();
-    $("#table_product_list_document tbody").empty();
+    selection_Product();
+    objReal.productName = [];
+    
+    // $("#table_product_list_document tbody").empty();
 
                     if(select_DocTypeID_L != 2){
                       $("#table_product tbody").empty();
@@ -432,7 +433,7 @@
 
     var select_DocTypeID_L = $("#select_DocTypeID_L").val();
     var select_Doclist = $("#select_Doclist").val();
-    
+    // alert(id_product);
     // var select_DocTypeID = $("#select_DocTypeID").val();
 
     if(id_product != undefined){
@@ -451,7 +452,7 @@
     // $("#select_DocTypeID").attr('disabled', false);
     $("#txt_product_center").attr('disabled', false);
     
-
+// alert(select_Doclist);
 
    $.ajax({
       url: "process/send_doc.php",

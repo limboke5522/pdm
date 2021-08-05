@@ -388,15 +388,19 @@ function product_file($conn)
   $select_DocTypeID_L = $_POST["select_DocTypeID_L"];
   $select_Doclist = $_POST["select_Doclist"];
 
+
+
   $Sql = "SELECT
             docrevision.DocumentID ,
             productdoc.DocTypeID,
-            documentlist.DocType_Detail
+            documentlist.DocType_Detail,
+            productdoc.ProductID
           FROM
             productdoc
             INNER JOIN docrevision ON productdoc.ID_FileDoc = docrevision.ID
             INNER JOIN documentlist ON docrevision.DocumentID = documentlist.ID 
-         
+          WHERE productdoc.ProductID = '$id_product'
+          -- AND productdoc.DocumentID = '$select_Doclist'
           GROUP BY
             docrevision.DocumentID 
           ORDER BY
@@ -410,30 +414,45 @@ function product_file($conn)
     $UserID = $row['UserID'];
     $DocTypeID = $row['DocTypeID'];
     $documentlist_DocType_Detail = $row['DocType_Detail'];
+    $pro_id = $row['ProductID'];
+  
+    
+    
 
+    if($select_DocTypeID_L == 2 ){
+      $ANDdoc_type = " (    productdoc.DocTypeID = 2
+                        AND productdoc.DocumentID = '$DocumentID') ";   
+    }else {
+      $ANDdoc_type = " (    productdoc.DocTypeID = '$select_DocTypeID_L'
+                        AND productdoc.ProductID = '$pro_id'
+                        AND productdoc.DocumentID = '$DocumentID') ";  
+    } 
 
-    if($select_Doclist == 0 ){
-      $ANDdoctype = "";
+    // if($id_product ==  $pro_id){ 
+    //   $ANDdoc_type1 = " AND (productdoc.ProductID LIKE '%$id_product%' 
+    //                     AND productdoc.DocumentID = '$DocumentID')";
+    // }
+
+    // if($select_DocTypeID_L !=  $DocTypeID){ 
+    //   $ANDdoc_type = " (productdoc.DocumentID = '$DocumentID'
+    //                   AND  productdoc.ProductID = '$id_product'
+    //                   AND productdoc.DocTypeID = '$select_DocTypeID_L' )";  
+    // }else{
+
+    //   $ANDdoc_type = " ( 
+    //                    productdoc.ProductID = '$id_product'
+    //                   AND productdoc.DocTypeID  = '$documentlist_DocType_Detail'
+    //                   AND productdoc.DocumentID = '$DocumentID'
+    //                   ) ";
+    // }  
+
+    if($select_Doclist ==  0){ 
+      $ANDdoc_type2 = "";
     }else{
-      $ANDdoctype = " (productdoc.DocTypeID = '$select_Doclist') ";
+      $ANDdoc_type2 = " AND (productdoc.DocumentID = '$select_Doclist' )";  
     }
-
-    if($select_DocTypeID_L == 2){
-      $ANDdoc_type = " (productdoc.DocumentID  ='$DocumentID' 
-                      AND productdoc.DocTypeID = 2) ";     
-        }else{
-
-                if($DocTypeID !=  $select_DocTypeID_L){
-                  $ANDdoc_type = " (documentlist.ID = '$DocumentID'
-                                  AND  productdoc.ProductID = '$id_product'
-                                  AND productdoc.DocTypeID = '' )";  
-                }else{
-                  $ANDdoc_type = " ( documentlist.ID = '$DocumentID'
-                                  AND productdoc.ProductID = '$id_product'
-                                  AND productdoc.DocTypeID  = '$documentlist_DocType_Detail') ";
-                }  
-     
-        }
+    
+        
 
      
 
@@ -473,19 +492,21 @@ function product_file($conn)
               INNER JOIN documentlist ON docrevision.DocumentID = documentlist.ID
               INNER JOIN doctype_detail ON documentlist.DocType_Detail = doctype_detail.ID
               WHERE
-              $ANDdoctype
               $ANDdoc_type 
+              $ANDdoc_type2
               HAVING lasrVersion>=newVersion
+              
               ORDER BY
                 docrevision.version,
                 docrevision.DocumentID DESC 
+                
             ";
 // echo $Sql_2;
     $meQuery2 = mysqli_query($conn, $Sql_2);
     while ($row2 = mysqli_fetch_assoc($meQuery2)) {
       $return[] = $row2;
     }
-  }
+}
   echo json_encode($return);
   mysqli_close($conn);
   die;
