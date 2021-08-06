@@ -369,17 +369,20 @@
                       </div>
                     </div>
 
+
+
+                    <div class="divider"></div> <!-- ขีดเส้นใต้ -->
+
                     <div class="row  " >
                       <div class="row ml-1 col-12">
-                        <label class="col-1 ">เรื่อง :</label>
-                          <div class="col-11  ">
+                        <label class="col-1 mt-1">เรื่อง :</label>
+                          <div class="col-6  ">
                           <input type="text" class="form-control" id="txtPopup_purpose_name" > <!-- ชื่อเรื่อง  -->
                           </div>
                       </div>
                     </div>
 
-                    <div class="divider"></div> <!-- ขีดเส้นใต้ -->
-                    <h4  id="detail"><b>รายละเอียด</b></h4>
+                    <h4  id="detail" style="margin-top: 25px; "><b>รายละเอียด</b></h4>
                     <div class="row  " >
                           <div class="col-12  ">
                           <textarea style="height: 200px;" class="form-control" id="box22" >
@@ -407,12 +410,11 @@
                     </div>
 
 
-                    <div class="row mt-3" >
-                      <div class="col-12  ">
-                            <div  id="boxfile" class="ml-2  "></br></div>
-                              <div  id="fileeee" ></div>
-                        </div>  
-                     </div>
+                    <div class="row mt-3" id="p_file_img">
+
+                    </div>
+
+                    <div div class="divider"></div>
 
                     <div class="row " >
                       <div class="col-12 ml-2 mt-3">

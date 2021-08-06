@@ -860,6 +860,7 @@
 
 
   function preview(fileName) {
+    // alert(fileName);
     var url = "process/file/" + fileName;
     window.open(url);
   }
@@ -1098,12 +1099,12 @@
         var DocNameer = "";
         var headdocer = "";
         var memoo = "";
+        $("#p_file_img").empty();
         if (!$.isEmptyObject(ObjData)) {
           $.each(ObjData, function(key, value) {
 
-            btn_previewer += '<a href="javascript:void(0)"  onclick="preview(\'' + value.fileName + '\');"><img src="img/pdf.png" style="margin-left: 40px; width:75px;"></a>';
-            fileNameer += "<label style='margin-left: 20px; width:100px;'><br>" + value.fileNameee + "</label>";
-
+            // btn_previewer += '<a href="javascript:void(0)"  onclick="preview(\'' + value.fileName + '\');"><img src="img/pdf.png" style="margin-left: 40px; width:75px;"></a>';
+    
             StrTR += "<tr style='border-radius: 15px 15px 15px 15px;margin-top: 6px;margin-bottom: 6px;'>" +
               "<td style='border: none; width:5%;text-align: center;'>" + (key + 1) + "</td>" +
               "<td style='border: none; width:40%;text-align: left;'>" + value.DocName + "</td>" +
@@ -1112,11 +1113,7 @@
               "</tr>";
 
 
-            // BoxArea =
-            //   '<label>'+value.Memo_Headdoc+'</label>'+
-            //   '<label>รายการสินค้า</label>'+
-            //   '<label>'+value.ProductName+'</label>'+
-            //   '<label>'+value.Memo+'</label>';
+
 
             headdocer = "<label >" + value.Memo_Headdoc + "</label>";
             DocNameer += "" + (key + 1) + " . " + value.DocName + "\n" + "          ";
@@ -1128,26 +1125,26 @@
 
             $('#txtPopup_purpose_name').val(value.Purpose);
 
-            // $('#memo_headdoc').text(value.Memo_Headdoc);
-            // $('#head_list_items').text(value.ProductName);
-            // $('#memo').text(value.Memo);
-
+        
             $('#headdoc').text(value.Memo_Headdoc);
             $('#head_list_items').text(value.ProductName);
             $('#box').html(StrTR);
             $('#memoo').text(value.Memo);
 
-            // $('#box22').text(StrTR);
-
-
             $('#box22').html(value.Memo_Headdoc + "\n" + " " + "รายการสินค้า" + "\n" + "    " + value.ProductName + "\n" + "          " + DocNameer + "\n" + value.Memo);
 
-            $('#boxfile').html(btn_previewer);
-            $('#fileeee').html(fileNameer);
+            var showfile = "<div class='col-2'>"+
+                           "<div class='form-group'>"+
+                           "<a href='javascript:void(0)' onclick='preview(\"" + value.fileName + "\");'>"+
+                           "<img src='img/pdf.png' style='margin-left: 10px; width:75px;'>"+
+                           "</a>"+
+                           "<p style='text-align: center;'>"+value.fileNameee+"</p>"+
+                           "</div></div> ";
+            $("#p_file_img").append(showfile);
+           
           });
         }
-        // $('#table_list_items tbody').html(StrTR);
-
+  
 
       }
     });
