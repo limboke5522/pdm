@@ -8,6 +8,8 @@ $(function() {
   $('#txtSearch2').hide();
   $('#txtSearch3').hide();
 
+  $('#right').hide();
+
   showData_exp_1();
   showData_exp2_1();
   // showData_exp3_1();
@@ -22,8 +24,12 @@ $(function() {
 
     $('#txt_Sdate_doc').val(output);
     $('#txt_Edate_doc').val(output);
+
+    
   })
+
   
+
   // show
   function showData_exp() {
     var  txtSearch = $('#txtSearch').val();
@@ -47,10 +53,10 @@ $(function() {
           $.each(ObjData, function(key, value) {
 
 
-            var chkDoc = "<input class='form-control chk_docLeft' type='radio'  name='id_doc' id='id_doc" + key + "' value='" + value.ID + "'  style='width: 50%;'>";
+            var chkDoc = "<input class='form-control chk_docLeft' type='checkbox'  name='id_doc' id='id_doc" + key + "' value='" + value.ID + "'  style='width: 25%;'>";
 
             StrTR += "<tr style='border-radius: 15px 15px 15px 15px;margin-top: 6px;margin-bottom: 6px;'>" +
-                      // "<td style='width:7%;text-align: center;'><center>" + chkDoc + "</center></td>" +
+                      "<td style='width:5%;text-align: center;'><center>" + chkDoc + "</center></td>" +
                       "<td style='width:5%; text-align: center;'>" + (key + 1) + "</td>" +
                       "<td style='width:20%;text-align: center;'>" + value.DocName + "</td>" +
                       "<td style='width:20%;text-align: center;'>" + value.LastVersion + "</td>" +
@@ -60,6 +66,8 @@ $(function() {
                       count++;
            });
         }
+        
+
         // $tree = show_DataLeft($rows);
         $('#exp').text(count);
         $('#exp2').text("");
@@ -68,7 +76,8 @@ $(function() {
         $('#tb_contact').show();
         $('#txtSearch').show();
         $('#contact_Table tbody').html(StrTR);
-
+        $('#left').show();
+        $('#right').hide();
         $('#tb_contact2').hide();
         $('#tb_contact3').hide();
 
@@ -141,10 +150,10 @@ function showData_exp2() {
           $.each(ObjData, function(key, value) {
 
 
-            var chkDoc = "<input class='form-control chk_docLeft' type='radio'  name='id_doc2' id='id_doc2" + key + "' value='" + value.ID + "'  style='width: 50%;'>";
+            var chkDoc = "<input class='form-control chk_docLeft' type='checkbox'  name='id_doc2' id='id_doc2" + key + "' value='" + value.ID + "'  style='width: 25%;'>";
 
             StrTR2 += "<tr style='border-radius: 15px 15px 15px 15px;margin-top: 6px;margin-bottom: 6px;'>" +
-                      // "<td style='width:7%;text-align: center;'><center>" + chkDoc + "</center></td>" +
+                      "<td style=' width:5%;text-align: center;'><center>" + chkDoc + "</center></td>" +
                       "<td style='width:5%; text-align: center;'>" + (key + 1) + "</td>" +
                       "<td style='width:20%;text-align: center;'>" + value.DocName + "</td>" +
                       "<td style='width:20%;text-align: center;'>" + value.LastVersion + "</td>" +
@@ -159,7 +168,7 @@ function showData_exp2() {
         // $('#exp2_1').text(count);
         $('#exp2').text(count);
         $('#exp3').text("");
-
+        $('#right').show();
         $('#tb_contact2').show();
         $('#txtSearch2').show();
         $('#contact_Table2 tbody').html(StrTR2);
@@ -169,6 +178,8 @@ function showData_exp2() {
 
         $('#txtSearch').hide();
         $('#txtSearch3').hide();
+
+        $('#left').hide();
 
         $('#bells').show();
         $('#exp_1').show();
@@ -337,4 +348,7 @@ function showData_exp3() {
       }
     });
   }
+
+ 
+
 </script>

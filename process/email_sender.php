@@ -31,9 +31,14 @@ function editData($conn)
     WHERE ID = '$ID_txt'";
 
     $return = "แก้ไขข้อมูล สำเร็จ";
-  
 
   mysqli_query($conn, $query);
+
+  $querylog = "INSERT INTO log_sender SET  log_sender.ID_email = '$ID_txt' ,  log_sender.Username = '$txt_email_sender_name' ,log_sender.Date_Update = NOW()  ";
+// echo $querylog;
+          
+          mysqli_query($conn, $querylog);
+
   echo $return;
   unset($conn);
   die;
@@ -47,6 +52,7 @@ function saveData($conn)
   $txt_email_sender    = $_POST['txt_email_sender'];
   
   $Sql2 = "SELECT
+            email_sender.ID,
             email_sender.Username
           FROM
           email_sender

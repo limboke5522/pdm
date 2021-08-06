@@ -34,6 +34,8 @@
 <link rel="stylesheet" href="assets/plugins/chart.js/Chart.min.css">
 <link rel="stylesheet" href="assets/dist/css/swap.css">
 <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300&display=swap" rel="stylesheet">
+
+
 <style>
     .bg_tableAll{
         background-color: darkgray !important ;
@@ -199,7 +201,7 @@
 		position:relative ;
         top: -175px;
         right: -230px;
-        font-size:2rem;
+        font-size:3rem;
 		/* background-color: #FFFFFF; */
 		color: #000000;
 		border-radius: 23px;
@@ -212,7 +214,7 @@
 		position:relative ;
         top: -169px;
         right: -220px;
-        font-size:2rem;
+        font-size:4rem;
 		/* background-color: #ff0000; */
 		color: #000000;
 		border-radius: 23px;
@@ -238,7 +240,7 @@
 		position:relative ;
         top: -175px;
         right: -230px;
-        font-size:2rem;
+        font-size:3rem;
 		/* background-color: #ff0000; */
 		color: #000000;
 		border-radius: 23px;
@@ -251,7 +253,7 @@
 		position:relative ;
         top: -171px;
         right: -219px;
-        font-size:2rem;
+        font-size:4rem;
 		/* background-color: #ff0000; */
 		color: #000000;
 		border-radius: 23px;
@@ -269,6 +271,12 @@
         animation: shake 5s infinite;
         
     }
+
+    .gray-200{
+		$gray-200 ;
+
+	}
+
             @keyframes shake {
                     0%,
                     25%,
@@ -314,6 +322,19 @@
                 padding: 1px;
                 left: 3px;
                 
+                }
+
+                table.dataTable thead .sorting:after,
+                table.dataTable thead .sorting:before,
+                table.dataTable thead .sorting_asc:after,
+                table.dataTable thead .sorting_asc:before,
+                table.dataTable thead .sorting_asc_disabled:after,
+                table.dataTable thead .sorting_asc_disabled:before,
+                table.dataTable thead .sorting_desc:after,
+                table.dataTable thead .sorting_desc:before,
+                table.dataTable thead .sorting_desc_disabled:after,
+                table.dataTable thead .sorting_desc_disabled:before {
+                bottom: .5em;
                 }
     
 </style>
