@@ -7,8 +7,9 @@ $(function() {
 
   $('#txtSearch2').hide();
   $('#txtSearch3').hide();
-
+  // $('#exp').hide();
   $('#right').hide();
+  showData_exp();
 
   showData_exp_1();
   showData_exp2_1();
@@ -69,6 +70,74 @@ $(function() {
         
 
         // $tree = show_DataLeft($rows);
+        
+        // $('#exp').text(count);
+        $('#exp2').text("");
+        $('#exp3').text("");
+
+        $('#tb_contact').show();
+        $('#txtSearch').show();
+        $('#contact_Table tbody').html(StrTR);
+        $('#left').show();
+        $('#right').hide();
+        $('#tb_contact2').hide();
+        $('#tb_contact3').hide();
+
+        $('#txtSearch2').hide();
+        $('#txtSearch3').hide();
+
+        $('#bells').hide();
+        $('#exp_1').hide();
+
+        $('#bells2').show();
+        $('#exp2_1').show();
+
+        $('#bells3').show();
+        $('#exp3_1').show();
+      }
+    });
+
+  }
+
+  function showData_expshow() {
+    var  txtSearch = $('#txtSearch').val();
+    var  txt_Sdate_doc = $('#txt_Sdate_doc').val();
+    var  txt_Edate_doc = $('#txt_Edate_doc').val();
+
+    $.ajax({
+      url: "process/notification_doc.php",
+      type: 'POST',
+      data: {
+        'FUNC_NAME': 'showData_exp',
+        'txtSearch': txtSearch,
+        'txt_Sdate_doc': txt_Sdate_doc,
+        'txt_Edate_doc': txt_Edate_doc
+      },
+      success: function(result) {
+        var ObjData = JSON.parse(result);
+        var count = 0;
+        var StrTR = "";
+        if (!$.isEmptyObject(ObjData)) {
+          $.each(ObjData, function(key, value) {
+
+
+            var chkDoc = "<input class='form-control chk_docLeft' type='checkbox'  name='id_doc' id='id_doc" + key + "' value='" + value.ID + "'  style='width: 25%;'>";
+
+            StrTR += "<tr style='border-radius: 15px 15px 15px 15px;margin-top: 6px;margin-bottom: 6px;'>" +
+                      "<td style='width:5%;text-align: center;'><center>" + chkDoc + "</center></td>" +
+                      "<td style='width:5%; text-align: center;'>" + (key + 1) + "</td>" +
+                      "<td style='width:20%;text-align: center;'>" + value.DocName + "</td>" +
+                      "<td style='width:20%;text-align: center;'>" + value.LastVersion + "</td>" +
+                      "<td style='width:20%;text-align: center;'>" + value.diffday + "</td>" +
+                      "</tr>";
+
+                      count++;
+           });
+        }
+        
+
+        // $tree = show_DataLeft($rows);
+        
         $('#exp').text(count);
         $('#exp2').text("");
         $('#exp3').text("");
