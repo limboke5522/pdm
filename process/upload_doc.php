@@ -5,42 +5,41 @@ require '../connect/connect.php';
 if (!empty($_POST['FUNC_NAME'])) {
   if ($_POST['FUNC_NAME'] == 'selection_Product') {
     selection_Product($conn);
-  }else   if ($_POST['FUNC_NAME'] == 'upload_Doc') {
+  } else   if ($_POST['FUNC_NAME'] == 'upload_Doc') {
     upload_Doc($conn);
-  }else   if ($_POST['FUNC_NAME'] == 'show_DataRight') {
+  } else   if ($_POST['FUNC_NAME'] == 'show_DataRight') {
     show_DataRight($conn);
-  }else   if ($_POST['FUNC_NAME'] == 'show_DataLeft') {
+  } else   if ($_POST['FUNC_NAME'] == 'show_DataLeft') {
     show_DataLeft($conn);
-  }else if ($_POST['FUNC_NAME'] == 'selection_DocDetail') {
+  } else if ($_POST['FUNC_NAME'] == 'selection_DocDetail') {
     selection_DocDetail($conn);
-  }else if ($_POST['FUNC_NAME'] == 'selection_DocDetaill') {
+  } else if ($_POST['FUNC_NAME'] == 'selection_DocDetaill') {
     selection_DocDetaill($conn);
-  }else   if ($_POST['FUNC_NAME'] == 'selection_Doc') {
+  } else   if ($_POST['FUNC_NAME'] == 'selection_Doc') {
     selection_Doc($conn);
-  }else   if ($_POST['FUNC_NAME'] == 'selection_Docc') {
+  } else   if ($_POST['FUNC_NAME'] == 'selection_Docc') {
     selection_Docc($conn);
-  }else   if ($_POST['FUNC_NAME'] == 'Save_FileDoc') {
+  } else   if ($_POST['FUNC_NAME'] == 'Save_FileDoc') {
     Save_FileDoc($conn);
-  }else   if ($_POST['FUNC_NAME'] == 'Delete_FileDoc') {
+  } else   if ($_POST['FUNC_NAME'] == 'Delete_FileDoc') {
     Delete_FileDoc($conn);
   } else   if ($_POST['FUNC_NAME'] == 'selection_PRODUCTT') {
     selection_PRODUCTT($conn);
-  }else   if ($_POST['FUNC_NAME'] == 'Save_product') {
+  } else   if ($_POST['FUNC_NAME'] == 'Save_product') {
     Save_product($conn);
-  }else   if ($_POST['FUNC_NAME'] == 'Save_Doc') {
+  } else   if ($_POST['FUNC_NAME'] == 'Save_Doc') {
     Save_Doc($conn);
-  }else   if ($_POST['FUNC_NAME'] == 'get_refNum') {
+  } else   if ($_POST['FUNC_NAME'] == 'get_refNum') {
     get_refNum($conn);
-  }else   if ($_POST['FUNC_NAME'] == 'selection_DocDetaill_popup') {
+  } else   if ($_POST['FUNC_NAME'] == 'selection_DocDetaill_popup') {
     selection_DocDetaill_popup($conn);
   }
-
-  
 }
 
 
 
-function selection_DocDetail($conn){
+function selection_DocDetail($conn)
+{
   $Sql = "SELECT
             doctype_detail.ID,
             doctype_detail.TypeDetail_Name ,
@@ -51,18 +50,19 @@ function selection_DocDetail($conn){
             ORDER BY  doctype_detail.SortNo ASC
        ";
 
-$meQuery = mysqli_query($conn, $Sql);
-while ($row = mysqli_fetch_assoc($meQuery)) {
-$return[] = $row;
+  $meQuery = mysqli_query($conn, $Sql);
+  while ($row = mysqli_fetch_assoc($meQuery)) {
+    $return[] = $row;
+  }
+
+
+  echo json_encode($return);
+  mysqli_close($conn);
+  die;
 }
 
-
-echo json_encode($return);
-mysqli_close($conn);
-die;
-}
-
-function selection_DocDetaill($conn){
+function selection_DocDetaill($conn)
+{
   $Sql = "SELECT
             doctype_detail.ID,
             doctype_detail.TypeDetail_Name,
@@ -73,18 +73,19 @@ function selection_DocDetaill($conn){
             ORDER BY  doctype_detail.SortNo ASC
        ";
 
-$meQuery = mysqli_query($conn, $Sql);
-while ($row = mysqli_fetch_assoc($meQuery)) {
-$return[] = $row;
+  $meQuery = mysqli_query($conn, $Sql);
+  while ($row = mysqli_fetch_assoc($meQuery)) {
+    $return[] = $row;
+  }
+
+
+  echo json_encode($return);
+  mysqli_close($conn);
+  die;
 }
 
-
-echo json_encode($return);
-mysqli_close($conn);
-die;
-}
-
-function selection_DocDetaill_popup($conn){
+function selection_DocDetaill_popup($conn)
+{
 
   $Sql = "SELECT
             doctype_detail.ID,
@@ -95,15 +96,15 @@ function selection_DocDetaill_popup($conn){
             WHERE doctype_detail.IsCancel = 0
             ORDER BY  doctype_detail.SortNo ASC
        ";
-$meQuery = mysqli_query($conn, $Sql);
-while ($row = mysqli_fetch_assoc($meQuery)) {
-$return[] = $row;
-}
+  $meQuery = mysqli_query($conn, $Sql);
+  while ($row = mysqli_fetch_assoc($meQuery)) {
+    $return[] = $row;
+  }
 
 
-echo json_encode($return);
-mysqli_close($conn);
-die;
+  echo json_encode($return);
+  mysqli_close($conn);
+  die;
 }
 
 function selection_Product($conn)
@@ -133,8 +134,8 @@ function selection_Product($conn)
           ORDER BY
             product.ProductName ASC
        ";
- 
-//  echo $Sql;
+
+  //  echo $Sql;
   $meQuery = mysqli_query($conn, $Sql);
   while ($row = mysqli_fetch_assoc($meQuery)) {
     $return[] = $row;
@@ -186,11 +187,10 @@ function selection_Doc($conn)
   $select_product = $_POST["select_product"];
   $select_dochead = $_POST["select_dochead"];
 
-  if($select_doctype == 2){
+  if ($select_doctype == 2) {
     $ANDdoc_pro = "AND productdoc.productID = 0 ";
-  }else{
+  } else {
     $ANDdoc_pro = "AND productdoc.productID = '$select_product' ";
-  
   }
   $Sql2 = "SELECT
             documentlist.ID,
@@ -213,7 +213,7 @@ function selection_Doc($conn)
        ";
 
 
-// echo $Sql2;
+  // echo $Sql2;
 
   $meQuery = mysqli_query($conn, $Sql2);
   while ($row = mysqli_fetch_assoc($meQuery)) {
@@ -232,11 +232,10 @@ function selection_Docc($conn)
   $select_Product = $_POST["select_Product"];
   $select_Doc = $_POST["select_Doc"];
 
-  if($select_DocDetail == 2){
+  if ($select_DocDetail == 2) {
     $ANDdoc_pro = "AND productdoc.productID = 0 ";
-  }else{
+  } else {
     $ANDdoc_pro = "AND productdoc.productID = '$select_Product' ";
-  
   }
 
   $Sql = "SELECT
@@ -259,7 +258,7 @@ function selection_Docc($conn)
 					-- GROUP BY documentlist.DocNumber
             ORDER BY  documentlist.DocNumber ASC
        ";
-// echo $Sql;
+  // echo $Sql;
   $meQuery = mysqli_query($conn, $Sql);
   while ($row = mysqli_fetch_assoc($meQuery)) {
     $return[] = $row;
@@ -275,8 +274,8 @@ function get_refNum($conn)
 {
   $select_Product = $_POST["select_Product"];
   $select_Doc = $_POST["select_Doc"];
-  
-  
+
+
 
   $Sql = "SELECT
             docproductlist.ID,
@@ -289,7 +288,7 @@ function get_refNum($conn)
           AND docproductlist.ProductID = '$select_Product'
 					
        ";
-// echo $Sql;
+  // echo $Sql;
   $meQuery = mysqli_query($conn, $Sql);
   while ($row = mysqli_fetch_assoc($meQuery)) {
     $return[] = $row;
@@ -309,23 +308,23 @@ function show_DataLeft($conn)
   $select_doctype = $_POST["select_doctype"];
   $select_product = $_POST["select_product"];
   $select_dochead = $_POST["select_dochead"];
-  
 
-  if($select_doctype == 0 ){
+
+  if ($select_doctype == 0) {
     $ANDdoc_type = "";
-  }else{
+  } else {
     $ANDdoc_type = "AND (documentlist.DocType_Detail = '$select_doctype') ";
   }
 
-  if($select_product == 0 ){
+  if ($select_product == 0) {
     $ANDdoc = "";
-  }else{
+  } else {
     $ANDdoc = "AND (productdoc.ProductID = '$select_product') ";
   }
 
-  if($select_dochead == 0 ){
+  if ($select_dochead == 0) {
     $ANDdoc_head = "";
-  }else{
+  } else {
     $ANDdoc_head = "AND (documentlist.ID = '$select_dochead') ";
   }
 
@@ -366,12 +365,12 @@ function show_DataLeft($conn)
                   LIMIT 10
           ";
 
-// echo $Sql_product;
+  // echo $Sql_product;
   $meQuery1 = mysqli_query($conn, $Sql_product);
   while ($row = mysqli_fetch_assoc($meQuery1)) {
-        $return[] = $row;
+    $return[] = $row;
   }
- 
+
 
 
   echo json_encode($return);
@@ -415,6 +414,11 @@ function Save_FileDoc($conn)
   $select_product = $_POST["select_product"];
   $ID = $_POST["ID"];
 
+  $bt_MFGDate    = explode('-',$bt_MFGDate);
+  $bt_MFGDate = $bt_MFGDate[2].'-'.$bt_MFGDate[1].'-'.$bt_MFGDate[0] ;
+  $bt_ExpireDate    = explode('-',$bt_ExpireDate);
+  $bt_ExpireDate = $bt_ExpireDate[2].'-'.$bt_ExpireDate[1].'-'.$bt_ExpireDate[0] ;
+
   $Sql_docrevision = "SELECT
                         docrevision.ID,
                         docrevision.version 
@@ -429,31 +433,56 @@ function Save_FileDoc($conn)
   $ID_docrevision = $row_docrevision['ID'];
   $version = $row_docrevision['version'];
 
-  
-    if(empty($ID_docrevision)){
-      $query = "UPDATE docrevision SET docrevision.productID = '$select_Product' ,docrevision.DocumentID = '$select_Doc', 
-                docrevision.IsActive = '1' ,  docrevision.RegistrationDate = '$bt_MFGDate', docrevision.ExpireDate = '$bt_ExpireDate' WHERE ID = '$ID' ";
-      mysqli_query($conn, $query);
-       
-      
-    }else{
-      $version=($version+1);
-     
-      $query = "UPDATE docrevision SET docrevision.productID = '$select_Product' ,docrevision.DocumentID = '$select_Doc',version = '$version' ,
-                docrevision.IsActive = '0', docrevision.RegistrationDate = '$bt_MFGDate', docrevision.ExpireDate = '$bt_ExpireDate' WHERE ID = '$ID' ";
-      mysqli_query($conn, $query);
-    }
-  
 
+  if (empty($ID_docrevision)) {
+    $query = "UPDATE docrevision 
+              SET docrevision.productID = '$select_Product',
+              docrevision.DocumentID = '$select_Doc',
+              docrevision.IsActive = '1',
+              docrevision.RegistrationDate = '$bt_MFGDate',
+              docrevision.ExpireDate = '$bt_ExpireDate' 
+              WHERE
+                ID = '$ID'  ";
+    mysqli_query($conn, $query);
 
     $Sql = "INSERT INTO productdoc SET productdoc.ProductID = '$select_Product' , 
-                                       productdoc.DocumentID = '$select_Doc',
-                                       productdoc.ID_FileDoc = '$ID' , 
-                                       productdoc.DocTypeID = '$select_DocDetail' ,
-                                       productdoc.MFGDate = '$bt_MFGDate' ,
-                                       productdoc.ExpireDate = '$bt_ExpireDate' ,
-                                       productdoc.UploadDate = NOW() ";
-            mysqli_query($conn, $Sql);
+                        productdoc.DocumentID = '$select_Doc',
+                        productdoc.ID_FileDoc = '$ID' , 
+                        productdoc.DocTypeID = '$select_DocDetail' ,
+                        productdoc.MFGDate = '$bt_MFGDate' ,
+                        productdoc.ExpireDate = '$bt_ExpireDate' ,
+                        productdoc.UploadDate = NOW() ";
+    mysqli_query($conn, $Sql);
+  } else {
+    $version = ($version + 1);
+
+    $query = "UPDATE docrevision 
+                SET docrevision.productID = '$select_Product',
+                docrevision.DocumentID = '$select_Doc',
+                version = '$version',
+                docrevision.IsActive = '0',
+                docrevision.RegistrationDate = '$bt_MFGDate',
+                docrevision.ExpireDate = '$bt_ExpireDate' 
+                WHERE
+                  ID = '$ID'  ";
+    mysqli_query($conn, $query);
+
+    $Sql = "UPDATE productdoc SET productdoc.ProductID = '$select_Product' , 
+                        productdoc.DocumentID = '$select_Doc',
+                        productdoc.ID_FileDoc = '$ID' , 
+                        productdoc.DocTypeID = '$select_DocDetail' ,
+                        productdoc.MFGDate = '$bt_MFGDate' ,
+                        productdoc.ExpireDate = '$bt_ExpireDate' ,
+                        productdoc.UploadDate = NOW() 
+            WHERE 
+                    productdoc.DocumentID = '$select_Doc'
+                    AND productdoc.ProductID = '$select_Product' ";
+    mysqli_query($conn, $Sql);
+  }
+
+
+
+
 
             $Sql_refNumber = "SELECT
                             docproductlist.ID,
@@ -467,7 +496,7 @@ function Save_FileDoc($conn)
 
                           $meQuery_refNumber = mysqli_query($conn, $Sql_refNumber);
                           $row_refNumber = mysqli_fetch_assoc($meQuery_refNumber);
-                          
+
                           $ID_refNumber = $row_refNumber['ID'];
 
 
@@ -485,12 +514,12 @@ function Save_FileDoc($conn)
                             mysqli_query($conn, $query);
                           }
 
-                          
 
 
 
-// echo  $Sql;
-            // $return =$version;
+
+  // echo  $Sql;
+  // $return =$version;
 
   $return = "บันทึกข้อมูลสำเร็จ";
   echo $return;
@@ -530,9 +559,9 @@ function Save_product($conn)
   $version = $row_docrevision['version'];
 
 
-    $Sql = "INSERT INTO product SET product.ProductCode = '$txt_item_code' , 
+  $Sql = "INSERT INTO product SET product.ProductCode = '$txt_item_code' , 
                                     product.ProductName = '$txt_item_name' ";
-            mysqli_query($conn, $Sql);
+  mysqli_query($conn, $Sql);
 
 
   $return = "บันทึกข้อมูลสำเร็จ";
@@ -543,7 +572,7 @@ function Save_product($conn)
 
 function Save_Doc($conn)
 {
-  
+
   $select_DocDetail    = $_POST['select_DocDetail'];
 
   $select_doctype_popup    = $_POST['select_doctype_popup'];
@@ -556,21 +585,19 @@ function Save_Doc($conn)
   $StatusRadio     = $_POST['StatusRadio'];
   $select_doctype2     = $_POST['select_doctype2'];
   $select_Product    = $_POST['select_Product'];
-  
-            $Sql2 = " SELECT
+
+  $Sql2 = " SELECT
                        documentlist.DocNumber
                       FROM
                       documentlist
                       WHERE  documentlist.DocNumber = '$txt_DocNo'
                     ";
 
-      $meQuery = mysqli_query($conn, $Sql2);
-      while ($row = mysqli_fetch_assoc($meQuery)) {
-        $return[] = $row;
-
-        
-      }
-      $query = "INSERT INTO documentlist 
+  $meQuery = mysqli_query($conn, $Sql2);
+  while ($row = mysqli_fetch_assoc($meQuery)) {
+    $return[] = $row;
+  }
+  $query = "INSERT INTO documentlist 
       SET documentlist.DocNumber = '$txt_DocNo',
       documentlist.DocName = '$txt_Doc_name',
       documentlist.SignificantFigure = '$txt_Doc_numbar',
@@ -583,14 +610,14 @@ function Save_Doc($conn)
       documentlist.ModifyDate = NOW()
       ";
 
-$return = "เพิ่มข้อมูล สำเร็จ";
-mysqli_query($conn, $query);
+  $return = "เพิ่มข้อมูล สำเร็จ";
+  mysqli_query($conn, $query);
 
-            
-          
-            
-    
- 
+
+
+
+
+
   echo $return;
   unset($conn);
   die;
@@ -602,7 +629,7 @@ function show_DataRight($conn)
   $select_Product = $_POST["select_Product"];
   $Search_txt = $_POST["txtSearch2"];
   // $id_docLeft = $_POST["id_docLeft"];
-  
+
   // if($select_dochead == 0 ){
   //   $ANDdoc_head = "";
   // }else{
@@ -627,7 +654,7 @@ function show_DataRight($conn)
           GROUP BY docrevision.ID
           ORDER BY  docrevision.ID DESC ";
 
-        // echo $Sql;
+  // echo $Sql;
   $meQuery = mysqli_query($conn, $Sql);
   while ($row = mysqli_fetch_assoc($meQuery)) {
     $return[] = $row;
@@ -661,30 +688,29 @@ function Delete_FileDoc($conn)
   $row_docrevision = mysqli_fetch_assoc($meQuery_docrevision);
   $ID_docrevision = $row_docrevision['ID'];
   $version = $row_docrevision['version'];
-  
-    // if(empty($ID_docrevision)){
-    //   $query = "DELETE FROM docrevision  WHERE ID = '$ID' ";
-    //   mysqli_query($conn, $query);
-    // }else{
-    //   $version=($version+1);
-     
-    //   $query = "UPDATE docrevision SET DocumentID = '$select_Doc',version = '$version' WHERE ID = '$ID' ";
-    //   mysqli_query($conn, $query);
-    // }
-  
 
+  // if(empty($ID_docrevision)){
+  //   $query = "DELETE FROM docrevision  WHERE ID = '$ID' ";
+  //   mysqli_query($conn, $query);
+  // }else{
+  //   $version=($version+1);
 
-    $Sql = "DELETE FROM docrevision  WHERE ID = '$ID' ";
-            mysqli_query($conn, $Sql);
+  //   $query = "UPDATE docrevision SET DocumentID = '$select_Doc',version = '$version' WHERE ID = '$ID' ";
+  //   mysqli_query($conn, $query);
+  // }
 
 
 
+  $Sql = "DELETE FROM docrevision  WHERE ID = '$ID' ";
+  mysqli_query($conn, $Sql);
 
-            // $return =$version;
+
+
+
+  // $return =$version;
 
   // $return = "บันทึกข้อมูลสำเร็จ";
   // echo $return;
   unset($conn);
   die;
 }
-

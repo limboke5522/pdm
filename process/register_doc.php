@@ -274,7 +274,11 @@ function saveData($conn)
   $ExpireDate    = $_POST['ExpireDate'];
   $txt_detail    = $_POST['txt_detail'];
 
-
+  $MFGDate    = explode('-',$MFGDate);
+  $MFGDate = $MFGDate[2].'-'.$MFGDate[1].'-'.$MFGDate[0] ;
+  $ExpireDate    = explode('-',$ExpireDate);
+  $ExpireDate = $ExpireDate[2].'-'.$ExpireDate[1].'-'.$ExpireDate[0] ;
+  
   $filename = $_FILES['file_upload']['name'];
   $filename_TH = iconv("UTF-8", "TIS-620", $filename);
   copy($_FILES['file_upload']['tmp_name'], 'file/' . $filename); // อัพไฟล์ SERVER *****
