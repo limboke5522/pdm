@@ -24,9 +24,6 @@
     $(".select2").select2();
 
     $("#StatusRadio1").prop("checked", true);
-
-    // $("#select_Product_").prop("disabled", true);
-    // $("#select_Doc_").prop("disabled", true);
     // แสดงชื่อไฟล์
     $('.custom-file-input').on('change', function() {
       let fileName = $(this).val().split('\\').pop();
@@ -566,7 +563,6 @@
               "<td style='width:5%;' >" + bt_MFGDate +"</td>" +
               "<td style='width:5%;' >" + bt_ExpireDate + "</td>" +
               "<td style='width:2%;' ><center>"+bt_savedoc + bt_deletedoc +"</center></td>" +
-
               "</tr>";
             
               selection_DocDetaill(key,value.DocDetail_ID);

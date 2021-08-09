@@ -393,7 +393,6 @@ function upload_Doc($conn)
 
   $Sql = "INSERT INTO docrevision SET docrevision.fileName = '$filename' , 
                                       docrevision.version = 1, 
-                                      -- docrevision.productID = '$select_Product', 
                                       docrevision.UploadDate = NOW()  ;";
   mysqli_query($conn, $Sql);
 
