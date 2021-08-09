@@ -110,6 +110,8 @@
                             </div>
                         </div>  
                       </div>
+
+                     
                 </div>
 
                     <div class="row">
@@ -344,6 +346,7 @@
                 
                     <div class="row " >
                       <div class="row ml-3 mt-1">
+                      <input type="text"  class="form-control" id="chk_sender"  >
                         <label>POSEINT :</label>
                           <div class="col-8  ">
                           <h5  id="POSEINT">  </h5> <!-- ชื่ออีเมลผู้ส่ง  -->

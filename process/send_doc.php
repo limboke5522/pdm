@@ -17,6 +17,8 @@ if (!empty($_POST['FUNC_NAME'])) {
     product_file($conn);
   } else if ($_POST['FUNC_NAME'] == 'save_sendDoc') {
     save_sendDoc($conn);
+  } else if ($_POST['FUNC_NAME'] == 'edit_sendDoc') {
+    edit_sendDoc($conn);
   } else if ($_POST['FUNC_NAME'] == 'saveData') {
     saveData($conn);
   } else if ($_POST['FUNC_NAME'] == 'saveData2') {
@@ -37,6 +39,8 @@ if (!empty($_POST['FUNC_NAME'])) {
     selection_Doc($conn);
   } else   if ($_POST['FUNC_NAME'] == 'selection_Doclist') {
     selection_Doclist($conn);
+  } else   if ($_POST['FUNC_NAME'] == 'CHECK_sendDoc') {
+    CHECK_sendDoc($conn);
   }
 }
 
@@ -512,6 +516,20 @@ function product_file($conn)
   die;
 }
 
+function CHECK_sendDoc($conn)
+{
+  $Sqll = "SELECT send_doc.SendDocNo FROM send_doc ORDER BY SendDocNo DESC LIMIT 1";
+
+  // echo $Sqll;
+  $meQuery = mysqli_query($conn, $Sqll);
+  while ($row = mysqli_fetch_assoc($meQuery)) {
+    $return[] = $row;
+  }
+  echo json_encode($return);
+  mysqli_close($conn);
+  die;
+}
+
 
 function save_sendDoc($conn)
 {
@@ -547,10 +565,70 @@ function save_sendDoc($conn)
                   DocDate = NOW(),
                   email = '$email'
           ";
+          // echo $query;
   mysqli_query($conn, $query);
 
   foreach ($DocID as $key => $value) {
     $query1 = "  INSERT INTO send_doc_detail 
+              SET SendDocNo = '$SendDocNo',
+              ProductID = '$productID[$key]',
+              Product_DocID = '$value'
+          ";
+    mysqli_query($conn, $query1);
+  }
+
+
+  $return = $SendDocNo;
+
+  // $return = $DocID;
+
+  echo ($return);
+  unset($conn);
+  die;
+}
+
+
+function edit_sendDoc($conn)
+{
+  $select_hospital   = $_POST['select_hospital'];
+  $select_subject    = $_POST['select_subject'];
+  $select_contact    = $_POST['select_contact'];
+  $email             = $_POST['email'];
+  $txt_remark        = $_POST['txt_remark'];
+  $txt_headdoc        = $_POST['txt_headdoc'];
+  $productID         = $_POST['productID'];
+  $DocID             = $_POST['DocID'];
+  $Copy_doc             = $_POST['Copy_doc'];
+
+
+  $Sql = "SELECT	SendDocNo
+          FROM
+            send_doc 
+          ORDER BY
+            SendDocNo DESC 
+            LIMIT 1";
+  $meQuery = mysqli_query($conn, $Sql);
+  $row = mysqli_fetch_assoc($meQuery);
+  $SendDocNo = $row['SendDocNo'];
+
+  $query = "   UPDATE send_doc 
+              SET CustomerCode = '$select_hospital',
+                  SendDocNo = '$SendDocNo',
+                  Contact_ID = '$select_contact',
+                  Subject = '$select_subject',
+                  Copy_doc = '$Copy_doc',
+                  Memo = '$txt_remark',
+                  Memo_Headdoc = '$txt_headdoc',
+                  DocDate = NOW(),
+                  email = '$email'
+                WHERE SendDocNo = '$SendDocNo'
+
+          ";
+          // echo $query;
+  mysqli_query($conn, $query);
+
+  foreach ($DocID as $key => $value) {
+    $query1 = "  UPDATE send_doc_detail 
               SET SendDocNo = '$SendDocNo',
               ProductID = '$productID[$key]',
               Product_DocID = '$value'
