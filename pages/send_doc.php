@@ -19,7 +19,7 @@
             <div class="card ">
               <div class="card-body " style=" background-color: #b5efec57;">
                 <div class="row">
-                  <div class="col-5 ">
+                  <div class="col-4">
                     <div class="form-group row">
                       <label for="select_hospital" class="col-sm-2 col-form-label">โรงพยาบาล</label>
                       <div class="col-sm-10">
@@ -28,7 +28,7 @@
                     </div>
                   </div>
 
-                  <div class="col-5">
+                  <div class="col-4">
                     <div class="form-group row">
                       <label for="select_subject" class="col-sm-2 col-form-label">เรื่อง</label>
                       <div class="col-sm-10">
@@ -37,7 +37,16 @@
                     </div>
                   </div>
 
-                  <div class="col-2">
+                  <div class="col-3 ">
+                    <div class="form-group row ">
+                      <label for="select_contact" class=" col-sm-2 col-form-label">ผู้ติดต่อ</label>
+                      <div class="col-sm-10">
+                        <select class="form-control select2" id="select_contact" placeholder="ผู้ติดต่อ "></select>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-1">
                     <button type="submit" class="btn btn-success btn-block" id="btn_save_send">ส่ง</button>
                   </div>
 
@@ -45,75 +54,73 @@
 
                 <div class="row ">
 
-                  <div class="col-5 ">
-                    <div class="form-group row ">
-                      <label for="select_contact" class="col-sm-2  col-form-label">ผู้ติดต่อ</label>
-                      <div class="col-sm-10">
-                        <select class="form-control select2" id="select_contact" placeholder="ผู้ติดต่อ "></select>
+                  <div class="col-4">
+                      <div class="form-group row">
+                        <label for="txt_phone" class="col-sm-2 col-form-label">โทร </label>
+                        <div class="col-sm-10">
+                          <input type="text" class="form-control" id="txt_phone" placeholder="โทร">
+                        </div>
                       </div>
                     </div>
-                  </div>
 
-                  <div class="col-5">
-                    <div class="form-group row">
-                      <label for="txt_phone" class="col-sm-2 col-form-label">โทร </label>
-                      <div class="col-sm-10">
-                        <input type="text" class="form-control" id="txt_phone" placeholder="โทร">
+                    <div class="col-4">
+                      <div class="form-group row">
+                        <label for="txt_email" class="col-sm-2 col-form-label">Email ผู้รับ</label>
+                        <div class="col-sm-10">
+                          <input type="text" class="form-control" id="txt_email" placeholder="Email">
+                        </div>
                       </div>
                     </div>
-                  </div>
 
-                  <div class="col-2 ">
-                    <button type="submit" class="btn btn-danger btn-block" id="btn_cancel">ยกเลิก</button>
-                  </div>
+                    <div class="col-3">
+                      <div class="form-group row ">
+                        <label for="Copy_doc" class="col-sm-2 col-form-label">สำเนา</label>
+                        <div class="col-sm-10">
+                          <input type="text" class="form-control" id="Copy_doc" name="Copy_doc" placeholder="สำเนา">
+                        </div>
 
+                      </div>
+                    </div>
+
+                    <div class="col-1 ">
+                      <button type="submit" class="btn btn-danger btn-block" id="btn_cancel">ยกเลิก</button>
+                    </div>
 
                 </div>
 
                 <div class="row ">
 
-                  <div class="col-5">
+                <div class="col-4">
                     <div class="form-group row">
-                      <label for="txt_email" class="col-sm-2 col-form-label">Email ผู้รับ</label>
+                      <label for="txt_phone" class="col-sm-2 col-form-label"> </label>
+                      <input class="" style="width:20px; height: 20px;  margin-top: 10px" type="checkbox" id="chk_remark" onclick="chkremark();">
+                      <label for="txt_remark" class="col-sm-3 col-form-label">บันทึกช่วยจำ</label>
+
+                      <input style="width:20px; height: 20px;   margin-top: 10px" type="checkbox" id="chk_headdoc" onclick="chkremark();">
+                      <label for="txt_remark" class="col-sm-3 col-form-label">หัวเรื่อง E-Mail</label>
+                    </div>
+                  </div>
+
+                  <div class="col-4">
+                    <div class="form-group row">
+                      <label for="txt_email" class="col-sm-2 col-form-label">Email ผู้ส่ง :</label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control" id="txt_email" placeholder="Email">
+                      <u style="font-size: 18px;" id="txt_email_send"> </u>
                       </div>
                     </div>
                   </div>
 
-                  <div class="col-5">
+                  <div class="col-3">
                     <div class="form-group row ">
-                      <label for="Copy_doc" class="col-sm-2 col-form-label">สำเนา</label>
-                      <div class="col-sm-10">
-                        <input type="text" class="form-control" id="Copy_doc" name="Copy_doc" placeholder="สำเนา">
-                      </div>
-
                     </div>
+                  </div>
+
+                  <div class="col-1 ">
                   </div>
 
                 </div>
 
-                <div class="row mt-2">
 
-                  <div class="col-3" style="margin-left: 125px; ">
-                    <div class="form-group row ">
-                      <input class="" style="width:20px; height: 20px;  margin-top: 13px" type="checkbox" id="chk_remark" onclick="chkremark();">
-                      <label for="txt_remark" class="col-4 col-form-label">บันทึกช่วยจำ</label>
-
-                      <input style="width:20px; height: 20px;  margin-top: 13px" type="checkbox" id="chk_headdoc" onclick="chkremark();">
-                      <label for="txt_remark" class="ml-2 col-6 col-form-label">หัวเรื่อง E-Mail</label>
-                    </div>
-                  </div>
-
-                  <div class="col-6">
-                    <div class="form-group row">
-                      <label for="txt_email_send" class="ml-2 col-form-label mr-3">Email ผู้ส่ง : </label>
-                      <div class="col-5 ml-1">
-                        <u style="font-size: 18px;" id="txt_email_send"> </u>
-                      </div>
-                    </div>
-                  </div>
-                </div>
 
                 <div class="row">
                   <div class="col-6 mt-2" style="margin-left: 70px;">
