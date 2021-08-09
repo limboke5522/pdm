@@ -118,6 +118,14 @@ ORDER BY
 function showData_exp2($conn)
 {
   $Search_txt2 = $_POST["txtSearch2"];
+  $txt_Sdate_doc_r = $_POST["txt_Sdate_doc_r"];
+  $txt_Edate_doc_r = $_POST["txt_Edate_doc_r"];
+  // $select_product = $_POST["select_product"];
+  $txt_Sdate_doc_r = explode("-", $txt_Sdate_doc_r);
+  $txt_Sdate_doc_r = $txt_Sdate_doc_r[2] .'-'. $txt_Sdate_doc_r[1] .'-'. $txt_Sdate_doc_r[0];
+
+  $txt_Edate_doc_r = explode("-", $txt_Edate_doc_r);
+  $txt_Edate_doc_r = $txt_Edate_doc_r[2] .'-'. $txt_Edate_doc_r[1] .'-'. $txt_Edate_doc_r[0];
 
   $Sql_product = "SELECT
   productdoc.DocumentID,
