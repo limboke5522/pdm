@@ -627,14 +627,14 @@ function edit_sendDoc($conn)
           // echo $query;
   mysqli_query($conn, $query);
 
-  foreach ($DocID as $key => $value) {
-    $query1 = "  UPDATE send_doc_detail 
-              SET SendDocNo = '$SendDocNo',
-              ProductID = '$productID[$key]',
-              Product_DocID = '$value'
-          ";
-    mysqli_query($conn, $query1);
-  }
+  // foreach ($DocID as $key => $value) {
+  //   $query1 = "  UPDATE send_doc_detail 
+  //             SET SendDocNo = '$SendDocNo',
+  //             ProductID = '$productID[$key]',
+  //             Product_DocID = '$value'
+  //         ";
+  //   mysqli_query($conn, $query1);
+  // }
 
 
   $return = $SendDocNo;
@@ -722,6 +722,7 @@ ORDER BY
               product.ProductName,
               send_doc.`Subject`,
 	            purpose.Purpose,
+              send_doc.SendDocNo,
               send_doc.DocDate,
               send_doc.email,
               send_doc.Memo,

@@ -79,7 +79,7 @@
                   <div class="col-4">
                           <div class="form-group row">
                             <label for="txt_email" class="ml-2 col-form-label mr-3">Email ผู้รับ</label>
-                            <div class="col-9 ml-4">
+                            <div class="col-9 ml-3">
                               <input type="text"   class="form-control" id="txt_email" placeholder="Email">
                             </div>
                           </div>
@@ -338,7 +338,7 @@
                 
                     <div class="row " >
                       <div class="row ml-3 mt-1">
-                      <input type="text"  class="form-control" id="chk_sender"  >
+                      <input type="text"  class="form-control" id="chk_sender" hidden >
                         <label>POSEINT :</label>
                           <div class="col-8  ">
                           <h5  id="POSEINT">  </h5> <!-- ชื่ออีเมลผู้ส่ง  -->

@@ -650,30 +650,9 @@
 
 
   $("#btn_save_send").click(function() {
-    
     var chk_sender = $('#chk_sender').val();
 
-    //         $.ajax({
-    //                 url: "process/send_doc.php",
-    //                 type: 'POST',
-    //                 data: {
-    //                   'FUNC_NAME': 'CHECK_sendDoc',
-    //                   'chk_sender': 'chk_sender'
-    //                 },
-    //                 success: function(result) {
-    //                   var ObjData = JSON.parse(result);
-    //                   StrTR = "";
-    //                   if (!$.isEmptyObject(ObjData)) {
-    //                     $.each(ObjData, function(key, value) {
-    //                       $('#chk_sender tbody').html(StrTR);
-
-    //                     });
-    //                   }
-
-    //                 }
-    //               });
-    //         alert(chk_sender);
-
+    // alert(chk_sender);
     $.confirm({
       title: 'แจ้งเตือน!',
       content: 'ยืนยันการส่งข้อมูล ใช่ หรือ ไม่?',
@@ -687,11 +666,11 @@
           btnClass: 'btn-primary',
           text: 'ตกลง',
           action: function(result) {
-            // if(chk_sender == ""){
+            if(chk_sender == ""){
               save_sendDoc();
-            // }else{
-            //   edit_sendDoc();
-            // }
+            }else{
+              edit_sendDoc();
+            }
             
             // $("#Modaldetail_Preview").modal('show');
             // show_Preview();
@@ -776,10 +755,11 @@
       },
 
       
-
+      
       success: function(result) {
         
         $("#Modaldetail_Preview").modal('show');
+        // $('#chk_sender').val(value.SendDocNo);
         show_Preview();
         showFooter();
 
@@ -1205,6 +1185,7 @@
 
   // show
   function show_Preview() {
+
     var POSEINT = $('#POSEINT').val();
     var date_upload = $("#date_upload").val();
     var send_name = $("#send_name").val();
@@ -1256,8 +1237,6 @@
         $("#p_file_img").empty();
         if (!$.isEmptyObject(ObjData)) {
           $.each(ObjData, function(key, value) {
-            $('#chk_sender').val(value.SendDocNo);
-
 
             // btn_previewer += '<a href="javascript:void(0)"  onclick="preview(\'' + value.fileName + '\');"><img src="img/pdf.png" style="margin-left: 40px; width:75px;"></a>';
     
@@ -1271,6 +1250,8 @@
             headdocer = "<label >" + value.Memo_Headdoc + "</label>";
             DocNameer += "" + (key + 1) + " . " + value.DocName + "\n" + "          ";
             memoo = "<label >" + value.Memo + "</label>";
+
+            $('#chk_sender').val(value.SendDocNo);
 
             $('#POSEINT').text($gmail_username);
             $('#date_upload').text(value.DocDate);
