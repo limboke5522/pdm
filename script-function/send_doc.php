@@ -872,33 +872,33 @@
 
 
 
-        $("#btnSaveDoc_Preview").click(function() {
+        // $("#btnSaveDoc_Preview").click(function() {
 
-          $.confirm({
-            title: 'แจ้งเตือน!',
-            content: 'ยืนยันการส่งข้อมูล ใช่ หรือ ไม่?',
-            type: 'orange',
-            autoClose: 'cancel|8000',
-            buttons: {
-              cancel: {
-                text: 'ยกเลิก'
-              },
-              confirm: {
-                btnClass: 'btn-primary',
-                text: 'ตกลง',
-                action: function() {
-                  saveData_Preview();
-                  $("#Modaldetail_Preview").modal('hide');
-                  send_mail(result, email, box22, txtPopup_purpose_name);
-                  if (Copy_doc != "") {
-                    send_mail_copy(result, Copy_doc, box22, txtPopup_purpose_name);
-                  }
+        //   $.confirm({
+        //     title: 'แจ้งเตือน!',
+        //     content: 'ยืนยันการส่งข้อมูล ใช่ หรือ ไม่?',
+        //     type: 'orange',
+        //     autoClose: 'cancel|8000',
+        //     buttons: {
+        //       cancel: {
+        //         text: 'ยกเลิก'
+        //       },
+        //       confirm: {
+        //         btnClass: 'btn-primary',
+        //         text: 'ตกลง',
+        //         action: function() {
+        //           saveData_Preview();
+        //           $("#Modaldetail_Preview").modal('hide');
+        //           send_mail(result, email, box22, txtPopup_purpose_name);
+        //           if (Copy_doc != "") {
+        //             send_mail_copy(result, Copy_doc, box22, txtPopup_purpose_name);
+        //           }
 
-                }
-              }
-            }
-          });
-        });
+        //         }
+        //       }
+        //     }
+        //   });
+        // });
 
 
 

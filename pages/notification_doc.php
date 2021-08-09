@@ -53,14 +53,14 @@
            
             <div class="row ml-3 mt-3">
               <div class="col-sm-3">
-                <div class="card" onclick="showData_exp();" style="height: 160px; background: lightyellow">
+                <div class="card" onclick="showData_expshow();" style="height: 160px; background: lightyellow" checked>
                   <div class="card-body">
-                      <img type="submit" src="img/delay.png" alt="AdminLTE Logo" class="brand-image col-center img_ref" style="width:80px;" id="little_exp" onclick="showData_exp();"></img>
+                      <img type="submit" src="img/delay.png" alt="AdminLTE Logo" class="brand-image col-center img_ref" style="width:80px;" id="little_exp" onclick="showData_expshow();"></img>
                        <br>
                             <label style="font-size: 25px;" class=" ml-2">เอกสารใกล้หมดอายุ</label>
                             <p class="ml-2 ">เอกสารการแจ้งเตือนใกล้หมดอายุ</p>
-                            <i type="submit" id="bells" class="fasbell fas fa-bell bellClapper ml-5 mt-2" onclick="showData_exp();" >  </i>
-                            <span class="number" id="exp_1" onclick="showData_exp();"></span>
+                            <i type="submit" id="bells" class="fasbell fas fa-bell bellClapper ml-5 mt-2"   >  </i>
+                            <span class="number" id="exp_1"   ></span>
                             <h2 class="number2 ml-5 mt-4"  id="exp" ></h2>
                   </div>
                 </div>
