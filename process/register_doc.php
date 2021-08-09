@@ -497,7 +497,8 @@ function deleteData($conn)
 {
   $ID_txt = $_POST['ID_txt'];
 
-  $query = "UPDATE documentlist SET IsCancel = 1 WHERE ID = $ID_txt";
+
+  $query = "DELETE FROM productdoc WHERE ID = '$ID_txt'";
   mysqli_query($conn, $query);
   echo "ลบข้อมูลสำเร็จ";
   unset($conn);

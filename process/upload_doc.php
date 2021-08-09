@@ -409,11 +409,9 @@ function Save_FileDoc($conn)
   $select_DocDetail = $_POST["select_DocDetail"];
   $select_Product = $_POST["select_Product"];
   $select_Doc = $_POST["select_Doc"];
-
   $bt_MFGDate = $_POST["bt_MFGDate"];
   $bt_ExpireDate = $_POST["bt_ExpireDate"];
   $txt_Refcode = $_POST["txt_Refcode"];
-
   $select_product = $_POST["select_product"];
   $ID = $_POST["ID"];
 
@@ -627,8 +625,7 @@ function show_DataRight($conn)
           -- OR docrevision.IsActive = 1
           AND docrevision.fileName LIKE '%$Search_txt%' 
           GROUP BY docrevision.ID
-          ORDER BY  docrevision.ID DESC
-          ";
+          ORDER BY  docrevision.ID DESC ";
 
         // echo $Sql;
   $meQuery = mysqli_query($conn, $Sql);

@@ -271,13 +271,13 @@
     $("#StatusRadio1").prop("checked", true);
     $('#select_doctype2').val(0);
     $('#select_Product').val(0);
-
+    $('#select2-select_Product-container').text("-- กรุณาเลือก Product --");
     $('#txt_DocNo').val("");
-    $('#txt_Doc_name').val("");
-    $('#txt_Doc_numbar').val("");
-
-    // $('#txt_date_doc').val(output);
-    // $('#txt_expira_date').val(output);
+    $('#select_headdoc').val(0);
+    $('#txt_refDoc').val("");
+    $('#MFGDate').val("");
+    $('#ExpireDate').val("");
+    $("#StatusRadio1").prop("checked", true);
     $('#txt_detail').val("");
     $("#txt_DocNo").prop('disabled', false);
     $('#btnSaveDoc').show();
@@ -665,15 +665,12 @@
         $("#StatusRadio1").prop("checked", true);
 
         $('#txt_DocNo').val("");
-        $('#txt_Doc_name').val("");
-        $('#txt_Doc_numbar').val("");
-
-        // $('#txt_date_doc').val(output);
-        // $('#txt_expira_date').val(output);
         $('#txt_detail').val("");
-
+        $('#txt_refDoc').val("");
+        
         $('#select_doctype2').val(0);
         $('#select_Product').val(0);
+        $('#select_headdoc').val(0);
 
         $('#btnSaveDoc').show();
         $('#btnEditDoc').hide();
