@@ -53,9 +53,9 @@
            
             <div class="row ml-3 mt-3">
               <div class="col-sm-3">
-                <div class="card" onclick="showData_expshow();" style="height: 160px; background: lightyellow" checked>
+                <div class="card" onclick="showData_exp();" style="height: 160px; background: lightyellow" checked>
                   <div class="card-body">
-                      <img type="submit" src="img/delay.png" alt="AdminLTE Logo" class="brand-image col-center img_ref" style="width:80px;" id="little_exp" onclick="showData_expshow();"></img>
+                      <img type="submit" src="img/delay.png" alt="AdminLTE Logo" class="brand-image col-center img_ref" style="width:80px;" id="little_exp" onclick="showData_exp();"></img>
                        <br>
                             <label style="font-size: 25px;" class=" ml-2">เอกสารใกล้หมดอายุ</label>
                             <p class="ml-2 ">เอกสารการแจ้งเตือนใกล้หมดอายุ</p>
@@ -69,7 +69,7 @@
                <div class="col-sm-3">
                 <div class="card" onclick="showData_exp2();" style="height: 160px; background: lightpink">
                   <div class="card-body">
-                      <img type="submit" src="img/date-expired.png" alt="AdminLTE Logo" class="brand-image col-center img_ref" style="width:67px;" id="little_exp" onclick="showData_exp();"></img>
+                      <img type="submit" src="img/date-expired.png" alt="AdminLTE Logo" class="brand-image col-center img_ref" style="width:67px;" id="little_exp" onclick="showData_exp2();"></img>
                       <br>
                             <label style="font-size: 25px;" class=" ml-2">เอกสารหมดอายุ</label>
                             <p class="ml-2 ">เอกสารการแจ้งเตือนหมดอายุ</p>
