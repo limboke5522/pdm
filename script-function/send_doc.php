@@ -14,6 +14,7 @@
     selection_DocDetail_L();
     selection_Doclist();
     chkremark();
+    // CHECK_sendDoc();
 
 
   })
@@ -641,6 +642,7 @@
     objReal_doc.product_Doc_ID.push(id_product);
     objReal_doc.Doctype_Id.push(doctypeidLeft);
 
+
     showData_Doc();
     console.log(objReal_doc);
 
@@ -648,6 +650,29 @@
 
 
   $("#btn_save_send").click(function() {
+    
+    var chk_sender = $('#chk_sender').val();
+
+    //         $.ajax({
+    //                 url: "process/send_doc.php",
+    //                 type: 'POST',
+    //                 data: {
+    //                   'FUNC_NAME': 'CHECK_sendDoc',
+    //                   'chk_sender': 'chk_sender'
+    //                 },
+    //                 success: function(result) {
+    //                   var ObjData = JSON.parse(result);
+    //                   StrTR = "";
+    //                   if (!$.isEmptyObject(ObjData)) {
+    //                     $.each(ObjData, function(key, value) {
+    //                       $('#chk_sender tbody').html(StrTR);
+
+    //                     });
+    //                   }
+
+    //                 }
+    //               });
+    //         alert(chk_sender);
 
     $.confirm({
       title: 'แจ้งเตือน!',
@@ -661,11 +686,18 @@
         confirm: {
           btnClass: 'btn-primary',
           text: 'ตกลง',
-          action: function() {
-            save_sendDoc();
+          action: function(result) {
+            // if(chk_sender == ""){
+              save_sendDoc();
+            // }else{
+            //   edit_sendDoc();
+            // }
+            
             // $("#Modaldetail_Preview").modal('show');
             // show_Preview();
             // showFooter();
+
+            
 
           }
         }
@@ -675,6 +707,12 @@
 
 
   function save_sendDoc() {
+    
+    var chk_sender = $('#chk_sender').val();
+
+    // alert(chk_sender);
+        
+
     var select_hospital = $('#select_hospital').val();
     var select_subject = $('#select_subject').val();
     var select_contact = $('#select_contact').val();
@@ -689,6 +727,119 @@
 
     var txtPopup_purpose_name = $('#txtPopup_purpose_name').val();
     var box22 = $('#box22').val();
+
+
+    var text = "";
+    if (select_hospital == "0") {
+      text = "กรุณาเลือกโรงพยาบาล";
+      showDialogFailed(text);
+      return;
+    }
+
+    if (select_subject == "0") {
+      text = "กรุณาเลือกเรื่องติดต่อ";
+      showDialogFailed(text);
+      return;
+    }
+
+    if (select_contact == "0") {
+      text = "กรุณาเลือกผู้ติดต่อ";
+      showDialogFailed(text);
+      return;
+    }
+
+    if (DocID == "") {
+      text = "กรุณาเลือก Product";
+      showDialogFailed(text);
+      return;
+    }
+
+
+    $.ajax({
+      url: "process/send_doc.php",
+      type: 'POST',
+      data: {
+        'FUNC_NAME': 'save_sendDoc',
+        'select_hospital': select_hospital,
+        'select_subject': select_subject,
+        'select_contact': select_contact,
+        'email': email,
+        'Copy_doc': Copy_doc,
+        'txt_remark': txt_remark,
+        'txt_headdoc': txt_headdoc,
+        'productID': productID,
+        'DoctypeId': DoctypeId,
+        'DocID': DocID,
+        'box22': box22,
+        'txtPopup_purpose_name': txtPopup_purpose_name,
+        'chk_sender': chk_sender
+      },
+
+      
+
+      success: function(result) {
+        
+        $("#Modaldetail_Preview").modal('show');
+        show_Preview();
+        showFooter();
+
+
+
+        $("#btnSaveDoc_Preview").click(function() {
+
+          $.confirm({
+            title: 'แจ้งเตือน!',
+            content: 'ยืนยันการส่งข้อมูล ใช่ หรือ ไม่?',
+            type: 'orange',
+            autoClose: 'cancel|8000',
+            buttons: {
+              cancel: {
+                text: 'ยกเลิก'
+              },
+              confirm: {
+                btnClass: 'btn-primary',
+                text: 'ตกลง',
+                action: function() {
+                  saveData_Preview();
+                  $("#Modaldetail_Preview").modal('hide');
+                  send_mail(result, email, box22, txtPopup_purpose_name);
+                  if (Copy_doc != "") {
+                    send_mail_copy(result, Copy_doc, box22, txtPopup_purpose_name);
+                  }
+
+                }
+              }
+            }
+          });
+        });
+
+
+
+
+      }
+    });
+  }
+
+  function edit_sendDoc() {
+    
+    var chk_sender = $('#chk_sender').val();
+    var select_hospital = $('#select_hospital').val();
+    var select_subject = $('#select_subject').val();
+    var select_contact = $('#select_contact').val();
+    var email = $('#txt_email').val();
+    var Copy_doc = $('#Copy_doc').val();
+    var txt_remark = $('#txt_remark').val();
+    var txt_headdoc = $('#txt_headdoc').val();
+    var productID = objReal_doc.product_Doc_ID;
+    var DoctypeId = objReal_doc.Doctype_Id;
+    var DocID = objReal_doc.DocID;
+    var table_product_docment = $('#table_product_docment tbody').val();
+
+    var txtPopup_purpose_name = $('#txtPopup_purpose_name').val();
+    var box22 = $('#box22').val();
+
+
+
     var text = "";
     if (select_hospital == "0") {
       text = "กรุณาเลือกโรงพยาบาล";
@@ -718,7 +869,7 @@
       url: "process/send_doc.php",
       type: 'POST',
       data: {
-        'FUNC_NAME': 'save_sendDoc',
+        'FUNC_NAME': 'edit_sendDoc',
         'select_hospital': select_hospital,
         'select_subject': select_subject,
         'select_contact': select_contact,
@@ -730,7 +881,8 @@
         'DoctypeId': DoctypeId,
         'DocID': DocID,
         'box22': box22,
-        'txtPopup_purpose_name': txtPopup_purpose_name
+        'txtPopup_purpose_name': txtPopup_purpose_name,
+        'chk_sender': chk_sender
       },
       success: function(result) {
 
@@ -1072,6 +1224,8 @@
     var memoo = $("#memoo").val();
 
     var box = $("#box").val();
+    var chk_sender = $("#chk_sender").val();
+
     $gmail_username = "janekootest@gmail.com";
     $.ajax({
       url: "process/send_doc.php",
@@ -1102,6 +1256,8 @@
         $("#p_file_img").empty();
         if (!$.isEmptyObject(ObjData)) {
           $.each(ObjData, function(key, value) {
+            $('#chk_sender').val(value.SendDocNo);
+
 
             // btn_previewer += '<a href="javascript:void(0)"  onclick="preview(\'' + value.fileName + '\');"><img src="img/pdf.png" style="margin-left: 40px; width:75px;"></a>';
     
@@ -1112,9 +1268,6 @@
               // "<td style='border: none; width:40%;text-align: left;'>"+value.fileName+"</td>" +
               "</tr>";
 
-
-
-
             headdocer = "<label >" + value.Memo_Headdoc + "</label>";
             DocNameer += "" + (key + 1) + " . " + value.DocName + "\n" + "          ";
             memoo = "<label >" + value.Memo + "</label>";
@@ -1124,7 +1277,6 @@
             $('#send_name').text(value.email);
 
             $('#txtPopup_purpose_name').val(value.Purpose);
-
         
             $('#headdoc').text(value.Memo_Headdoc);
             $('#head_list_items').text(value.ProductName);
