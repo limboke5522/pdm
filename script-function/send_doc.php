@@ -390,11 +390,11 @@
     $('#table_product tbody').html(TableItemx);
   }
 
-
+  
   function showData_Doc() {
     var TableDoc = "";
     $.each(objReal_doc.DocName, function(index, DocName) {
-      var btn = '<button  onclick="deleteDoc(\'' + index + '\',\'' + objReal_doc.rowDoc[index] + '\')"  class="btn"><i class="fas fa-trash-alt" style="color: orangered;"></i></button>';
+      var btn = '<button id="btn_" onclick="deleteDoc(\'' + index + '\',\'' + objReal_doc.rowDoc[index] + '\',\'' + objReal_doc.DocID[index] + '\')"  class="btn"><i class="fas fa-trash-alt" style="color: orangered;"></i></button>';
       TableDoc += "<tr id='trDoc_" + index + "'>" +
         "<td style='text-align: center;width: 10%;'>" + (index + 1) + "</td>" +
         "<td style='text-align: left;width: 50%;'>" + DocName + "</td>" +
@@ -426,8 +426,9 @@
     showData_product();
   }
 
-  function deleteDoc(index, row) {
+  function deleteDoc(index, row,DocID) {
     $("#trDoc_" + index).remove();
+    var chk_sender = $('#chk_sender').val();
 
     objReal_doc.DocID.splice(index, 1);
     objReal_doc.DocName.splice(index, 1);
@@ -437,6 +438,29 @@
     objReal_doc.Doctype_Id.splice(index, 1);
     showData_Doc();
     $("#btn_send_" + row).show();
+
+    
+    if(chk_sender == ""){
+
+    }else{
+      deleteDoc_rowDoc(DocID,chk_sender);
+    }
+  }
+
+  function deleteDoc_rowDoc(DocID,chk_sender) {
+
+    $.ajax({
+      url: "process/send_doc.php",
+      type: 'POST',
+      data: {
+        'FUNC_NAME': 'deleteDoc_rowDoc',
+        'DocID': DocID,
+        'chk_sender': chk_sender
+      },
+      success: function(result) {
+        showData_Doc();
+      }
+    });
   }
 
   function checkProduct(id, name, doctypeidLeft) {

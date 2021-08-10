@@ -26,6 +26,8 @@ $(function() {
     $('#txt_Sdate_doc').val(output);
     $('#txt_Edate_doc').val(output);
 
+    $('#txt_Sdate_doc_r').val(output);
+    $('#txt_Edate_doc_r').val(output);
     
   })
 
@@ -141,12 +143,17 @@ $(function() {
 function showData_exp2() {
     var  txtSearch2 = $('#txtSearch2').val();
 
+    var  txt_Sdate_doc_r = $('#txt_Sdate_doc_r').val();
+    var  txt_Edate_doc_r = $('#txt_Edate_doc_r').val();
+
     $.ajax({
       url: "process/notification_doc.php",
       type: 'POST',
       data: {
         'FUNC_NAME': 'showData_exp2',
         'txtSearch2': txtSearch2,
+        'txt_Sdate_doc_r': txt_Sdate_doc_r,
+        'txt_Edate_doc_r': txt_Edate_doc_r
       },
       success: function(result) {
         var ObjData = JSON.parse(result);

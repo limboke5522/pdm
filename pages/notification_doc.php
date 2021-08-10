@@ -143,14 +143,31 @@
 
 
                     
-                    <div class="row"  id="right" >
-                      <label class="col-6 ml-2 mt-1"> ค้นหารายการ </label>
+                    <div class="row col-12"  id="right" >
+                    <div class="col-3">
+                          <div class="form-group row">
+                            <label for="select_subject" class="col-sm-2 col-form-label">วันที่</label>
+                            <div class="col-sm-8">
+                              <input type="text" autocomplete="off" class="form-control  datepicker-here " id="txt_Sdate_doc_r" data-language='en' data-date-format='dd-mm-yyyy' placeholder="วันที่" readonly>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="col-3 ">
+                          <div class="form-group row">
+                            <label for="select_subject" class="col-sm-2 col-form-label">ถึง</label>
+                            <div class="col-sm-8">
+                            <input type="text" autocomplete="off" class="form-control  datepicker-here " id="txt_Edate_doc_r" data-language='en' data-date-format='dd-mm-yyyy' placeholder="วันที่" readonly>
+                            </div>
+                          </div>
+                        </div>
+                    <label class="mt-1 " > ค้นหารายการ </label>
                     
-                      <div class="col-4 ml-5">
+                      <div class="col-4">
                         <input type="text" class="form-control ml-5" id="txtSearch2" onkeyup="showData_exp2();" placeholder="ค้นหารายการ">
                       </div>
-                      <div class="col-1 ml-3">
-                        <button type="submit" class="btn  btn-block bg-primary text-white ml-5" id="btn_search" onclick="showData_exp2();" >ค้นหา</button>
+                      <div class="col-1 ml-4">
+                        <button type="submit" class="btn  btn-block bg-primary text-white ml-4" id="btn_search" onclick="showData_exp2();" >ค้นหา</button>
                       </div>
                     </div>
 
