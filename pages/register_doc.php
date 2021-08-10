@@ -156,7 +156,7 @@
               <div class="col-3">
                 <div class="form-group">
                   <label for="">วันที่ผลิตเอกสาร :</label>
-                  <input type='text' class='form-control datepicker-here' data-language='en' data-date-format='dd-mm-yyyy' id="MFGDate" placeholder="วว/ดด/ปปปป">
+                  <input autocomplete="off" type='text' class='form-control datepicker-here' data-language='en' data-date-format='dd-mm-yyyy' id="MFGDate" placeholder="วว/ดด/ปปปป">
                 </div>
               </div>
 
@@ -168,7 +168,7 @@
               <div class="col-3">
                 <div class="form-group">
                   <label for="">วันหมดอายุ :</label>
-                  <input type='text' class='form-control  datepicker-here' data-language='en' data-date-format='dd-mm-yyyy' id="ExpireDate" placeholder="วว/ดด/ปปปป">
+                  <input autocomplete="off" type='text' class='form-control  datepicker-here' data-language='en' data-date-format='dd-mm-yyyy' id="ExpireDate" placeholder="วว/ดด/ปปปป">
                 </div>
               </div>
 

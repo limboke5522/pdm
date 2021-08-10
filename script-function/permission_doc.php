@@ -178,7 +178,7 @@
         var StrTR = "";
         var StrTR_checkbox = "";
         if (!$.isEmptyObject(ObjData)) {
-          $.each(ObjData.documentlist, function(key, value) {
+          $.each(ObjData.documentlist, function(key,value) {
 
 
             // var userAd_1 = "";
@@ -218,12 +218,15 @@
             $.each(ObjData.usertype[value.ID], function(key_usertype, value_usertype) {
               var userAd_1 = "";
 
-              $.each(ObjData.userdoc[value.ID], function(key_userdoc,value_userdoc) {
+              if (!$.isEmptyObject(ObjData.userdoc[value.ID])) {
+                $.each(ObjData.userdoc[value.ID], function(key_userdoc, value_userdoc) {
 
-                if (value_userdoc.UserTypeID == value_usertype.ID) {
-                  userAd_1 = "checked";
-                }
-              });
+                  if (value_userdoc.UserTypeID == value_usertype.ID) {
+                    userAd_1 = "checked";
+                  }
+                });
+              }
+
 
               var chkUser_Ad = "<input style='width: 20px;'  " + userAd_1 + "  class='form-control chkUser_Ad'  type='checkbox'  name='id_user_Ad' id='id_user_Ad" + value.ID + "' value='" + value.ID + "'  onclick='saveData(" + value.ID + "," + value_usertype.ID + ");' >";
 

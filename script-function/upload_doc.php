@@ -528,7 +528,7 @@
         var StrTR = "";
 
 
-
+        $('#Data_TableRight tbody').empty();
         if (!$.isEmptyObject(ObjData)) {
           $.each(ObjData, function(key, value) {
             // $( '#bt_ExpireDate_'+key ).datepicker();

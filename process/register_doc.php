@@ -160,10 +160,10 @@ function editData($conn)
   $ExpireDate    = $_POST['ExpireDate'];
   $txt_detail    = $_POST['txt_detail'];
 
-  $MFGDate    = explode('-',$MFGDate);
-  $MFGDate = $MFGDate[2].'-'.$MFGDate[1].'-'.$MFGDate[0] ;
-  $ExpireDate    = explode('-',$ExpireDate);
-  $ExpireDate = $ExpireDate[2].'-'.$ExpireDate[1].'-'.$ExpireDate[0] ;
+  $MFGDate    = explode('-', $MFGDate);
+  $MFGDate = $MFGDate[2] . '-' . $MFGDate[1] . '-' . $MFGDate[0];
+  $ExpireDate    = explode('-', $ExpireDate);
+  $ExpireDate = $ExpireDate[2] . '-' . $ExpireDate[1] . '-' . $ExpireDate[0];
   $filename = $_FILES['file_upload']['name'];
 
   if ($filename != "") {
@@ -217,8 +217,7 @@ function editData($conn)
                     productdoc.ExpireDate = '$ExpireDate', 
                     productdoc.DocNumber = '$txt_DocNo'  WHERE productdoc.ID = '$ID_txt' ;";
     mysqli_query($conn, $Sql2);
-  }else{
-
+  } else {
   }
 
 
@@ -274,48 +273,124 @@ function saveData($conn)
   $ExpireDate    = $_POST['ExpireDate'];
   $txt_detail    = $_POST['txt_detail'];
 
-  $MFGDate    = explode('-',$MFGDate);
-  $MFGDate = $MFGDate[2].'-'.$MFGDate[1].'-'.$MFGDate[0] ;
-  $ExpireDate    = explode('-',$ExpireDate);
-  $ExpireDate = $ExpireDate[2].'-'.$ExpireDate[1].'-'.$ExpireDate[0] ;
-  
+  $MFGDate    = explode('-', $MFGDate);
+  $MFGDate = $MFGDate[2] . '-' . $MFGDate[1] . '-' . $MFGDate[0];
+  $ExpireDate    = explode('-', $ExpireDate);
+  $ExpireDate = $ExpireDate[2] . '-' . $ExpireDate[1] . '-' . $ExpireDate[0];
+
   $filename = $_FILES['file_upload']['name'];
   $filename_TH = iconv("UTF-8", "TIS-620", $filename);
   copy($_FILES['file_upload']['tmp_name'], 'file/' . $filename); // อัพไฟล์ SERVER *****
 
-  $Sql = "INSERT INTO docrevision SET docrevision.fileName = '$filename' , 
-  docrevision.version = 1, 
-  docrevision.UploadDate = NOW(), 
-  docrevision.RevNo = '$txt_refDoc', 
-  docrevision.productID = '$select_Product', 
-  docrevision.DocumentID = '$select_headdoc'  ;";
 
-  if (mysqli_query($conn, $Sql)) {
-    $select = "SELECT
-              docrevision.ID
-            FROM
-              docrevision
-            WHERE
-                 docrevision.productID = '$select_Product'
-            AND  docrevision.DocumentID = '$select_headdoc'
-            ORDER BY docrevision.version DESC LIMIT 1";
-    $meQuery = mysqli_query($conn, $select);
-    while ($row = mysqli_fetch_assoc($meQuery)) {
-      $ID = $row['ID'];
-    }
+  $select = "SELECT
+                docrevision.version
+              FROM
+                docrevision
+              WHERE
+                  docrevision.productID = '$select_Product'
+              AND  docrevision.DocumentID = '$select_headdoc'
+              ORDER BY docrevision.version DESC LIMIT 1";
+  $meQuery = mysqli_query($conn, $select);
+  while ($row = mysqli_fetch_assoc($meQuery)) {
+    $version = $row['version']==null?'':$row['version'];
   }
 
 
-  $Sql2 = "INSERT INTO productdoc SET productdoc.ProductID = '$select_Product' , 
-  productdoc.DocumentID = '$select_headdoc',
-  productdoc.UploadDate = NOW(),
-  productdoc.DocType = '$inoff', 
-  productdoc.ID_FileDoc = '$ID', 
-  productdoc.DocTypeID = '$select_doctype2', 
-  productdoc.MFGDate = '$MFGDate', 
-  productdoc.ExpireDate = '$ExpireDate', 
-  productdoc.DocNumber = '$txt_DocNo'  ;";
-  mysqli_query($conn, $Sql2);
+  if($version== ""){
+    $Sql = "INSERT INTO docrevision SET docrevision.fileName = '$filename' , 
+            docrevision.version = 1, 
+            docrevision.UploadDate = NOW(), 
+            docrevision.RevNo = '$txt_refDoc', 
+            docrevision.productID = '$select_Product', 
+            docrevision.DocumentID = '$select_headdoc'  ;";
+          
+            if (mysqli_query($conn, $Sql)) {
+              $select = "SELECT
+                        docrevision.ID
+                      FROM
+                        docrevision
+                      WHERE
+                          docrevision.productID = '$select_Product'
+                      AND  docrevision.DocumentID = '$select_headdoc'
+                      ORDER BY docrevision.version DESC LIMIT 1";
+              $meQuery = mysqli_query($conn, $select);
+              while ($row = mysqli_fetch_assoc($meQuery)) {
+                $ID = $row['ID'];
+              }
+            }
+          
+
+          
+          
+            $Sql2 = "INSERT INTO productdoc SET productdoc.ProductID = '$select_Product' , 
+            productdoc.DocumentID = '$select_headdoc',
+            productdoc.UploadDate = NOW(),
+            productdoc.DocType = '$inoff', 
+            productdoc.ID_FileDoc = '$ID', 
+            productdoc.DocTypeID = '$select_doctype2', 
+            productdoc.MFGDate = '$MFGDate', 
+            productdoc.ExpireDate = '$ExpireDate', 
+            productdoc.DocNumber = '$txt_DocNo'  ;";
+            mysqli_query($conn, $Sql2);
+  }else{
+
+    $Sql = "INSERT INTO docrevision SET docrevision.fileName = '$filename' , 
+            docrevision.version = $version + 1, 
+            docrevision.UploadDate = NOW(), 
+            docrevision.RevNo = '$txt_refDoc', 
+            docrevision.productID = '$select_Product', 
+            docrevision.DocumentID = '$select_headdoc'  ;";
+
+    if (mysqli_query($conn, $Sql)) {
+      $select = "SELECT
+            docrevision.ID
+          FROM
+            docrevision
+          WHERE
+               docrevision.productID = '$select_Product'
+          AND  docrevision.DocumentID = '$select_headdoc'
+          ORDER BY docrevision.version DESC LIMIT 1";
+      $meQuery = mysqli_query($conn, $select);
+      while ($row = mysqli_fetch_assoc($meQuery)) {
+        $ID = $row['ID'];
+      }
+    }
+
+    
+                $select = "SELECT
+                          productdoc.ID
+                        FROM
+                          productdoc
+                        WHERE
+                          productdoc.productID = '$select_Product'
+                        AND  productdoc.DocumentID = '$select_headdoc'
+                        LIMIT 1";
+            $meQuery = mysqli_query($conn, $select);
+            while ($row = mysqli_fetch_assoc($meQuery)) {
+              $ID_PRO = $row['ID'];
+            }
+
+
+    $Sql2 = "UPDATE productdoc SET productdoc.ProductID = '$select_Product' , 
+                    productdoc.DocumentID = '$select_headdoc',
+                    productdoc.UploadDate = NOW(),
+                    productdoc.DocType = '$inoff', 
+                    productdoc.ID_FileDoc = '$ID', 
+                    productdoc.DocTypeID = '$select_doctype2', 
+                    productdoc.MFGDate = '$MFGDate', 
+                    productdoc.ExpireDate = '$ExpireDate', 
+                    productdoc.DocNumber = '$txt_DocNo'  WHERE productdoc.ID = '$ID_PRO' ;";
+    mysqli_query($conn, $Sql2);
+  }
+
+
+
+
+
+
+
+
 
 
 

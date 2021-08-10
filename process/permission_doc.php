@@ -230,6 +230,7 @@ function showData_Doc($conn)
       $ID_rowuser = $rowuser["ID"];
     }
 
+    $return['userdoc'][$ID][] ="";
     $Sql_userdoc = "SELECT
                       userdoc.ID,
                       userdoc.UserTypeID,

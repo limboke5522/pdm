@@ -451,6 +451,7 @@ function Save_FileDoc($conn)
                         productdoc.DocTypeID = '$select_DocDetail' ,
                         productdoc.MFGDate = '$bt_MFGDate' ,
                         productdoc.ExpireDate = '$bt_ExpireDate' ,
+                        productdoc.DocNumber = '' ,
                         productdoc.UploadDate = NOW() ";
     mysqli_query($conn, $Sql);
   } else {
@@ -646,7 +647,7 @@ function show_DataRight($conn)
           FROM
             docrevision
 
-            INNER JOIN productdoc ON docrevision.productID = productdoc.ProductID
+            LEFT JOIN productdoc ON docrevision.productID = productdoc.ProductID
             -- LEFT JOIN docproductlist ON docproductlist.DocumentID = docrevision.DocumentID
           WHERE docrevision.DocumentID = 0
           -- OR docrevision.IsActive = 1
