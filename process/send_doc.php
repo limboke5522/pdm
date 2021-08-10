@@ -41,6 +41,8 @@ if (!empty($_POST['FUNC_NAME'])) {
     selection_Doclist($conn);
   } else   if ($_POST['FUNC_NAME'] == 'CHECK_sendDoc') {
     CHECK_sendDoc($conn);
+  }else   if ($_POST['FUNC_NAME'] == 'deleteDoc_rowDoc') {
+    deleteDoc_rowDoc($conn);
   }
 }
 
@@ -150,20 +152,6 @@ function selection_Contact($conn)
 
 function selection_Product($conn)
 {
-  //   $Sql = "SELECT
-  //   product.ID, 
-  //   product.ProductCode, 
-  //   product.ProductName,
-  //   documentlist.DocType_Detail,
-  //   documentlist.productID
-  // FROM
-  //   product
-  // INNER JOIN documentlist ON product.ID = documentlist.productID
-  //   WHERE product.IsCancel = 0
-  //   -- AND documentlist.DocType_Detail = '$select_doctype'
-  //   GROUP BY product.ProductName
-  //   ORDER BY  product.ProductName ASC
-  //   LIMIT 15 ";
 
   $select_DocTypeID_L = $_POST["select_DocTypeID_L"];
 
@@ -274,16 +262,6 @@ function selection_Doclist($conn)
     $UserID = $row['UserID'];
     $DocTypeID = $row['DocTypeID'];
 
-    //     if($select_DocTypeID_L == 2){
-    //       $ANDdoc_type = "AND (documentlist.DocType_Detail = 2) ";     
-    // }else{
-    //       if($DocTypeID !=  $select_DocTypeID_L){
-    //         $ANDdoc_type = "AND (documentlist.DocType_Detail LIKE ='%%'
-    //         ) ";  
-    //       }else{
-    //         $ANDdoc_type = "AND (documentlist.DocType_Detail LIKE '%$select_DocTypeID_L%') ";
-    //       }  
-    // }
 
     $Sql2 = "SELECT
                         documentlist.ID,
@@ -573,18 +551,13 @@ function edit_sendDoc($conn)
   $select_contact    = $_POST['select_contact'];
   $email             = $_POST['email'];
   $txt_remark        = $_POST['txt_remark'];
-  $txt_headdoc        = $_POST['txt_headdoc'];
+  $txt_headdoc       = $_POST['txt_headdoc'];
   $productID         = $_POST['productID'];
   $DocID             = $_POST['DocID'];
-  $Copy_doc             = $_POST['Copy_doc'];
+  $Copy_doc          = $_POST['Copy_doc'];
 
 
-  $Sql = "SELECT	SendDocNo
-          FROM
-            send_doc 
-          ORDER BY
-            SendDocNo DESC 
-            LIMIT 1";
+  $Sql = "SELECT	SendDocNo FROM send_doc ORDER BY SendDocNo DESC LIMIT 1";
   $meQuery = mysqli_query($conn, $Sql);
   $row = mysqli_fetch_assoc($meQuery);
   $SendDocNo = $row['SendDocNo'];
@@ -602,15 +575,37 @@ function edit_sendDoc($conn)
                 WHERE SendDocNo = '$SendDocNo' ";
           // echo $query;
   mysqli_query($conn, $query);
+            
+             
+                  foreach ($DocID as $key => $value) {
+                
+                      $Sql2 = "SELECT	COUNT(Product_DocID) AS Cnt_Product_DocID 
+                                FROM send_doc_detail 
+                                WHERE Product_DocID = '$value'
+                                AND  SendDocNo = '$SendDocNo' ";
+  
+                      $meQuery = mysqli_query($conn, $Sql2);
+                      $row2 = mysqli_fetch_assoc($meQuery);
+                      $Cnt_Product_DocID = $row2['Cnt_Product_DocID'];
+                      
 
-  // foreach ($DocID as $key => $value) {
-  //   $query1 = "  UPDATE send_doc_detail 
-  //             SET SendDocNo = '$SendDocNo',
-  //             ProductID = '$productID[$key]',
-  //             Product_DocID = '$value'
-  //         ";
-  //   mysqli_query($conn, $query1);
-  // }
+                    if($Cnt_Product_DocID == 1){
+
+                    }else{
+                    $query1 = "  INSERT INTO send_doc_detail 
+                                  SET SendDocNo = '$SendDocNo',
+                                  ProductID = '$productID[$key]',
+                                  Product_DocID = '$value' ";
+                              // echo $query1;
+                        
+                    
+                    mysqli_query($conn, $query1);
+                  }
+                  
+                }
+ 
+
+
 
 
   $return = $SendDocNo;
@@ -622,6 +617,21 @@ function edit_sendDoc($conn)
   die;
 }
 
+function deleteDoc_rowDoc($conn)
+{
+  $DocID     = $_POST['DocID'];
+  $SendDocNo     = $_POST['chk_sender'];
+
+  $query = "DELETE FROM send_doc_detail 
+            WHERE  SendDocNo = '$SendDocNo' 
+            AND Product_DocID = '$DocID' ";
+  mysqli_query($conn, $query);
+  $return = $query;
+  echo $return;
+  unset($conn);
+  die;
+}
+ 
 function saveData($conn)
 {
 
