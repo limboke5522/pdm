@@ -432,33 +432,11 @@ function product_file($conn)
                         AND productdoc.DocumentID = '$DocumentID') ";
     }
 
-    // if($id_product ==  $pro_id){ 
-    //   $ANDdoc_type1 = " AND (productdoc.ProductID LIKE '%$id_product%' 
-    //                     AND productdoc.DocumentID = '$DocumentID')";
-    // }
-
-    // if($select_DocTypeID_L !=  $DocTypeID){ 
-    //   $ANDdoc_type = " (productdoc.DocumentID = '$DocumentID'
-    //                   AND  productdoc.ProductID = '$id_product'
-    //                   AND productdoc.DocTypeID = '$select_DocTypeID_L' )";  
-    // }else{
-
-    //   $ANDdoc_type = " ( 
-    //                    productdoc.ProductID = '$id_product'
-    //                   AND productdoc.DocTypeID  = '$documentlist_DocType_Detail'
-    //                   AND productdoc.DocumentID = '$DocumentID'
-    //                   ) ";
-    // }  
-
     if ($select_Doclist ==  0) {
       $ANDdoc_type2 = "";
     } else {
       $ANDdoc_type2 = " AND (productdoc.DocumentID = '$select_Doclist' )";
     }
-
-
-
-
 
     $Sql_2 = "SELECT
                 docrevision.fileName,
@@ -621,9 +599,7 @@ function edit_sendDoc($conn)
                   Memo_Headdoc = '$txt_headdoc',
                   DocDate = NOW(),
                   email = '$email'
-                WHERE SendDocNo = '$SendDocNo'
-
-          ";
+                WHERE SendDocNo = '$SendDocNo' ";
           // echo $query;
   mysqli_query($conn, $query);
 
@@ -739,7 +715,6 @@ ORDER BY
               send_doc.SendDocNo = '$sendDocNo'
               ORDER BY  product.ProductName ASC   ";
 
-  // echo $Sqll;
   $meQuery = mysqli_query($conn, $Sqll);
   while ($row = mysqli_fetch_assoc($meQuery)) {
     $return[] = $row;

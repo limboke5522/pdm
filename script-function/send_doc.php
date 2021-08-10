@@ -486,7 +486,19 @@
             var btn_preview = '<a href="javascript:void(0)"  onclick="preview(\'' + value.fileName + '\');"><img src="img/pdf.png" style="width:35px;"></a>';
 
             if (value.DocumentID == value.sub) {
-              var bt = ' <button type="button" style="font-size: 10px;"  class="btn btn-outline-primary" id="btn_send_' + key + '"  onclick="add_DocProduct(\'' + key + '\',\'' + value.ID + '\',\'' + value.DocName + '\',\'' + value.version + '\',\'' + id_product + '\',\'' + doctypeidLeft + '\')" >เลือก >> </button>';
+                  var check = 0;
+              $.each(objReal_doc.DocID, function(key, DocID) { //เช็ครายการซ้ำ
+                if (DocID == value.ID) {
+                    check = 1;
+                }
+              });
+
+              if(check == 1){
+                var hide = 'hidden';
+              }
+              var bt = ' <button type="button" style="font-size: 10px;" '+hide+'  class="btn btn-outline-primary" id="btn_send_' + key + '"  onclick="add_DocProduct(\'' + key + '\',\'' + value.ID + '\',\'' + value.DocName + '\',\'' + value.version + '\',\'' + id_product + '\',\'' + doctypeidLeft + '\')" >เลือก >> </button>';
+
+
             } else {
               var bt = ' <button type="button" style="font-size: 10px;" hidden class="btn btn-outline-primary" id="btn_send_' + key + '"  onclick="add_DocProduct(\'' + key + '\',\'' + value.ID + '\',\'' + value.DocName + '\',\'' + value.version + '\',\'' + id_product + '\',\'' + doctypeidLeft + '\')" >เลือก >> </button>';
             }
@@ -666,17 +678,17 @@
           btnClass: 'btn-primary',
           text: 'ตกลง',
           action: function(result) {
-            if(chk_sender == ""){
+            if (chk_sender == "") {
               save_sendDoc();
-            }else{
+            } else {
               edit_sendDoc();
             }
-            
+
             // $("#Modaldetail_Preview").modal('show');
             // show_Preview();
             // showFooter();
 
-            
+
 
           }
         }
@@ -686,11 +698,11 @@
 
 
   function save_sendDoc() {
-    
+
     var chk_sender = $('#chk_sender').val();
 
     // alert(chk_sender);
-        
+
 
     var select_hospital = $('#select_hospital').val();
     var select_subject = $('#select_subject').val();
@@ -754,10 +766,10 @@
         'chk_sender': chk_sender
       },
 
-      
-      
+
+
       success: function(result) {
-        
+
         $("#Modaldetail_Preview").modal('show');
         // $('#chk_sender').val(value.SendDocNo);
         show_Preview();
@@ -801,7 +813,7 @@
   }
 
   function edit_sendDoc() {
-    
+
     var chk_sender = $('#chk_sender').val();
     var select_hospital = $('#select_hospital').val();
     var select_subject = $('#select_subject').val();
@@ -1230,7 +1242,6 @@
         var BoxArea = "";
         var btn_previewer = "";
         var fileNameer = "";
-
         var DocNameer = "";
         var headdocer = "";
         var memoo = "";
@@ -1239,7 +1250,7 @@
           $.each(ObjData, function(key, value) {
 
             // btn_previewer += '<a href="javascript:void(0)"  onclick="preview(\'' + value.fileName + '\');"><img src="img/pdf.png" style="margin-left: 40px; width:75px;"></a>';
-    
+
             StrTR += "<tr style='border-radius: 15px 15px 15px 15px;margin-top: 6px;margin-bottom: 6px;'>" +
               "<td style='border: none; width:5%;text-align: center;'>" + (key + 1) + "</td>" +
               "<td style='border: none; width:40%;text-align: left;'>" + value.DocName + "</td>" +
@@ -1258,7 +1269,7 @@
             $('#send_name').text(value.email);
 
             $('#txtPopup_purpose_name').val(value.Purpose);
-        
+
             $('#headdoc').text(value.Memo_Headdoc);
             $('#head_list_items').text(value.ProductName);
             $('#box').html(StrTR);
@@ -1266,18 +1277,18 @@
 
             $('#box22').html(value.Memo_Headdoc + "\n" + " " + "รายการสินค้า" + "\n" + "    " + value.ProductName + "\n" + "          " + DocNameer + "\n" + value.Memo);
 
-            var showfile = "<div class='col-2'>"+
-                           "<div class='form-group'>"+
-                           "<a href='javascript:void(0)' onclick='preview(\"" + value.fileName + "\");'>"+
-                           "<img src='img/pdf.png' style='margin-left: 10px; width:75px;'>"+
-                           "</a>"+
-                           "<p style='text-align: center;'>"+value.fileNameee+"</p>"+
-                           "</div></div> ";
+            var showfile = "<div class='col-2'>" +
+              "<div class='form-group'>" +
+              "<a href='javascript:void(0)' onclick='preview(\"" + value.fileName + "\");'>" +
+              "<img src='img/pdf.png' style='margin-left: 10px; width:75px;'>" +
+              "</a>" +
+              "<p style='text-align: center;'>" + value.fileNameee + "</p>" +
+              "</div></div> ";
             $("#p_file_img").append(showfile);
-           
+
           });
         }
-  
+
 
       }
     });
