@@ -43,7 +43,32 @@ if (!empty($_POST['FUNC_NAME'])) {
     CHECK_sendDoc($conn);
   }else   if ($_POST['FUNC_NAME'] == 'deleteDoc_rowDoc') {
     deleteDoc_rowDoc($conn);
+  }else   if ($_POST['FUNC_NAME'] == 'check_show_all') {
+    check_show_all($conn);
   }
+}
+
+function check_show_all($conn)
+{
+  $select_Doclist = $_POST["select_Doclist"];
+
+  $sql = "SELECT
+            doctype_detail.ID,
+            doctype_detail.TypeDetail_Name 
+          FROM
+            documentlist
+            INNER JOIN doctype_detail ON documentlist.DocType_Detail = doctype_detail.ID 
+          WHERE
+            documentlist.ID = '$select_Doclist' ";
+  $meQuery = mysqli_query($conn, $sql);
+  while ($row = mysqli_fetch_assoc($meQuery)) {
+    $return[] = $row;
+  }
+
+
+  echo json_encode($return);
+  mysqli_close($conn);
+  die;
 }
 
 function showDocTypeID($conn)
@@ -239,32 +264,17 @@ function selection_Doclist($conn)
 {
   // $select_Doclist = $_POST["select_Doclist"];
   $select_DocTypeID_L = $_POST["select_DocTypeID_L"];
+  $checkall = $_POST["checkall"];
 
-  $Sql = "SELECT
-            docrevision.DocumentID ,
-            productdoc.DocTypeID,
-            documentlist.DocNumber,
-            documentlist.DocType_Detail
-          FROM
-            productdoc
-            INNER JOIN docrevision ON productdoc.ID_FileDoc = docrevision.ID
-            INNER JOIN documentlist ON docrevision.DocumentID = documentlist.ID 
-         
-          GROUP BY
-            docrevision.DocumentID 
-          ORDER BY
-            documentlist.DocName ASC , docrevision.version DESC 
-            ";
 
-  $meQuery = mysqli_query($conn, $Sql);
-  while ($row = mysqli_fetch_assoc($meQuery)) {
-    $DocumentID = $row['DocumentID'];
-    $UserID = $row['UserID'];
-    $DocTypeID = $row['DocTypeID'];
 
+    $showall = "AND documentlist.DocType_Detail LIKE '%$select_DocTypeID_L%'";
+    if($checkall == 1){
+      $showall = "";
+    }
 
     $Sql2 = "SELECT
-                        documentlist.ID,
+                      documentlist.ID,
                       documentlist.DocNumber,
                       documentlist.DocName,
                       documentlist.DocType_Detail,
@@ -273,15 +283,14 @@ function selection_Doclist($conn)
                       documentlist
 
                       WHERE documentlist.IsCancel = 0
-                      AND documentlist.DocType_Detail LIKE '%$select_DocTypeID_L%'
+                      $showall
                       ORDER BY  documentlist.DocNumber ASC
                   ";
-    // echo ($Sql);
+    // echo ($Sql2);
     $meQuery = mysqli_query($conn, $Sql2);
     while ($row = mysqli_fetch_assoc($meQuery)) {
       $return[] = $row;
     }
-  }
   echo json_encode($return);
   mysqli_close($conn);
   die;

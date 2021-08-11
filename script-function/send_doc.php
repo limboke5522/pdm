@@ -2,17 +2,18 @@
   $(function() {
     $("#txt_remark").hide();
     $("#txt_headdoc").hide();
-
     $("#memo_headdoc").hide();
     $("#memo").hide();
-
     $(".select2").select2();
     selection_Contact();
     selection_Customer();
     selection_Purpose();
     selection_Product();
     selection_DocDetail_L();
-    selection_Doclist();
+
+    setTimeout(() => {
+      selection_Doclist();
+    }, 300);
     chkremark();
     // CHECK_sendDoc();
 
@@ -233,19 +234,25 @@
   }
 
   function selection_Doclist() {
+
+    if (document.getElementById("checkbox_all").checked == true) {
+      var checkall = 1
+    } else {
+      var checkall = 0
+    }
+
     var select_DocTypeID_L = $("#select_DocTypeID_L").val();
     $.ajax({
       url: "process/send_doc.php",
       type: 'POST',
       data: {
         'FUNC_NAME': 'selection_Doclist',
-        // 'select_Doclist': $("#select_Doclist").val(),
-        'select_DocTypeID_L': select_DocTypeID_L
+        'select_DocTypeID_L': select_DocTypeID_L,
+        'checkall': checkall
       },
       success: function(result) {
         var ObjData = JSON.parse(result);
         $("#select_Doclist").empty();
-
         var Str2 = "";
         Str2 += "<option value=0 >หัวข้อเอกสาร</option>";
 
@@ -390,7 +397,7 @@
     $('#table_product tbody').html(TableItemx);
   }
 
-  
+
   function showData_Doc() {
     var TableDoc = "";
     $.each(objReal_doc.DocName, function(index, DocName) {
@@ -426,7 +433,7 @@
     showData_product();
   }
 
-  function deleteDoc(index, row,DocID) {
+  function deleteDoc(index, row, DocID) {
     $("#trDoc_" + index).remove();
     var chk_sender = $('#chk_sender').val();
 
@@ -439,15 +446,15 @@
     showData_Doc();
     $("#btn_send_" + row).show();
 
-    
-    if(chk_sender == ""){
 
-    }else{
-      deleteDoc_rowDoc(DocID,chk_sender);
+    if (chk_sender == "") {
+
+    } else {
+      deleteDoc_rowDoc(DocID, chk_sender);
     }
   }
 
-  function deleteDoc_rowDoc(DocID,chk_sender) {
+  function deleteDoc_rowDoc(DocID, chk_sender) {
 
     $.ajax({
       url: "process/send_doc.php",
@@ -464,94 +471,129 @@
   }
 
   function checkProduct(id, name, doctypeidLeft) {
-
-    var id_product = $("#id_product" + id).val();
-    var txt_product_center = $("#txt_product_center").val();
-
-    var select_DocTypeID_L = $("#select_DocTypeID_L").val();
-    var select_Doclist = $("#select_Doclist").val();
-
-    if (id_product != undefined) {
-      $("#select_DocTypeID_L_hide").val(id_product);
+    if (document.getElementById("checkbox_all").checked == true) {
+      var checkall = 1
     } else {
-
-      setTimeout(() => {
-        id_product = $("#select_DocTypeID_L_hide").val();
-      }, 300);
+      var checkall = 0
     }
 
-    if (doctypeidLeft != undefined) {
-      $("#select_DocTypeID_L").val(doctypeidLeft);
-    } else {
-      doctypeidLeft = $("#select_DocTypeID_L").val();
-    }
 
-    $("#txt_product_center").attr('disabled', false);
+    if (checkall == 1) {
+      $.ajax({
+        url: "process/send_doc.php",
+        type: 'POST',
+        data: {
+          'FUNC_NAME': 'check_show_all',
+          'select_Doclist': $("#select_Doclist").val()
+        },
+        success: function(result) {
+          var ObjData = JSON.parse(result);
+          var StrTR = "";
+          if (!$.isEmptyObject(ObjData)) {
+            $.each(ObjData, function(key, value) {
+                $("#select_DocTypeID_L").val(value.ID);
+                $("#select2-select_DocTypeID_L-container").text(value.TypeDetail_Name);
 
-
-    $.ajax({
-      url: "process/send_doc.php",
-      type: 'POST',
-      data: {
-        'FUNC_NAME': 'product_file',
-        'id_product': id_product,
-        'txt_product_center': txt_product_center,
-        'select_DocTypeID_L': doctypeidLeft,
-        'select_Doclist': $("#select_Doclist").val()
-        // 'select_DocTypeID_L' : select_DocTypeID_L
-      },
-      success: function(result) {
-        var ObjData = JSON.parse(result);
-        var StrTR = "";
-        if (!$.isEmptyObject(ObjData)) {
-          $.each(ObjData, function(key, value) {
-
-            // var text = 'ยังไม่ได้กำหนดสิทธิ';
-            var btn_preview = '<a href="javascript:void(0)"  onclick="preview(\'' + value.fileName + '\');"><img src="img/pdf.png" style="width:35px;"></a>';
-
-            if (value.DocumentID == value.sub) {
-                  var check = 0;
-              $.each(objReal_doc.DocID, function(key, DocID) { //เช็ครายการซ้ำ
-                if (DocID == value.ID) {
-                    check = 1;
-                }
-              });
-
-              if(check == 1){
-                var hide = 'hidden';
-              }
-              var bt = ' <button type="button" style="font-size: 10px;" '+hide+'  class="btn btn-outline-primary" id="btn_send_' + key + '"  onclick="add_DocProduct(\'' + key + '\',\'' + value.ID + '\',\'' + value.DocName + '\',\'' + value.version + '\',\'' + id_product + '\',\'' + doctypeidLeft + '\')" >เลือก >> </button>';
-
-
-            } else {
-              var bt = ' <button type="button" style="font-size: 10px;" hidden class="btn btn-outline-primary" id="btn_send_' + key + '"  onclick="add_DocProduct(\'' + key + '\',\'' + value.ID + '\',\'' + value.DocName + '\',\'' + value.version + '\',\'' + id_product + '\',\'' + doctypeidLeft + '\')" >เลือก >> </button>';
-            }
-            if (value.permis != null) {
-              var text = value.permis;
-            } else {
-              var text = '<p style="color: #FF0000">ยังไม่ได้กำหนดสิทธิ</p>';
-            }
-
-            StrTR += "<tr id='list_document_' style='border-radius: 15px 15px 15px 15px;margin-top: 6px;margin-bottom: 6px;'>" +
-              "<td style='width:7%;text-align: center;'>" + (key + 1) + "</td>" +
-              "<td style='width:25%;text-align: left;'>" + value.DocName + "</td>" +
-              // "<td style='width:5%;text-align: center;'>" + value.version + "</td>" +
-              "<td style='width:5%;text-align: center;'>" + text + "</td>" +
-              "<td style='width:5%;text-align: center;'>" + btn_preview + "</td>" +
-              "<td style='width:10%;text-align: center;'><center>" + bt + "</center></td>" +
-              "</tr>";
-
-          });
+                setTimeout(() => {
+                  check_selection(1);
+                }, 300);
+                
+            });
+          }
         }
+      });
+    }
 
-        $('#table_product_list_document tbody').html(StrTR);
 
+      var id_product = $("#id_product" + id).val();
+      var txt_product_center = $("#txt_product_center").val();
+
+      var select_DocTypeID_L = $("#select_DocTypeID_L").val();
+      var select_Doclist = $("#select_Doclist").val();
+
+      if (id_product != undefined) {
+        $("#select_DocTypeID_L_hide").val(id_product);
+      } else {
 
         setTimeout(() => {
-          chk_btn(id_product, doctypeidLeft);
-        }, 100);
+          id_product = $("#select_DocTypeID_L_hide").val();
+        }, 300);
       }
-    });
+
+      if (doctypeidLeft != undefined) {
+        $("#select_DocTypeID_L").val(doctypeidLeft);
+      } else {
+        doctypeidLeft = $("#select_DocTypeID_L").val();
+      }
+
+      $("#txt_product_center").attr('disabled', false);
+
+
+      $.ajax({
+        url: "process/send_doc.php",
+        type: 'POST',
+        data: {
+          'FUNC_NAME': 'product_file',
+          'id_product': id_product,
+          'txt_product_center': txt_product_center,
+          'select_DocTypeID_L': doctypeidLeft,
+          'select_Doclist': $("#select_Doclist").val()
+          // 'select_DocTypeID_L' : select_DocTypeID_L
+        },
+        success: function(result) {
+          var ObjData = JSON.parse(result);
+          var StrTR = "";
+          if (!$.isEmptyObject(ObjData)) {
+            $.each(ObjData, function(key, value) {
+
+              // var text = 'ยังไม่ได้กำหนดสิทธิ';
+              var btn_preview = '<a href="javascript:void(0)"  onclick="preview(\'' + value.fileName + '\');"><img src="img/pdf.png" style="width:35px;"></a>';
+
+              if (value.DocumentID == value.sub) {
+                var check = 0;
+                $.each(objReal_doc.DocID, function(key, DocID) { //เช็ครายการซ้ำ
+                  if (DocID == value.ID) {
+                    check = 1;
+                  }
+                });
+
+                if (check == 1) {
+                  var hide = 'hidden';
+                }
+                var bt = ' <button type="button" style="font-size: 10px;" ' + hide + '  class="btn btn-outline-primary" id="btn_send_' + key + '"  onclick="add_DocProduct(\'' + key + '\',\'' + value.ID + '\',\'' + value.DocName + '\',\'' + value.version + '\',\'' + id_product + '\',\'' + doctypeidLeft + '\')" >เลือก >> </button>';
+
+
+              } else {
+                var bt = ' <button type="button" style="font-size: 10px;" hidden class="btn btn-outline-primary" id="btn_send_' + key + '"  onclick="add_DocProduct(\'' + key + '\',\'' + value.ID + '\',\'' + value.DocName + '\',\'' + value.version + '\',\'' + id_product + '\',\'' + doctypeidLeft + '\')" >เลือก >> </button>';
+              }
+              if (value.permis != null) {
+                var text = value.permis;
+              } else {
+                var text = '<p style="color: #FF0000">ยังไม่ได้กำหนดสิทธิ</p>';
+              }
+
+              StrTR += "<tr id='list_document_' style='border-radius: 15px 15px 15px 15px;margin-top: 6px;margin-bottom: 6px;'>" +
+                "<td style='width:7%;text-align: center;'>" + (key + 1) + "</td>" +
+                "<td style='width:25%;text-align: left;'>" + value.DocName + "</td>" +
+                // "<td style='width:5%;text-align: center;'>" + value.version + "</td>" +
+                "<td style='width:5%;text-align: center;'>" + text + "</td>" +
+                "<td style='width:5%;text-align: center;'>" + btn_preview + "</td>" +
+                "<td style='width:10%;text-align: center;'><center>" + bt + "</center></td>" +
+                "</tr>";
+
+            });
+          }
+
+          $('#table_product_list_document tbody').html(StrTR);
+
+
+          setTimeout(() => {
+            chk_btn(id_product, doctypeidLeft);
+          }, 100);
+        }
+      });
+
+
 
 
   }

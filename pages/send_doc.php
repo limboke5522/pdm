@@ -161,16 +161,12 @@
                         <div class="col-8 ">
                           <select class="form-control select2" id="select_DocTypeID_L" onchange="check_selection(1);"></select>
                           <input type="text" class="form-control" id="select_DocTypeID_L_hide" hidden />
-
                         </div>
                       </div>
                     </div>
 
 
-                    <div class="col-2 ">
-                      <input type="checkbox" style=" margin-left: 15px; width: 20px; height: 20px;" class="btn btn-danger btn-block " id="checkbox_all">ทั้งหมด</input>
-                    </div>
-                    <!-- <label for="select_product" class="col-sm-2 col-form-label">product</label> -->
+
                     <div class="col-10">
                       <div class="form-group row">
                         <label for="select_subject" class="col-4  col-form-label">เลือกProduct </label>
@@ -200,19 +196,34 @@
 
               <div class="col-4">
                 <div class="card-body">
+
                   <div class="form-group row">
+                    <div class="col-10">
+                      <div class="form-group row">
+                        <label for="select_subject" class="col-4 col-form-label">หัวข้อเอกสาร</label>
+                        <div class="col-8 ">
+                          <select class="form-control select2" id="select_Doclist" onchange="checkProduct(1);"></select>
+                          <input type="text" class="form-control" id="select_DocTypeID_hide" hidden />
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-2 ">
+                      <input type="checkbox" style=" margin-left: 15px; width: 20px; height: 20px;" class="btn btn-danger btn-block " id="checkbox_all" onclick="selection_Doclist()">ทั้งหมด</input>
+                    </div>
+                  </div>
+
+
+
+
+
+                  <!-- <div class="form-group row">
                     <label for="select_subject" class="col-3 col-form-label">หัวข้อเอกสาร</label>
                     <div class="col-9">
-                      <!-- <select class="form-control" id="select_DocTypeID" placeholder="ประเภทเอกสาร" onchange="checkProduct(id,name);" disabled></select> -->
                       <select class="form-control select2" id="select_Doclist" onchange="checkProduct();" disabled></select>
                       <input type="text" class="form-control" id="select_DocTypeID_hide" hidden>
                     </div>
-
-                    <!-- <label for="txt_product_center" class="col-sm-2 col-form-label">ชื่อสินค้า</label>
-                  <div class="col-sm-4">
-                    <input type="text" class="form-control" id="txt_product_center" placeholder="ชื่อสินค้า" onkeyup="checkProduct(id,name);" disabled>
                   </div> -->
-                  </div>
+
                   <div class="row ">
                     <div class="col-12">
                       <table id="table_product_list_document" class="table table-bordered table-hover w-100 table-head-fixed">
