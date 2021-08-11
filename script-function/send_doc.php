@@ -49,17 +49,17 @@
     var select_product = $('#select_product').val();
     var select_Doclist = $('#select_Doclist').val();
     if (document.getElementById("checkbox_all").checked == true) {
-          var checkall = 1
-        } else {
-          var checkall = 0
-        }
+      var checkall = 1
+    } else {
+      var checkall = 0
+    }
     if (numm == 1) {
       $('#select2-select_product-container').val(0);
 
 
-        if(checkall == 0){
-          selection_Doclist();
-        }
+      if (checkall == 0) {
+        selection_Doclist();
+      }
       selection_Product();
       objReal.productName = [];
       objReal.productID = [];
@@ -74,18 +74,20 @@
         $("#table_product_list_document tbody").empty();
 
       } else {
-        // objReal.productName = [];
         $('#select_product').attr('disabled', true);
         $('#select_Doclist').attr('disabled', false);
         $('#select2-select_product-container').text("ทุก Product");
         $('#select2-select_product-container').val(0);
         $("#table_product tbody").empty();
 
-        if(checkall == 0){
+        if (checkall == 0) {
           selection_Doclist();
+          checkProduct();
+        } else {
+          // selection_Doclist();
+          checkProduct(9999);
         }
 
-        checkProduct();
 
 
         // showProductCenter();
@@ -489,32 +491,34 @@
       var checkall = 0
     }
 
+    if (id != 9999) {
+      if (checkall == 1) {
+        $.ajax({
+          url: "process/send_doc.php",
+          type: 'POST',
+          data: {
+            'FUNC_NAME': 'check_show_all',
+            'select_Doclist': $("#select_Doclist").val()
+          },
+          success: function(result) {
+            var ObjData = JSON.parse(result);
+            var StrTR = "";
+            if (!$.isEmptyObject(ObjData)) {
+              $.each(ObjData, function(key, value) {
+                $("#select_DocTypeID_L").val(value.ID);
+                $("#select2-select_DocTypeID_L-container").text(value.TypeDetail_Name);
 
-    if (checkall == 1) {
-      $.ajax({
-        url: "process/send_doc.php",
-        type: 'POST',
-        data: {
-          'FUNC_NAME': 'check_show_all',
-          'select_Doclist': $("#select_Doclist").val()
-        },
-        success: function(result) {
-          var ObjData = JSON.parse(result);
-          var StrTR = "";
-          if (!$.isEmptyObject(ObjData)) {
-            $.each(ObjData, function(key, value) {
-              $("#select_DocTypeID_L").val(value.ID);
-              $("#select2-select_DocTypeID_L-container").text(value.TypeDetail_Name);
+                setTimeout(() => {
+                  check_selection(1);
+                }, 300);
 
-              setTimeout(() => {
-                check_selection(1);
-              }, 300);
-
-            });
+              });
+            }
           }
-        }
-      });
+        });
+      }
     }
+
 
 
     var id_product = $("#id_product" + id).val();
@@ -550,7 +554,6 @@
         'txt_product_center': txt_product_center,
         'select_DocTypeID_L': doctypeidLeft,
         'select_Doclist': $("#select_Doclist").val()
-        // 'select_DocTypeID_L' : select_DocTypeID_L
       },
       success: function(result) {
         var ObjData = JSON.parse(result);
