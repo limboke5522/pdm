@@ -36,6 +36,10 @@
 <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300&display=swap" rel="stylesheet">
 
 
+<link href="http://cdn.quilljs.com/1.2.0/quill.snow.css" rel="stylesheet">
+<link href="http://cdn.quilljs.com/1.2.0/quill.bubble.css" rel="stylesheet">
+
+
 <style>
     .bg_tableAll{
         background-color: darkgray !important ;

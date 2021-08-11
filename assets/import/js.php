@@ -26,6 +26,9 @@
 <script src="assets/dist/js/sweetalert2.min.js"></script>
 <script src="assets/plugins/jquery-confirm-v3.3.4/js/jquery-confirm.js"></script>
 
+<script src="http://cdn.quilljs.com/1.2.0/quill.js"></script>
+<script src="http://cdn.quilljs.com/1.2.0/quill.min.js"></script>
+
 <!-- OPTIONAL SCRIPTS -->
 <?php if ($page == "information") { ?>
     <script src="assets/plugins/chart.js/Chart.min.js"></script>

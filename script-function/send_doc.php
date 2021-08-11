@@ -18,7 +18,36 @@
     // CHECK_sendDoc();
 
 
-  })
+  });
+
+
+
+  var toolbarOptions = [
+          ['bold', 'italic', 'underline'],
+          // ['blockquote', 'code-block'],
+          // [{ 'header': 1 }, { 'header': 2 }],
+          // [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+          // [{ 'script': 'sub' }, { 'script': 'super' }],
+          // [{ 'indent': '-1' }, { 'indent': '+1' }],
+          // [{ 'direction': 'rtl' }],
+          [{ 'size': ['small', false, 'large', 'huge'] }],
+          // ['link', 'image', 'video', 'formula'],
+          // [{ 'color': [] }, { 'background': [] }],
+          // [{ 'font': [] }],
+          [{ 'align': [] }]
+        ];
+        var options = {
+          debug: 'info',
+          modules: {
+            toolbar: toolbarOptions
+          },
+          placeholder: 'Text About',
+          readOnly: false,
+          theme: 'snow'
+        };
+        var editor = new Quill('#editor', options);
+
+        
 
   function chkremark() {
     if (document.getElementById("chk_remark").checked == true) {
@@ -798,8 +827,10 @@
     var table_product_docment = $('#table_product_docment tbody').val();
 
     var txtPopup_purpose_name = $('#txtPopup_purpose_name').val();
-    var box22 = $('#box22').val();
+    // var box22 = $('#box22').val();
 
+   
+  
 
     var text = "";
     if (select_hospital == "0") {
@@ -842,7 +873,6 @@
         'productID': productID,
         'DoctypeId': DoctypeId,
         'DocID': DocID,
-        'box22': box22,
         'txtPopup_purpose_name': txtPopup_purpose_name,
         'chk_sender': chk_sender
       },
@@ -856,10 +886,11 @@
         show_Preview();
         showFooter();
 
-
+       
+       
 
         $("#btnSaveDoc_Preview").click(function() {
-
+          
           $.confirm({
             title: 'แจ้งเตือน!',
             content: 'ยืนยันการส่งข้อมูล ใช่ หรือ ไม่?',
@@ -875,15 +906,16 @@
                 action: function() {
                   saveData_Preview();
                   $("#Modaldetail_Preview").modal('hide');
-                  send_mail(result, email, box22, txtPopup_purpose_name);
+                  send_mail(result, email,txtPopup_purpose_name);
                   if (Copy_doc != "") {
-                    send_mail_copy(result, Copy_doc, box22, txtPopup_purpose_name);
+                    send_mail_copy(result, Copy_doc,txtPopup_purpose_name);
                   }
 
                 }
               }
             }
           });
+
         });
 
 
@@ -1003,7 +1035,7 @@
 
   function send_mail(sendDocNo, email) {
     // alert(sendDocNo+"|"+email);
-    var boxArea = $('#box22').val();
+    var boxArea = editor.root.innerHTML;
     var purpose_name = $('#txtPopup_purpose_name').val();
 
     swal({
@@ -1068,7 +1100,7 @@
   function send_mail_copy(sendDocNo, Copy_doc) {
     // alert(sendDocNo+"|"+email);
 
-    var boxArea = $('#box22').val();
+    var boxArea = editor.root.innerHTML;
     $.ajax({
       url: "process/send_mail_copy.php",
       type: 'POST',
@@ -1355,9 +1387,8 @@
             $('#head_list_items').text(value.ProductName);
             $('#box').html(StrTR);
             $('#memoo').text(value.Memo);
-
-            $('#box22').html(value.Memo_Headdoc + "\n" + " " + "รายการสินค้า" + "\n" + "    " + value.ProductName + "\n" + "          " + DocNameer + "\n" + value.Memo);
-
+            $('#editor .ql-editor').html(value.Memo_Headdoc + "\n" + " " + "รายการสินค้า" + "\n" + "    " + value.ProductName + "\n" + "          " + DocNameer + "\n" + value.Memo);
+            
             var showfile = "<div class='col-2'>" +
               "<div class='form-group'>" +
               "<a href='javascript:void(0)' onclick='preview(\"" + value.fileName + "\");'>" +

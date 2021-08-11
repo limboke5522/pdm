@@ -118,6 +118,8 @@
                     </div>
                   </div>
 
+
+
                   <div class="col-3">
                     <div class="form-group row ">
                     </div>
@@ -399,30 +401,14 @@
 
                     <label id="detail" style="margin-top: 25px; ">รายละเอียด</label>
                     <div class="row  ">
-                      <div class="col-12  ">
-                        <textarea style="height: 200px;" class="form-control" id="box22">
-
-                                    <label  id="headdoc" ></label><br> 
-                                    <label style="margin-left: 30px; "> รายการสินค้า </label><br>
-                                    
-                                    <label  id="memoo" ></label>
-                                
-                          
-                          </textarea>
-                        <!-- <div id="standalone-container">
-                                        <div id="box22" class="ql-container ql-snow">
-                                            <div class="ql-editor ql-blank" data-gramm="false" contenteditable="true" data-placeholder="Compose an epic..."><p><br></p></div>
-                                            <div class="ql-clipboard" contenteditable="true" tabindex="-1"></div>
-                                                <label  id="headdoc" ></label><br> 
-                                                <label style="margin-left: 30px; "> รายการสินค้า </label><br>
-                                                
-                                                <label  id="memoo" ></label>
-                                                
-                                          </div>
-                                  </div>         -->
-                      </div>
-
+                    
+                        <div class="col-12" style=" height: 200px;" id="div_editor">
+                          <div id="toolbar"></div>
+                          <div id="editor"></div>
+                        </div>
+                  
                     </div>
+                    <br><br>
 
 
                     <div class="row mt-3" id="p_file_img">
