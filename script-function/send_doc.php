@@ -1068,6 +1068,8 @@
         $("#txt_phone").val("");
         $("#txt_product_center").val("");
         $('#Copy_doc').val("");
+        $('#chk_sender').val("");
+
         $("#table_product tbody").empty();
         $("#table_product_list_document tbody").empty();
         $("#table_product_docment tbody").empty();
