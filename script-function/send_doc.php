@@ -809,11 +809,6 @@
 
   function save_sendDoc() {
 
-    var chk_sender = $('#chk_sender').val();
-
-    // alert(chk_sender);
-
-
     var select_hospital = $('#select_hospital').val();
     var select_subject = $('#select_subject').val();
     var select_contact = $('#select_contact').val();
@@ -828,9 +823,6 @@
 
     var txtPopup_purpose_name = $('#txtPopup_purpose_name').val();
     // var box22 = $('#box22').val();
-
-   
-  
 
     var text = "";
     if (select_hospital == "0") {
@@ -873,16 +865,14 @@
         'productID': productID,
         'DoctypeId': DoctypeId,
         'DocID': DocID,
-        'txtPopup_purpose_name': txtPopup_purpose_name,
-        'chk_sender': chk_sender
+        'txtPopup_purpose_name': txtPopup_purpose_name
       },
-
-
-
       success: function(result) {
 
         $("#Modaldetail_Preview").modal('show');
-        // $('#chk_sender').val(value.SendDocNo);
+        $('#chk_sender').val(result);
+
+       
         show_Preview();
         showFooter();
 
@@ -1037,7 +1027,7 @@
     // alert(sendDocNo+"|"+email);
     var boxArea = editor.root.innerHTML;
     var purpose_name = $('#txtPopup_purpose_name').val();
-
+    // alert(boxArea);
     swal({
       title: 'กรุณารอสักครู่',
       text: 'ระบบกำลังประมวลผล',
@@ -1310,84 +1300,33 @@
 
   // show
   function show_Preview() {
+    var chk_sender = $('#chk_sender').val();
 
-    var POSEINT = $('#POSEINT').val();
-    var date_upload = $("#date_upload").val();
-    var send_name = $("#send_name").val();
-
-    var txtPopup_purpose_name = $("#txtPopup_purpose_name").val();
-
-    var memo_headdoc = $("#memo_headdoc").val();
-
-    var head_list_items = $("#head_list_items").val();
-    var list_items = $("#list_items").val();
-
-    var file_items = $("#file_items").val();
-
-    var memo = $("#memo").val();
-
-    var headdoc = $("#headdoc").val();
-    var memoo = $("#memoo").val();
-
-    var box = $("#box").val();
-    var chk_sender = $("#chk_sender").val();
-
-    $gmail_username = "janekootest@gmail.com";
     $.ajax({
       url: "process/send_doc.php",
       type: 'POST',
       data: {
         'FUNC_NAME': 'show_Preview',
-        'POSEINT': POSEINT,
-        'date_upload': date_upload,
-        'send_name': send_name,
-        'txtPopup_purpose_name': txtPopup_purpose_name,
-        'memo_headdoc': memo_headdoc,
-        'head_list_items': head_list_items,
-        'list_items': list_items,
-        'file_items': file_items,
-        'memo': memo
-
+        'chk_sender': chk_sender
       },
       success: function(result) {
         var ObjData = JSON.parse(result);
-        var StrTR = "";
-        var BoxArea = "";
-        var btn_previewer = "";
-        var fileNameer = "";
-        var DocNameer = "";
-        var headdocer = "";
-        var memoo = "";
         $("#p_file_img").empty();
+
         if (!$.isEmptyObject(ObjData)) {
           $.each(ObjData, function(key, value) {
 
-            // btn_previewer += '<a href="javascript:void(0)"  onclick="preview(\'' + value.fileName + '\');"><img src="img/pdf.png" style="margin-left: 40px; width:75px;"></a>';
-
-            StrTR += "<tr style='border-radius: 15px 15px 15px 15px;margin-top: 6px;margin-bottom: 6px;'>" +
-              "<td style='border: none; width:5%;text-align: center;'>" + (key + 1) + "</td>" +
-              "<td style='border: none; width:40%;text-align: left;'>" + value.DocName + "</td>" +
-              // "<td style='border: none; width:15%;text-align: right;'>"+btn_previewer+"</td>" +
-              // "<td style='border: none; width:40%;text-align: left;'>"+value.fileName+"</td>" +
-              "</tr>";
-
-            headdocer = "<label >" + value.Memo_Headdoc + "</label>";
-            DocNameer += "" + (key + 1) + " . " + value.DocName + "\n" + "          ";
-            memoo = "<label >" + value.Memo + "</label>";
 
             $('#chk_sender').val(value.SendDocNo);
 
-            $('#POSEINT').text($gmail_username);
+            $('#POSEINT').text("janekootest@gmail.com");
             $('#date_upload').text(value.DocDate);
             $('#send_name').text(value.email);
 
             $('#txtPopup_purpose_name').val(value.Purpose);
 
-            $('#headdoc').text(value.Memo_Headdoc);
-            $('#head_list_items').text(value.ProductName);
-            $('#box').html(StrTR);
-            $('#memoo').text(value.Memo);
-            $('#editor .ql-editor').html(value.Memo_Headdoc + "\n" + " " + "รายการสินค้า" + "\n" + "    " + value.ProductName + "\n" + "          " + DocNameer + "\n" + value.Memo);
+            show_DetailPreview(chk_sender);
+           
             
             var showfile = "<div class='col-2'>" +
               "<div class='form-group'>" +
@@ -1405,6 +1344,52 @@
       }
     });
 
+  }
+
+
+  function show_DetailPreview(chk_sender) {
+
+    $.ajax({
+      url: "process/send_doc.php",
+      type: 'POST',
+      data: {
+        'FUNC_NAME': 'show_DetailPreview',
+        'chk_sender': chk_sender
+      },
+
+      success: function(result) {
+        var ObjData = JSON.parse(result);
+        if (!$.isEmptyObject(ObjData)) {
+
+          var html_product="";
+      
+
+          $.each(ObjData.Product, function(key1, value1) {
+            if(value1.Memo_Headdoc==""){
+                var Headdoc = "";
+            }else{
+                var Headdoc = "<h2>"+value1.Memo_Headdoc+"</h2><br>";
+            }
+
+           var html = Headdoc +"<h2>รายการสินค้า</h2>" ;
+
+            if(value1.ProductName==null){
+              value1.ProductName="ไม่มี Product";
+            }
+            html_product += "<br><h3>&nbsp&nbsp"+value1.ProductName+"</h3>"
+            $.each(ObjData.Doc_list[value1.ID], function(key2, value2) { 
+              html_product += "<p>&nbsp&nbsp&nbsp&nbsp"+(key2+1)+". "+value2.DocName+"</p>"
+            });
+
+           var html_memoo = "<br><h3>"+value1.Memo+"</h3>";
+
+           var htmlSum = html+html_product+html_memoo
+
+            $('#editor .ql-editor').html(htmlSum);
+          });
+        }
+      }
+    });
   }
 
   function showFooter() {

@@ -45,7 +45,11 @@ if (!empty($_POST['FUNC_NAME'])) {
     deleteDoc_rowDoc($conn);
   }else   if ($_POST['FUNC_NAME'] == 'check_show_all') {
     check_show_all($conn);
+  }else   if ($_POST['FUNC_NAME'] == 'show_DetailPreview') {
+    show_DetailPreview($conn);
   }
+
+  
 }
 
 function check_show_all($conn)
@@ -686,27 +690,10 @@ function saveData2($conn)
   unset($conn);
   die;
 }
+
 function show_Preview($conn)
 {
-  $POSEINT = $_POST["POSEINT"];
-  $date_upload = $_POST["date_upload"];
-  $send_name = $_POST["send_name"];
-  $txtPopup_purpose_name = $_POST["txtPopup_purpose_name"];
-  $memo_headdoc = $_POST["memo_headdoc"];
-  $head_list_items = $_POST["head_list_items"];
-  $list_items = $_POST["list_items"];
-  $file_items = $_POST["file_items"];
-  $memo = $_POST["memo"];
-
-  $Sql = "SELECT	LPAD( ( COALESCE ( MAX( CONVERT ( SUBSTRING( SendDocNo, 2, 6 ), UNSIGNED INTEGER )), 0 )+ 0 ), 7, 0 ) AS SendDocNo 
-FROM
-  send_doc 
-ORDER BY
-  SendDocNo DESC 
-  LIMIT 1";
-  $meQuery = mysqli_query($conn, $Sql);
-  $row = mysqli_fetch_assoc($meQuery);
-  $sendDocNo = $row['SendDocNo'];
+  $chk_sender = $_POST["chk_sender"];
 
   $Sqll = "SELECT
               productdoc.ID_FileDoc,
@@ -731,13 +718,86 @@ ORDER BY
               LEFT JOIN product ON send_doc_detail.ProductID = product.ID 
               INNER JOIN purpose ON send_doc.`Subject` = purpose.ID
               WHERE
-              send_doc.SendDocNo = '$sendDocNo'
+              send_doc.SendDocNo = '$chk_sender'
               ORDER BY  product.ProductName ASC   ";
 
   $meQuery = mysqli_query($conn, $Sqll);
   while ($row = mysqli_fetch_assoc($meQuery)) {
     $return[] = $row;
   }
+  echo json_encode($return);
+  mysqli_close($conn);
+  die;
+}
+
+
+function show_DetailPreview($conn)
+{
+  $chk_sender = $_POST["chk_sender"];
+
+  $Sql_product = "SELECT
+            send_doc_detail.ProductID,
+            product.ProductName,
+            send_doc.Memo,
+            send_doc.Memo_Headdoc,
+            send_doc_detail.ID	
+          FROM
+            send_doc_detail
+            INNER JOIN send_doc ON send_doc_detail.SendDocNo = send_doc.SendDocNo
+            LEFT JOIN product ON send_doc_detail.ProductID = product.ID
+            WHERE send_doc_detail.SendDocNo = '$chk_sender'
+            GROUP BY send_doc_detail.ProductID
+            ORDER BY send_doc_detail.ProductID ASC";
+
+  $meQuery_product = mysqli_query($conn, $Sql_product);
+  while ($row_product = mysqli_fetch_assoc($meQuery_product)) {
+
+    $return['Product'][] = $row_product;
+    $ID =  $row_product['ID'];
+
+    if($row_product['ProductID']=='undefined'){
+      $Sql_Doc_list = "SELECT
+                          send_doc_detail.Product_DocID,
+                          documentlist.DocName	
+                      FROM
+                          send_doc_detail
+                          INNER JOIN send_doc ON send_doc_detail.SendDocNo = send_doc.SendDocNo
+                          INNER JOIN productdoc ON send_doc_detail.Product_DocID = productdoc.ID
+                          INNER JOIN docrevision ON productdoc.ID_FileDoc = docrevision.ID
+                          INNER JOIN documentlist ON docrevision.DocumentID = documentlist.ID 	
+                        WHERE send_doc_detail.SendDocNo = '$chk_sender'
+                        AND 	send_doc_detail.ProductID ='undefined'
+                        ";
+    }else{
+      $ProductID =  $row_product['ProductID'];
+
+      $Sql_Doc_list = "SELECT
+                          send_doc_detail.Product_DocID,
+                          documentlist.DocName	
+                        FROM
+                          send_doc_detail
+                          INNER JOIN send_doc ON send_doc_detail.SendDocNo = send_doc.SendDocNo
+                          INNER JOIN productdoc ON send_doc_detail.Product_DocID = productdoc.ID
+                          INNER JOIN docrevision ON productdoc.ID_FileDoc = docrevision.ID
+                          INNER JOIN documentlist ON docrevision.DocumentID = documentlist.ID 	
+                        WHERE send_doc_detail.SendDocNo = '$chk_sender'
+                        AND 	send_doc_detail.ProductID ='$ProductID ' ";
+
+    }
+   
+
+    $meQuery_Doc_list = mysqli_query($conn, $Sql_Doc_list);
+    while ($row_Doc_list = mysqli_fetch_assoc($meQuery_Doc_list)) {
+      $return['Doc_list'][$ID][] = $row_Doc_list;
+    }
+
+
+
+
+     
+  }
+
+
   echo json_encode($return);
   mysqli_close($conn);
   die;
