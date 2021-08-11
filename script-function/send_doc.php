@@ -1045,7 +1045,7 @@
       },
       success: function(result) {
         swal.close();
-        showDialogSuccess(result);
+        
 
         $('#select_DocTypeID_L').val(0);
         $('#select_product').val(0);
@@ -1085,6 +1085,14 @@
         objReal.productName = [];
 
         console.log(objReal_doc);
+
+       
+
+
+        showDialogSuccess(result);
+        setTimeout(() => {
+          location.reload();
+        }, 1000);
       }
     });
   }
