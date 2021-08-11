@@ -48,14 +48,14 @@
     var select_DocTypeID_L = $('#select_DocTypeID_L').val();
     var select_product = $('#select_product').val();
     var select_Doclist = $('#select_Doclist').val();
-
-    if (numm == 1) {
-      $('#select2-select_product-container').val(0);
-      if (document.getElementById("checkbox_all").checked == true) {
+    if (document.getElementById("checkbox_all").checked == true) {
           var checkall = 1
         } else {
           var checkall = 0
         }
+    if (numm == 1) {
+      $('#select2-select_product-container').val(0);
+
 
         if(checkall == 0){
           selection_Doclist();
@@ -81,9 +81,10 @@
         $('#select2-select_product-container').val(0);
         $("#table_product tbody").empty();
 
+        if(checkall == 0){
+          selection_Doclist();
+        }
 
-
-        selection_Doclist();
         checkProduct();
 
 
