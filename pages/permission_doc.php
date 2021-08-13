@@ -25,35 +25,17 @@
 
 
 <div class="row">
-  <!-- <div class="col-4">
-                <div class="row mt-5 " id="tb_Data" style="height: 500px;max-height: 500px;overflow-y: auto;">
-                  <div class="col-12">
-                    <table id="Data_TableLeft" class="table table-bordered table-hover w-100 table-head-fixed">
-                      <thead>
-                        <tr class="text-center">
-                          <th style="width: 20%;" class="bg_tableAll">เลือก</th>
-                          <th style="width: 80%;" class="bg_tableAll">กรุ๊ป User</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div> -->
-
   <div class="col-12">
     <label class="col-2"> ประเภทเอกสาร : </label>
-    <label class="col-2"> Product : </label>
+    <!-- <label class="col-2"> Product : </label> -->
     <label class="col-2"> หัวข้อเอกสาร : </label>
     <div class="row">
       <div class="col-2">
         <select class="custom-select form-control " id="select_doctype" onchange="check_selection(1);showData_Doc();"></select>
       </div>
-      <div class="col-2">
+      <!-- <div class="col-2">
         <select style="width: 100%" class="custom-select form-control select2" id="select_product" onchange="check_selection(2);"></select>
-      </div>
+      </div> -->
       <div class="col-2">
         <select class=" form-control select2" id="select_dochead" onchange="check_selection();"></select>
       </div>

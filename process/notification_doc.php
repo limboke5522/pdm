@@ -10,8 +10,6 @@ if (!empty($_POST['FUNC_NAME'])) {
   } else   if ($_POST['FUNC_NAME'] == 'showData_exp3') {
     showData_exp3($conn);
   }
-
-  
 }
 
 
@@ -23,15 +21,15 @@ if (!empty($_POST['FUNC_NAME'])) {
 function showData_exp($conn)
 {
   $Search_txt = $_POST["txtSearch"];
-  
+
   $txt_Sdate_doc = $_POST["txt_Sdate_doc"];
   $txt_Edate_doc = $_POST["txt_Edate_doc"];
   // $select_product = $_POST["select_product"];
   $txt_Sdate_doc = explode("-", $txt_Sdate_doc);
-  $txt_Sdate_doc = $txt_Sdate_doc[2] .'-'. $txt_Sdate_doc[1] .'-'. $txt_Sdate_doc[0];
+  $txt_Sdate_doc = $txt_Sdate_doc[2] . '-' . $txt_Sdate_doc[1] . '-' . $txt_Sdate_doc[0];
 
   $txt_Edate_doc = explode("-", $txt_Edate_doc);
-  $txt_Edate_doc = $txt_Edate_doc[2] .'-'. $txt_Edate_doc[1] .'-'. $txt_Edate_doc[0];
+  $txt_Edate_doc = $txt_Edate_doc[2] . '-' . $txt_Edate_doc[1] . '-' . $txt_Edate_doc[0];
 
   $Sql_product = " SELECT
 	productdoc.DocumentID,
@@ -49,6 +47,7 @@ function showData_exp($conn)
 	doctype_detail.TypeDetail_Name,
 	productdoc.DocumentID AS DocID,
 	productdoc.productID AS ProducID,
+	product.ProductName,
 	(
 		SELECT
 			DATEDIFF(
@@ -81,6 +80,7 @@ FROM
 	productdoc
 INNER JOIN documentlist ON productdoc.DocumentID = documentlist.ID
 INNER JOIN doctype_detail ON documentlist.DocType_Detail = doctype_detail.ID
+INNER JOIN product ON productdoc.ProductID = product.ID
 WHERE
 	DATEDIFF(
 		productdoc.ExpireDate,
@@ -105,9 +105,9 @@ ORDER BY
 
   $meQuery1 = mysqli_query($conn, $Sql_product);
   while ($row = mysqli_fetch_assoc($meQuery1)) {
-        $return[] = $row;
+    $return[] = $row;
   }
- 
+
 
 
   echo json_encode($return);
@@ -122,10 +122,10 @@ function showData_exp2($conn)
   $txt_Edate_doc_r = $_POST["txt_Edate_doc_r"];
   // $select_product = $_POST["select_product"];
   $txt_Sdate_doc_r = explode("-", $txt_Sdate_doc_r);
-  $txt_Sdate_doc_r = $txt_Sdate_doc_r[2] .'-'. $txt_Sdate_doc_r[1] .'-'. $txt_Sdate_doc_r[0];
+  $txt_Sdate_doc_r = $txt_Sdate_doc_r[2] . '-' . $txt_Sdate_doc_r[1] . '-' . $txt_Sdate_doc_r[0];
 
   $txt_Edate_doc_r = explode("-", $txt_Edate_doc_r);
-  $txt_Edate_doc_r = $txt_Edate_doc_r[2] .'-'. $txt_Edate_doc_r[1] .'-'. $txt_Edate_doc_r[0];
+  $txt_Edate_doc_r = $txt_Edate_doc_r[2] . '-' . $txt_Edate_doc_r[1] . '-' . $txt_Edate_doc_r[0];
 
   $Sql_product = "SELECT
   productdoc.DocumentID,
@@ -143,6 +143,7 @@ function showData_exp2($conn)
   doctype_detail.TypeDetail_Name,
   productdoc.DocumentID AS DocID,
    productdoc.productID AS ProducID,
+	product.ProductName,
   (
   SELECT
      DATEDIFF(
@@ -175,29 +176,23 @@ function showData_exp2($conn)
   productdoc
   INNER JOIN documentlist ON productdoc.DocumentID = documentlist.ID
   INNER JOIN doctype_detail ON documentlist.DocType_Detail = doctype_detail.ID
+  INNER JOIN product ON productdoc.ProductID = product.ID
   WHERE
-  DATEDIFF(
-   productdoc.ExpireDate,
-   DATE(NOW())
-  ) >= 0 
-  -- AND documentlist.ValidDate BETWEEN '18-02-2021' AND '18-06-2021'
+  DATE(productdoc.ExpireDate) < DATE(NOW())
   AND documentlist.DocName LIKE '%$Search_txt2%'
   
   GROUP BY
    productdoc.DocumentID
   HAVING  daynow <=0
   ORDER BY
-   DATEDIFF(
-    productdoc.ExpireDate,
-    DATE(NOW())
-   ) ASC
+  DATE(productdoc.ExpireDate) < DATE(NOW()) ASC
           ";
 
   $meQuery1 = mysqli_query($conn, $Sql_product);
   while ($row = mysqli_fetch_assoc($meQuery1)) {
-        $return[] = $row;
+    $return[] = $row;
   }
- 
+
 
 
   echo json_encode($return);
@@ -239,13 +234,12 @@ function showData_exp3($conn)
 
   $meQuery1 = mysqli_query($conn, $Sql_product);
   while ($row = mysqli_fetch_assoc($meQuery1)) {
-        $return[] = $row;
+    $return[] = $row;
   }
- 
+
 
 
   echo json_encode($return);
   mysqli_close($conn);
   die;
 }
-

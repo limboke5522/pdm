@@ -285,6 +285,7 @@
     $('#btnDeleteDoc').hide();
     $('#btncleanDoc').hide();
     $(".chk_Cus").prop("checked", false);
+    $(".custom-file-input").next('.custom-file-label').addClass("selected").html("");
   });
 
 
@@ -378,6 +379,26 @@
         }
 
         show_data();
+
+        $("#StatusRadio1").prop("checked", true);
+        $('#select_doctype2').val(0);
+        $('#select_Product').val(0);
+        $('#select2-select_Product-container').text("-- กรุณาเลือก Product --");
+        $('#txt_DocNo').val("");
+        $('#select_headdoc').val(0);
+        $('#txt_refDoc').val("");
+        $('#MFGDate').val("");
+        $('#ExpireDate').val("");
+        $("#StatusRadio1").prop("checked", true);
+        $('#txt_detail').val("");
+        $("#txt_DocNo").prop('disabled', false);
+        $('#btnSaveDoc').show();
+        $('#btnEditDoc').hide();
+        $('#btnDeleteDoc').hide();
+        $('#btncleanDoc').hide();
+        $(".chk_Cus").prop("checked", false);
+        $(".custom-file-input").next('.custom-file-label').addClass("selected").html("");
+
         // $('#select_doctype2').val(0);
         // $('#select_Product').val(0);
         // $('#select_headdoc').val(0);
@@ -473,7 +494,29 @@
       data: form_data ,
       success: function(result) {
         showDialogSuccess(result);
+        $("#StatusRadio1").prop("checked", true);
+        $('#select_doctype2').val(0);
+        $('#select_Product').val(0);
+        $('#select2-select_Product-container').text("-- กรุณาเลือก Product --");
+        $('#txt_DocNo').val("");
+        $('#select_headdoc').val(0);
+        $('#txt_refDoc').val("");
+        $('#MFGDate').val("");
+        $('#ExpireDate').val("");
+        $("#StatusRadio1").prop("checked", true);
+        $('#txt_detail').val("");
+        $("#txt_DocNo").prop('disabled', false);
+        $('#btnSaveDoc').show();
+        $('#btnEditDoc').hide();
+        $('#btnDeleteDoc').hide();
+        $('#btncleanDoc').hide();
+        $(".chk_Cus").prop("checked", false);
+        $('#ID_txt').val("");
 
+        $(".custom-file-input").next('.custom-file-label').addClass("selected").html("");
+
+
+            
         // $('#select_cus').val(0);
         // $('#select_doctype2').val(0);
         // $('#select_Product').val(0);

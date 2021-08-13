@@ -104,8 +104,8 @@
                       <input class="" style="width:20px; height: 20px;  margin-top: 10px" type="checkbox" id="chk_remark" onclick="chkremark();">
                       <label for="txt_remark" class="col-sm-3 col-form-label">บันทึกช่วยจำ</label>
 
-                      <input style="width:20px; height: 20px;   margin-top: 10px" type="checkbox" id="chk_headdoc" onclick="chkremark();">
-                      <label for="txt_remark" class="col-sm-3 col-form-label">หัวเรื่อง E-Mail</label>
+                      <!-- <input style="width:20px; height: 20px;   margin-top: 10px" type="checkbox" id="chk_headdoc" onclick="chkremark();">
+                      <label for="txt_remark" class="col-sm-3 col-form-label">หัวเรื่อง E-Mail</label> -->
                     </div>
                   </div>
 
@@ -190,7 +190,6 @@
                       </tr>
                     </thead>
                     <tbody>
-
                     </tbody>
                   </table>
                 </div>
@@ -198,7 +197,6 @@
 
               <div class="col-4">
                 <div class="card-body">
-
                   <div class="form-group row">
                     <div class="col-10">
                       <div class="form-group row">

@@ -185,7 +185,9 @@ function editData($conn)
 
     $Sql = "INSERT INTO docrevision SET docrevision.fileName = '$filename' , 
             docrevision.version = $version + 1, 
-            docrevision.UploadDate = NOW(), 
+            docrevision.UploadDate = NOW(),
+            docrevision.RegistrationDate = NOW(), 
+            docrevision.ExpireDate = '$ExpireDate', 
             docrevision.RevNo = '$txt_refDoc', 
             docrevision.productID = '$select_Product', 
             docrevision.DocumentID = '$select_headdoc'  ;";
@@ -300,7 +302,9 @@ function saveData($conn)
   if($version== ""){
     $Sql = "INSERT INTO docrevision SET docrevision.fileName = '$filename' , 
             docrevision.version = 1, 
-            docrevision.UploadDate = NOW(), 
+            docrevision.UploadDate = NOW(),
+            docrevision.RegistrationDate = NOW(), 
+            docrevision.ExpireDate = '$ExpireDate', 
             docrevision.RevNo = '$txt_refDoc', 
             docrevision.productID = '$select_Product', 
             docrevision.DocumentID = '$select_headdoc'  ;";
@@ -333,6 +337,8 @@ function saveData($conn)
             productdoc.ExpireDate = '$ExpireDate', 
             productdoc.DocNumber = '$txt_DocNo'  ;";
             mysqli_query($conn, $Sql2);
+
+
   }else{
 
     $Sql = "INSERT INTO docrevision SET docrevision.fileName = '$filename' , 

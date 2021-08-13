@@ -1,26 +1,26 @@
 <script>
-$(function() {
-  // showData_exp();
-  // showData_exp2();
-  $('#tb_contact2').hide();
-  $('#tb_contact3').hide();
+  $(function() {
+    // showData_exp();
+    // showData_exp2();
+    $('#tb_contact2').hide();
+    $('#tb_contact3').hide();
 
-  $('#txtSearch2').hide();
-  $('#txtSearch3').hide();
- 
-  $('#right').hide();
-  showData_exp();
-  // showData_exp_1();
+    $('#txtSearch2').hide();
+    $('#txtSearch3').hide();
 
-  showData_exp2_1();
-  // showData_exp3_1();
-  var d = new Date();
+    $('#right').hide();
+    showData_exp();
+    // showData_exp_1();
 
-  var month = d.getMonth()+1;
-  var day = d.getDate();
+    showData_exp2_1();
+    // showData_exp3_1();
+    var d = new Date();
 
-  var output =  (day<10 ? '0' : '') + day + '-' +
-    (month<10 ? '0' : '') + month + '-' +
+    var month = d.getMonth() + 1;
+    var day = d.getDate();
+
+    var output = (day < 10 ? '0' : '') + day + '-' +
+      (month < 10 ? '0' : '') + month + '-' +
       d.getFullYear();
 
     $('#txt_Sdate_doc').val(output);
@@ -28,16 +28,16 @@ $(function() {
 
     $('#txt_Sdate_doc_r').val(output);
     $('#txt_Edate_doc_r').val(output);
-    
+
   })
 
-  
+
 
   // show
   function showData_exp() {
-    var  txtSearch = $('#txtSearch').val();
-    var  txt_Sdate_doc = $('#txt_Sdate_doc').val();
-    var  txt_Edate_doc = $('#txt_Edate_doc').val();
+    var txtSearch = $('#txtSearch').val();
+    var txt_Sdate_doc = $('#txt_Sdate_doc').val();
+    var txt_Edate_doc = $('#txt_Edate_doc').val();
 
     $.ajax({
       url: "process/notification_doc.php",
@@ -59,20 +59,21 @@ $(function() {
             var chkDoc = "<input class='form-control chk_docLeft' type='checkbox'  name='id_doc' id='id_doc" + key + "' value='" + value.ID + "'  style='width: 25%;'>";
 
             StrTR += "<tr style='border-radius: 15px 15px 15px 15px;margin-top: 6px;margin-bottom: 6px;'>" +
-                      "<td style='width:5%;text-align: center;'><center>" + chkDoc + "</center></td>" +
-                      "<td style='width:5%; text-align: center;'>" + (key + 1) + "</td>" +
-                      "<td style='width:20%;text-align: center;'>" + value.DocName + "</td>" +
-                      "<td style='width:20%;text-align: center;'>" + value.LastVersion + "</td>" +
-                      "<td style='width:20%;text-align: center;'>" + value.diffday + "</td>" +
-                      "</tr>";
+              "<td style='width:5%;text-align: center;'><center>" + chkDoc + "</center></td>" +
+              "<td style='width:5%; text-align: center;'>" + (key + 1) + "</td>" +
+              "<td style='width:20%;text-align: center;'>" + value.ProductName + "</td>" +
+              "<td style='width:20%;text-align: center;'>" + value.DocName + "</td>" +
+              "<td style='width:20%;text-align: center;'>" + value.LastVersion + "</td>" +
+              "<td style='width:20%;text-align: center;'>" + value.diffday + "</td>" +
+              "</tr>";
 
-                      count++;
-           });
+            count++;
+          });
         }
-        
+
 
         // $tree = show_DataLeft($rows);
-        
+
         $('#exp').text(count);
         $('#exp2').text("");
         $('#exp3').text("");
@@ -103,10 +104,10 @@ $(function() {
 
   }
 
-  
+
 
   function showData_exp_1() {
-    var  txtSearch = $('#txtSearch').val();
+    var txtSearch = $('#txtSearch').val();
 
     $.ajax({
       url: "process/notification_doc.php",
@@ -121,16 +122,16 @@ $(function() {
         var StrTR2 = "";
         if (!$.isEmptyObject(ObjData)) {
           $.each(ObjData, function(key, value) {
-                      count++;
-           });
+            count++;
+          });
         }
-        
+
         $('#bells').hide();
         $('#exp_1').hide();
 
         $('#exp_1').text(count);
 
- 
+
 
 
       }
@@ -138,13 +139,13 @@ $(function() {
 
   }
 
- 
-// show
-function showData_exp2() {
-    var  txtSearch2 = $('#txtSearch2').val();
 
-    var  txt_Sdate_doc_r = $('#txt_Sdate_doc_r').val();
-    var  txt_Edate_doc_r = $('#txt_Edate_doc_r').val();
+  // show
+  function showData_exp2() {
+    var txtSearch2 = $('#txtSearch2').val();
+
+    var txt_Sdate_doc_r = $('#txt_Sdate_doc_r').val();
+    var txt_Edate_doc_r = $('#txt_Edate_doc_r').val();
 
     $.ajax({
       url: "process/notification_doc.php",
@@ -166,15 +167,16 @@ function showData_exp2() {
             var chkDoc = "<input class='form-control chk_docLeft' type='checkbox'  name='id_doc2' id='id_doc2" + key + "' value='" + value.ID + "'  style='width: 25%;'>";
 
             StrTR2 += "<tr style='border-radius: 15px 15px 15px 15px;margin-top: 6px;margin-bottom: 6px;'>" +
-                      "<td style=' width:5%;text-align: center;'><center>" + chkDoc + "</center></td>" +
-                      "<td style='width:5%; text-align: center;'>" + (key + 1) + "</td>" +
-                      "<td style='width:20%;text-align: center;'>" + value.DocName + "</td>" +
-                      "<td style='width:20%;text-align: center;'>" + value.LastVersion + "</td>" +
-                      "<td style='width:20%;text-align: center;'>" + value.daynow + "</td>" +
-                      "</tr>";
+              "<td style=' width:5%;text-align: center;'><center>" + chkDoc + "</center></td>" +
+              "<td style='width:5%; text-align: center;'>" + (key + 1) + "</td>" +
+              "<td style='width:20%;text-align: center;'>" + value.ProductName + "</td>" +
+              "<td style='width:20%;text-align: center;'>" + value.DocName + "</td>" +
+              "<td style='width:20%;text-align: center;'>" + value.LastVersion + "</td>" +
+              "<td style='width:20%;text-align: center;'>" + value.daynow + "</td>" +
+              "</tr>";
 
-                      count++;
-           });
+            count++;
+          });
         }
         // $tree = show_DataLeft($rows);
         $('#exp').text("");
@@ -198,7 +200,7 @@ function showData_exp2() {
 
         $('#left').hide();
 
-        
+
 
         $('#bells2').hide();
         $('#exp2_1').hide();
@@ -209,8 +211,9 @@ function showData_exp2() {
     });
 
   }
+
   function showData_exp2_1() {
-    var  txtSearch2 = $('#txtSearch2').val();
+    var txtSearch2 = $('#txtSearch2').val();
 
     $.ajax({
       url: "process/notification_doc.php",
@@ -225,16 +228,16 @@ function showData_exp2() {
         var StrTR2 = "";
         if (!$.isEmptyObject(ObjData)) {
           $.each(ObjData, function(key, value) {
-                      count++;
-           });
+            count++;
+          });
         }
-        
+
         $('#bells2').show();
         $('#exp2_1').show();
 
         $('#exp2_1').text(count);
 
-    
+
 
 
       }
@@ -243,8 +246,8 @@ function showData_exp2() {
   }
 
   // show
-function showData_exp3() {
-    var  txtSearch3 = $('#txtSearch3').val();
+  function showData_exp3() {
+    var txtSearch3 = $('#txtSearch3').val();
 
     $.ajax({
       url: "process/notification_doc.php",
@@ -264,16 +267,16 @@ function showData_exp3() {
             var chkDoc = "<input class='form-control chk_docLeft' type='radio'  name='id_doc3' id='id_doc3" + key + "' value='" + value.ID + "'  style='width: 50%;'>";
 
             StrTR2 += "<tr style='border-radius: 15px 15px 15px 15px;margin-top: 6px;margin-bottom: 6px;'>" +
-                      // "<td style='width:5%;text-align: center;'><center>" + chkDoc + "</center></td>" +
-                      "<td style='width:5%; text-align: center;'>" + (key + 1) + "</td>" +
-                      "<td style='width:20%;text-align: center;'>" + value.CustomerName + "</td>" +
-                      "<td style='width:20%;text-align: center;'>" + value.fileName + "</td>" +
-                      "<td style='width:20%;text-align: center;'>" + value.version + "</td>" +
-                      "<td style='width:20%;text-align: center;'>" + value.newVersion + "</td>" +
-                      "</tr>";
+              // "<td style='width:5%;text-align: center;'><center>" + chkDoc + "</center></td>" +
+              "<td style='width:5%; text-align: center;'>" + (key + 1) + "</td>" +
+              "<td style='width:20%;text-align: center;'>" + value.CustomerName + "</td>" +
+              "<td style='width:20%;text-align: center;'>" + value.fileName + "</td>" +
+              "<td style='width:20%;text-align: center;'>" + value.version + "</td>" +
+              "<td style='width:20%;text-align: center;'>" + value.newVersion + "</td>" +
+              "</tr>";
 
-                      count++;
-           });
+            count++;
+          });
         }
         // $tree = show_DataLeft($rows);
         $('#exp').text("");
@@ -304,30 +307,30 @@ function showData_exp3() {
   }
 
   function showData_exp3_1() {
-    var  txtSearch3 = $('#txtSearch3').val();
+    var txtSearch3 = $('#txtSearch3').val();
 
     $.ajax({
       url: "process/notification_doc.php",
       type: 'POST',
-        data: {
-          'FUNC_NAME': 'showData_exp3',
-          'txtSearch3': txtSearch3,
-        },
+      data: {
+        'FUNC_NAME': 'showData_exp3',
+        'txtSearch3': txtSearch3,
+      },
       success: function(result) {
         var ObjData = JSON.parse(result);
         var count = 0;
         var StrTR2 = "";
         if (!$.isEmptyObject(ObjData)) {
           $.each(ObjData, function(key, value) {
-                      count++;
-           });
+            count++;
+          });
         }
         $('#bells3').show();
         $('#exp3_1').show();
 
         $('#exp3_1').text(count);
 
-     
+
 
       }
     });
@@ -342,13 +345,13 @@ function showData_exp3() {
       autoClose: 'close|8000',
       typeAnimated: true,
       buttons: {
-        close:  {
+        close: {
           text: 'ปิด',
         }
       }
     });
   }
-  
+
 
   function showDialogFailed(text) {
     $.confirm({
@@ -358,13 +361,10 @@ function showData_exp3() {
       autoClose: 'close|8000',
       typeAnimated: true,
       buttons: {
-        close:  {
+        close: {
           text: 'ปิด',
         }
       }
     });
   }
-
- 
-
 </script>
