@@ -361,9 +361,7 @@ function show_DataLeft($conn)
                   $ANDdoc_type
                   $ANDdoc_head
                   HAVING lasrVersion >= newVersion
-                  ORDER BY docrevision.ID DESC
-                  LIMIT 10
-          ";
+                  ORDER BY docrevision.ID DESC ";
 
   // echo $Sql_product;
   $meQuery1 = mysqli_query($conn, $Sql_product);
