@@ -59,14 +59,18 @@
                             <table id="Data_TableLeft" class="table table-bordered table-hover w-100 table-head-fixed">
                               <thead>
                                 <tr class="text-center">
-                                  <th  class="bg_tableAll">เลขที่เอกสาร</th>
+                                  <!-- <th  class="bg_tableAll">เลขที่เอกสาร</th> -->
                                   <th  class="bg_tableAll">เอกสาร</th>
-                                  <th  class="bg_tableAll">Product</th>
+                                  <th  class="bg_tableAll">เลขที่เอกสาร</th>
                                   <th  class="bg_tableAll">ประเภทเอกสาร</th>
-                                  <th  class="bg_tableAll">Ver.</th>
+                                  <th  class="bg_tableAll">รหัสสินค้า</th>
+                                  <th  class="bg_tableAll">Product</th>
+                                  <th  class="bg_tableAll">หัวข้อเอกสาร</th>
+                                  <th  class="bg_tableAll">version</th>
+                                  <th  class="bg_tableAll">Ref Doc</th>
                                   <th  class="bg_tableAll">วันที่ผลิตเอกสาร</th>
                                   <th  class="bg_tableAll">วันหมดอายุ</th>
-                                  <th  class="bg_tableAll">วันที่อัปโหลด</th>
+                                  <!-- <th  class="bg_tableAll">วันที่อัปโหลด</th> -->
                                   <th  class="bg_tableAll">Preview</th>
                                 </tr>
                               </thead>

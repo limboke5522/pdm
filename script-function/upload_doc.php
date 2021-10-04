@@ -438,15 +438,19 @@
               // if(value.DocNumber == ""){
               //   "<td style='width:10%;text-align: center;'></td>" +
               // }else{
-              "<td style='width:10%;text-align: center;'>" + number + "</td>" +
+              // "<td style='width:10%;text-align: center;'>" + number + "</td>" +
               // }
-              "<td style='width:15%;text-align: center;'>" + value.DocName + "</td>" +
-              "<td style='width:15%;text-align: center;'>" + value.ProductName + "</td>" +
-              "<td style='width:15%;text-align: center;'>" + value.TypeDetail_Name + "</td>" +
-              "<td style='width:5%;text-align: center;'>" + value.newVersion + "</td>" +
-              "<td style='width:15%;text-align: center;'>" + value.MFGDate + "</td>" +
-              "<td style='width:15%;text-align: center;'>" + value.ExpireDatee + "</td>" +
-              "<td style='width:15%;text-align: center;'>" + value.UploadDate + "</td>" +
+              "<td style='width:9%;text-align: center;'>" + value.DocNumber + "</td>" +
+              "<td style='width:10%;text-align: center;'>" + value.fileName + "</td>" +
+              "<td style='width:10%;text-align: center;'>" + value.TypeDetail_Name + "</td>" +
+              "<td style='width:7%;text-align: center;'>" + value.ProductCode + "</td>" +
+              "<td style='width:13%;text-align: center;'>" + value.ProductName + "</td>" +
+              "<td style='width:13%;text-align: center;'>" + value.DocName + "</td>" +
+              "<td style='width:6%;text-align: center;'>" + value.version + "</td>" +
+              "<td style='width:13%;text-align: center;'>" + value.RevNo + "</td>" +
+              "<td style='width:10%;text-align: center;'>" + value.MFGDate + "</td>" +
+              "<td style='width:10%;text-align: center;'>" + value.ExpireDatee + "</td>" +
+              // "<td style='width:15%;text-align: center;'>" + value.UploadDate + "</td>" +
               "<td style='width:5%;text-align:  center;'>" + btn_preview + "</td>" +
               "</tr>";
 

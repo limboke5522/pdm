@@ -7,7 +7,7 @@ if (!isset($_SESSION['userData'])) {
     exit(0);
 }
 $userName = $_SESSION['userData']['real_name'];
-$permissionID = $_SESSION['userData']['permissionID'];
+$UserTypeID = $_SESSION['userData']['UserTypeID'];
 $page = isset($_GET['page']) ? $_GET['page'] : 'notification_doc';
 
 ?>
@@ -60,8 +60,7 @@ $page = isset($_GET['page']) ? $_GET['page'] : 'notification_doc';
     <script>
         $(function() {
 
-
-
+            checkpermission();
             var page = '<?php echo $page; ?>';
             var _groupMenu = "general";
             switch (page) {
@@ -91,7 +90,7 @@ $page = isset($_GET['page']) ? $_GET['page'] : 'notification_doc';
                     break
                 case "email_sender":
                     _groupMenu = "system";
-                    break    
+                    break
                 case "notification_doc":
                     _groupMenu = "notification";
                     break
@@ -110,6 +109,75 @@ $page = isset($_GET['page']) ? $_GET['page'] : 'notification_doc';
 
 
         });
+
+
+
+        function checkpermission() {
+
+            var UserTypeID = '<?php echo $UserTypeID; ?>';
+
+            $.ajax({
+                url: "process/authen.php",
+                type: 'POST',
+                data: {
+                    'FUNC_NAME': 'checkpermission',
+                    'UserTypeID': UserTypeID
+                },
+                success: function(result) {
+                    var ObjData = JSON.parse(result);
+                    if (!$.isEmptyObject(ObjData)) {
+                        $.each(ObjData, function(key, value) {
+                            if(value.notification_doc ==0){
+                                $(`#check_notification_doc`).attr('hidden',true);
+                                $(`#li_notification`).attr('hidden',true);
+                            }
+                            if(value.upload_doc ==0){
+                                $(`#check_upload_doc`).attr('hidden',true);
+                                $(`#li_upload`).attr('hidden',true);
+                            }
+                            if(value.send_doc ==0){
+                                $(`#check_send_doc`).attr('hidden',true);
+                            }
+                            if(value.history_doc ==0){
+                                $(`#check_history_doc`).attr('hidden',true);
+                            }
+                            if(value.send_doc ==0 && value.history_doc ==0){
+                                $(`#li_send`).attr('hidden',true);
+                            }
+
+                            if(value.manage_customers ==0){
+                                $(`#check_manage_customers`).attr('hidden',true);
+                            }
+                            if(value.contact_customers ==0){
+                                $(`#check_contact_customers`).attr('hidden',true);
+                            }
+                            if(value.manage_item ==0){
+                                $(`#check_manage_item`).attr('hidden',true);
+                            }
+                            if(value.register_doc ==0){
+                                $(`#check_register_doc`).attr('hidden',true);
+                            }
+                            if(value.purpose ==0){
+                                $(`#check_purpose`).attr('hidden',true);
+                            }
+                            if(value.doctype_detail ==0){
+                                $(`#check_doctype_detail`).attr('hidden',true);
+                            }
+                            if(value.email_sender ==0){
+                                $(`#check_email_sender`).attr('hidden',true);
+                            }
+                            if(value.manage_customers ==0 && value.contact_customers ==0&& value.manage_item ==0&& value.register_doc ==0&& value.purpose ==0&& value.doctype_detail ==0&& value.email_sender ==0){
+                                $(`#li_system`).attr('hidden',true);
+                            }
+                            if(value.permission_doc ==0){
+                                $(`#check_permission_doc`).attr('hidden',true);
+                                $(`#li_permission`).attr('hidden',true);
+                            }
+                        });
+                    }
+                }
+            });
+        }
     </script>
 
     <?php include_once('script-function/' . $page . '.php'); ?>

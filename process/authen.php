@@ -7,7 +7,45 @@ if (!empty($_POST['FUNC_NAME'])) {
         login($conn);
     } else if ($_POST['FUNC_NAME'] == 'logout') {
         logout($conn);
+    } else if ($_POST['FUNC_NAME'] == 'checkpermission') {
+        checkpermission($conn);
     }
+}
+
+function checkpermission($conn)
+{
+    $UserTypeID = $_POST['UserTypeID'];
+
+    $Sql = "SELECT
+                usermenu.ID,
+                usermenu.UserTypeID,
+                usermenu.notification_doc,
+                usermenu.upload_doc,
+                usermenu.send_doc,
+                usermenu.history_doc,
+                usermenu.manage_customers,
+                usermenu.contact_customers,
+                usermenu.manage_item,
+                usermenu.register_doc,
+                usermenu.purpose,
+                usermenu.doctype_detail,
+                usermenu.email_sender,
+                usermenu.permission_doc 
+            FROM
+                usermenu
+            WHERE usermenu.UserTypeID = '$UserTypeID' ";
+
+
+        $meQuery = mysqli_query($conn, $Sql);
+        while ($row = mysqli_fetch_assoc($meQuery)) {
+        $return[] = $row;
+        }
+
+
+        echo json_encode($return);
+        mysqli_close($conn);
+        die;
+
 }
 
 function login($conn)

@@ -23,7 +23,7 @@
                              <i class="right fas fa-angle-left"></i>
                          </p>
                      </a>
-                     <ul class="nav nav-treeview ul_notification" style="display: none;">
+                     <ul class="nav nav-treeview ul_notification" style="display: none;" id="check_notification_doc">
                          <li class="nav-item">
                              <a href="index.php?page=notification_doc" class="nav-link" id="notification_doc">
                              <!-- <i class="fas fa-exclamation-circle"></i> -->
@@ -33,7 +33,7 @@
                      </ul>
                  </li>
 
-                 <li class="nav-item has-treeview " id="li_general">
+                 <li class="nav-item has-treeview " id="li_upload">
                      <a href="#" class="nav-link" id="a_general">
                          <i class="fas fa-cloud-upload-alt"></i></i>
                          <p>
@@ -43,7 +43,7 @@
                      </a>
                     
 
-                     <ul class="nav nav-treeview ul_general" style="display: none;">
+                     <ul class="nav nav-treeview ul_general" style="display: none;" id="check_upload_doc">
                          <li class="nav-item">
                              <a href="index.php?page=upload_doc" class="nav-link " id="upload_doc">
                              <!-- <i class="fas fa-cloud-upload-alt"></i> -->
@@ -61,7 +61,7 @@
                              <i class="right fas fa-angle-left"></i>
                          </p>
                      </a>
-                     <ul class="nav nav-treeview ul_send" style="display: none;">
+                     <ul class="nav nav-treeview ul_send" style="display: none;" id="check_send_doc">
                          <li class="nav-item">
                              <a href="index.php?page=send_doc" class="nav-link" id="send_doc">
                              <!-- <i class="fas fa-envelope"></i> -->
@@ -69,7 +69,7 @@
                              </a>
                          </li>
                      </ul>
-                     <ul class="nav nav-treeview ul_send" style="display: none;">
+                     <ul class="nav nav-treeview ul_send" style="display: none;" id="check_history_doc"> 
                          <li class="nav-item">
                              <a href="index.php?page=history_doc" class="nav-link" id="history_doc">
                              <!-- <i class="fas fa-file-alt"></i> -->
@@ -89,7 +89,7 @@
                              <i class="right fas fa-angle-left"></i>
                          </p>
                      </a>
-                     <ul class="nav nav-treeview ul_system" style="display: none;">
+                     <ul class="nav nav-treeview ul_system" style="display: none;" id="check_manage_customers">
                          <li class="nav-item">
                              <a href="index.php?page=manage_customers" class="nav-link" id="manage_customers">
                                  <!-- <i class="fas fa-cogs"></i> -->
@@ -99,7 +99,7 @@
                      </ul>
 
 
-                     <ul class="nav nav-treeview ul_system" style="display: none;">
+                     <ul class="nav nav-treeview ul_system" style="display: none;" id="check_contact_customers">
                          <li class="nav-item">
                              <a href="index.php?page=contact_customers" class="nav-link " id="contact_customers">
                                  <!-- <i class="fas fa-cogs"></i> -->
@@ -107,7 +107,7 @@
                              </a>
                          </li>
                      </ul>
-                     <ul class="nav nav-treeview ul_system" style="display: none;">
+                     <ul class="nav nav-treeview ul_system" style="display: none;" id="check_manage_item"> 
                          <li class="nav-item">
                              <a href="index.php?page=manage_item" class="nav-link " id="manage_item">
                                  <!-- <i class="fas fa-cogs"></i> -->
@@ -115,7 +115,7 @@
                              </a>
                          </li>
                      </ul>
-                     <ul class="nav nav-treeview ul_system" style="display: none;">
+                     <ul class="nav nav-treeview ul_system" style="display: none;" id="check_register_doc">
                          <li class="nav-item">
                              <a href="index.php?page=register_doc" class="nav-link " id="register_doc">
                                  <!-- <i class="fas fa-cogs"></i> -->
@@ -123,7 +123,7 @@
                              </a>
                          </li>
                      </ul>
-                     <ul class="nav nav-treeview ul_system" style="display: none;">
+                     <ul class="nav nav-treeview ul_system" style="display: none;" id="check_purpose">
                          <li class="nav-item">
                              <a href="index.php?page=purpose" class="nav-link " id="purpose">
                                  <!-- <i class="fas fa-cogs"></i> -->
@@ -131,7 +131,7 @@
                              </a>
                          </li>
                      </ul>
-                     <ul class="nav nav-treeview ul_system" style="display: none;">
+                     <ul class="nav nav-treeview ul_system" style="display: none;" id="check_doctype_detail">
                          <li class="nav-item">
                              <a href="index.php?page=doctype_detail" class="nav-link " id="doctype_detail">
                                  <!-- <i class="fas fa-cogs"></i> -->
@@ -139,7 +139,7 @@
                              </a>
                          </li>
                      </ul>
-                     <ul class="nav nav-treeview ul_system" style="display: none;">
+                     <ul class="nav nav-treeview ul_system" style="display: none;" id="check_email_sender">
                          <li class="nav-item">
                              <a href="index.php?page=email_sender" class="nav-link " id="email_sender">
                                  <!-- <i class="fas fa-cogs"></i> -->
@@ -157,7 +157,7 @@
                              <i class="right fas fa-angle-left"></i>
                          </p>
                      </a>
-                     <ul class="nav nav-treeview ul_permission" style="display: none;">
+                     <ul class="nav nav-treeview ul_permission" style="display: none;" id="check_permission_doc">
                          <li class="nav-item">
                              <a href="index.php?page=permission_doc" class="nav-link" id="permission_doc">
                              <!-- <i class="fas fa-users-cog"></i> -->

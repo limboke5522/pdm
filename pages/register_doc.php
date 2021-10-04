@@ -59,9 +59,11 @@
                     <tr class="text-center">
                       <th style="width: 3%;" class="bg_tableAll"></th>
                       <th style="width: 3%;" class="bg_tableAll">ลำดับ</th>
-                      <th style="width: 10%;" class="bg_tableAll">เลขที่เอกสาร</th>
-                      <th style="width: 15%;" class="bg_tableAll">ประเภทเอกสาร</th>
-                      <th style="width: 15%;" class="bg_tableAll">หัวข้อเอกสาร</th>
+                      <th style="width: 7%;" class="bg_tableAll">เลขที่เอกสาร</th>
+                      <th style="width: 7%;" class="bg_tableAll">ประเภทเอกสาร</th>
+                      <th style="width: 10%;" class="bg_tableAll">หัวข้อเอกสาร</th>
+                      <th style="width: 6%;" class="bg_tableAll">version</th>
+                      <th style="width: 10%;" class="bg_tableAll">รหัสสินค้า</th>
                       <th style="width: 10%;" class="bg_tableAll">Product</th>
                       <th style="width: 10%;" class="bg_tableAll">Ref Doc</th>
                       <th style="width: 10%;" class="bg_tableAll">วันที่ผลิตเอกสาร</th>

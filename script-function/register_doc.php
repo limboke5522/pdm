@@ -10,7 +10,9 @@
 
   $(function() {
 
+    var permissionID = '<?php echo $permissionID; ?>';
 
+    // alert(permissionID);
     // $("#txt_date_doc").val(output);
     // $("#txt_expira_date").val(output);
     $("#txt_edit_date").val(output);
@@ -53,6 +55,7 @@
     $('.custom-file-input').on('change', function() {
       let fileName = $(this).val().split('\\').pop();
       $(this).next('.custom-file-label').addClass("selected").html(fileName);
+      $("#txt_DocNo").data('value', '');
     });
 
   })
@@ -102,6 +105,29 @@
 
       // showDetail_contact();
     }, 150);
+  });
+
+  $("#select_headdoc").change(function() {
+    $.ajax({
+      url: "process/register_doc.php",
+      type: 'POST',
+      data: {
+        'FUNC_NAME': 'checkisExpire',
+        'select_headdoc': $("#select_headdoc").val()
+      },
+      success: function(result) {
+        var ObjData = JSON.parse(result);
+        var Str = "";
+        if (!$.isEmptyObject(ObjData)) {
+          $.each(ObjData, function(key, value) {
+            if(value.isExpire == 1){
+              $("#ExpireDate").attr('disabled',true);
+              $("#ExpireDate").val("");
+            }
+          });
+        }
+      }
+    });
   });
 
   function selection_Productt() {
@@ -157,7 +183,7 @@
     });
   }
 
-  function selection_head(){
+  function selection_head() {
     $.ajax({
       url: "process/register_doc.php",
       type: 'POST',
@@ -284,6 +310,7 @@
     $('#btnEditDoc').hide();
     $('#btnDeleteDoc').hide();
     $('#btncleanDoc').hide();
+    $("#txt_DocNo").data('value', '');
     $(".chk_Cus").prop("checked", false);
     $(".custom-file-input").next('.custom-file-label').addClass("selected").html("");
   });
@@ -307,6 +334,7 @@
     var MFGDate = $('#MFGDate').val();
     var ExpireDate = $('#ExpireDate').val();
     var txt_detail = $('#txt_detail').val();
+    var checkupload = $("#txt_DocNo").data('value');
 
     var form_data = new FormData();
     form_data.append('FUNC_NAME', 'saveData');
@@ -320,6 +348,7 @@
     form_data.append('MFGDate', MFGDate);
     form_data.append('ExpireDate', ExpireDate);
     form_data.append('txt_detail', txt_detail);
+    form_data.append('checkupload', checkupload);
 
     var text = "";
 
@@ -329,11 +358,14 @@
       return;
     }
 
-    if (file_upload == undefined) {
-      text = "กรุณาเลือก File ที่จะอัพโหลด";
-      showDialogFailed(text);
-      return;
+    if (checkupload == "") {
+      if (file_upload == undefined) {
+        text = "กรุณาเลือก File ที่จะอัพโหลด";
+        showDialogFailed(text);
+        return;
+      }
     }
+
 
     if (txt_refDoc == "") {
       text = "กรุณากรอกข้อมูล Ref Doc";
@@ -398,7 +430,7 @@
         $('#btncleanDoc').hide();
         $(".chk_Cus").prop("checked", false);
         $(".custom-file-input").next('.custom-file-label').addClass("selected").html("");
-
+        $("#txt_DocNo").data('value', '');
         // $('#select_doctype2').val(0);
         // $('#select_Product').val(0);
         // $('#select_headdoc').val(0);
@@ -423,7 +455,6 @@
     } else {
       var inoff = 2
     }
-
     console.log(file_upload);
     var select_doctype2 = $('#select_doctype2').val();
     var select_headdoc = $('#select_headdoc').val();
@@ -431,6 +462,7 @@
     var MFGDate = $('#MFGDate').val();
     var ExpireDate = $('#ExpireDate').val();
     var txt_detail = $('#txt_detail').val();
+    var checkupload = $("#txt_DocNo").data('value');
 
     var form_data = new FormData();
     form_data.append('FUNC_NAME', 'editData');
@@ -445,6 +477,7 @@
     form_data.append('MFGDate', MFGDate);
     form_data.append('ExpireDate', ExpireDate);
     form_data.append('txt_detail', txt_detail);
+    form_data.append('checkupload', checkupload);
 
     var text = "";
 
@@ -453,12 +486,14 @@
       showDialogFailed(text);
       return;
     }
-
-    if (file_upload == undefined) {
-      text = "กรุณาเลือก File ที่จะอัพโหลด";
-      showDialogFailed(text);
-      return;
+    if (checkupload == "") {
+      if (file_upload == undefined) {
+        text = "กรุณาเลือก File ที่จะอัพโหลด";
+        showDialogFailed(text);
+        return;
+      }
     }
+
 
     if (txt_refDoc == "") {
       text = "กรุณากรอกข้อมูล Ref Doc";
@@ -487,11 +522,12 @@
     $.ajax({
       url: "process/register_doc.php",
       type: 'POST',
+      method: 'POST',
       dataType: 'text',
       cache: false,
       contentType: false,
       processData: false,
-      data: form_data ,
+      data: form_data,
       success: function(result) {
         showDialogSuccess(result);
         $("#StatusRadio1").prop("checked", true);
@@ -512,11 +548,11 @@
         $('#btncleanDoc').hide();
         $(".chk_Cus").prop("checked", false);
         $('#ID_txt').val("");
-
+        $("#txt_DocNo").data('value', '');
         $(".custom-file-input").next('.custom-file-label').addClass("selected").html("");
 
 
-            
+
         // $('#select_cus').val(0);
         // $('#select_doctype2').val(0);
         // $('#select_Product').val(0);
@@ -564,9 +600,11 @@
             StrTR += "<tr style='border-radius: 15px 15px 15px 15px;margin-top: 6px;margin-bottom: 6px;'>" +
               "<td style='width:3%;text-align: center;'><center>" + chkDoc + "</center></td>" +
               "<td style='width:3%;text-align: center;'>" + (key + 1) + "</td>" +
-              "<td style='width:10%;text-align: left;'>" + value.DocNumber + "</td>" +
-              "<td style='width:15%;text-align: left;'>" + value.TypeDetail_Name + "</td>" +
-              "<td style='width:15%;text-align: center;'>" + value.DocName + "</td>" +
+              "<td style='width:7%;text-align: left;'>" + value.DocNumber + "</td>" +
+              "<td style='width:7%;text-align: left;'>" + value.TypeDetail_Name + "</td>" +
+              "<td style='width:10%;text-align: center;'>" + value.DocName + "</td>" +
+              "<td style='width:6%;text-align: center;'>" + value.version + "</td>" +
+              "<td style='width:10%;text-align: center;'>" + value.ProductCode + "</td>" +
               "<td style='width:10%;text-align: center;'>" + value.ProductName + "</td>" +
               "<td style='width:10%;text-align: center;'>" + value.RevNo + "</td>" +
               "<td style='width:10%;text-align: center;'>" + value.MFGDate + "</td>" +
@@ -606,6 +644,7 @@
             }
             $(".custom-file-input").next('.custom-file-label').addClass("selected").html(value.fileName);
 
+            $("#txt_DocNo").data('value', '1');
 
             $('#select_doctype2').val(value.DocTypeID);
             setTimeout(() => {
@@ -695,13 +734,17 @@
   }
 
   function deleteData() {
+    var select_headdoc = $('#select_headdoc').val();
+    var select_Product = $('#select_Product').val();
     var ID_txt = $('#ID_txt').val();
     $.ajax({
       url: "process/register_doc.php",
       type: 'POST',
       data: {
         'FUNC_NAME': 'deleteData',
-        'ID_txt': ID_txt
+        'ID_txt': ID_txt,
+        'select_headdoc': select_headdoc,
+        'select_Product': select_Product
       },
       success: function(result) {
         // feedData();
@@ -710,7 +753,7 @@
         $('#txt_DocNo').val("");
         $('#txt_detail').val("");
         $('#txt_refDoc').val("");
-        
+        $("#txt_DocNo").data('value', '');
         $('#select_doctype2').val(0);
         $('#select_Product').val(0);
         $('#select_headdoc').val(0);
@@ -719,6 +762,7 @@
         $('#btnEditDoc').hide();
         $('#btnDeleteDoc').hide();
         $('#btncleanDoc').hide();
+
         $(".chk_Cus").prop("checked", false);
         show_data();
         $("#txt_DocNo").prop('disabled', false);

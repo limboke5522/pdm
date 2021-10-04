@@ -285,9 +285,7 @@ function get_refNum($conn)
           FROM
             docproductlist
           WHERE docproductlist.DocumentID = '$select_Doc'
-          AND docproductlist.ProductID = '$select_Product'
-					
-       ";
+          AND docproductlist.ProductID = '$select_Product'";
   // echo $Sql;
   $meQuery = mysqli_query($conn, $Sql);
   while ($row = mysqli_fetch_assoc($meQuery)) {
@@ -334,10 +332,13 @@ function show_DataLeft($conn)
 	                        product.ProductName END AS ProductName,
                           doctype_detail.TypeDetail_Name,
                           docrevision.version AS lasrVersion,
-                          documentlist.DocNumber,
+                          productdoc.DocNumber,
                           productdoc.MFGDate,
+                          product.ProductCode,
                           productdoc.ExpireDate,
                           docrevision.fileName,
+                          docrevision.RevNo,
+                          docrevision.version,
                           docrevision.DocumentID AS DocID,
                           docrevision.productID AS ProducID,
                           (SELECT docrevision.version FROM docrevision
@@ -366,6 +367,9 @@ function show_DataLeft($conn)
   // echo $Sql_product;
   $meQuery1 = mysqli_query($conn, $Sql_product);
   while ($row = mysqli_fetch_assoc($meQuery1)) {
+    if ($row['ExpireDatee'] == null) {
+      $row['ExpireDatee'] = "";
+    }
     $return[] = $row;
   }
 
@@ -389,7 +393,7 @@ function upload_Doc($conn)
   copy($_FILES['upload_fileRight']['tmp_name'], 'file/' . $filename); // อัพไฟล์ SERVER *****
 
   $Sql = "INSERT INTO docrevision SET docrevision.fileName = '$filename' , 
-                                      docrevision.version = 1, 
+                                      docrevision.version = '00', 
                                       docrevision.UploadDate = NOW()  ;";
   mysqli_query($conn, $Sql);
 
@@ -419,17 +423,19 @@ function Save_FileDoc($conn)
 
   $Sql_docrevision = "SELECT
                         docrevision.ID,
-                        docrevision.version 
+                        docrevision.version,
+	                      LPAD( ( COALESCE ( MAX( CONVERT ( SUBSTRING( version, 1, 2 ), UNSIGNED INTEGER )), 0 ) + 1 ), 2, 0 ) AS versionUpdate 
                       FROM
                         docrevision
                       WHERE docrevision.productID = '$select_Product'  
                       AND docrevision.DocumentID = '$select_Doc'
-                      ORDER BY docrevision.version DESC LIMIT 1";
+                      ORDER BY docrevision.ID DESC LIMIT 1";
 
   $meQuery_docrevision = mysqli_query($conn, $Sql_docrevision);
   $row_docrevision = mysqli_fetch_assoc($meQuery_docrevision);
   $ID_docrevision = $row_docrevision['ID'];
   $version = $row_docrevision['version'];
+  $versionUpdate = $row_docrevision['versionUpdate'];
 
 
   if (empty($ID_docrevision)) {
@@ -453,7 +459,8 @@ function Save_FileDoc($conn)
                         productdoc.UploadDate = NOW() ";
     mysqli_query($conn, $Sql);
   } else {
-    $version = ($version + 1);
+    // $version = ($version + 1);
+    $version = $versionUpdate;
 
     $query = "UPDATE docrevision 
                 SET docrevision.productID = '$select_Product',
