@@ -150,10 +150,24 @@
 
               <div class="col-3">
                 <div class="form-group">
+                  <label for="">Outsource :</label>
+                  <select class="custom-select form-control " id="select_outsource"></select>
+                </div>
+              </div>
+
+              <div class="col-3">
+                <div class="form-group">
                   <label for="">Product :</label>
                   <select class="custom-select form-control select2" id="select_Product"></select>
                 </div>
               </div>
+
+
+
+            </div>
+
+
+            <div class="row  mt-1">
 
               <div class="col-3">
                 <div class="form-group">
@@ -161,11 +175,6 @@
                   <input autocomplete="off" type='text' class='form-control datepicker-here' data-language='en' data-date-format='dd-mm-yyyy' id="MFGDate" placeholder="วว/ดด/ปปปป">
                 </div>
               </div>
-
-            </div>
-
-
-            <div class="row  mt-1">
 
               <div class="col-3">
                 <div class="form-group">
@@ -182,7 +191,7 @@
               </div>
 
 
-              <div class="col-3 mt-5">
+              <div class="col-3 mt-3 ">
                 <button style="width: 100px;" type="button" class="btn btn-outline-success ml-2" id="btnSaveDoc" onclick="saveData();">บันทึก</button>
                 <button style="width: 100px;" type="button" class="btn btn-outline-warning ml-2" id="btnEditDoc">แก้ไข</button>
                 <button style="width: 100px;" type="button" class="btn btn-outline-danger ml-2" id="btnDeleteDoc">ลบ</button>

@@ -35,7 +35,7 @@
     Get_TypeDetail_Name();
     selection_Product();
     selection_Productt();
-
+    select_outsource();
     // check_selection();
 
     $(".select2").select2();
@@ -154,6 +154,33 @@
       }
     });
   }
+  
+  function select_outsource() {
+
+    $.ajax({
+      url: "process/register_doc.php",
+      type: 'POST',
+      data: {
+        'FUNC_NAME': 'select_outsource'
+      },
+      success: function(result) {
+        var ObjData = JSON.parse(result);
+        $("#select_outsource").empty();
+        var Str = "";
+
+        Str += "<option value=0 >-- กรุณาเลือก outsource --</option>";
+
+        if (!$.isEmptyObject(ObjData)) {
+          $.each(ObjData, function(key, value) {
+            Str += "<option value=" + value.ID + " > " + value.Outsource + "</option>";
+          });
+
+        }
+        $("#select_outsource").html(Str);
+
+      }
+    });
+  }
 
   function selection_Product() {
 
@@ -211,9 +238,6 @@
 
   function saveData2() {
     var txt_detail_name = $('#txt_detail_name').val();
-
-
-
     var text = "";
 
     if (txt_detail_name == "") {
@@ -335,6 +359,8 @@
     var ExpireDate = $('#ExpireDate').val();
     var txt_detail = $('#txt_detail').val();
     var checkupload = $("#txt_DocNo").data('value');
+    var select_outsource = $('#select_outsource').val();
+    
 
     var form_data = new FormData();
     form_data.append('FUNC_NAME', 'saveData');
@@ -349,7 +375,8 @@
     form_data.append('ExpireDate', ExpireDate);
     form_data.append('txt_detail', txt_detail);
     form_data.append('checkupload', checkupload);
-
+    form_data.append('select_outsource', select_outsource);
+    
     var text = "";
 
     if (txt_DocNo == "") {
@@ -411,7 +438,7 @@
         }
 
         show_data();
-
+        $('#select_outsource').val(0);
         $("#StatusRadio1").prop("checked", true);
         $('#select_doctype2').val(0);
         $('#select_Product').val(0);
@@ -463,6 +490,7 @@
     var ExpireDate = $('#ExpireDate').val();
     var txt_detail = $('#txt_detail').val();
     var checkupload = $("#txt_DocNo").data('value');
+    var select_outsource = $('#select_outsource').val();
 
     var form_data = new FormData();
     form_data.append('FUNC_NAME', 'editData');
@@ -478,6 +506,7 @@
     form_data.append('ExpireDate', ExpireDate);
     form_data.append('txt_detail', txt_detail);
     form_data.append('checkupload', checkupload);
+    form_data.append('select_outsource', select_outsource);
 
     var text = "";
 
@@ -550,7 +579,7 @@
         $('#ID_txt').val("");
         $("#txt_DocNo").data('value', '');
         $(".custom-file-input").next('.custom-file-label').addClass("selected").html("");
-
+        $('#select_outsource').val(0);
 
 
         // $('#select_cus').val(0);
@@ -657,7 +686,10 @@
               $('#select_Product').val(value.ProductID);
               $('#select2-select_Product-container').text(value.ProductName);
             }, 300);
-
+            setTimeout(() => {
+              $('#select_outsource').val(value.outsource);
+            }, 300);
+            
             $('#btnEditDoc').show();
             $('#btnSaveDoc').hide();
             $('#btnDeleteDoc').show();

@@ -25,6 +25,8 @@ if (!empty($_POST['FUNC_NAME'])) {
     selection_head($conn);
   } else if ($_POST['FUNC_NAME'] == 'checkisExpire') {
     checkisExpire($conn);
+  }else if ($_POST['FUNC_NAME'] == 'select_outsource') {
+    select_outsource($conn);
   }
 }
 
@@ -81,6 +83,27 @@ function Get_customers($conn)
                 WHERE customer.IsCancel = 0
                 ORDER BY  customer.CustomerName ASC
            ";
+
+  $meQuery = mysqli_query($conn, $Sql);
+  while ($row = mysqli_fetch_assoc($meQuery)) {
+    $return[] = $row;
+  }
+
+
+  echo json_encode($return);
+  mysqli_close($conn);
+  die;
+}
+
+function select_outsource($conn)
+{
+  $Sql = "SELECT
+            outsource.ID, 
+            outsource.Outsource
+          FROM
+            outsource
+            ORDER BY outsource.Outsource ASC
+       ";
 
   $meQuery = mysqli_query($conn, $Sql);
   while ($row = mysqli_fetch_assoc($meQuery)) {
@@ -184,6 +207,7 @@ function editData($conn)
   $ExpireDate    = $_POST['ExpireDate'];
   $txt_detail    = $_POST['txt_detail'];
   $checkupload    = $_POST['checkupload'];
+  $select_outsource = $_POST['select_outsource'];
 
   $MFGDate    = explode('-', $MFGDate);
   $MFGDate = $MFGDate[2] . '-' . $MFGDate[1] . '-' . $MFGDate[0];
@@ -244,7 +268,8 @@ function editData($conn)
                                           $insertEx
                                           docrevision.RevNo = '$txt_refDoc', 
                                           docrevision.productID = '$select_Product', 
-                                          docrevision.DocumentID = '$select_headdoc'  ;";
+                                          docrevision.DocumentID = '$select_headdoc'
+                                          docrevision.outsource = '$select_outsource'  ;";
 
       if (mysqli_query($conn, $Sql)) {
         $select = "SELECT
@@ -274,7 +299,8 @@ function editData($conn)
                                       productdoc.DocType = '$inoff', 
                                       productdoc.ID_FileDoc = '$ID', 
                                       productdoc.DocTypeID = '$select_doctype2', 
-                                      productdoc.MFGDate = '$MFGDate', 
+                                      productdoc.MFGDate = '$MFGDate',
+                                      docrevision.outsource = '$select_outsource', 
                                       $insertEx 
                                       productdoc.DocNumber = '$txt_DocNo'  WHERE productdoc.ID = '$ID_txt' ;";
 
@@ -303,7 +329,8 @@ function editData($conn)
       $Sql = "UPDATE docrevision SET      $insertEx 
                                           docrevision.RevNo = '$txt_refDoc', 
                                           docrevision.productID = '$select_Product', 
-                                          docrevision.DocumentID = '$select_headdoc'  
+                                          docrevision.DocumentID = '$select_headdoc',
+                                          docrevision.outsource = '$select_outsource'  
               WHERE
               docrevision.ID = '$ID' ;";
 
@@ -382,6 +409,13 @@ function saveData($conn)
   $MFGDate    = $_POST['MFGDate'];
   $ExpireDate    = $_POST['ExpireDate'];
   $txt_detail    = $_POST['txt_detail'];
+  $select_outsource     = $_POST['select_outsource'];
+  
+  if($select_outsource=="0"){
+    $AND1="";
+  }else{
+    $AND1 ="AND docrevision.outsource = '$select_outsource' ";
+  }
 
   $MFGDate    = explode('-', $MFGDate);
   $MFGDate = $MFGDate[2] . '-' . $MFGDate[1] . '-' . $MFGDate[0];
@@ -401,6 +435,7 @@ function saveData($conn)
               WHERE
                   docrevision.productID = '$select_Product'
               AND  docrevision.DocumentID = '$select_headdoc'
+              $AND1
               ORDER BY docrevision.ID DESC LIMIT 1";
   $meQuery = mysqli_query($conn, $select);
   while ($row = mysqli_fetch_assoc($meQuery)) {
@@ -422,7 +457,8 @@ function saveData($conn)
             $insertEx
             docrevision.RevNo = '$txt_refDoc', 
             docrevision.productID = '$select_Product', 
-            docrevision.DocumentID = '$select_headdoc'  ;";
+            docrevision.DocumentID = '$select_headdoc',
+            docrevision.outsource = '$select_outsource'  ;";
 
     if (mysqli_query($conn, $Sql)) {
       $select = "SELECT
@@ -454,7 +490,8 @@ function saveData($conn)
             productdoc.DocTypeID = '$select_doctype2', 
             productdoc.MFGDate = '$MFGDate', 
             $insertEx 
-            productdoc.DocNumber = '$txt_DocNo'  ;";
+            productdoc.DocNumber = '$txt_DocNo',
+            docrevision.outsource = '$select_outsource'  ;";
     mysqli_query($conn, $Sql2);
   } else {
 
@@ -463,7 +500,8 @@ function saveData($conn)
             docrevision.UploadDate = NOW(), 
             docrevision.RevNo = '$txt_refDoc', 
             docrevision.productID = '$select_Product', 
-            docrevision.DocumentID = '$select_headdoc'  ;";
+            docrevision.DocumentID = '$select_headdoc',
+            docrevision.outsource = '$select_outsource'  ;";
 
     if (mysqli_query($conn, $Sql)) {
       $select = "SELECT
@@ -640,6 +678,7 @@ function show_Detail($conn)
           productdoc.ProductID,
           docrevision.RevNo,
           docrevision.fileName,
+          docrevision.outsource,
           DATE_FORMAT( productdoc.MFGDate, '%d-%m-%Y' ) AS MFGDate,
           DATE_FORMAT( productdoc.ExpireDate, '%d-%m-%Y' ) AS ExpireDate , 
 	        productdoc.DocType,
