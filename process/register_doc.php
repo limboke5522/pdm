@@ -215,6 +215,15 @@ function editData($conn)
   $ExpireDate = $ExpireDate[2] . '-' . $ExpireDate[1] . '-' . $ExpireDate[0];
   $filename = $_FILES['file_upload']['name'];
 
+  if($select_outsource=="0"){
+    $ANDdocrevision="";
+    $ANDproductdoc="";
+  }else{
+    $ANDdocrevision ="AND docrevision.outsource = '$select_outsource' ";
+    $ANDproductdoc ="AND productdoc.outsource = '$select_outsource' ";
+  }
+
+
   if ($checkupload == 1) {
     $filename = '000';
   }
@@ -279,6 +288,7 @@ function editData($conn)
                     WHERE
                         docrevision.productID = '$select_Product'
                     AND  docrevision.DocumentID = '$select_headdoc'
+                    $ANDdocrevision
                     ORDER BY docrevision.ID DESC LIMIT 1";
         $meQuery = mysqli_query($conn, $select);
         while ($row = mysqli_fetch_assoc($meQuery)) {
@@ -300,7 +310,8 @@ function editData($conn)
                                       productdoc.ID_FileDoc = '$ID', 
                                       productdoc.DocTypeID = '$select_doctype2', 
                                       productdoc.MFGDate = '$MFGDate',
-                                      docrevision.outsource = '$select_outsource', 
+                                      productdoc.outsource = '$select_outsource', 
+                                      productdoc.Remark = '$txt_detail',
                                       $insertEx 
                                       productdoc.DocNumber = '$txt_DocNo'  WHERE productdoc.ID = '$ID_txt' ;";
 
@@ -314,6 +325,7 @@ function editData($conn)
                   WHERE
                       docrevision.productID = '$select_Product'
                   AND  docrevision.DocumentID = '$select_headdoc'
+                  $ANDdocrevision
                   ORDER BY docrevision.version DESC LIMIT 1";
       $meQuery = mysqli_query($conn, $select);
       while ($row = mysqli_fetch_assoc($meQuery)) {
@@ -347,7 +359,9 @@ function editData($conn)
                                       productdoc.UploadDate = NOW(),
                                       productdoc.DocType = '$inoff', 
                                       productdoc.DocTypeID = '$select_doctype2', 
-                                      productdoc.MFGDate = '$MFGDate', 
+                                      productdoc.MFGDate = '$MFGDate',
+                                      productdoc.outsource = '$select_outsource',
+                                      productdoc.Remark = '$txt_detail', 
                                       $insertEx 
                                       productdoc.DocNumber = '$txt_DocNo'  WHERE productdoc.ID = '$ID_txt' ;";
       mysqli_query($conn, $Sql2);
@@ -412,9 +426,11 @@ function saveData($conn)
   $select_outsource     = $_POST['select_outsource'];
   
   if($select_outsource=="0"){
-    $AND1="";
+    $ANDdocrevision="";
+    $ANDproductdoc="";
   }else{
-    $AND1 ="AND docrevision.outsource = '$select_outsource' ";
+    $ANDdocrevision ="AND docrevision.outsource = '$select_outsource' ";
+    $ANDproductdoc ="AND productdoc.outsource = '$select_outsource' ";
   }
 
   $MFGDate    = explode('-', $MFGDate);
@@ -435,7 +451,7 @@ function saveData($conn)
               WHERE
                   docrevision.productID = '$select_Product'
               AND  docrevision.DocumentID = '$select_headdoc'
-              $AND1
+              $ANDdocrevision
               ORDER BY docrevision.ID DESC LIMIT 1";
   $meQuery = mysqli_query($conn, $select);
   while ($row = mysqli_fetch_assoc($meQuery)) {
@@ -468,6 +484,7 @@ function saveData($conn)
                       WHERE
                           docrevision.productID = '$select_Product'
                       AND  docrevision.DocumentID = '$select_headdoc'
+                      $ANDdocrevision
                       ORDER BY docrevision.version DESC LIMIT 1";
       $meQuery = mysqli_query($conn, $select);
       while ($row = mysqli_fetch_assoc($meQuery)) {
@@ -491,7 +508,8 @@ function saveData($conn)
             productdoc.MFGDate = '$MFGDate', 
             $insertEx 
             productdoc.DocNumber = '$txt_DocNo',
-            docrevision.outsource = '$select_outsource'  ;";
+            productdoc.outsource = '$select_outsource',
+            productdoc.Remark = '$txt_detail' ";
     mysqli_query($conn, $Sql2);
   } else {
 
@@ -511,6 +529,7 @@ function saveData($conn)
           WHERE
                docrevision.productID = '$select_Product'
           AND  docrevision.DocumentID = '$select_headdoc'
+          $ANDdocrevision
           ORDER BY docrevision.version DESC LIMIT 1";
       $meQuery = mysqli_query($conn, $select);
       while ($row = mysqli_fetch_assoc($meQuery)) {
@@ -526,6 +545,7 @@ function saveData($conn)
                         WHERE
                           productdoc.productID = '$select_Product'
                         AND  productdoc.DocumentID = '$select_headdoc'
+                        $ANDproductdoc
                         LIMIT 1";
     $meQuery = mysqli_query($conn, $select);
     while ($row = mysqli_fetch_assoc($meQuery)) {
@@ -546,7 +566,9 @@ function saveData($conn)
                     productdoc.DocTypeID = '$select_doctype2', 
                     productdoc.MFGDate = '$MFGDate', 
                     $insertEx 
-                    productdoc.DocNumber = '$txt_DocNo'  WHERE productdoc.ID = '$ID_PRO' ;";
+                    productdoc.DocNumber = '$txt_DocNo',
+                    productdoc.Remark = '$txt_detail'  
+                    WHERE productdoc.ID = '$ID_PRO' ";
     mysqli_query($conn, $Sql2);
   }
 
@@ -676,6 +698,7 @@ function show_Detail($conn)
           productdoc.DocTypeID,
           productdoc.DocumentID,
           productdoc.ProductID,
+          productdoc.Remark,
           docrevision.RevNo,
           docrevision.fileName,
           docrevision.outsource,

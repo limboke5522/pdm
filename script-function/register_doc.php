@@ -457,6 +457,7 @@
         $('#btncleanDoc').hide();
         $(".chk_Cus").prop("checked", false);
         $(".custom-file-input").next('.custom-file-label').addClass("selected").html("");
+     
         $("#txt_DocNo").data('value', '');
         // $('#select_doctype2').val(0);
         // $('#select_Product').val(0);
@@ -709,7 +710,7 @@
 
             $('#MFGDate').val(value.MFGDate);
             $('#ExpireDate').val(value.ExpireDate);
-            $('#txt_detail').val(value.DocNumber);
+            $('#txt_detail').val(value.Remark);
 
 
             // $("#StatusRadio1").prop("checked", true);

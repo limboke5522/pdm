@@ -22,9 +22,9 @@
                     <li class="nav-item">
                       <a class="nav-link active" id="home-tab" onclick="show_DataLeft();"  data-toggle="tab" href="#little_exp" role="tab" aria-controls="little_exp" aria-selected="false">ค้นหาเอกสารอัพโหลด</a>
                     </li>
-                    <li class="nav-item">
+                    <!-- <li class="nav-item">
                       <a class="nav-link" id="profile-tab" onclick="show_DataRight();" data-toggle="tab" href="#little_exp2" role="tab" aria-controls="little_exp2" aria-selected="false">อัพโหลดเอกสาร</a>
-                    </li>
+                    </li> -->
                 </ul>
 
               <div  id="tb_Data_LL">

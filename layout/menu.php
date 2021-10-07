@@ -115,6 +115,14 @@
                              </a>
                          </li>
                      </ul>
+                     <ul class="nav nav-treeview ul_system" style="display: none;" id="check_manage_headDoc"> 
+                         <li class="nav-item">
+                             <a href="index.php?page=manage_headDoc" class="nav-link " id="manage_headDoc">
+                                 <!-- <i class="fas fa-cogs"></i> -->
+                                 <p>จัดการหัวข้อเอกสาร</p>
+                             </a>
+                         </li>
+                     </ul>
                      <ul class="nav nav-treeview ul_system" style="display: none;" id="check_register_doc">
                          <li class="nav-item">
                              <a href="index.php?page=register_doc" class="nav-link " id="register_doc">

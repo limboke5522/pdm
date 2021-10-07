@@ -92,7 +92,7 @@ function show_data($conn)
           product
             WHERE (product.ProductCode LIKE '%$Search_txt%' OR product.ProductName LIKE '%$Search_txt%')
             AND product.IsCancel = 0
-            ORDER BY  product.ProductName ASC
+            ORDER BY  product.ProductCode ASC
           ";
 
   $meQuery = mysqli_query($conn, $Sql);

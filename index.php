@@ -75,8 +75,11 @@ $page = isset($_GET['page']) ? $_GET['page'] : 'notification_doc';
                     break
                 case "contact_customers":
                     _groupMenu = "system";
-                    break
+                    break 
                 case "manage_item":
+                    _groupMenu = "system";
+                    break
+                case "manage_headDoc":
                     _groupMenu = "system";
                     break
                 case "register_doc":
